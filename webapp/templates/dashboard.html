@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACR Cardiac Imaging — Geographic Disparities Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/maplibre-gl@4.1.0/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@4.1.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50:'#eff6ff',100:'#dbeafe',200:'#bfdbfe',300:'#93c5fd',400:'#60a5fa',500:'#3b82f6',600:'#2563eb',700:'#1d4ed8',800:'#1e40af',900:'#1e3a5f' },
+                        dark: { 800:'#1e293b',900:'#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        .tab-active { border-bottom: 3px solid #3b82f6; color: #3b82f6; font-weight: 600; }
+        .tab-inactive { border-bottom: 3px solid transparent; color: #64748b; }
+        .tab-inactive:hover { color: #3b82f6; border-color: #e2e8f0; }
+        .stat-card { transition: all 0.2s; }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -8px rgba(0,0,0,0.15); }
+        #map { width: 100%; height: 550px; border-radius: 12px; }
+        .maplibregl-popup-content { border-radius: 8px; padding: 12px 16px; font-family: system-ui; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .legend-bar { height: 12px; border-radius: 6px; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<!-- Header -->
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="text-lg font-bold text-gray-900">ACR Cardiac Imaging</h1>
+                <p class="text-xs text-gray-500">Geographic Disparities in Accredited Capacity</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-xs text-gray-400 bg-gray-100 px-3 py-1 rounded-full">
+                {{ user.role }}: {{ user.name }}
+            </span>
+            <span class="flex items-center gap-1 text-xs text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
+                <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> Live Data
+            </span>
+        </div>
+    </div>
+</header>
+
+<!-- Tab Navigation -->
+<nav class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-6 flex gap-8">
+        <button onclick="showTab('overview')" id="tab-overview" class="tab-active py-4 text-sm transition-all">Overview</button>
+        <button onclick="showTab('map')" id="tab-map" class="tab-inactive py-4 text-sm transition-all">Interactive Map</button>
+        <button onclick="showTab('analysis')" id="tab-analysis" class="tab-inactive py-4 text-sm transition-all">Statistical Analysis</button>
+        <button onclick="showTab('table')" id="tab-table" class="tab-inactive py-4 text-sm transition-all">Data Table</button>
+        <button onclick="showTab('regression')" id="tab-regression" class="tab-inactive py-4 text-sm transition-all">Regression Models</button>
+    </div>
+</nav>
+
+<!-- Content Panels -->
+<main class="max-w-7xl mx-auto px-6 py-8">
+
+<!-- ===================== OVERVIEW TAB ===================== -->
+<section id="panel-overview" class="fade-in">
+    <!-- Key Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        <div class="stat-card bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Total Facilities</span>
+                <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+            </div>
+            <p class="text-3xl font-bold text-gray-900">{{ stats.total_cmr_facilities + stats.total_cct_facilities }}</p>
+            <p class="text-xs text-gray-500 mt-1">{{ stats.total_cmr_facilities }} CMR + {{ stats.total_cct_facilities }} CCT</p>
+        </div>
+        <div class="stat-card bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Counties with Zero CMR</span>
+                <div class="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </div>
+            </div>
+            <p class="text-3xl font-bold text-red-600">{{ stats.pct_no_cmr }}%</p>
+            <p class="text-xs text-gray-500 mt-1">{{ stats.total_counties - stats.counties_with_cmr }} of {{ stats.total_counties }} counties</p>
+        </div>
+        <div class="stat-card bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Metro CMR Share</span>
+                <div class="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                </div>
+            </div>
+            <p class="text-3xl font-bold text-gray-900">{{ ((stats.metro_cmr / stats.total_cmr_facilities) * 100) | round(1) }}%</p>
+            <p class="text-xs text-gray-500 mt-1">{{ stats.metro_cmr }} of {{ stats.total_cmr_facilities }} facilities in metro areas</p>
+        </div>
+        <div class="stat-card bg-white rounded-xl p-5 border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-medium text-gray-500 uppercase tracking-wide">Rural CMR Access</span>
+                <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center">
+                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+                </div>
+            </div>
+            <p class="text-3xl font-bold text-amber-600">{{ stats.nonmetro_cmr }}</p>
+            <p class="text-xs text-gray-500 mt-1">CMR facilities serving {{ stats.nonmetro_counties }} rural counties</p>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="text-sm font-semibold text-gray-700 mb-4">Facility Distribution: Metro vs. Non-Metro</h3>
+            <canvas id="chart-metro" height="220"></canvas>
+        </div>
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="text-sm font-semibold text-gray-700 mb-4">Facility Rate by SVI Decile</h3>
+            <canvas id="chart-svi" height="220"></canvas>
+        </div>
+    </div>
+
+    <!-- Key Finding -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-6 text-white shadow-lg">
+        <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+                <h3 class="font-semibold text-lg mb-1">Key Finding</h3>
+                <p class="text-blue-100 text-sm leading-relaxed">
+                    ACR-accredited cardiac imaging capacity is overwhelmingly concentrated in metropolitan areas.
+                    <strong>{{ ((stats.metro_cmr / stats.total_cmr_facilities) * 100) | round(1) }}%</strong> of Cardiac MRI facilities
+                    and <strong>{{ ((stats.metro_cct / stats.total_cct_facilities) * 100) | round(1) }}%</strong> of Cardiac CT facilities
+                    are located in metropolitan counties, leaving {{ stats.nonmetro_counties }} nonmetropolitan counties
+                    with minimal or no access to accredited cardiac imaging.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== MAP TAB ===================== -->
+<section id="panel-map" class="hidden fade-in">
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+            <div>
+                <h2 class="text-lg font-semibold text-gray-900">County-Level Facility Density</h2>
+                <p class="text-sm text-gray-500">ACR-accredited facilities per 100,000 adults aged ≥45</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="setMapLayer('cmr')" id="btn-cmr" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-lg">Cardiac MRI</button>
+                <button onclick="setMapLayer('cct')" id="btn-cct" class="px-4 py-2 text-xs font-medium bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200">Cardiac CT</button>
+            </div>
+        </div>
+        <div id="map"></div>
+        <!-- Legend -->
+        <div class="p-4 border-t border-gray-100 flex items-center gap-6 text-xs text-gray-600">
+            <span class="font-medium">Legend:</span>
+            <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded" style="background:#f0f0f0; border:1px solid #ccc;"></div>
+                <span>Zero facilities</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <div class="w-4 h-4 rounded" style="background:#c6dbef;"></div>
+                <div class="w-4 h-4 rounded" style="background:#6baed6;"></div>
+                <div class="w-4 h-4 rounded" style="background:#2171b5;"></div>
+                <div class="w-4 h-4 rounded" style="background:#08306b;"></div>
+                <span class="ml-1">Low → High facility rate</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded bg-white border border-gray-300"></div>
+                <span>Excluded (pop. &lt;1,000)</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== ANALYSIS TAB ===================== -->
+<section id="panel-analysis" class="hidden fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- SVI Quartile Summary -->
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Capacity by Social Vulnerability Quartile</h3>
+            <canvas id="chart-quartile" height="250"></canvas>
+        </div>
+        <!-- Metro/Non-metro -->
+        <div class="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Metro vs. Nonmetro Coverage</h3>
+            <canvas id="chart-coverage" height="250"></canvas>
+        </div>
+    </div>
+
+    <!-- Spearman Correlation -->
+    <div class="mt-6 bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3">Spearman Rank Correlations</h3>
+        <p class="text-sm text-gray-600 mb-4">Correlation between facility rate (per 100k adults ≥45) and SVI percentile (continuous)</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-gray-50 rounded-lg p-4">
+                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Cardiac MRI Rate × SVI</p>
+                <p class="text-2xl font-bold text-gray-800">ρ = 0.008</p>
+                <p class="text-xs text-gray-500">p = 0.665 (not significant)</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4">
+                <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Cardiac CT Rate × SVI</p>
+                <p class="text-2xl font-bold text-gray-800">ρ = 0.020</p>
+                <p class="text-xs text-gray-500">p = 0.268 (not significant)</p>
+            </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-4 italic">
+            Note: SVI–rate correlations are weak because the dominant disparity axis is rurality, not SVI. 
+            Most rural counties have zero facilities regardless of SVI.
+        </p>
+    </div>
+</section>
+
+<!-- ===================== TABLE TAB ===================== -->
+<section id="panel-table" class="hidden fade-in">
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-gray-100">
+            <h2 class="text-lg font-semibold text-gray-900">Table 1. ACR-Accredited Cardiac Imaging Capacity by Stratum</h2>
+            <p class="text-sm text-gray-500">County-level summary by social vulnerability quartile and rurality classification</p>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 text-left">
+                    <tr>
+                        <th class="px-5 py-3 font-semibold text-gray-700">Stratum</th>
+                        <th class="px-5 py-3 font-semibold text-gray-700 text-right">Counties</th>
+                        <th class="px-5 py-3 font-semibold text-gray-700 text-right">Adult ≥45 Pop. (M)</th>
+                        <th class="px-5 py-3 font-semibold text-gray-700 text-right">CMR Sites</th>
+                        <th class="px-5 py-3 font-semibold text-gray-700 text-right">Counties w/ CMR</th>
+                        <th class="px-5 py-3 font-semibold text-gray-700 text-right">CMR Rate (IQR)</th>
+                        <th class="px-5 py-3 font-semibold text-gray-700 text-right">CCT Sites</th>
+                        <th class="px-5 py-3 font-semibold text-gray-700 text-right">CCT Rate (IQR)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    {% for row in table1 %}
+                    <tr class="hover:bg-blue-50/50 transition-colors">
+                        <td class="px-5 py-3 font-medium text-gray-900">{{ row.Stratum }}</td>
+                        <td class="px-5 py-3 text-right text-gray-700">{{ row.n_counties }}</td>
+                        <td class="px-5 py-3 text-right text-gray-700">{{ row.adult_45plus_millions }}</td>
+                        <td class="px-5 py-3 text-right text-gray-700">{{ row.cmr_sites }}</td>
+                        <td class="px-5 py-3 text-right text-gray-700">{{ row.cmr_counties_with_pct }}</td>
+                        <td class="px-5 py-3 text-right text-gray-600 text-xs">{{ row.cmr_rate_median_iqr }}</td>
+                        <td class="px-5 py-3 text-right text-gray-700">{{ row.cct_sites }}</td>
+                        <td class="px-5 py-3 text-right text-gray-600 text-xs">{{ row.cct_rate_median_iqr }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="p-4 border-t border-gray-100 text-xs text-gray-500">
+            <strong>Notes:</strong> SVI from CDC/ATSDR 2022, overall percentile rank. RUCC from USDA ERS 2023. 
+            Population denominators from Census Population Estimates 2023. Counties with &lt;1,000 adults aged ≥45 excluded from rate calculations.
+        </div>
+    </div>
+</section>
+
+<!-- ===================== REGRESSION TAB ===================== -->
+<section id="panel-regression" class="hidden fade-in">
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-gray-100">
+            <h2 class="text-lg font-semibold text-gray-900">Negative Binomial Regression Results</h2>
+            <p class="text-sm text-gray-500">Incidence Rate Ratios for facility count per 10-percentile increase in SVI</p>
+        </div>
+        <div class="p-6">
+            <!-- Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-5 border border-blue-100">
+                    <h4 class="text-xs font-semibold text-blue-800 uppercase tracking-wide mb-2">Cardiac MRI — Primary Model</h4>
+                    <p class="text-3xl font-bold text-blue-900">IRR = 0.992</p>
+                    <p class="text-sm text-blue-700 mt-1">95% CI: 0.952 – 1.033</p>
+                    <p class="text-xs text-blue-600 mt-2">p = 0.681 | AIC = 1851 (vs Poisson 1933)</p>
+                </div>
+                <div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg p-5 border border-emerald-100">
+                    <h4 class="text-xs font-semibold text-emerald-800 uppercase tracking-wide mb-2">Cardiac CT — Primary Model</h4>
+                    <p class="text-3xl font-bold text-emerald-900">IRR = 1.020</p>
+                    <p class="text-sm text-emerald-700 mt-1">95% CI: 0.989 – 1.053</p>
+                    <p class="text-xs text-emerald-600 mt-2">p = 0.213 | AIC = 3071 (vs Poisson 3105)</p>
+                </div>
+            </div>
+
+            <!-- Interpretation -->
+            <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+                <div class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <div>
+                        <p class="text-sm font-medium text-amber-800">Interpretation</p>
+                        <p class="text-sm text-amber-700 mt-1">
+                            Neither CMR nor CCT facility counts show a statistically significant association with 
+                            county-level social vulnerability after adjusting for adult population. However, the 
+                            nonmetropolitan stratified analysis suggests a marginally significant inverse trend for 
+                            CMR (IRR = 0.814, p = 0.064).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Results -->
+            <details class="group">
+                <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-blue-600 flex items-center gap-2">
+                    <svg class="w-4 h-4 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    View Full Regression Output
+                </summary>
+                <pre class="mt-4 bg-gray-900 text-gray-100 text-xs p-5 rounded-lg overflow-x-auto leading-relaxed">{{ regression }}</pre>
+            </details>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="border-t border-gray-200 bg-white mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between text-xs text-gray-400">
+        <span>ACR Cardiac Imaging Geographic Disparities Study • JACC: Advances 2026</span>
+        <span>Data extracted: May 20, 2026 • Restricted access</span>
+    </div>
+</footer>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+// --- Tab Management ---
+const tabs = ['overview', 'map', 'analysis', 'table', 'regression'];
+function showTab(name) {
+    tabs.forEach(t => {
+        document.getElementById('panel-' + t).classList.toggle('hidden', t !== name);
+        document.getElementById('tab-' + t).className = t === name ? 'tab-active py-4 text-sm transition-all' : 'tab-inactive py-4 text-sm transition-all';
+    });
+    if (name === 'map' && !window._mapInitialized) initMap();
+    if (name === 'analysis' && !window._analysisChartsInit) initAnalysisCharts();
+}
+
+// --- Metro Chart ---
+new Chart(document.getElementById('chart-metro'), {
+    type: 'bar',
+    data: {
+        labels: ['Cardiac MRI', 'Cardiac CT'],
+        datasets: [
+            { label: 'Metropolitan', data: [{{ stats.metro_cmr }}, {{ stats.metro_cct }}], backgroundColor: '#3b82f6', borderRadius: 6 },
+            { label: 'Nonmetropolitan', data: [{{ stats.nonmetro_cmr }}, {{ stats.nonmetro_cct }}], backgroundColor: '#f59e0b', borderRadius: 6 }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } },
+        scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+    }
+});
+
+// --- SVI Decile Chart (fetched from API) ---
+fetch('/api/svi-distribution?token={{ token }}')
+    .then(r => r.json())
+    .then(data => {
+        new Chart(document.getElementById('chart-svi'), {
+            type: 'line',
+            data: {
+                labels: data.map(d => 'D' + d.svi_decile),
+                datasets: [
+                    { label: 'CMR Rate', data: data.map(d => d.mean_cmr_rate), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', fill: true, tension: 0.3, pointRadius: 4 },
+                    { label: 'CCT Rate', data: data.map(d => d.mean_cct_rate), borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true, tension: 0.3, pointRadius: 4 }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Rate per 100k' }, grid: { color: '#f1f5f9' } },
+                    x: { title: { display: true, text: 'SVI Decile (1=least → 10=most vulnerable)' }, grid: { display: false } }
+                }
+            }
+        });
+    });
+
+// --- Map Initialization ---
+let map, currentLayer = 'cmr';
+function initMap() {
+    window._mapInitialized = true;
+    map = new maplibregl.Map({
+        container: 'map',
+        style: { version: 8, sources: { 'carto': { type: 'raster', tiles: ['https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png'], tileSize: 256, attribution: '© CARTO © OpenStreetMap' } }, layers: [{ id: 'carto', type: 'raster', source: 'carto' }] },
+        center: [-98.5, 39.5],
+        zoom: 3.8
+    });
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+    map.on('load', () => {
+        fetch('/static/data/counties.geojson')
+            .then(r => r.json())
+            .then(geojson => {
+                map.addSource('counties', { type: 'geojson', data: geojson });
+                addChoroplethLayer('cmr');
+                addChoroplethLayer('cct');
+                map.setLayoutProperty('cct-fill', 'visibility', 'none');
+
+                // Popup on click
+                map.on('click', currentLayer + '-fill', (e) => showPopup(e));
+            });
+    });
+}
+
+function addChoroplethLayer(type) {
+    const prop = type === 'cmr' ? 'cmr_rate_per_100k' : 'cct_rate_per_100k';
+    map.addLayer({
+        id: type + '-fill',
+        type: 'fill',
+        source: 'counties',
+        paint: {
+            'fill-color': [
+                'case',
+                ['==', ['get', 'rate_excluded'], 1], '#ffffff',
+                ['==', ['get', prop], 0], '#f0f0f0',
+                ['==', ['get', prop], null], '#f0f0f0',
+                ['interpolate', ['linear'], ['get', prop],
+                    0.01, '#c6dbef',
+                    2, '#6baed6',
+                    5, '#2171b5',
+                    15, '#08306b'
+                ]
+            ],
+            'fill-opacity': 0.85
+        }
+    });
+    map.addLayer({
+        id: type + '-outline',
+        type: 'line',
+        source: 'counties',
+        paint: { 'line-color': '#94a3b8', 'line-width': 0.3 }
+    });
+}
+
+function setMapLayer(type) {
+    if (!map) return;
+    ['cmr', 'cct'].forEach(t => {
+        map.setLayoutProperty(t + '-fill', 'visibility', t === type ? 'visible' : 'none');
+    });
+    currentLayer = type;
+    document.getElementById('btn-cmr').className = type === 'cmr' ? 'px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-lg' : 'px-4 py-2 text-xs font-medium bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200';
+    document.getElementById('btn-cct').className = type === 'cct' ? 'px-4 py-2 text-xs font-medium bg-blue-600 text-white rounded-lg' : 'px-4 py-2 text-xs font-medium bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200';
+}
+
+function showPopup(e) {
+    const p = e.features[0].properties;
+    const prop = currentLayer === 'cmr' ? 'cmr_rate_per_100k' : 'cct_rate_per_100k';
+    const count = currentLayer === 'cmr' ? p.cmr_facility_count : p.cct_facility_count;
+    const rate = p[prop] ? parseFloat(p[prop]).toFixed(2) : '0.00';
+    new maplibregl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`
+            <div style="font-size:13px;">
+                <strong>${p.county_name || ''}, ${p.state_abbr || ''}</strong><br>
+                <span style="color:#666;">Facilities: ${count || 0}</span><br>
+                <span style="color:#666;">Rate: ${rate} per 100k</span><br>
+                <span style="color:#666;">SVI: ${p.svi_percentile || 'N/A'}</span>
+            </div>
+        `)
+        .addTo(map);
+}
+
+// --- Analysis Tab Charts ---
+function initAnalysisCharts() {
+    window._analysisChartsInit = true;
+    // Data from table1
+    const table1 = {{ table1 | tojson }};
+    const sviRows = table1.filter(r => r.Stratum.includes('Q'));
+    
+    new Chart(document.getElementById('chart-quartile'), {
+        type: 'bar',
+        data: {
+            labels: sviRows.map(r => r.Stratum),
+            datasets: [
+                { label: 'CMR Sites', data: sviRows.map(r => r.cmr_sites), backgroundColor: '#3b82f6', borderRadius: 4 },
+                { label: 'CCT Sites', data: sviRows.map(r => r.cct_sites), backgroundColor: '#10b981', borderRadius: 4 }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } },
+            scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+        }
+    });
+
+    const metroRows = table1.filter(r => r.Stratum.includes('Metro') || r.Stratum.includes('metro'));
+    new Chart(document.getElementById('chart-coverage'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Metro CMR', 'Nonmetro CMR', 'Metro CCT', 'Nonmetro CCT'],
+            datasets: [{
+                data: [{{ stats.metro_cmr }}, {{ stats.nonmetro_cmr }}, {{ stats.metro_cct }}, {{ stats.nonmetro_cct }}],
+                backgroundColor: ['#3b82f6', '#93c5fd', '#10b981', '#6ee7b7'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } }
+        }
+    });
+}
+</script>
+</body>
+</html>

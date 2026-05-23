@@ -1,0 +1,1229 @@
+    INFO: 2026-05-22 16:29:58,818:               log.py:   20: Logging to /Users/arazak/projects/extreme-emu/personal-based-repos/geo-spatial-analysis/mdpdf.log
+   DEBUG: 2026-05-22 16:29:58,818:               cli.py:  103: docs/Data_Scientist_Task_Guide.md
+    INFO: 2026-05-22 16:29:58,819:         converter.py:   14: docs/Data_Scientist_Task_Guide.md
+   DEBUG: 2026-05-22 16:29:58,829:      pdf_renderer.py:  470: printSegment: Data Scientist Task Guide
+   DEBUG: 2026-05-22 16:29:58,832:      pdf_renderer.py:  470: printSegment: Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity
+   DEBUG: 2026-05-22 16:29:58,833:      pdf_renderer.py:  470: printSegment: Prepared for:
+   DEBUG: 2026-05-22 16:29:58,835:      pdf_renderer.py:  470: printSegment:  Data Scientist / Geospatial Analyst
+   DEBUG: 2026-05-22 16:29:58,836:      pdf_renderer.py:  470: printSegment: Project Lead:
+   DEBUG: 2026-05-22 16:29:58,837:      pdf_renderer.py:  470: printSegment:  Dr. Muhammad Naeem, MD — Mayo Clinic Arizona
+   DEBUG: 2026-05-22 16:29:58,846:      pdf_renderer.py:  470: printSegment: Target Publication:
+   DEBUG: 2026-05-22 16:29:58,847:      pdf_renderer.py:  470: printSegment:  JACC: Advances — Special Focus Issue on Health Equity in Cardiology
+   DEBUG: 2026-05-22 16:29:58,848:      pdf_renderer.py:  470: printSegment: Submission Deadline:
+   DEBUG: 2026-05-22 16:29:58,848:      pdf_renderer.py:  470: printSegment:  June 1, 2026
+   DEBUG: 2026-05-22 16:29:58,848:      pdf_renderer.py:  470: printSegment: First Deliverable Due:
+   DEBUG: 2026-05-22 16:29:58,849:      pdf_renderer.py:  470: printSegment:  Sunday, May 24, 2026
+   DEBUG: 2026-05-22 16:29:58,850:      pdf_renderer.py:  470: printSegment: Table of Contents
+   DEBUG: 2026-05-22 16:29:58,850:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:58,851:      pdf_renderer.py:  470: printSegment: Project Summary (Plain Language)
+   ERROR: 2026-05-22 16:29:58,851:      pdf_renderer.py:  217: /Users/arazak/projects/extreme-emu/personal-based-repos/geo-spatial-analysis/docs/Data_Scientist_Task_Guide.md:14: #1-project-summary-plain-language: No such file or directory
+   DEBUG: 2026-05-22 16:29:58,851:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:58,852:      pdf_renderer.py:  470: printSegment: Dataset Inventory 
+   DEBUG: 2026-05-22 16:29:58,852:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:58,852:      pdf_renderer.py:  470: printSegment:  Details
+   ERROR: 2026-05-22 16:29:58,853:      pdf_renderer.py:  217: /Users/arazak/projects/extreme-emu/personal-based-repos/geo-spatial-analysis/docs/Data_Scientist_Task_Guide.md:15: #2-dataset-inventory--details: No such file or directory
+   DEBUG: 2026-05-22 16:29:58,853:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:58,853:      pdf_renderer.py:  470: printSegment: Step-by-Step Task List
+   ERROR: 2026-05-22 16:29:58,854:      pdf_renderer.py:  217: /Users/arazak/projects/extreme-emu/personal-based-repos/geo-spatial-analysis/docs/Data_Scientist_Task_Guide.md:16: #3-step-by-step-task-list: No such file or directory
+   DEBUG: 2026-05-22 16:29:58,854:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:58,854:      pdf_renderer.py:  470: printSegment: Recommended Open Source Tools
+   ERROR: 2026-05-22 16:29:58,855:      pdf_renderer.py:  217: /Users/arazak/projects/extreme-emu/personal-based-repos/geo-spatial-analysis/docs/Data_Scientist_Task_Guide.md:17: #4-recommended-open-source-tools: No such file or directory
+   DEBUG: 2026-05-22 16:29:58,855:      pdf_renderer.py:  470: printSegment:  5 
+   DEBUG: 2026-05-22 16:29:58,855:      pdf_renderer.py:  470: printSegment: Key Columns 
+   DEBUG: 2026-05-22 16:29:58,856:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:58,856:      pdf_renderer.py:  470: printSegment:  Features for Analysis
+   ERROR: 2026-05-22 16:29:58,856:      pdf_renderer.py:  217: /Users/arazak/projects/extreme-emu/personal-based-repos/geo-spatial-analysis/docs/Data_Scientist_Task_Guide.md:18: #5-key-columns--features-for-analysis: No such file or directory
+   DEBUG: 2026-05-22 16:29:58,856:      pdf_renderer.py:  470: printSegment:  6 
+   DEBUG: 2026-05-22 16:29:58,857:      pdf_renderer.py:  470: printSegment: Final Deliverables Checklist
+   ERROR: 2026-05-22 16:29:58,857:      pdf_renderer.py:  217: /Users/arazak/projects/extreme-emu/personal-based-repos/geo-spatial-analysis/docs/Data_Scientist_Task_Guide.md:19: #6-final-deliverables-checklist: No such file or directory
+   DEBUG: 2026-05-22 16:29:58,858:      pdf_renderer.py:  470: printSegment: 1. Project Summary (Plain Language)
+   DEBUG: 2026-05-22 16:29:58,858:      pdf_renderer.py:  470: printSegment: What is this project about?
+   DEBUG: 2026-05-22 16:29:58,869:      pdf_renderer.py:  470: printSegment: We want to find out whether access to high-quality heart imaging services (specifically MRI and CT scans for the
+   DEBUG: 2026-05-22 16:29:58,872:      pdf_renderer.py:  470: printSegment: heart) is spread fairly across the United States, or if it is concentrated in wealthy, urban areas while poorer, rural
+   DEBUG: 2026-05-22 16:29:58,873:      pdf_renderer.py:  470: printSegment: communities have little or no access.
+   DEBUG: 2026-05-22 16:29:58,874:      pdf_renderer.py:  470: printSegment: What is ACR Accreditation?
+   DEBUG: 2026-05-22 16:29:58,874:      pdf_renderer.py:  470: printSegment: The American College of Radiology (ACR) grants a quality stamp of approval (
+   DEBUG: 2026-05-22 16:29:58,875:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,875:      pdf_renderer.py:  470: printSegment: accreditation
+   DEBUG: 2026-05-22 16:29:58,876:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,883:      pdf_renderer.py:  470: printSegment: ) to imaging facilities
+   DEBUG: 2026-05-22 16:29:58,888:      pdf_renderer.py:  470: printSegment: that meet certain standards. Facilities with this accreditation are recognized by insurance companies as providing
+   DEBUG: 2026-05-22 16:29:58,889:      pdf_renderer.py:  470: printSegment: quality imaging. We are looking ONLY at ACR-accredited facilities in this project.
+   DEBUG: 2026-05-22 16:29:58,889:      pdf_renderer.py:  470: printSegment: What will we produce?
+   DEBUG: 2026-05-22 16:29:58,890:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:58,891:      pdf_renderer.py:  470: printSegment: A clean dataset linking every US county with counts of accredited cardiac imaging facilities and
+   DEBUG: 2026-05-22 16:29:58,891:      pdf_renderer.py:  470: printSegment: socioeconomic/geographic indicators.
+   DEBUG: 2026-05-22 16:29:58,892:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:58,893:      pdf_renderer.py:  470: printSegment: A colored map (choropleth) of the US showing where cardiac imaging facilities are concentrated.
+   DEBUG: 2026-05-22 16:29:58,894:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:58,895:      pdf_renderer.py:  470: printSegment: A summary table showing how facility access differs by community vulnerability and rural/urban
+   DEBUG: 2026-05-22 16:29:58,895:      pdf_renderer.py:  470: printSegment: status.
+   DEBUG: 2026-05-22 16:29:58,896:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:58,897:      pdf_renderer.py:  470: printSegment: Statistical models measuring the strength of the relationship between community disadvantage and
+   DEBUG: 2026-05-22 16:29:58,897:      pdf_renderer.py:  470: printSegment: imaging access.
+   DEBUG: 2026-05-22 16:29:58,898:      pdf_renderer.py:  470: printSegment: Why does this matter?
+   DEBUG: 2026-05-22 16:29:58,903:      pdf_renderer.py:  470: printSegment: If heart imaging capacity is concentrated in wealthy metro areas, then people in vulnerable communities may not
+   DEBUG: 2026-05-22 16:29:58,904:      pdf_renderer.py:  470: printSegment: have local access to quality cardiac diagnostics, potentially contributing to worse heart health outcomes.
+   DEBUG: 2026-05-22 16:29:58,906:      pdf_renderer.py:  470: printSegment: 2. Dataset Inventory 
+   DEBUG: 2026-05-22 16:29:58,906:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:58,907:      pdf_renderer.py:  470: printSegment:  Details
+   DEBUG: 2026-05-22 16:29:58,907:      pdf_renderer.py:  470: printSegment: 2.1 Datasets Already Provided (in 
+   DEBUG: 2026-05-22 16:29:58,908:      pdf_renderer.py:  470: printSegment: data/
+   DEBUG: 2026-05-22 16:29:58,909:      pdf_renderer.py:  470: printSegment:  folder)
+   DEBUG: 2026-05-22 16:29:58,910:      pdf_renderer.py:  470: printSegment: | # | File Name | Description | Records | Sheets |
+   DEBUG: 2026-05-22 16:29:58,911:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,911:      pdf_renderer.py:  470: printSegment: |---|-----------|-------------|---------|--------|
+   DEBUG: 2026-05-22 16:29:58,912:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,912:      pdf_renderer.py:  470: printSegment: | 1 | 
+   DEBUG: 2026-05-22 16:29:58,913:      pdf_renderer.py:  470: printSegment: ACR_Cardiac_Imaging_Sites.xlsx
+   DEBUG: 2026-05-22 16:29:58,915:      pdf_renderer.py:  470: printSegment:  | Curated extract of ACR-accredited cardiac imaging facilities filtered
+   DEBUG: 2026-05-22 16:29:58,916:      pdf_renderer.py:  470: printSegment: for cardiac modules | 2,273 records | Summary, 
+   DEBUG: 2026-05-22 16:29:58,916:      pdf_renderer.py:  470: printSegment: Cardiac MRI + CT (PRIMARY)
+   DEBUG: 2026-05-22 16:29:58,918:      pdf_renderer.py:  470: printSegment: , Cardiac MRI only, Cardiac CT
+   DEBUG: 2026-05-22 16:29:58,918:      pdf_renderer.py:  470: printSegment: only, Nuclear Cardiology (optional) |
+   DEBUG: 2026-05-22 16:29:58,918:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,919:      pdf_renderer.py:  470: printSegment: | 2 | 
+   DEBUG: 2026-05-22 16:29:58,919:      pdf_renderer.py:  470: printSegment: acr_dataset.xlsx
+   DEBUG: 2026-05-22 16:29:58,922:      pdf_renderer.py:  470: printSegment:  | Full ACR accredited facility search extract (all
+   DEBUG: 2026-05-22 16:29:58,922:      pdf_renderer.py:  470: printSegment: modalities, not just cardiac) | 37,328 records | Sheet1 |
+   DEBUG: 2026-05-22 16:29:58,923:      pdf_renderer.py:  470: printSegment: Primary Working Dataset: 
+   DEBUG: 2026-05-22 16:29:58,924:      pdf_renderer.py:  470: printSegment: ACR_Cardiac_Imaging_Sites.xlsx
+   DEBUG: 2026-05-22 16:29:58,924:      pdf_renderer.py:  470: printSegment:  → Sheet: 
+   DEBUG: 2026-05-22 16:29:58,937:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,938:      pdf_renderer.py:  470: printSegment: Cardiac MRI + CT (PRIMARY)
+   DEBUG: 2026-05-22 16:29:58,938:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,939:      pdf_renderer.py:  470: printSegment: | Column Name | Description | Example Value |
+   DEBUG: 2026-05-22 16:29:58,939:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,940:      pdf_renderer.py:  470: printSegment: |-------------|-------------|---------------|
+   DEBUG: 2026-05-22 16:29:58,940:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,941:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,941:      pdf_renderer.py:  470: printSegment: Cardiac Imaging Type
+   DEBUG: 2026-05-22 16:29:58,942:      pdf_renderer.py:  470: printSegment: 
+   DEBUG: 2026-05-22 16:29:58,943:      pdf_renderer.py:  470: printSegment: | Whether the facility is Cardiac MRI or Cardiac CT | 
+   DEBUG: 2026-05-22 16:29:58,943:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,943:      pdf_renderer.py:  470: printSegment: Cardiac MRI
+   DEBUG: 2026-05-22 16:29:58,944:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,944:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:58,945:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,945:      pdf_renderer.py:  470: printSegment: Cardiac CT
+   DEBUG: 2026-05-22 16:29:58,945:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,946:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,946:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,947:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,947:      pdf_renderer.py:  470: printSegment: modality
+   DEBUG: 2026-05-22 16:29:58,948:      pdf_renderer.py:  470: printSegment:  | ACR modality
+   DEBUG: 2026-05-22 16:29:58,948:      pdf_renderer.py:  470: printSegment: code | 
+   DEBUG: 2026-05-22 16:29:58,948:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,949:      pdf_renderer.py:  470: printSegment: MRAP
+   DEBUG: 2026-05-22 16:29:58,949:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,950:      pdf_renderer.py:  470: printSegment:  (MRI), 
+   DEBUG: 2026-05-22 16:29:58,950:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,951:      pdf_renderer.py:  470: printSegment: CTAP
+   DEBUG: 2026-05-22 16:29:58,951:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,951:      pdf_renderer.py:  470: printSegment:  (CT) |
+   DEBUG: 2026-05-22 16:29:58,952:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,952:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,953:      pdf_renderer.py:  470: printSegment: Facility Name
+   DEBUG: 2026-05-22 16:29:58,953:      pdf_renderer.py:  470: printSegment:  | Name of the imaging facility | 
+   DEBUG: 2026-05-22 16:29:58,954:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,954:      pdf_renderer.py:  470: printSegment: Cambridge Medical
+   DEBUG: 2026-05-22 16:29:58,955:      pdf_renderer.py:  470: printSegment: Center
+   DEBUG: 2026-05-22 16:29:58,955:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,956:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,956:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,956:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,957:      pdf_renderer.py:  470: printSegment: Street 1
+   DEBUG: 2026-05-22 16:29:58,957:      pdf_renderer.py:  470: printSegment:  | Street address line 1 | 
+   DEBUG: 2026-05-22 16:29:58,958:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,958:      pdf_renderer.py:  470: printSegment: 701 Dellwood Street S
+   DEBUG: 2026-05-22 16:29:58,959:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,959:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,960:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,960:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,961:      pdf_renderer.py:  470: printSegment: Street 2
+   DEBUG: 2026-05-22 16:29:58,961:      pdf_renderer.py:  470: printSegment:  | Street address line 2 (often
+   DEBUG: 2026-05-22 16:29:58,962:      pdf_renderer.py:  470: printSegment: empty) | — |
+   DEBUG: 2026-05-22 16:29:58,962:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,963:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,963:      pdf_renderer.py:  470: printSegment: Street 3
+   DEBUG: 2026-05-22 16:29:58,964:      pdf_renderer.py:  470: printSegment:  | Street address line 3 (often empty) | — |
+   DEBUG: 2026-05-22 16:29:58,964:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,965:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,965:      pdf_renderer.py:  470: printSegment: city
+   DEBUG: 2026-05-22 16:29:58,966:      pdf_renderer.py:  470: printSegment:  | City where the facility is located | 
+   DEBUG: 2026-05-22 16:29:58,966:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,967:      pdf_renderer.py:  470: printSegment: Cambridge
+   DEBUG: 2026-05-22 16:29:58,967:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,968:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,968:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,969:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,969:      pdf_renderer.py:  470: printSegment: state
+   DEBUG: 2026-05-22 16:29:58,970:      pdf_renderer.py:  470: printSegment:  | US state abbreviation | 
+   DEBUG: 2026-05-22 16:29:58,970:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,971:      pdf_renderer.py:  470: printSegment: MN
+   DEBUG: 2026-05-22 16:29:58,971:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,972:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,972:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,972:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,973:      pdf_renderer.py:  470: printSegment: Zip Code
+   DEBUG: 2026-05-22 16:29:58,974:      pdf_renderer.py:  470: printSegment:  | 5-digit ZIP code (100% populated) | 
+   DEBUG: 2026-05-22 16:29:58,974:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,975:      pdf_renderer.py:  470: printSegment: 55008
+   DEBUG: 2026-05-22 16:29:58,975:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,975:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,976:      pdf_renderer.py:  470: printSegment: |
+   DEBUG: 2026-05-22 16:29:58,976:      pdf_renderer.py:  470: printSegment: 
+   DEBUG: 2026-05-22 16:29:58,977:      pdf_renderer.py:  470: printSegment: Phone Number
+   DEBUG: 2026-05-22 16:29:58,977:      pdf_renderer.py:  470: printSegment:  | Facility phone | 
+   DEBUG: 2026-05-22 16:29:58,978:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,978:      pdf_renderer.py:  470: printSegment: (763)688-6377
+   DEBUG: 2026-05-22 16:29:58,979:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,979:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,979:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,980:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,980:      pdf_renderer.py:  470: printSegment: Seal
+   DEBUG: 2026-05-22 16:29:58,981:      pdf_renderer.py:  470: printSegment:  | ACR seal designation | 
+   DEBUG: 2026-05-22 16:29:58,981:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,982:      pdf_renderer.py:  470: printSegment: CBIC
+   DEBUG: 2026-05-22 16:29:58,982:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,983:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:58,983:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,984:      pdf_renderer.py:  470: printSegment: DICOE
+   DEBUG: 2026-05-22 16:29:58,984:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,985:      pdf_renderer.py:  470: printSegment: , etc. |
+   DEBUG: 2026-05-22 16:29:58,985:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,986:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,987:      pdf_renderer.py:  470: printSegment: Status
+   DEBUG: 2026-05-22 16:29:58,987:      pdf_renderer.py:  470: printSegment:  | Accreditation status | 
+   DEBUG: 2026-05-22 16:29:58,988:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,988:      pdf_renderer.py:  470: printSegment: Accredited
+   DEBUG: 2026-05-22 16:29:58,989:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,989:      pdf_renderer.py:  470: printSegment:  (2,250) or 
+   DEBUG: 2026-05-22 16:29:58,990:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,990:      pdf_renderer.py:  470: printSegment: Under Review
+   DEBUG: 2026-05-22 16:29:58,991:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,991:      pdf_renderer.py:  470: printSegment:  (23) |
+   DEBUG: 2026-05-22 16:29:58,992:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,992:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,993:      pdf_renderer.py:  470: printSegment: Expiration Date
+   DEBUG: 2026-05-22 16:29:58,994:      pdf_renderer.py:  470: printSegment:  | When
+   DEBUG: 2026-05-22 16:29:58,994:      pdf_renderer.py:  470: printSegment: accreditation expires | 
+   DEBUG: 2026-05-22 16:29:58,995:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,995:      pdf_renderer.py:  470: printSegment: 08/29/2029
+   DEBUG: 2026-05-22 16:29:58,996:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:58,996:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:58,997:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:58,997:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:58,998:      pdf_renderer.py:  470: printSegment: modules
+   DEBUG: 2026-05-22 16:29:58,998:      pdf_renderer.py:  470: printSegment:  | List of imaging modules the facility is accredited for | 
+   DEBUG: 2026-05-22 16:29:58,999:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,000:      pdf_renderer.py:  470: printSegment: Body,
+   DEBUG: 2026-05-22 16:29:59,000:      pdf_renderer.py:  470: printSegment: Cardiac, Head, MRA...
+   DEBUG: 2026-05-22 16:29:59,001:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,001:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:59,002:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,002:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,003:      pdf_renderer.py:  470: printSegment: Current as of date
+   DEBUG: 2026-05-22 16:29:59,004:      pdf_renderer.py:  470: printSegment:  | Date the data was extracted | 
+   DEBUG: 2026-05-22 16:29:59,004:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,005:      pdf_renderer.py:  470: printSegment: 05/20/2026
+   DEBUG: 2026-05-22 16:29:59,005:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,006:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:59,006:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,007:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,007:      pdf_renderer.py:  470: printSegment: Facility
+   DEBUG: 2026-05-22 16:29:59,008:      pdf_renderer.py:  470: printSegment: NPI List
+   DEBUG: 2026-05-22 16:29:59,009:      pdf_renderer.py:  470: printSegment:  | National Provider Identifier (populated for ~63% of records) | 
+   DEBUG: 2026-05-22 16:29:59,009:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,010:      pdf_renderer.py:  470: printSegment: 1568427383
+   DEBUG: 2026-05-22 16:29:59,010:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,011:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:59,011:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,012:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,012:      pdf_renderer.py:  470: printSegment: Provisional
+   DEBUG: 2026-05-22 16:29:59,013:      pdf_renderer.py:  470: printSegment: Granted
+   DEBUG: 2026-05-22 16:29:59,014:      pdf_renderer.py:  470: printSegment:  | Whether provisional status was granted | Usually NaN |
+   DEBUG: 2026-05-22 16:29:59,014:      pdf_renderer.py:  470: printSegment: Key Statistics:
+   DEBUG: 2026-05-22 16:29:59,015:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,016:      pdf_renderer.py:  470: printSegment: Total records: 2,273
+   DEBUG: 2026-05-22 16:29:59,017:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,018:      pdf_renderer.py:  470: printSegment: Cardiac MRI (MRAP): 725 facilities
+   DEBUG: 2026-05-22 16:29:59,018:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,019:      pdf_renderer.py:  470: printSegment: Cardiac CT (CTAP): 1,548 facilities
+   DEBUG: 2026-05-22 16:29:59,020:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,021:      pdf_renderer.py:  470: printSegment: Accredited: 2,250 | Under Review: 23
+   DEBUG: 2026-05-22 16:29:59,021:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,022:      pdf_renderer.py:  470: printSegment: All records have ZIP codes populated
+   DEBUG: 2026-05-22 16:29:59,022:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,023:      pdf_renderer.py:  470: printSegment: 5 states have ZERO Cardiac MRI sites: Alaska, New Mexico, South Dakota, Utah, Wyoming
+   DEBUG: 2026-05-22 16:29:59,024:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,025:      pdf_renderer.py:  470: printSegment: 1 state has ZERO Cardiac CT sites: South Dakota
+   DEBUG: 2026-05-22 16:29:59,025:      pdf_renderer.py:  470: printSegment: Reference Dataset: 
+   DEBUG: 2026-05-22 16:29:59,026:      pdf_renderer.py:  470: printSegment: acr_dataset.xlsx
+   DEBUG: 2026-05-22 16:29:59,028:      pdf_renderer.py:  470: printSegment: This is the full raw ACR extract with 37,328 records across ALL modalities (not just cardiac). It has the same
+   DEBUG: 2026-05-22 16:29:59,029:      pdf_renderer.py:  470: printSegment: column structure minus the 
+   DEBUG: 2026-05-22 16:29:59,030:      pdf_renderer.py:  470: printSegment: Cardiac Imaging Type
+   DEBUG: 2026-05-22 16:29:59,031:      pdf_renderer.py:  470: printSegment:  column. 
+   DEBUG: 2026-05-22 16:29:59,031:      pdf_renderer.py:  470: printSegment: You will primarily work with the filtered 
+   DEBUG: 2026-05-22 16:29:59,032:      pdf_renderer.py:  470: printSegment: ACR_Cardiac_Imaging_Sites.xlsx
+   DEBUG: 2026-05-22 16:29:59,033:      pdf_renderer.py:  470: printSegment:  file.
+   DEBUG: 2026-05-22 16:29:59,034:      pdf_renderer.py:  470: printSegment: 2.2 Datasets You Need to Download
+   DEBUG: 2026-05-22 16:29:59,034:      pdf_renderer.py:  470: printSegment: | # | Dataset | Source | URL | Purpose |
+   DEBUG: 2026-05-22 16:29:59,035:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,036:      pdf_renderer.py:  470: printSegment: |---|---------|--------|-----|---------|
+   DEBUG: 2026-05-22 16:29:59,036:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,038:      pdf_renderer.py:  470: printSegment: | 1 | HUD USPS ZIP–County Crosswalk (Q1
+   DEBUG: 2026-05-22 16:29:59,039:      pdf_renderer.py:  470: printSegment: 2026) | HUD User | https://www.huduser.gov/portal/datasets/usps
+   DEBUG: 2026-05-22 16:29:59,039:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,041:      pdf_renderer.py:  470: printSegment: crosswalk.html | Convert ZIP codes to county
+   DEBUG: 2026-05-22 16:29:59,041:      pdf_renderer.py:  470: printSegment: FIPS codes |
+   DEBUG: 2026-05-22 16:29:59,042:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,045:      pdf_renderer.py:  470: printSegment: | 2 | CDC/ATSDR Social Vulnerability Index (SVI) 2022 | CDC |
+   DEBUG: 2026-05-22 16:29:59,046:      pdf_renderer.py:  470: printSegment: https://www.atsdr.cdc.gov/placeandhealth/svi/ | Get county-level social vulnerability scores |
+   DEBUG: 2026-05-22 16:29:59,046:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,051:      pdf_renderer.py:  470: printSegment: | 3 | USDA
+   DEBUG: 2026-05-22 16:29:59,054:      pdf_renderer.py:  470: printSegment: Rural-Urban Continuum Codes (RUCC) 2023 | USDA ERS |
+   DEBUG: 2026-05-22 16:29:59,055:      pdf_renderer.py:  470: printSegment: https://www.ers.usda.gov/data-products/rural-urban-continuum-codes | Classify counties as metro vs. non-metro |
+   DEBUG: 2026-05-22 16:29:59,056:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,061:      pdf_renderer.py:  470: printSegment: | 4
+   DEBUG: 2026-05-22 16:29:59,066:      pdf_renderer.py:  470: printSegment: | American Community Survey (ACS) 5-Year 2019–2023 | US Census API |
+   DEBUG: 2026-05-22 16:29:59,067:      pdf_renderer.py:  470: printSegment: https://www.census.gov/data/developers/data-sets/acs-5year.html | Get county population counts (total and adults ≥45) |
+   DEBUG: 2026-05-22 16:29:59,080:      pdf_renderer.py:  470: printSegment: | 5 | US Census TIGER/Line 2023 County Shapefiles | US Census | https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html | Geographic boundaries for mapping |
+   DEBUG: 2026-05-22 16:29:59,081:      pdf_renderer.py:  470: printSegment: 3. Step-by-Step Task List
+   DEBUG: 2026-05-22 16:29:59,082:      pdf_renderer.py:  470: printSegment: Phase 1: Data Acquisition 
+   DEBUG: 2026-05-22 16:29:59,083:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,084:      pdf_renderer.py:  470: printSegment:  Setup (Day 1)
+   DEBUG: 2026-05-22 16:29:59,085:      pdf_renderer.py:  470: printSegment: Task 1.1 — Set Up Your Project Environment
+   DEBUG: 2026-05-22 16:29:59,085:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,086:      pdf_renderer.py:  470: printSegment: Create a Python virtual environment or conda environment for this project.
+   DEBUG: 2026-05-22 16:29:59,086:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,087:      pdf_renderer.py:  470: printSegment: Install all required libraries (see Section 4 below).
+   DEBUG: 2026-05-22 16:29:59,087:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,088:      pdf_renderer.py:  470: printSegment: Create a folder structure: 
+   DEBUG: 2026-05-22 16:29:59,088:      pdf_renderer.py:  470: printSegment: data/raw/
+   DEBUG: 2026-05-22 16:29:59,089:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:59,089:      pdf_renderer.py:  470: printSegment: data/processed/
+   DEBUG: 2026-05-22 16:29:59,089:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:59,090:      pdf_renderer.py:  470: printSegment: output/figures/
+   DEBUG: 2026-05-22 16:29:59,090:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:59,090:      pdf_renderer.py:  470: printSegment: output/tables/
+   DEBUG: 2026-05-22 16:29:59,091:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:59,091:      pdf_renderer.py:  470: printSegment: code/
+   DEBUG: 2026-05-22 16:29:59,092:      pdf_renderer.py:  470: printSegment: .
+   DEBUG: 2026-05-22 16:29:59,092:      pdf_renderer.py:  470: printSegment: Task 1.2 — Download External Datasets
+   DEBUG: 2026-05-22 16:29:59,092:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,093:      pdf_renderer.py:  470: printSegment: HUD ZIP-County Crosswalk:
+   DEBUG: 2026-05-22 16:29:59,094:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,094:      pdf_renderer.py:  470: printSegment: Go to https://www.huduser.gov/portal/datasets/usps
+   DEBUG: 2026-05-22 16:29:59,095:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,095:      pdf_renderer.py:  470: printSegment: crosswalk.html
+   DEBUG: 2026-05-22 16:29:59,096:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,097:      pdf_renderer.py:  470: printSegment: Download the ZIP-to-County crosswalk file for Q1 2026 (most recent quarter
+   DEBUG: 2026-05-22 16:29:59,097:      pdf_renderer.py:  470: printSegment: available).
+   DEBUG: 2026-05-22 16:29:59,097:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,102:      pdf_renderer.py:  470: printSegment: This file tells you which county each ZIP code belongs to. Some ZIP codes span
+   DEBUG: 2026-05-22 16:29:59,104:      pdf_renderer.py:  470: printSegment: multiple counties — you will use the one with the largest residential address share
+   DEBUG: 2026-05-22 16:29:59,104:      pdf_renderer.py:  470: printSegment: (column 
+   DEBUG: 2026-05-22 16:29:59,104:      pdf_renderer.py:  470: printSegment: RES_RATIO
+   DEBUG: 2026-05-22 16:29:59,105:      pdf_renderer.py:  470: printSegment: ).
+   DEBUG: 2026-05-22 16:29:59,105:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,106:      pdf_renderer.py:  470: printSegment: CDC SVI:
+   DEBUG: 2026-05-22 16:29:59,106:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,107:      pdf_renderer.py:  470: printSegment: Go to https://www.atsdr.cdc.gov/placeandhealth/svi/
+   DEBUG: 2026-05-22 16:29:59,107:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,108:      pdf_renderer.py:  470: printSegment: Download the 2022 county-level SVI dataset (CSV format).
+   DEBUG: 2026-05-22 16:29:59,108:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,109:      pdf_renderer.py:  470: printSegment: Important:
+   DEBUG: 2026-05-22 16:29:59,112:      pdf_renderer.py:  470: printSegment:  Before downloading, check if a 2024 release has been published. If yes,
+   DEBUG: 2026-05-22 16:29:59,113:      pdf_renderer.py:  470: printSegment: confirm with the project lead whether to use 2022 or 2024.
+   DEBUG: 2026-05-22 16:29:59,113:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,114:      pdf_renderer.py:  470: printSegment: The key column you need is 
+   DEBUG: 2026-05-22 16:29:59,114:      pdf_renderer.py:  470: printSegment: RPL_THEMES
+   DEBUG: 2026-05-22 16:29:59,116:      pdf_renderer.py:  470: printSegment:  — this is the overall vulnerability
+   DEBUG: 2026-05-22 16:29:59,117:      pdf_renderer.py:  470: printSegment: percentile rank (0 to 1, where 1 = most vulnerable).
+   DEBUG: 2026-05-22 16:29:59,117:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,118:      pdf_renderer.py:  470: printSegment: USDA RUCC:
+   DEBUG: 2026-05-22 16:29:59,118:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,119:      pdf_renderer.py:  470: printSegment: Go to https://www.ers.usda.gov/data-products/rural-urban-continuum-codes
+   DEBUG: 2026-05-22 16:29:59,119:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,120:      pdf_renderer.py:  470: printSegment: Download the 2023 update (Excel file).
+   DEBUG: 2026-05-22 16:29:59,121:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,122:      pdf_renderer.py:  470: printSegment: The key column is the RUCC code (1–9). Codes 1–3 = metropolitan (urban); codes 4–9 =
+   DEBUG: 2026-05-22 16:29:59,122:      pdf_renderer.py:  470: printSegment: nonmetropolitan (rural).
+   DEBUG: 2026-05-22 16:29:59,123:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:59,123:      pdf_renderer.py:  470: printSegment: ACS Population Data:
+   DEBUG: 2026-05-22 16:29:59,124:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,124:      pdf_renderer.py:  470: printSegment: Use the Census API (you
+   DEBUG: 2026-05-22 16:29:59,125:      pdf_renderer.py:  470: printSegment: '
+   DEBUG: 2026-05-22 16:29:59,125:      pdf_renderer.py:  470: printSegment: ll need a free API key from https://api.census.gov/data/key
+   DEBUG: 2026-05-22 16:29:59,126:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,126:      pdf_renderer.py:  470: printSegment: signup.html).
+   DEBUG: 2026-05-22 16:29:59,127:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,128:      pdf_renderer.py:  470: printSegment: Pull county-level data for: total population AND population aged 45 years and older.
+   DEBUG: 2026-05-22 16:29:59,128:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,129:      pdf_renderer.py:  470: printSegment: Tables to query: B01001 (Sex by Age) — sum age groups 45+ for both sexes.
+   DEBUG: 2026-05-22 16:29:59,129:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,130:      pdf_renderer.py:  470: printSegment: Alternatively, download the pre-tabulated data from data.census.gov.
+   DEBUG: 2026-05-22 16:29:59,131:      pdf_renderer.py:  470: printSegment:  5 
+   DEBUG: 2026-05-22 16:29:59,131:      pdf_renderer.py:  470: printSegment: TIGER/Line Shapefiles:
+   DEBUG: 2026-05-22 16:29:59,132:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,132:      pdf_renderer.py:  470: printSegment: Go to
+   DEBUG: 2026-05-22 16:29:59,133:      pdf_renderer.py:  470: printSegment: https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html
+   DEBUG: 2026-05-22 16:29:59,134:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,135:      pdf_renderer.py:  470: printSegment: Download the 2023 county-level shapefile (look for 
+   DEBUG: 2026-05-22 16:29:59,135:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,136:      pdf_renderer.py:  470: printSegment: Counties (and equivalent)
+   DEBUG: 2026-05-22 16:29:59,136:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,137:      pdf_renderer.py:  470: printSegment: 
+   DEBUG: 2026-05-22 16:29:59,137:      pdf_renderer.py:  470: printSegment: under the national file).
+   DEBUG: 2026-05-22 16:29:59,138:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,138:      pdf_renderer.py:  470: printSegment: This gives you the geographic boundaries needed to draw the map.
+   DEBUG: 2026-05-22 16:29:59,139:      pdf_renderer.py:  470: printSegment: Task 1.3 — Verify All Downloads
+   DEBUG: 2026-05-22 16:29:59,140:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,140:      pdf_renderer.py:  470: printSegment: Confirm each file opens correctly.
+   DEBUG: 2026-05-22 16:29:59,141:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,142:      pdf_renderer.py:  470: printSegment: Check that county FIPS codes are 5 digits (with leading zeros preserved as strings).
+   DEBUG: 2026-05-22 16:29:59,142:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,143:      pdf_renderer.py:  470: printSegment: Confirm the SVI file covers all ~3,143 US counties.
+   DEBUG: 2026-05-22 16:29:59,144:      pdf_renderer.py:  470: printSegment: Phase 2: Data Linkage 
+   DEBUG: 2026-05-22 16:29:59,144:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,145:      pdf_renderer.py:  470: printSegment:  Cleaning (Days 1–2)
+   DEBUG: 2026-05-22 16:29:59,145:      pdf_renderer.py:  470: printSegment: Task 2.1 — Clean the ACR Facility Data
+   DEBUG: 2026-05-22 16:29:59,145:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,146:      pdf_renderer.py:  470: printSegment: Open 
+   DEBUG: 2026-05-22 16:29:59,146:      pdf_renderer.py:  470: printSegment: ACR_Cardiac_Imaging_Sites.xlsx
+   DEBUG: 2026-05-22 16:29:59,147:      pdf_renderer.py:  470: printSegment: , sheet 
+   DEBUG: 2026-05-22 16:29:59,147:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,148:      pdf_renderer.py:  470: printSegment: Cardiac MRI + CT (PRIMARY)
+   DEBUG: 2026-05-22 16:29:59,148:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,148:      pdf_renderer.py:  470: printSegment: .
+   DEBUG: 2026-05-22 16:29:59,149:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,149:      pdf_renderer.py:  470: printSegment: Filter by accreditation status:
+   DEBUG: 2026-05-22 16:29:59,150:      pdf_renderer.py:  470: printSegment:  Keep rows where 
+   DEBUG: 2026-05-22 16:29:59,150:      pdf_renderer.py:  470: printSegment: Status
+   DEBUG: 2026-05-22 16:29:59,150:      pdf_renderer.py:  470: printSegment:  is 
+   DEBUG: 2026-05-22 16:29:59,151:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,151:      pdf_renderer.py:  470: printSegment: Accredited
+   DEBUG: 2026-05-22 16:29:59,152:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,152:      pdf_renderer.py:  470: printSegment:  OR 
+   DEBUG: 2026-05-22 16:29:59,152:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,153:      pdf_renderer.py:  470: printSegment: Under Review
+   DEBUG: 2026-05-22 16:29:59,153:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,154:      pdf_renderer.py:  470: printSegment: .
+   DEBUG: 2026-05-22 16:29:59,154:      pdf_renderer.py:  470: printSegment: (All 2,273 rows qualify.)
+   DEBUG: 2026-05-22 16:29:59,155:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,155:      pdf_renderer.py:  470: printSegment: Check for expired accreditations:
+   DEBUG: 2026-05-22 16:29:59,155:      pdf_renderer.py:  470: printSegment:  If the 
+   DEBUG: 2026-05-22 16:29:59,156:      pdf_renderer.py:  470: printSegment: Expiration Date
+   DEBUG: 2026-05-22 16:29:59,158:      pdf_renderer.py:  470: printSegment:  is before May 20, 2026 (the
+   DEBUG: 2026-05-22 16:29:59,159:      pdf_renderer.py:  470: printSegment: extraction date), exclude that facility. This ensures we only count currently valid accreditations.
+   DEBUG: 2026-05-22 16:29:59,159:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:59,160:      pdf_renderer.py:  470: printSegment: Separate into two groups:
+   DEBUG: 2026-05-22 16:29:59,160:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,161:      pdf_renderer.py:  470: printSegment: Cardiac MRI facilities: where 
+   DEBUG: 2026-05-22 16:29:59,161:      pdf_renderer.py:  470: printSegment: modality
+   DEBUG: 2026-05-22 16:29:59,162:      pdf_renderer.py:  470: printSegment:  = 
+   DEBUG: 2026-05-22 16:29:59,162:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,163:      pdf_renderer.py:  470: printSegment: MRAP
+   DEBUG: 2026-05-22 16:29:59,163:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,164:      pdf_renderer.py:  470: printSegment:  (725 records)
+   DEBUG: 2026-05-22 16:29:59,164:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,165:      pdf_renderer.py:  470: printSegment: Cardiac CT facilities: where 
+   DEBUG: 2026-05-22 16:29:59,165:      pdf_renderer.py:  470: printSegment: modality
+   DEBUG: 2026-05-22 16:29:59,166:      pdf_renderer.py:  470: printSegment:  = 
+   DEBUG: 2026-05-22 16:29:59,166:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,167:      pdf_renderer.py:  470: printSegment: CTAP
+   DEBUG: 2026-05-22 16:29:59,167:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,168:      pdf_renderer.py:  470: printSegment:  (1,548 records)
+   DEBUG: 2026-05-22 16:29:59,168:      pdf_renderer.py:  470: printSegment:  5 
+   DEBUG: 2026-05-22 16:29:59,169:      pdf_renderer.py:  470: printSegment: Double-counting rule:
+   DEBUG: 2026-05-22 16:29:59,172:      pdf_renderer.py:  470: printSegment:  If the same facility (same name + same ZIP) appears once for MRI and once
+   DEBUG: 2026-05-22 16:29:59,172:      pdf_renderer.py:  470: printSegment: for CT, that is correct — count it once in each modality
+   DEBUG: 2026-05-22 16:29:59,173:      pdf_renderer.py:  470: printSegment: '
+   DEBUG: 2026-05-22 16:29:59,174:      pdf_renderer.py:  470: printSegment: s total. Do NOT remove it as a duplicate.
+   DEBUG: 2026-05-22 16:29:59,174:      pdf_renderer.py:  470: printSegment:  6 
+   DEBUG: 2026-05-22 16:29:59,175:      pdf_renderer.py:  470: printSegment: Ensure all ZIP codes are 5-digit strings (pad with leading zeros if needed, e.g., 
+   DEBUG: 2026-05-22 16:29:59,175:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,176:      pdf_renderer.py:  470: printSegment: 07652
+   DEBUG: 2026-05-22 16:29:59,176:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,177:      pdf_renderer.py:  470: printSegment:  not 
+   DEBUG: 2026-05-22 16:29:59,177:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,177:      pdf_renderer.py:  470: printSegment: 7652
+   DEBUG: 2026-05-22 16:29:59,178:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,178:      pdf_renderer.py:  470: printSegment: ).
+   DEBUG: 2026-05-22 16:29:59,179:      pdf_renderer.py:  470: printSegment: Task 2.2 — Map ZIP Codes to County FIPS Codes
+   DEBUG: 2026-05-22 16:29:59,179:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,180:      pdf_renderer.py:  470: printSegment: Load the HUD ZIP-County crosswalk file.
+   DEBUG: 2026-05-22 16:29:59,180:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,181:      pdf_renderer.py:  470: printSegment: For each facility ZIP code, find the corresponding county FIPS code.
+   DEBUG: 2026-05-22 16:29:59,182:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,182:      pdf_renderer.py:  470: printSegment: Handling multi-county ZIPs:
+   DEBUG: 2026-05-22 16:29:59,184:      pdf_renderer.py:  470: printSegment:  Some ZIP codes span more than one county. Assign the facility to
+   DEBUG: 2026-05-22 16:29:59,185:      pdf_renderer.py:  470: printSegment: the county with the highest 
+   DEBUG: 2026-05-22 16:29:59,185:      pdf_renderer.py:  470: printSegment: RES_RATIO
+   DEBUG: 2026-05-22 16:29:59,187:      pdf_renderer.py:  470: printSegment:  (residential address ratio) — this is the county where most
+   DEBUG: 2026-05-22 16:29:59,187:      pdf_renderer.py:  470: printSegment: residents of that ZIP actually live.
+   DEBUG: 2026-05-22 16:29:59,188:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:59,189:      pdf_renderer.py:  470: printSegment: After this step, every facility should have a 5-digit county FIPS code attached.
+   DEBUG: 2026-05-22 16:29:59,189:      pdf_renderer.py:  470: printSegment:  5 
+   DEBUG: 2026-05-22 16:29:59,191:      pdf_renderer.py:  470: printSegment: Verify: count total facilities per county and confirm the national total still matches (725 MRI +
+   DEBUG: 2026-05-22 16:29:59,191:      pdf_renderer.py:  470: printSegment: 1,548 CT = 2,273).
+   DEBUG: 2026-05-22 16:29:59,192:      pdf_renderer.py:  470: printSegment: Task 2.3 — Build the County-Level Analytic Dataset
+   DEBUG: 2026-05-22 16:29:59,192:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,194:      pdf_renderer.py:  470: printSegment: Start with a master list of all 3,143 US counties (50 states + DC; exclude US territories like Puerto
+   DEBUG: 2026-05-22 16:29:59,195:      pdf_renderer.py:  470: printSegment: Rico, Guam, etc.).
+   DEBUG: 2026-05-22 16:29:59,195:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,196:      pdf_renderer.py:  470: printSegment: For each county, count:
+   DEBUG: 2026-05-22 16:29:59,196:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,197:      pdf_renderer.py:  470: printSegment: Number of Cardiac MRI (MRAP) facilities
+   DEBUG: 2026-05-22 16:29:59,197:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,198:      pdf_renderer.py:  470: printSegment: Number of Cardiac CT (CTAP) facilities
+   DEBUG: 2026-05-22 16:29:59,198:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,199:      pdf_renderer.py:  470: printSegment: Join (merge) the following data onto each county row:
+   DEBUG: 2026-05-22 16:29:59,200:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,200:      pdf_renderer.py:  470: printSegment: SVI:
+   DEBUG: 2026-05-22 16:29:59,201:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,201:      pdf_renderer.py:  470: printSegment: RPL_THEMES
+   DEBUG: 2026-05-22 16:29:59,204:      pdf_renderer.py:  470: printSegment:  percentile rank → also create SVI quartile (divide into 4 equal
+   DEBUG: 2026-05-22 16:29:59,204:      pdf_renderer.py:  470: printSegment: groups: Q1 = least vulnerable, Q4 = most vulnerable).
+   DEBUG: 2026-05-22 16:29:59,205:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,206:      pdf_renderer.py:  470: printSegment: RUCC:
+   DEBUG: 2026-05-22 16:29:59,206:      pdf_renderer.py:  470: printSegment:  Code (1–9) → also create a binary variable: Metropolitan = 1 if RUCC 1–3, else 0.
+   DEBUG: 2026-05-22 16:29:59,207:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,208:      pdf_renderer.py:  470: printSegment: Population:
+   DEBUG: 2026-05-22 16:29:59,208:      pdf_renderer.py:  470: printSegment:  Total population AND adults aged ≥45.
+   DEBUG: 2026-05-22 16:29:59,209:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:59,209:      pdf_renderer.py:  470: printSegment: Calculate rates:
+   DEBUG: 2026-05-22 16:29:59,210:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,211:      pdf_renderer.py:  470: printSegment: CMR rate = (CMR facility count / adult population ≥45) × 100,000
+   DEBUG: 2026-05-22 16:29:59,211:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,212:      pdf_renderer.py:  470: printSegment: CCT rate = (CCT facility count / adult population ≥45) × 100,000
+   DEBUG: 2026-05-22 16:29:59,213:      pdf_renderer.py:  470: printSegment:  5 
+   DEBUG: 2026-05-22 16:29:59,214:      pdf_renderer.py:  470: printSegment: Create a rate-exclusion flag: if a county has fewer than 1,000 adults aged ≥45, flag it (set 
+   DEBUG: 2026-05-22 16:29:59,215:      pdf_renderer.py:  470: printSegment: rate_excluded = 1
+   DEBUG: 2026-05-22 16:29:59,219:      pdf_renderer.py:  470: printSegment: ). These counties still appear in counts but their per-capita rates are
+   DEBUG: 2026-05-22 16:29:59,220:      pdf_renderer.py:  470: printSegment: excluded from statistical analysis because with so few people the rates would be misleadingly
+   DEBUG: 2026-05-22 16:29:59,221:      pdf_renderer.py:  470: printSegment: extreme.
+   DEBUG: 2026-05-22 16:29:59,222:      pdf_renderer.py:  470: printSegment: Task 2.4 — Export the Final Linked Dataset
+   DEBUG: 2026-05-22 16:29:59,223:      pdf_renderer.py:  470: printSegment: Save as a CSV file with the following columns (one row per county):
+   DEBUG: 2026-05-22 16:29:59,223:      pdf_renderer.py:  470: printSegment: | Column | Type | Description |
+   DEBUG: 2026-05-22 16:29:59,224:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,224:      pdf_renderer.py:  470: printSegment: |--------|------|-------------|
+   DEBUG: 2026-05-22 16:29:59,225:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,225:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,225:      pdf_renderer.py:  470: printSegment: county_fips
+   DEBUG: 2026-05-22 16:29:59,226:      pdf_renderer.py:  470: printSegment:  | String (5 chars) | 5-digit county FIPS
+   DEBUG: 2026-05-22 16:29:59,226:      pdf_renderer.py:  470: printSegment: code |
+   DEBUG: 2026-05-22 16:29:59,227:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,227:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,227:      pdf_renderer.py:  470: printSegment: state_abbr
+   DEBUG: 2026-05-22 16:29:59,228:      pdf_renderer.py:  470: printSegment:  | String | 2-letter state abbreviation |
+   DEBUG: 2026-05-22 16:29:59,228:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,228:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,229:      pdf_renderer.py:  470: printSegment: county_name
+   DEBUG: 2026-05-22 16:29:59,229:      pdf_renderer.py:  470: printSegment:  | String | County name |
+   DEBUG: 2026-05-22 16:29:59,230:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,230:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,230:      pdf_renderer.py:  470: printSegment: cmr_facility_count
+   DEBUG: 2026-05-22 16:29:59,231:      pdf_renderer.py:  470: printSegment:  | Integer | Number of ACR Cardiac MRI facilities |
+   DEBUG: 2026-05-22 16:29:59,231:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,231:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,232:      pdf_renderer.py:  470: printSegment: cct_facility_count
+   DEBUG: 2026-05-22 16:29:59,233:      pdf_renderer.py:  470: printSegment:  | Integer
+   DEBUG: 2026-05-22 16:29:59,233:      pdf_renderer.py:  470: printSegment: | Number of ACR Cardiac CT facilities |
+   DEBUG: 2026-05-22 16:29:59,233:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,234:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,234:      pdf_renderer.py:  470: printSegment: svi_percentile
+   DEBUG: 2026-05-22 16:29:59,235:      pdf_renderer.py:  470: printSegment:  | Float | CDC SVI overall percentile rank (0–1) |
+   DEBUG: 2026-05-22 16:29:59,235:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,236:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,236:      pdf_renderer.py:  470: printSegment: svi_quartile
+   DEBUG: 2026-05-22 16:29:59,236:      pdf_renderer.py:  470: printSegment:  | Integer (1–4) | SVI quartile (1 = least vulnerable) |
+   DEBUG: 2026-05-22 16:29:59,237:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,237:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,238:      pdf_renderer.py:  470: printSegment: rucc_code
+   DEBUG: 2026-05-22 16:29:59,238:      pdf_renderer.py:  470: printSegment:  | Integer (1–9) | USDA Rural-Urban
+   DEBUG: 2026-05-22 16:29:59,239:      pdf_renderer.py:  470: printSegment: Continuum Code |
+   DEBUG: 2026-05-22 16:29:59,239:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,239:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,240:      pdf_renderer.py:  470: printSegment: metro_indicator
+   DEBUG: 2026-05-22 16:29:59,240:      pdf_renderer.py:  470: printSegment:  | Integer (0/1) | 1 if RUCC 1–3, else 0 |
+   DEBUG: 2026-05-22 16:29:59,241:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,241:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,241:      pdf_renderer.py:  470: printSegment: total_population
+   DEBUG: 2026-05-22 16:29:59,242:      pdf_renderer.py:  470: printSegment:  | Integer |
+   DEBUG: 2026-05-22 16:29:59,242:      pdf_renderer.py:  470: printSegment: Total county population |
+   DEBUG: 2026-05-22 16:29:59,243:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,243:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,244:      pdf_renderer.py:  470: printSegment: adult_pop_45plus
+   DEBUG: 2026-05-22 16:29:59,244:      pdf_renderer.py:  470: printSegment:  | Integer | Adults aged ≥45 |
+   DEBUG: 2026-05-22 16:29:59,244:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,245:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,245:      pdf_renderer.py:  470: printSegment: cmr_rate_per_100k
+   DEBUG: 2026-05-22 16:29:59,246:      pdf_renderer.py:  470: printSegment:  | Float |
+   DEBUG: 2026-05-22 16:29:59,247:      pdf_renderer.py:  470: printSegment: CMR facilities per 100,000 adults ≥45 |
+   DEBUG: 2026-05-22 16:29:59,247:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,247:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,248:      pdf_renderer.py:  470: printSegment: cct_rate_per_100k
+   DEBUG: 2026-05-22 16:29:59,248:      pdf_renderer.py:  470: printSegment:  | Float | CCT facilities per 100,000 adults ≥45 |
+   DEBUG: 2026-05-22 16:29:59,249:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,249:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,249:      pdf_renderer.py:  470: printSegment: rate_excluded
+   DEBUG: 2026-05-22 16:29:59,250:      pdf_renderer.py:  470: printSegment:  | Integer (0/1) | 1 if adult ≥45 pop 
+   DEBUG: 2026-05-22 16:29:59,250:      pdf_renderer.py:  470: printSegment: <
+   DEBUG: 2026-05-22 16:29:59,251:      pdf_renderer.py:  470: printSegment:  1,000 |
+   DEBUG: 2026-05-22 16:29:59,252:      pdf_renderer.py:  470: printSegment: Phase 3: Descriptive Analysis 
+   DEBUG: 2026-05-22 16:29:59,252:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,253:      pdf_renderer.py:  470: printSegment:  Table (Day 2)
+   DEBUG: 2026-05-22 16:29:59,253:      pdf_renderer.py:  470: printSegment: Task 3.1 — Create Table 1 (Summary Table)
+   DEBUG: 2026-05-22 16:29:59,254:      pdf_renderer.py:  470: printSegment: Build a table with these rows and columns:
+   DEBUG: 2026-05-22 16:29:59,254:      pdf_renderer.py:  470: printSegment: Rows (strata):
+   DEBUG: 2026-05-22 16:29:59,255:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,256:      pdf_renderer.py:  470: printSegment: All counties (total)
+   DEBUG: 2026-05-22 16:29:59,256:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,257:      pdf_renderer.py:  470: printSegment: By SVI quartile: Q1, Q2, Q3, Q4
+   DEBUG: 2026-05-22 16:29:59,257:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,258:      pdf_renderer.py:  470: printSegment: By rurality: Metropolitan, Nonmetropolitan
+   DEBUG: 2026-05-22 16:29:59,258:      pdf_renderer.py:  470: printSegment: Columns (metrics):
+   DEBUG: 2026-05-22 16:29:59,259:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,259:      pdf_renderer.py:  470: printSegment: Number of counties in the stratum
+   DEBUG: 2026-05-22 16:29:59,260:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,261:      pdf_renderer.py:  470: printSegment: Total adult ≥45 population (in millions)
+   DEBUG: 2026-05-22 16:29:59,261:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,262:      pdf_renderer.py:  470: printSegment: Number of CMR sites
+   DEBUG: 2026-05-22 16:29:59,262:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,263:      pdf_renderer.py:  470: printSegment: Number of counties with at least 1 CMR site (and % of stratum)
+   DEBUG: 2026-05-22 16:29:59,263:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,264:      pdf_renderer.py:  470: printSegment: Median CMR rate per 100k with interquartile range (IQR)
+   DEBUG: 2026-05-22 16:29:59,264:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,265:      pdf_renderer.py:  470: printSegment: Number of CCT sites
+   DEBUG: 2026-05-22 16:29:59,266:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,266:      pdf_renderer.py:  470: printSegment: Median CCT rate per 100k with IQR
+   DEBUG: 2026-05-22 16:29:59,267:      pdf_renderer.py:  470: printSegment: At the bottom of the table
+   DEBUG: 2026-05-22 16:29:59,267:      pdf_renderer.py:  470: printSegment: , add:
+   DEBUG: 2026-05-22 16:29:59,268:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,269:      pdf_renderer.py:  470: printSegment: Spearman rank correlation: facility rate vs. SVI percentile (continuous), separately for CMR and
+   DEBUG: 2026-05-22 16:29:59,270:      pdf_renderer.py:  470: printSegment: CCT, with p-values.
+   DEBUG: 2026-05-22 16:29:59,271:      pdf_renderer.py:  470: printSegment: Table footnotes:
+   DEBUG: 2026-05-22 16:29:59,271:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,272:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,275:      pdf_renderer.py:  470: printSegment: SVI from CDC/ATSDR 2022, overall percentile rank. RUCC from USDA ERS 2023. Population
+   DEBUG: 2026-05-22 16:29:59,275:      pdf_renderer.py:  470: printSegment: denominators from ACS 5-year estimates 2019–2023. Counties with 
+   DEBUG: 2026-05-22 16:29:59,276:      pdf_renderer.py:  470: printSegment: <
+   DEBUG: 2026-05-22 16:29:59,277:      pdf_renderer.py:  470: printSegment: 1,000 adults aged ≥45 excluded
+   DEBUG: 2026-05-22 16:29:59,277:      pdf_renderer.py:  470: printSegment: from rate calculations.
+   DEBUG: 2026-05-22 16:29:59,278:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,279:      pdf_renderer.py:  470: printSegment: Task 3.2 — Compute Spearman Correlations
+   DEBUG: 2026-05-22 16:29:59,279:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,280:      pdf_renderer.py:  470: printSegment: Use only counties NOT flagged for rate exclusion.
+   DEBUG: 2026-05-22 16:29:59,280:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,281:      pdf_renderer.py:  470: printSegment: Calculate Spearman
+   DEBUG: 2026-05-22 16:29:59,281:      pdf_renderer.py:  470: printSegment: '
+   DEBUG: 2026-05-22 16:29:59,282:      pdf_renderer.py:  470: printSegment: s rank correlation between:
+   DEBUG: 2026-05-22 16:29:59,283:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,283:      pdf_renderer.py:  470: printSegment: CMR rate per 100k and SVI percentile (continuous)
+   DEBUG: 2026-05-22 16:29:59,284:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,285:      pdf_renderer.py:  470: printSegment: CCT rate per 100k and SVI percentile (continuous)
+   DEBUG: 2026-05-22 16:29:59,285:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,286:      pdf_renderer.py:  470: printSegment: Report the correlation coefficient (rho) and the p-value.
+   DEBUG: 2026-05-22 16:29:59,287:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,287:      pdf_renderer.py:  470: printSegment: What this tells us:
+   DEBUG: 2026-05-22 16:29:59,289:      pdf_renderer.py:  470: printSegment:  A negative correlation means that as vulnerability increases, imaging access
+   DEBUG: 2026-05-22 16:29:59,290:      pdf_renderer.py:  470: printSegment: decreases (the expected disparity pattern).
+   DEBUG: 2026-05-22 16:29:59,291:      pdf_renderer.py:  470: printSegment: Phase 4: Choropleth Map (Days 2–3)
+   DEBUG: 2026-05-22 16:29:59,292:      pdf_renderer.py:  470: printSegment: Task 4.1 — Prepare Map Data
+   DEBUG: 2026-05-22 16:29:59,292:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,293:      pdf_renderer.py:  470: printSegment: Load the TIGER/Line county shapefile.
+   DEBUG: 2026-05-22 16:29:59,293:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,293:      pdf_renderer.py:  470: printSegment: Merge your analytic dataset (from Task 2.4) onto the shapefile using the county FIPS code.
+   DEBUG: 2026-05-22 16:29:59,294:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,294:      pdf_renderer.py:  470: printSegment: Verify all counties have geometry data attached.
+   DEBUG: 2026-05-22 16:29:59,295:      pdf_renderer.py:  470: printSegment: Task 4.2 — Create Figure 1 (Two-Panel Choropleth)
+   DEBUG: 2026-05-22 16:29:59,295:      pdf_renderer.py:  470: printSegment: Build a map with two panels:
+   DEBUG: 2026-05-22 16:29:59,296:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,296:      pdf_renderer.py:  470: printSegment: Panel A:
+   DEBUG: 2026-05-22 16:29:59,297:      pdf_renderer.py:  470: printSegment:  Cardiac MRI facilities per 100,000 adults ≥45, by county.
+   DEBUG: 2026-05-22 16:29:59,297:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,298:      pdf_renderer.py:  470: printSegment: Panel B:
+   DEBUG: 2026-05-22 16:29:59,298:      pdf_renderer.py:  470: printSegment:  Cardiac CT facilities per 100,000 adults ≥45, by county.
+   DEBUG: 2026-05-22 16:29:59,299:      pdf_renderer.py:  470: printSegment: Map specifications:
+   DEBUG: 2026-05-22 16:29:59,299:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,299:      pdf_renderer.py:  470: printSegment: Layout:
+   DEBUG: 2026-05-22 16:29:59,300:      pdf_renderer.py:  470: printSegment:  Panels stacked vertically (A on top, B below) — recommended for journal portrait format.
+   DEBUG: 2026-05-22 16:29:59,301:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,301:      pdf_renderer.py:  470: printSegment: Color scheme:
+   DEBUG: 2026-05-22 16:29:59,302:      pdf_renderer.py:  470: printSegment:  Sequential blue palette (light blue → dark blue). Use 5 bins for counties WITH
+   DEBUG: 2026-05-22 16:29:59,303:      pdf_renderer.py:  470: printSegment: facilities, plus:
+   DEBUG: 2026-05-22 16:29:59,303:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,304:      pdf_renderer.py:  470: printSegment: Light gray = counties with zero facilities
+   DEBUG: 2026-05-22 16:29:59,304:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,305:      pdf_renderer.py:  470: printSegment: White = counties excluded from rate calculation (adult ≥45 population 
+   DEBUG: 2026-05-22 16:29:59,305:      pdf_renderer.py:  470: printSegment: <
+   DEBUG: 2026-05-22 16:29:59,305:      pdf_renderer.py:  470: printSegment:  1,000)
+   DEBUG: 2026-05-22 16:29:59,306:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,306:      pdf_renderer.py:  470: printSegment: Binning method:
+   DEBUG: 2026-05-22 16:29:59,309:      pdf_renderer.py:  470: printSegment:  Quantile-based (each bin has roughly the same number of counties). Also try
+   DEBUG: 2026-05-22 16:29:59,309:      pdf_renderer.py:  470: printSegment: natural-breaks (Jenks) as an alternative for comparison.
+   DEBUG: 2026-05-22 16:29:59,310:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,310:      pdf_renderer.py:  470: printSegment: Map projection:
+   DEBUG: 2026-05-22 16:29:59,315:      pdf_renderer.py:  470: printSegment:  Albers USA composite projection (standard for US thematic maps). Show Alaska
+   DEBUG: 2026-05-22 16:29:59,316:      pdf_renderer.py:  470: printSegment: and Hawaii as insets at their own appropriate scale — do NOT stretch Alaska to lower-48 scale.
+   DEBUG: 2026-05-22 16:29:59,316:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,317:      pdf_renderer.py:  470: printSegment: Boundaries:
+   DEBUG: 2026-05-22 16:29:59,317:      pdf_renderer.py:  470: printSegment:  State boundaries = thin dark gray lines. County boundaries = very thin light gray lines.
+   DEBUG: 2026-05-22 16:29:59,318:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,318:      pdf_renderer.py:  470: printSegment: Annotation:
+   DEBUG: 2026-05-22 16:29:59,319:      pdf_renderer.py:  470: printSegment:  Add a note box in the lower-right corner explaining exclusions and color scheme.
+   DEBUG: 2026-05-22 16:29:59,320:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,320:      pdf_renderer.py:  470: printSegment: Output format:
+   DEBUG: 2026-05-22 16:29:59,321:      pdf_renderer.py:  470: printSegment:  Save as PDF (vector, preferred) AND PNG (minimum 600 dpi as backup).
+   DEBUG: 2026-05-22 16:29:59,321:      pdf_renderer.py:  470: printSegment: Task 4.3 — Write the Figure Legend
+   DEBUG: 2026-05-22 16:29:59,322:      pdf_renderer.py:  470: printSegment: Include this draft legend (to be finalized by the project lead):
+   DEBUG: 2026-05-22 16:29:59,323:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,380:      pdf_renderer.py:  470: printSegment: Figure 1. Geographic distribution of ACR-accredited cardiac imaging capacity by US county.
+   DEBUG: 2026-05-22 16:29:59,421:      pdf_renderer.py:  470: printSegment: Choropleth maps show the number of facilities accredited by the American College of Radiology for
+   DEBUG: 2026-05-22 16:29:59,448:      pdf_renderer.py:  470: printSegment: (A) Cardiac MRI and (B) Cardiac CT, per 100,000 adults aged ≥45 years, by county. Color intensity
+   DEBUG: 2026-05-22 16:29:59,464:      pdf_renderer.py:  470: printSegment: indicates facility density (quantile-binned). Light gray indicates counties with zero accredited
+   DEBUG: 2026-05-22 16:29:59,473:      pdf_renderer.py:  470: printSegment: facilities. White indicates counties excluded from rate calculation due to small adult population.
+   DEBUG: 2026-05-22 16:29:59,475:      pdf_renderer.py:  470: printSegment: County boundaries derived from US Census TIGER/Line 2023 shapefiles. Alaska and Hawaii are
+   DEBUG: 2026-05-22 16:29:59,476:      pdf_renderer.py:  470: printSegment: shown as insets and are not to scale.
+   DEBUG: 2026-05-22 16:29:59,477:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,478:      pdf_renderer.py:  470: printSegment: Phase 5: Statistical Modeling (Day 3)
+   DEBUG: 2026-05-22 16:29:59,478:      pdf_renderer.py:  470: printSegment: Task 5.1 — Negative Binomial Regression (Primary Model)
+   DEBUG: 2026-05-22 16:29:59,479:      pdf_renderer.py:  470: printSegment: What is this?
+   DEBUG: 2026-05-22 16:29:59,480:      pdf_renderer.py:  470: printSegment:  A type of statistical model used when counting things (like number of facilities) where the data is 
+   DEBUG: 2026-05-22 16:29:59,480:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,481:      pdf_renderer.py:  470: printSegment: overdispersed
+   DEBUG: 2026-05-22 16:29:59,481:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,482:      pdf_renderer.py:  470: printSegment:  (the spread is wider than a simple Poisson model would predict).
+   DEBUG: 2026-05-22 16:29:59,483:      pdf_renderer.py:  470: printSegment: Model setup:
+   DEBUG: 2026-05-22 16:29:59,483:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,484:      pdf_renderer.py:  470: printSegment: Outcome (what we
+   DEBUG: 2026-05-22 16:29:59,484:      pdf_renderer.py:  470: printSegment: '
+   DEBUG: 2026-05-22 16:29:59,485:      pdf_renderer.py:  470: printSegment: re predicting):
+   DEBUG: 2026-05-22 16:29:59,486:      pdf_renderer.py:  470: printSegment:  Facility count per county (run separately for CMR and CCT).
+   DEBUG: 2026-05-22 16:29:59,486:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,487:      pdf_renderer.py:  470: printSegment: Main predictor:
+   DEBUG: 2026-05-22 16:29:59,489:      pdf_renderer.py:  470: printSegment:  SVI percentile, scaled per 10-percentile increment (so multiply the 0–1 score by 10
+   DEBUG: 2026-05-22 16:29:59,490:      pdf_renderer.py:  470: printSegment: to get 0–10 scale, or divide by 0.1).
+   DEBUG: 2026-05-22 16:29:59,490:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,491:      pdf_renderer.py:  470: printSegment: Offset:
+   DEBUG: 2026-05-22 16:29:59,492:      pdf_renderer.py:  470: printSegment:  log(adult population ≥45). This converts the model from predicting raw counts to predicting
+   DEBUG: 2026-05-22 16:29:59,493:      pdf_renderer.py:  470: printSegment: rates.
+   DEBUG: 2026-05-22 16:29:59,493:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,493:      pdf_renderer.py:  470: printSegment: What to report:
+   DEBUG: 2026-05-22 16:29:59,494:      pdf_renderer.py:  470: printSegment:  Incidence Rate Ratio (IRR) with 95% confidence interval. An IRR 
+   DEBUG: 2026-05-22 16:29:59,494:      pdf_renderer.py:  470: printSegment: <
+   DEBUG: 2026-05-22 16:29:59,495:      pdf_renderer.py:  470: printSegment:  1 means
+   DEBUG: 2026-05-22 16:29:59,495:      pdf_renderer.py:  470: printSegment: fewer facilities as vulnerability increases.
+   DEBUG: 2026-05-22 16:29:59,496:      pdf_renderer.py:  470: printSegment: Steps:
+   DEBUG: 2026-05-22 16:29:59,496:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,497:      pdf_renderer.py:  470: printSegment: Fit a Poisson model first.
+   DEBUG: 2026-05-22 16:29:59,497:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,497:      pdf_renderer.py:  470: printSegment: Fit a negative binomial model.
+   DEBUG: 2026-05-22 16:29:59,498:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,499:      pdf_renderer.py:  470: printSegment: Compare AIC (Akaike Information Criterion) — lower is better. The negative binomial should fit better
+   DEBUG: 2026-05-22 16:29:59,500:      pdf_renderer.py:  470: printSegment: if there is overdispersion.
+   DEBUG: 2026-05-22 16:29:59,500:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:59,501:      pdf_renderer.py:  470: printSegment: Report the dispersion parameter from the negative binomial model.
+   DEBUG: 2026-05-22 16:29:59,501:      pdf_renderer.py:  470: printSegment:  5 
+   DEBUG: 2026-05-22 16:29:59,502:      pdf_renderer.py:  470: printSegment: Run separately for CMR and CCT.
+   DEBUG: 2026-05-22 16:29:59,502:      pdf_renderer.py:  470: printSegment: Task 5.2 — Sensitivity Analyses
+   DEBUG: 2026-05-22 16:29:59,503:      pdf_renderer.py:  470: printSegment: Run these additional models to check if results are robust:
+   DEBUG: 2026-05-22 16:29:59,504:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,504:      pdf_renderer.py:  470: printSegment: Exclude 
+   DEBUG: 2026-05-22 16:29:59,504:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,505:      pdf_renderer.py:  470: printSegment: Under Review
+   DEBUG: 2026-05-22 16:29:59,505:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,506:      pdf_renderer.py:  470: printSegment:  facilities:
+   DEBUG: 2026-05-22 16:29:59,506:      pdf_renderer.py:  470: printSegment:  Re-run using only the 2,250 
+   DEBUG: 2026-05-22 16:29:59,507:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,507:      pdf_renderer.py:  470: printSegment: Accredited
+   DEBUG: 2026-05-22 16:29:59,507:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,508:      pdf_renderer.py:  470: printSegment:  facilities (drop the
+   DEBUG: 2026-05-22 16:29:59,508:      pdf_renderer.py:  470: printSegment: 23 
+   DEBUG: 2026-05-22 16:29:59,509:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,509:      pdf_renderer.py:  470: printSegment: Under Review
+   DEBUG: 2026-05-22 16:29:59,510:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,510:      pdf_renderer.py:  470: printSegment: ).
+   DEBUG: 2026-05-22 16:29:59,510:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,511:      pdf_renderer.py:  470: printSegment: SVI as quartiles:
+   DEBUG: 2026-05-22 16:29:59,514:      pdf_renderer.py:  470: printSegment:  Instead of using SVI as a continuous number, replace it with 4 indicator (dummy)
+   DEBUG: 2026-05-22 16:29:59,515:      pdf_renderer.py:  470: printSegment: variables for quartiles Q2, Q3, Q4 (Q1 is the reference group).
+   DEBUG: 2026-05-22 16:29:59,516:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,516:      pdf_renderer.py:  470: printSegment: Stratified by rurality:
+   DEBUG: 2026-05-22 16:29:59,517:      pdf_renderer.py:  470: printSegment:  Run the regression separately for metropolitan counties only, then for
+   DEBUG: 2026-05-22 16:29:59,518:      pdf_renderer.py:  470: printSegment: nonmetropolitan counties only.
+   DEBUG: 2026-05-22 16:29:59,519:      pdf_renderer.py:  470: printSegment: Task 5.3 — Prepare Regression Output
+   DEBUG: 2026-05-22 16:29:59,519:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,521:      pdf_renderer.py:  470: printSegment: Write a short text summary of results (2–3 sentences per model) suitable for inclusion in a manuscript
+   DEBUG: 2026-05-22 16:29:59,521:      pdf_renderer.py:  470: printSegment: Results section.
+   DEBUG: 2026-05-22 16:29:59,522:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,522:      pdf_renderer.py:  470: printSegment: Save model objects (as Python pickle files) for reproducibility.
+   DEBUG: 2026-05-22 16:29:59,523:      pdf_renderer.py:  470: printSegment: Phase 6: Documentation 
+   DEBUG: 2026-05-22 16:29:59,524:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,524:      pdf_renderer.py:  470: printSegment:  Delivery (Day 3–4)
+   DEBUG: 2026-05-22 16:29:59,525:      pdf_renderer.py:  470: printSegment: Task 6.1 — Create a README File
+   DEBUG: 2026-05-22 16:29:59,525:      pdf_renderer.py:  470: printSegment: Document:
+   DEBUG: 2026-05-22 16:29:59,526:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,526:      pdf_renderer.py:  470: printSegment: All dataset versions and access dates.
+   DEBUG: 2026-05-22 16:29:59,527:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,528:      pdf_renderer.py:  470: printSegment: Any manual decisions made (e.g., how you handled specific edge cases with multi-county ZIPs).
+   DEBUG: 2026-05-22 16:29:59,528:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,529:      pdf_renderer.py:  470: printSegment: Software versions used.
+   DEBUG: 2026-05-22 16:29:59,529:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,530:      pdf_renderer.py:  470: printSegment: Instructions to reproduce the analysis from scratch.
+   DEBUG: 2026-05-22 16:29:59,531:      pdf_renderer.py:  470: printSegment: Task 6.2 — Archive All Code
+   DEBUG: 2026-05-22 16:29:59,531:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,532:      pdf_renderer.py:  470: printSegment: Ensure all scripts are well-commented.
+   DEBUG: 2026-05-22 16:29:59,532:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,533:      pdf_renderer.py:  470: printSegment: Organize code in logical order (data
+   DEBUG: 2026-05-22 16:29:59,533:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,534:      pdf_renderer.py:  470: printSegment: acquisition → cleaning → linkage → analysis → visualization).
+   DEBUG: 2026-05-22 16:29:59,535:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,535:      pdf_renderer.py:  470: printSegment: Include a requirements.txt or environment.yml file.
+   DEBUG: 2026-05-22 16:29:59,536:      pdf_renderer.py:  470: printSegment: Task 6.3 — Final Delivery Package
+   DEBUG: 2026-05-22 16:29:59,537:      pdf_renderer.py:  470: printSegment: Deliver:
+   DEBUG: 2026-05-22 16:29:59,537:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,538:      pdf_renderer.py:  470: printSegment: [
+   DEBUG: 2026-05-22 16:29:59,538:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,539:      pdf_renderer.py:  470: printSegment: ]
+   DEBUG: 2026-05-22 16:29:59,539:      pdf_renderer.py:  470: printSegment:  Linked county-level CSV dataset
+   DEBUG: 2026-05-22 16:29:59,540:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,540:      pdf_renderer.py:  470: printSegment: [
+   DEBUG: 2026-05-22 16:29:59,541:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,541:      pdf_renderer.py:  470: printSegment: ]
+   DEBUG: 2026-05-22 16:29:59,542:      pdf_renderer.py:  470: printSegment:  Figure 1 (PDF + PNG)
+   DEBUG: 2026-05-22 16:29:59,543:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,543:      pdf_renderer.py:  470: printSegment: [
+   DEBUG: 2026-05-22 16:29:59,544:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,544:      pdf_renderer.py:  470: printSegment: ]
+   DEBUG: 2026-05-22 16:29:59,544:      pdf_renderer.py:  470: printSegment:  Table 1 (formatted, e.g., as CSV or Excel)
+   DEBUG: 2026-05-22 16:29:59,545:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,545:      pdf_renderer.py:  470: printSegment: [
+   DEBUG: 2026-05-22 16:29:59,545:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,546:      pdf_renderer.py:  470: printSegment: ]
+   DEBUG: 2026-05-22 16:29:59,546:      pdf_renderer.py:  470: printSegment:  Regression results summary (text + pickle files)
+   DEBUG: 2026-05-22 16:29:59,546:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,547:      pdf_renderer.py:  470: printSegment: [
+   DEBUG: 2026-05-22 16:29:59,547:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,547:      pdf_renderer.py:  470: printSegment: ]
+   DEBUG: 2026-05-22 16:29:59,548:      pdf_renderer.py:  470: printSegment:  All code scripts
+   DEBUG: 2026-05-22 16:29:59,548:      pdf_renderer.py:  470: printSegment: l
+   DEBUG: 2026-05-22 16:29:59,548:      pdf_renderer.py:  470: printSegment: [
+   DEBUG: 2026-05-22 16:29:59,549:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,549:      pdf_renderer.py:  470: printSegment: ]
+   DEBUG: 2026-05-22 16:29:59,549:      pdf_renderer.py:  470: printSegment:  README documentation
+   DEBUG: 2026-05-22 16:29:59,550:      pdf_renderer.py:  470: printSegment: 4. Recommended Open Source Tools
+   DEBUG: 2026-05-22 16:29:59,551:      pdf_renderer.py:  470: printSegment: 4.1 Programming Language
+   DEBUG: 2026-05-22 16:29:59,551:      pdf_renderer.py:  470: printSegment: | Tool | Version | Purpose |
+   DEBUG: 2026-05-22 16:29:59,552:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,552:      pdf_renderer.py:  470: printSegment: |------|---------|---------|
+   DEBUG: 2026-05-22 16:29:59,553:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,553:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,553:      pdf_renderer.py:  470: printSegment: Python
+   DEBUG: 2026-05-22 16:29:59,554:      pdf_renderer.py:  470: printSegment:  | 3.10+ | Primary programming language for all tasks |
+   DEBUG: 2026-05-22 16:29:59,555:      pdf_renderer.py:  470: printSegment: 4.2 Data Handling 
+   DEBUG: 2026-05-22 16:29:59,555:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,555:      pdf_renderer.py:  470: printSegment:  Analysis
+   DEBUG: 2026-05-22 16:29:59,556:      pdf_renderer.py:  470: printSegment: | Library | What It Does | Install Command | Key Use in This Project |
+   DEBUG: 2026-05-22 16:29:59,556:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,557:      pdf_renderer.py:  470: printSegment: |---------|--------------|-----------------|------------------------|
+   DEBUG: 2026-05-22 16:29:59,558:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,558:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,558:      pdf_renderer.py:  470: printSegment: pandas
+   DEBUG: 2026-05-22 16:29:59,559:      pdf_renderer.py:  470: printSegment:  | Data manipulation (loading, cleaning, merging,
+   DEBUG: 2026-05-22 16:29:59,560:      pdf_renderer.py:  470: printSegment: filtering tables) | 
+   DEBUG: 2026-05-22 16:29:59,560:      pdf_renderer.py:  470: printSegment: pip install pandas
+   DEBUG: 2026-05-22 16:29:59,562:      pdf_renderer.py:  470: printSegment:  | Load Excel/CSV files, merge datasets, calculate rates, create summary
+   DEBUG: 2026-05-22 16:29:59,562:      pdf_renderer.py:  470: printSegment: tables |
+   DEBUG: 2026-05-22 16:29:59,563:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,563:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,563:      pdf_renderer.py:  470: printSegment: numpy
+   DEBUG: 2026-05-22 16:29:59,564:      pdf_renderer.py:  470: printSegment:  | Numerical calculations | 
+   DEBUG: 2026-05-22 16:29:59,565:      pdf_renderer.py:  470: printSegment: pip install numpy
+   DEBUG: 2026-05-22 16:29:59,565:      pdf_renderer.py:  470: printSegment:  | Mathematical operations, array handling |
+   DEBUG: 2026-05-22 16:29:59,566:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,566:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,567:      pdf_renderer.py:  470: printSegment: openpyxl
+   DEBUG: 2026-05-22 16:29:59,567:      pdf_renderer.py:  470: printSegment:  | Read/write Excel files | 
+   DEBUG: 2026-05-22 16:29:59,568:      pdf_renderer.py:  470: printSegment: pip install openpyxl
+   DEBUG: 2026-05-22 16:29:59,568:      pdf_renderer.py:  470: printSegment:  | Read the ACR .xlsx files |
+   DEBUG: 2026-05-22 16:29:59,569:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,569:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,570:      pdf_renderer.py:  470: printSegment: scipy
+   DEBUG: 2026-05-22 16:29:59,571:      pdf_renderer.py:  470: printSegment:  | Statistical
+   DEBUG: 2026-05-22 16:29:59,571:      pdf_renderer.py:  470: printSegment: functions | 
+   DEBUG: 2026-05-22 16:29:59,572:      pdf_renderer.py:  470: printSegment: pip install scipy
+   DEBUG: 2026-05-22 16:29:59,572:      pdf_renderer.py:  470: printSegment:  | Spearman correlation calculations (
+   DEBUG: 2026-05-22 16:29:59,573:      pdf_renderer.py:  470: printSegment: scipy.stats.spearmanr
+   DEBUG: 2026-05-22 16:29:59,574:      pdf_renderer.py:  470: printSegment: ) |
+   DEBUG: 2026-05-22 16:29:59,574:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,575:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,575:      pdf_renderer.py:  470: printSegment: statsmodels
+   DEBUG: 2026-05-22 16:29:59,576:      pdf_renderer.py:  470: printSegment:  | Statistical modeling | 
+   DEBUG: 2026-05-22 16:29:59,576:      pdf_renderer.py:  470: printSegment: pip install statsmodels
+   DEBUG: 2026-05-22 16:29:59,578:      pdf_renderer.py:  470: printSegment:  | Negative binomial regression, Poisson
+   DEBUG: 2026-05-22 16:29:59,578:      pdf_renderer.py:  470: printSegment: regression, model comparison (AIC) |
+   DEBUG: 2026-05-22 16:29:59,579:      pdf_renderer.py:  470: printSegment: 4.3 Geospatial Analysis 
+   DEBUG: 2026-05-22 16:29:59,579:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,580:      pdf_renderer.py:  470: printSegment:  Mapping
+   DEBUG: 2026-05-22 16:29:59,581:      pdf_renderer.py:  470: printSegment: | Library | What It Does | Install Command | Key Use in This Project |
+   DEBUG: 2026-05-22 16:29:59,581:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,582:      pdf_renderer.py:  470: printSegment: |---------|--------------|-----------------|------------------------|
+   DEBUG: 2026-05-22 16:29:59,582:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,583:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,583:      pdf_renderer.py:  470: printSegment: geopandas
+   DEBUG: 2026-05-22 16:29:59,585:      pdf_renderer.py:  470: printSegment:  | Geospatial data handling (extends pandas to
+   DEBUG: 2026-05-22 16:29:59,586:      pdf_renderer.py:  470: printSegment: work with geographic data like shapefiles) | 
+   DEBUG: 2026-05-22 16:29:59,587:      pdf_renderer.py:  470: printSegment: pip install geopandas
+   DEBUG: 2026-05-22 16:29:59,588:      pdf_renderer.py:  470: printSegment:  | Load TIGER/Line shapefiles, merge
+   DEBUG: 2026-05-22 16:29:59,589:      pdf_renderer.py:  470: printSegment: analytic data with county geometries, spatial operations |
+   DEBUG: 2026-05-22 16:29:59,590:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,590:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,591:      pdf_renderer.py:  470: printSegment: matplotlib
+   DEBUG: 2026-05-22 16:29:59,591:      pdf_renderer.py:  470: printSegment:  | Base plotting library | 
+   DEBUG: 2026-05-22 16:29:59,592:      pdf_renderer.py:  470: printSegment: pip install
+   DEBUG: 2026-05-22 16:29:59,593:      pdf_renderer.py:  470: printSegment: matplotlib
+   DEBUG: 2026-05-22 16:29:59,593:      pdf_renderer.py:  470: printSegment:  | Underlying engine for map rendering, figure layout, multi-panel figures |
+   DEBUG: 2026-05-22 16:29:59,594:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,594:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,595:      pdf_renderer.py:  470: printSegment: mapclassify
+   DEBUG: 2026-05-22 16:29:59,597:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:59,598:      pdf_renderer.py:  470: printSegment: Classification schemes for choropleth maps (quantile, natural breaks/Jenks, etc.) | 
+   DEBUG: 2026-05-22 16:29:59,598:      pdf_renderer.py:  470: printSegment: pip install mapclassify
+   DEBUG: 2026-05-22 16:29:59,600:      pdf_renderer.py:  470: printSegment: 
+   DEBUG: 2026-05-22 16:29:59,600:      pdf_renderer.py:  470: printSegment: | Define the 5 color bins using quantile or Jenks natural breaks methods |
+   DEBUG: 2026-05-22 16:29:59,601:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,601:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,602:      pdf_renderer.py:  470: printSegment: pyproj
+   DEBUG: 2026-05-22 16:29:59,603:      pdf_renderer.py:  470: printSegment:  | Coordinate reference system
+   DEBUG: 2026-05-22 16:29:59,604:      pdf_renderer.py:  470: printSegment: transformations and map projections | 
+   DEBUG: 2026-05-22 16:29:59,605:      pdf_renderer.py:  470: printSegment: pip install pyproj
+   DEBUG: 2026-05-22 16:29:59,605:      pdf_renderer.py:  470: printSegment:  | Apply Albers USA projection to the county
+   DEBUG: 2026-05-22 16:29:59,606:      pdf_renderer.py:  470: printSegment: shapefile |
+   DEBUG: 2026-05-22 16:29:59,607:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,607:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,608:      pdf_renderer.py:  470: printSegment: shapely
+   DEBUG: 2026-05-22 16:29:59,608:      pdf_renderer.py:  470: printSegment:  | Geometric operations (part of geopandas ecosystem) | 
+   DEBUG: 2026-05-22 16:29:59,609:      pdf_renderer.py:  470: printSegment: pip install shapely
+   DEBUG: 2026-05-22 16:29:59,610:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:59,610:      pdf_renderer.py:  470: printSegment: Underlying geometry handling |
+   DEBUG: 2026-05-22 16:29:59,611:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,611:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,612:      pdf_renderer.py:  470: printSegment: fiona
+   DEBUG: 2026-05-22 16:29:59,613:      pdf_renderer.py:  470: printSegment:  | Read/write geospatial file formats | 
+   DEBUG: 2026-05-22 16:29:59,613:      pdf_renderer.py:  470: printSegment: pip install fiona
+   DEBUG: 2026-05-22 16:29:59,614:      pdf_renderer.py:  470: printSegment:  | Backend for
+   DEBUG: 2026-05-22 16:29:59,615:      pdf_renderer.py:  470: printSegment: reading shapefiles |
+   DEBUG: 2026-05-22 16:29:59,615:      pdf_renderer.py:  470: printSegment: 4.4 Census Data Access
+   DEBUG: 2026-05-22 16:29:59,616:      pdf_renderer.py:  470: printSegment: | Library | What It Does | Install Command | Key Use in This Project |
+   DEBUG: 2026-05-22 16:29:59,617:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,618:      pdf_renderer.py:  470: printSegment: |---------|--------------|-----------------|------------------------|
+   DEBUG: 2026-05-22 16:29:59,618:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,619:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,620:      pdf_renderer.py:  470: printSegment: census
+   DEBUG: 2026-05-22 16:29:59,621:      pdf_renderer.py:  470: printSegment:  | Python wrapper for the US Census Bureau API | 
+   DEBUG: 2026-05-22 16:29:59,621:      pdf_renderer.py:  470: printSegment: pip install census
+   DEBUG: 2026-05-22 16:29:59,622:      pdf_renderer.py:  470: printSegment:  | Pull ACS 5-year population data by county without manual download |
+   DEBUG: 2026-05-22 16:29:59,623:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,623:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,624:      pdf_renderer.py:  470: printSegment: us
+   DEBUG: 2026-05-22 16:29:59,625:      pdf_renderer.py:  470: printSegment:  | US
+   DEBUG: 2026-05-22 16:29:59,625:      pdf_renderer.py:  470: printSegment: state/territory metadata | 
+   DEBUG: 2026-05-22 16:29:59,626:      pdf_renderer.py:  470: printSegment: pip install us
+   DEBUG: 2026-05-22 16:29:59,627:      pdf_renderer.py:  470: printSegment:  | Get FIPS codes, state abbreviations, filter to 50 states + DC |
+   DEBUG: 2026-05-22 16:29:59,627:      pdf_renderer.py:  470: printSegment: 4.5 Output 
+   DEBUG: 2026-05-22 16:29:59,628:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,629:      pdf_renderer.py:  470: printSegment:  Reproducibility
+   DEBUG: 2026-05-22 16:29:59,630:      pdf_renderer.py:  470: printSegment: | Library | What It Does | Install Command | Key Use in This Project |
+   DEBUG: 2026-05-22 16:29:59,630:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,631:      pdf_renderer.py:  470: printSegment: |---------|--------------|-----------------|------------------------|
+   DEBUG: 2026-05-22 16:29:59,632:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,632:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,633:      pdf_renderer.py:  470: printSegment: jupyter
+   DEBUG: 2026-05-22 16:29:59,634:      pdf_renderer.py:  470: printSegment:  | Interactive notebooks for exploratory analysis | 
+   DEBUG: 2026-05-22 16:29:59,635:      pdf_renderer.py:  470: printSegment: pip install jupyter
+   DEBUG: 2026-05-22 16:29:59,636:      pdf_renderer.py:  470: printSegment:  | Develop and test code interactively |
+   DEBUG: 2026-05-22 16:29:59,636:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,637:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,638:      pdf_renderer.py:  470: printSegment: pickle
+   DEBUG: 2026-05-22 16:29:59,640:      pdf_renderer.py:  470: printSegment:  (built-in) | Save Python objects to disk | — |
+   DEBUG: 2026-05-22 16:29:59,640:      pdf_renderer.py:  470: printSegment: Save regression model objects for reproducibility |
+   DEBUG: 2026-05-22 16:29:59,641:      pdf_renderer.py:  470: printSegment: 4.6 Quick Install (All at Once)
+   DEBUG: 2026-05-22 16:29:59,644:      pdf_renderer.py:  470: printSegment: pip install pandas numpy openpyxl scipy statsmodels geopandas
+   DEBUG: 2026-05-22 16:29:59,645:      pdf_renderer.py:  470: printSegment: matplotlib mapclassify pyproj shapely fiona census us jupyter
+   DEBUG: 2026-05-22 16:29:59,645:      pdf_renderer.py:  470: printSegment: 4.7 Tool Alternatives (if needed)
+   DEBUG: 2026-05-22 16:29:59,646:      pdf_renderer.py:  470: printSegment: | If You Prefer... | Instead of... | Notes |
+   DEBUG: 2026-05-22 16:29:59,646:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,647:      pdf_renderer.py:  470: printSegment: |------------------|---------------|-------|
+   DEBUG: 2026-05-22 16:29:59,647:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,650:      pdf_renderer.py:  470: printSegment: | R (tidyverse + sf) | Python | Equally
+   DEBUG: 2026-05-22 16:29:59,650:      pdf_renderer.py:  470: printSegment: valid; project lead has indicated either R or Python is acceptable |
+   DEBUG: 2026-05-22 16:29:59,665:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,667:      pdf_renderer.py:  470: printSegment: | QGIS | Python mapping | Free desktop GIS; good
+   DEBUG: 2026-05-22 16:29:59,668:      pdf_renderer.py:  470: printSegment: for visual map exploration but harder to automate |
+   DEBUG: 2026-05-22 16:29:59,668:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,669:      pdf_renderer.py:  470: printSegment: | plotly | matplotlib | Interactive maps, but not needed for journal
+   DEBUG: 2026-05-22 16:29:59,670:      pdf_renderer.py:  470: printSegment: PDF figures |
+   DEBUG: 2026-05-22 16:29:59,670:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,671:      pdf_renderer.py:  470: printSegment: | folium | matplotlib | Web-based interactive maps; not suitable for journal submission |
+   DEBUG: 2026-05-22 16:29:59,672:      pdf_renderer.py:  470: printSegment: 5. Key Columns 
+   DEBUG: 2026-05-22 16:29:59,675:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,681:      pdf_renderer.py:  470: printSegment:  Features for Analysis
+   DEBUG: 2026-05-22 16:29:59,682:      pdf_renderer.py:  470: printSegment: Critical Columns from the ACR Dataset
+   DEBUG: 2026-05-22 16:29:59,682:      pdf_renderer.py:  470: printSegment: | Column | Why It
+   DEBUG: 2026-05-22 16:29:59,683:      pdf_renderer.py:  470: printSegment: '
+   DEBUG: 2026-05-22 16:29:59,683:      pdf_renderer.py:  470: printSegment: s Critical |
+   DEBUG: 2026-05-22 16:29:59,683:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,684:      pdf_renderer.py:  470: printSegment: |--------|-------------------|
+   DEBUG: 2026-05-22 16:29:59,684:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,685:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,685:      pdf_renderer.py:  470: printSegment: Zip Code
+   DEBUG: 2026-05-22 16:29:59,686:      pdf_renderer.py:  470: printSegment:  | 
+   DEBUG: 2026-05-22 16:29:59,686:      pdf_renderer.py:  470: printSegment: The geographic link
+   DEBUG: 2026-05-22 16:29:59,687:      pdf_renderer.py:  470: printSegment:  — this is how we connect
+   DEBUG: 2026-05-22 16:29:59,688:      pdf_renderer.py:  470: printSegment: facilities to counties |
+   DEBUG: 2026-05-22 16:29:59,688:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,689:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,689:      pdf_renderer.py:  470: printSegment: modality
+   DEBUG: 2026-05-22 16:29:59,689:      pdf_renderer.py:  470: printSegment:  | 
+   DEBUG: 2026-05-22 16:29:59,690:      pdf_renderer.py:  470: printSegment: Distinguishes MRI from CT
+   DEBUG: 2026-05-22 16:29:59,690:      pdf_renderer.py:  470: printSegment:  — 
+   DEBUG: 2026-05-22 16:29:59,691:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,691:      pdf_renderer.py:  470: printSegment: MRAP
+   DEBUG: 2026-05-22 16:29:59,691:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,692:      pdf_renderer.py:  470: printSegment:  = MRI, 
+   DEBUG: 2026-05-22 16:29:59,692:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,693:      pdf_renderer.py:  470: printSegment: CTAP
+   DEBUG: 2026-05-22 16:29:59,693:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,693:      pdf_renderer.py:  470: printSegment:  = CT |
+   DEBUG: 2026-05-22 16:29:59,694:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,694:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,695:      pdf_renderer.py:  470: printSegment: Status
+   DEBUG: 2026-05-22 16:29:59,695:      pdf_renderer.py:  470: printSegment:  | 
+   DEBUG: 2026-05-22 16:29:59,696:      pdf_renderer.py:  470: printSegment: Inclusion filter
+   DEBUG: 2026-05-22 16:29:59,696:      pdf_renderer.py:  470: printSegment:  — only 
+   DEBUG: 2026-05-22 16:29:59,697:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,697:      pdf_renderer.py:  470: printSegment: Accredited
+   DEBUG: 2026-05-22 16:29:59,698:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,698:      pdf_renderer.py:  470: printSegment:  and 
+   DEBUG: 2026-05-22 16:29:59,698:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,699:      pdf_renderer.py:  470: printSegment: Under Review
+   DEBUG: 2026-05-22 16:29:59,699:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,700:      pdf_renderer.py:  470: printSegment:  are included |
+   DEBUG: 2026-05-22 16:29:59,700:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,701:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,701:      pdf_renderer.py:  470: printSegment: Expiration Date
+   DEBUG: 2026-05-22 16:29:59,702:      pdf_renderer.py:  470: printSegment:  | 
+   DEBUG: 2026-05-22 16:29:59,702:      pdf_renderer.py:  470: printSegment: Exclusion filter
+   DEBUG: 2026-05-22 16:29:59,703:      pdf_renderer.py:  470: printSegment:  —
+   DEBUG: 2026-05-22 16:29:59,704:      pdf_renderer.py:  470: printSegment: expired facilities must be removed |
+   DEBUG: 2026-05-22 16:29:59,704:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,705:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,705:      pdf_renderer.py:  470: printSegment: Cardiac Imaging Type
+   DEBUG: 2026-05-22 16:29:59,706:      pdf_renderer.py:  470: printSegment:  | 
+   DEBUG: 2026-05-22 16:29:59,706:      pdf_renderer.py:  470: printSegment: Confirms modality
+   DEBUG: 2026-05-22 16:29:59,707:      pdf_renderer.py:  470: printSegment:  — human-readable label (
+   DEBUG: 2026-05-22 16:29:59,707:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,707:      pdf_renderer.py:  470: printSegment: Cardiac MRI
+   DEBUG: 2026-05-22 16:29:59,708:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,708:      pdf_renderer.py:  470: printSegment:  or 
+   DEBUG: 2026-05-22 16:29:59,709:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,709:      pdf_renderer.py:  470: printSegment: Cardiac CT
+   DEBUG: 2026-05-22 16:29:59,710:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,710:      pdf_renderer.py:  470: printSegment: ) |
+   DEBUG: 2026-05-22 16:29:59,711:      pdf_renderer.py:  470: printSegment: Critical Columns from External Datasets
+   DEBUG: 2026-05-22 16:29:59,711:      pdf_renderer.py:  470: printSegment: | Dataset | Key Column(s) | Why It
+   DEBUG: 2026-05-22 16:29:59,712:      pdf_renderer.py:  470: printSegment: '
+   DEBUG: 2026-05-22 16:29:59,712:      pdf_renderer.py:  470: printSegment: s Critical |
+   DEBUG: 2026-05-22 16:29:59,713:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,713:      pdf_renderer.py:  470: printSegment: |---------|---------------|-------------------|
+   DEBUG: 2026-05-22 16:29:59,714:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,714:      pdf_renderer.py:  470: printSegment: | HUD Crosswalk | 
+   DEBUG: 2026-05-22 16:29:59,715:      pdf_renderer.py:  470: printSegment: ZIP
+   DEBUG: 2026-05-22 16:29:59,715:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:59,716:      pdf_renderer.py:  470: printSegment: COUNTY
+   DEBUG: 2026-05-22 16:29:59,716:      pdf_renderer.py:  470: printSegment:  (FIPS), 
+   DEBUG: 2026-05-22 16:29:59,717:      pdf_renderer.py:  470: printSegment: RES_RATIO
+   DEBUG: 2026-05-22 16:29:59,717:      pdf_renderer.py:  470: printSegment:  | Links ZIP → County; RES
+   DEBUG: 2026-05-22 16:29:59,718:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,718:      pdf_renderer.py:  470: printSegment: RATIO resolves multi-county ZIPs |
+   DEBUG: 2026-05-22 16:29:59,719:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,720:      pdf_renderer.py:  470: printSegment: | CDC SVI | 
+   DEBUG: 2026-05-22 16:29:59,720:      pdf_renderer.py:  470: printSegment: FIPS
+   DEBUG: 2026-05-22 16:29:59,721:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:59,721:      pdf_renderer.py:  470: printSegment: RPL_THEMES
+   DEBUG: 2026-05-22 16:29:59,722:      pdf_renderer.py:  470: printSegment:  | Overall social vulnerability score (0–1); the main predictor |
+   DEBUG: 2026-05-22 16:29:59,722:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,723:      pdf_renderer.py:  470: printSegment: | USDA RUCC | 
+   DEBUG: 2026-05-22 16:29:59,723:      pdf_renderer.py:  470: printSegment: FIPS
+   DEBUG: 2026-05-22 16:29:59,724:      pdf_renderer.py:  470: printSegment: , 
+   DEBUG: 2026-05-22 16:29:59,724:      pdf_renderer.py:  470: printSegment: RUCC_2023
+   DEBUG: 2026-05-22 16:29:59,725:      pdf_renderer.py:  470: printSegment:  |
+   DEBUG: 2026-05-22 16:29:59,726:      pdf_renderer.py:  470: printSegment: Rural-urban classification; dichotomized to metro/non-metro |
+   DEBUG: 2026-05-22 16:29:59,726:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,727:      pdf_renderer.py:  470: printSegment: | ACS | 
+   DEBUG: 2026-05-22 16:29:59,727:      pdf_renderer.py:  470: printSegment: GEOID
+   DEBUG: 2026-05-22 16:29:59,729:      pdf_renderer.py:  470: printSegment:  (FIPS), population tables |
+   DEBUG: 2026-05-22 16:29:59,730:      pdf_renderer.py:  470: printSegment: Denominator for rate calculations (adults ≥45) |
+   DEBUG: 2026-05-22 16:29:59,730:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,731:      pdf_renderer.py:  470: printSegment: | TIGER/Line | 
+   DEBUG: 2026-05-22 16:29:59,731:      pdf_renderer.py:  470: printSegment: GEOID
+   DEBUG: 2026-05-22 16:29:59,733:      pdf_renderer.py:  470: printSegment:  (FIPS), geometry | County boundaries for the
+   DEBUG: 2026-05-22 16:29:59,733:      pdf_renderer.py:  470: printSegment: choropleth map |
+   DEBUG: 2026-05-22 16:29:59,734:      pdf_renderer.py:  470: printSegment: Derived Columns You Will Create
+   DEBUG: 2026-05-22 16:29:59,734:      pdf_renderer.py:  470: printSegment: | Column | Formula/Logic |
+   DEBUG: 2026-05-22 16:29:59,735:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,736:      pdf_renderer.py:  470: printSegment: |--------|---------------|
+   DEBUG: 2026-05-22 16:29:59,736:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,737:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,737:      pdf_renderer.py:  470: printSegment: svi_quartile
+   DEBUG: 2026-05-22 16:29:59,738:      pdf_renderer.py:  470: printSegment:  | Divide 
+   DEBUG: 2026-05-22 16:29:59,738:      pdf_renderer.py:  470: printSegment: RPL_THEMES
+   DEBUG: 2026-05-22 16:29:59,739:      pdf_renderer.py:  470: printSegment:  into 4 equal groups
+   DEBUG: 2026-05-22 16:29:59,740:      pdf_renderer.py:  470: printSegment: across all counties |
+   DEBUG: 2026-05-22 16:29:59,740:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,741:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,742:      pdf_renderer.py:  470: printSegment: metro_indicator
+   DEBUG: 2026-05-22 16:29:59,742:      pdf_renderer.py:  470: printSegment:  | 1 if RUCC ≤ 3, else 0 |
+   DEBUG: 2026-05-22 16:29:59,743:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,743:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,744:      pdf_renderer.py:  470: printSegment: cmr_rate_per_100k
+   DEBUG: 2026-05-22 16:29:59,744:      pdf_renderer.py:  470: printSegment:  | (cmr
+   DEBUG: 2026-05-22 16:29:59,745:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,745:      pdf_renderer.py:  470: printSegment: facility
+   DEBUG: 2026-05-22 16:29:59,746:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,746:      pdf_renderer.py:  470: printSegment: count /
+   DEBUG: 2026-05-22 16:29:59,747:      pdf_renderer.py:  470: printSegment: adult
+   DEBUG: 2026-05-22 16:29:59,747:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,748:      pdf_renderer.py:  470: printSegment: pop
+   DEBUG: 2026-05-22 16:29:59,748:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,749:      pdf_renderer.py:  470: printSegment: 45plus) × 100,000 |
+   DEBUG: 2026-05-22 16:29:59,750:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,750:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,751:      pdf_renderer.py:  470: printSegment: cct_rate_per_100k
+   DEBUG: 2026-05-22 16:29:59,751:      pdf_renderer.py:  470: printSegment:  | (cct
+   DEBUG: 2026-05-22 16:29:59,752:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,752:      pdf_renderer.py:  470: printSegment: facility
+   DEBUG: 2026-05-22 16:29:59,753:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,753:      pdf_renderer.py:  470: printSegment: count / adult
+   DEBUG: 2026-05-22 16:29:59,754:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,755:      pdf_renderer.py:  470: printSegment: pop
+   DEBUG: 2026-05-22 16:29:59,755:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,756:      pdf_renderer.py:  470: printSegment: 45plus) × 100,000 |
+   DEBUG: 2026-05-22 16:29:59,756:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,757:      pdf_renderer.py:  470: printSegment: | 
+   DEBUG: 2026-05-22 16:29:59,757:      pdf_renderer.py:  470: printSegment: rate_excluded
+   DEBUG: 2026-05-22 16:29:59,758:      pdf_renderer.py:  470: printSegment:  | 1 if adult
+   DEBUG: 2026-05-22 16:29:59,758:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,759:      pdf_renderer.py:  470: printSegment: pop
+   DEBUG: 2026-05-22 16:29:59,760:      pdf_renderer.py:  470: printSegment: _
+   DEBUG: 2026-05-22 16:29:59,760:      pdf_renderer.py:  470: printSegment: 45plus 
+   DEBUG: 2026-05-22 16:29:59,761:      pdf_renderer.py:  470: printSegment: <
+   DEBUG: 2026-05-22 16:29:59,761:      pdf_renderer.py:  470: printSegment:  1,000, else 0 |
+   DEBUG: 2026-05-22 16:29:59,762:      pdf_renderer.py:  470: printSegment: 6. Final Deliverables Checklist
+   DEBUG: 2026-05-22 16:29:59,763:      pdf_renderer.py:  470: printSegment: | # | Deliverable | Format | Due |
+   DEBUG: 2026-05-22 16:29:59,764:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,764:      pdf_renderer.py:  470: printSegment: |---|-------------|--------|-----|
+   DEBUG: 2026-05-22 16:29:59,765:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,766:      pdf_renderer.py:  470: printSegment: | 1 | Linked county-level analytic dataset | CSV | May 24
+   DEBUG: 2026-05-22 16:29:59,766:      pdf_renderer.py:  470: printSegment: |
+   DEBUG: 2026-05-22 16:29:59,767:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,768:      pdf_renderer.py:  470: printSegment: | 2 | Figure 1 — Two-panel US choropleth map | PDF (primary) + PNG (600 dpi backup) | May 24 |
+   DEBUG: 2026-05-22 16:29:59,768:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,771:      pdf_renderer.py:  470: printSegment: | 3 | Table 1 —
+   DEBUG: 2026-05-22 16:29:59,772:      pdf_renderer.py:  470: printSegment: Capacity by SVI quartile and rurality | CSV/Excel + formatted version | May 24 |
+   DEBUG: 2026-05-22 16:29:59,772:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,775:      pdf_renderer.py:  470: printSegment: | 4 | Regression results — IRR, CI,
+   DEBUG: 2026-05-22 16:29:59,775:      pdf_renderer.py:  470: printSegment: AIC, dispersion | Text summary + pickle files | May 24 |
+   DEBUG: 2026-05-22 16:29:59,776:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,777:      pdf_renderer.py:  470: printSegment: | 5 | Sensitivity analyses results | Same as #4 | May 24 |
+   DEBUG: 2026-05-22 16:29:59,777:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,779:      pdf_renderer.py:  470: printSegment: | 6 |
+   DEBUG: 2026-05-22 16:29:59,780:      pdf_renderer.py:  470: printSegment: All analysis code (well-commented) | .py or .ipynb files | May 24 |
+   DEBUG: 2026-05-22 16:29:59,781:      pdf_renderer.py:  470: printSegment:  
+   DEBUG: 2026-05-22 16:29:59,781:      pdf_renderer.py:  470: printSegment: | 7 | README documentation | Markdown | May
+   DEBUG: 2026-05-22 16:29:59,782:      pdf_renderer.py:  470: printSegment: 24 |
+   DEBUG: 2026-05-22 16:29:59,783:      pdf_renderer.py:  470: printSegment: Important Notes 
+   DEBUG: 2026-05-22 16:29:59,784:      pdf_renderer.py:  470: printSegment: &
+   DEBUG: 2026-05-22 16:29:59,784:      pdf_renderer.py:  470: printSegment:  Warnings
+   DEBUG: 2026-05-22 16:29:59,785:      pdf_renderer.py:  470: printSegment:  1 
+   DEBUG: 2026-05-22 16:29:59,786:      pdf_renderer.py:  470: printSegment: Do NOT correct the 5 states with zero MRI sites.
+   DEBUG: 2026-05-22 16:29:59,788:      pdf_renderer.py:  470: printSegment:  This is a real signal of the ACR-only dataset
+   DEBUG: 2026-05-22 16:29:59,789:      pdf_renderer.py:  470: printSegment: limitation. It will be acknowledged in the paper
+   DEBUG: 2026-05-22 16:29:59,789:      pdf_renderer.py:  470: printSegment: '
+   DEBUG: 2026-05-22 16:29:59,790:      pdf_renderer.py:  470: printSegment: s Limitations section.
+   DEBUG: 2026-05-22 16:29:59,791:      pdf_renderer.py:  470: printSegment:  2 
+   DEBUG: 2026-05-22 16:29:59,791:      pdf_renderer.py:  470: printSegment: Preserve leading zeros
+   DEBUG: 2026-05-22 16:29:59,792:      pdf_renderer.py:  470: printSegment:  in ZIP codes and FIPS codes. Always store them as strings, not numbers.
+   DEBUG: 2026-05-22 16:29:59,792:      pdf_renderer.py:  470: printSegment:  3 
+   DEBUG: 2026-05-22 16:29:59,793:      pdf_renderer.py:  470: printSegment: US territories are excluded.
+   DEBUG: 2026-05-22 16:29:59,793:      pdf_renderer.py:  470: printSegment:  Only analyze 50 states + District of Columbia.
+   DEBUG: 2026-05-22 16:29:59,794:      pdf_renderer.py:  470: printSegment:  4 
+   DEBUG: 2026-05-22 16:29:59,794:      pdf_renderer.py:  470: printSegment: The 
+   DEBUG: 2026-05-22 16:29:59,794:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,795:      pdf_renderer.py:  470: printSegment: Under Review
+   DEBUG: 2026-05-22 16:29:59,795:      pdf_renderer.py:  470: printSegment: "
+   DEBUG: 2026-05-22 16:29:59,795:      pdf_renderer.py:  470: printSegment:  facilities (23 records) are included
+   DEBUG: 2026-05-22 16:29:59,796:      pdf_renderer.py:  470: printSegment:  in the primary analysis but excluded in a
+   DEBUG: 2026-05-22 16:29:59,797:      pdf_renderer.py:  470: printSegment: sensitivity analysis.
+   DEBUG: 2026-05-22 16:29:59,797:      pdf_renderer.py:  470: printSegment:  5 
+   DEBUG: 2026-05-22 16:29:59,797:      pdf_renderer.py:  470: printSegment: Nuclear Cardiology data
+   DEBUG: 2026-05-22 16:29:59,798:      pdf_renderer.py:  470: printSegment:  (separate sheet) is out of scope unless explicitly agreed upon with the
+   DEBUG: 2026-05-22 16:29:59,799:      pdf_renderer.py:  470: printSegment: project lead.
+   DEBUG: 2026-05-22 16:29:59,799:      pdf_renderer.py:  470: printSegment:  6 
+   DEBUG: 2026-05-22 16:29:59,799:      pdf_renderer.py:  470: printSegment: County FIPS codes must be 5 digits.
+   DEBUG: 2026-05-22 16:29:59,800:      pdf_renderer.py:  470: printSegment:  State FIPS (2 digits) + County FIPS (3 digits) = 5-digit
+   DEBUG: 2026-05-22 16:29:59,801:      pdf_renderer.py:  470: printSegment: combined code.
+   DEBUG: 2026-05-22 16:29:59,802:      pdf_renderer.py:  470: printSegment: Document prepared: May 22, 2026
+   DEBUG: 2026-05-22 16:29:59,803:      pdf_renderer.py:  470: printSegment: 
+   DEBUG: 2026-05-22 16:29:59,803:      pdf_renderer.py:  470: printSegment: This document is intended as a comprehensive guide for the data scientist executing this geospatial analysis project.
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 0, [1, 'Data Scientist Task Guide', 1, 68.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 1, [2, 'Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity', 1, 106.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 2, [2, 'Table of Contents', 1, 217.60000000000002]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 3, [2, '1. Project Summary (Plain Language)', 1, 347.20000000000005]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 4, [2, '2. Dataset Inventory ', 1, 674.8]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 5, [3, '2.1 Datasets Already Provided (in ', 1, 707.9999999999999]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 6, [4, 'Primary Working Dataset: ', 2, 164.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 7, [4, 'Reference Dataset: ', 2, 452.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 8, [3, '2.2 Datasets You Need to Download', 2, 518.4]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 9, [2, '3. Step-by-Step Task List', 2, 673.5999999999999]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 10, [3, 'Phase 1: Data Acquisition ', 2, 706.7999999999998]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 11, [4, 'Task 1.1 — Set Up Your Project Environment', 3, 74.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 12, [4, 'Task 1.2 — Download External Datasets', 3, 158.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 13, [4, 'Task 1.3 — Verify All Downloads', 3, 638.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 14, [3, 'Phase 2: Data Linkage ', 4, 72.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 15, [4, 'Task 2.1 — Clean the ACR Facility Data', 4, 100.4]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 16, [4, 'Task 2.2 — Map ZIP Codes to County FIPS Codes', 4, 280.4]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 17, [4, 'Task 2.3 — Build the County-Level Analytic Dataset', 4, 412.4]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 18, [4, 'Task 2.4 — Export the Final Linked Dataset', 4, 688.4]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 19, [3, 'Phase 3: Descriptive Analysis ', 5, 212.4]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 20, [4, 'Task 3.1 — Create Table 1 (Summary Table)', 5, 240.8]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 21, [4, 'Task 3.2 — Compute Spearman Correlations', 5, 582.8]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 22, [3, 'Phase 4: Choropleth Map (Days 2–3)', 6, 72.0]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 23, [4, 'Task 4.1 — Prepare Map Data', 6, 100.4]
+   DEBUG: 2026-05-22 16:29:59,804:      pdf_renderer.py:   53: 24, [4, 'Task 4.2 — Create Figure 1 (Two-Panel Choropleth)', 6, 172.4]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 25, [4, 'Task 4.3 — Write the Figure Legend', 6, 436.4]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 26, [3, 'Phase 5: Statistical Modeling (Day 3)', 6, 586.8]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 27, [4, 'Task 5.1 — Negative Binomial Regression (Primary Model)', 6, 615.1999999999999]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 28, [4, 'Task 5.2 — Sensitivity Analyses', 7, 242.0]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 29, [4, 'Task 5.3 — Prepare Regression Output', 7, 368.0]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 30, [3, 'Phase 6: Documentation ', 7, 452.4]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 31, [4, 'Task 6.1 — Create a README File', 7, 480.79999999999995]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 32, [4, 'Task 6.2 — Archive All Code', 7, 582.8]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 33, [4, 'Task 6.3 — Final Delivery Package', 7, 654.8]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 34, [2, '4. Recommended Open Source Tools', 8, 152.8]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 35, [3, '4.1 Programming Language', 8, 186.00000000000003]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 36, [3, '4.2 Data Handling ', 8, 232.80000000000004]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 37, [3, '4.3 Geospatial Analysis ', 8, 363.6]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 38, [3, '4.4 Census Data Access', 8, 530.4]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 39, [3, '4.5 Output ', 8, 613.1999999999999]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 40, [3, '4.6 Quick Install (All at Once)', 8, 695.9999999999999]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 41, [3, '4.7 Tool Alternatives (if needed)', 9, 122.4]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 42, [2, '5. Key Columns ', 9, 217.60000000000002]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 43, [3, 'Critical Columns from the ACR Dataset', 9, 250.8]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 44, [3, 'Critical Columns from External Datasets', 9, 345.59999999999997]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 45, [3, 'Derived Columns You Will Create', 9, 452.3999999999999]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 46, [2, '6. Final Deliverables Checklist', 9, 547.5999999999999]
+   DEBUG: 2026-05-22 16:29:59,805:      pdf_renderer.py:   53: 47, [2, 'Important Notes ', 9, 671.1999999999998]

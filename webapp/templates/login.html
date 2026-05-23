@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Required — ACR Cardiac Imaging Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-10 max-w-md w-full mx-4 border border-white/20 shadow-2xl">
+        <div class="text-center">
+            <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white mb-2">Access Required</h1>
+            <p class="text-gray-300 text-sm mb-8">
+                This dashboard contains restricted research data.<br>
+                Please use the authorized link provided to you.
+            </p>
+            <form onsubmit="window.location.href='/?token='+document.getElementById('token').value; return false;" class="space-y-4">
+                <input 
+                    id="token" 
+                    type="text" 
+                    placeholder="Enter your access token"
+                    class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
+                >
+                <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors">
+                    Access Dashboard
+                </button>
+            </form>
+            <p class="text-gray-500 text-xs mt-6">
+                Contact the research team if you need access.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

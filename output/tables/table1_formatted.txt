@@ -1,0 +1,21 @@
+Table 1. ACR-Accredited Cardiac Imaging Capacity by Social Vulnerability and Rurality
+==========================================================================================
+
+                   Stratum  n_counties  adult_45plus_millions  cmr_sites cmr_counties_with_pct cmr_rate_median_iqr  cct_sites cct_rate_median_iqr
+              All counties        3144                 141.60        687            289 (9.2%)    0.00 (0.00–0.00)       1481    0.00 (0.00–0.00)
+     Q1 (least vulnerable)         786                  21.47         98             61 (7.8%)    0.00 (0.00–0.00)        177    0.00 (0.00–0.00)
+                        Q2         786                  33.62        159             70 (8.9%)    0.00 (0.00–0.00)        338    0.00 (0.00–0.00)
+                        Q3         786                  40.39        216            88 (11.2%)    0.00 (0.00–0.00)        450    0.00 (0.00–0.00)
+      Q4 (most vulnerable)         786                  46.12        214             70 (8.9%)    0.00 (0.00–0.00)        516    0.00 (0.00–0.00)
+   Metropolitan (RUCC 1–3)        1186                 120.34        674           276 (23.3%)    0.00 (0.00–0.00)       1369    0.00 (0.00–1.21)
+Nonmetropolitan (RUCC 4–9)        1958                  21.26         13             13 (0.7%)    0.00 (0.00–0.00)        112    0.00 (0.00–0.00)
+
+──────────────────────────────────────────────────────────────────────────────────────────
+Spearman rank correlation (facility rate vs SVI percentile, continuous):
+  CMR: ρ = 0.008, p = 0.6646
+  CCT: ρ = 0.020, p = 0.2681
+
+──────────────────────────────────────────────────────────────────────────────────────────
+Notes: SVI from CDC/ATSDR 2022, overall percentile rank. RUCC from USDA ERS 2023.
+Population denominators from ACS 5-year estimates 2019–2023.
+Counties with <1,000 adults aged ≥45 excluded from rate calculations.

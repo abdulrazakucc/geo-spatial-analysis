@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+.DS_Store
+data/raw/cc-est2023-agesex-all.csv
+output/models/model_objects.pkl
+
+# Large files (exceed GitHub 100MB limit)
+data/processed/county_analytic_geo.gpkg
+data/raw/tiger_county_2023/
+output/figures/figure1_choropleth.pdf

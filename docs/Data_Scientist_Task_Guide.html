@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@page {
+    size: A4;
+    margin: 2.5cm 2cm;
+    @bottom-center {
+        content: "Page " counter(page) " of " counter(pages);
+        font-size: 9px;
+        color: #666;
+    }
+}
+body {
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    color: #2c3e50;
+    max-width: 100%;
+}
+h1 {
+    font-size: 22pt;
+    color: #1a3a5c;
+    border-bottom: 3px solid #1a3a5c;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+h2 {
+    font-size: 16pt;
+    color: #1a3a5c;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin-top: 35px;
+    page-break-after: avoid;
+}
+h3 {
+    font-size: 13pt;
+    color: #2c5282;
+    margin-top: 25px;
+    page-break-after: avoid;
+}
+h4 {
+    font-size: 11pt;
+    color: #2d3748;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+p {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 20px 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+}
+th {
+    background-color: #1a3a5c;
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+}
+td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+tr:nth-child(even) {
+    background-color: #f7fafc;
+}
+.header-block {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2c5282 100%);
+    color: white;
+    padding: 30px 35px;
+    margin: -2.5cm -2cm 30px -2cm;
+    page-break-after: avoid;
+}
+.header-block h1 {
+    color: white;
+    border: none;
+    margin: 0 0 5px 0;
+    font-size: 24pt;
+}
+.header-block .subtitle {
+    font-size: 12pt;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+.meta-table {
+    margin-top: 20px;
+    font-size: 10pt;
+}
+.meta-table td {
+    border: none;
+    padding: 3px 15px 3px 0;
+    color: white;
+    opacity: 0.9;
+}
+.meta-table td:first-child {
+    font-weight: 600;
+    opacity: 1;
+}
+.callout {
+    background-color: #ebf8ff;
+    border-left: 4px solid #2c5282;
+    padding: 12px 16px;
+    margin: 15px 0;
+    border-radius: 0 6px 6px 0;
+}
+.callout-warning {
+    background-color: #fffbeb;
+    border-left-color: #d69e2e;
+}
+.step-box {
+    background-color: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 15px 18px;
+    margin: 12px 0;
+    page-break-inside: avoid;
+}
+.step-box h4 {
+    margin-top: 0;
+    color: #1a3a5c;
+}
+.badge {
+    display: inline-block;
+    background-color: #2c5282;
+    color: white;
+    font-size: 8pt;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 5px;
+    font-weight: 600;
+}
+.toc {
+    background-color: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 20px 25px;
+    margin: 20px 0;
+}
+.toc ol {
+    padding-left: 20px;
+}
+.toc li {
+    margin-bottom: 6px;
+    color: #2c5282;
+}
+ul, ol {
+    padding-left: 22px;
+}
+li {
+    margin-bottom: 5px;
+}
+code {
+    background-color: #edf2f7;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+    font-family: 'SF Mono', 'Menlo', monospace;
+}
+.install-block {
+    background-color: #1a202c;
+    color: #68d391;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-family: 'SF Mono', 'Menlo', monospace;
+    font-size: 9pt;
+    margin: 12px 0;
+    page-break-inside: avoid;
+}
+.section-intro {
+    font-size: 10.5pt;
+    color: #4a5568;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+hr {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 25px 0;
+}
+.footer-note {
+    font-size: 9pt;
+    color: #718096;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 15px;
+    margin-top: 40px;
+}
+</style>
+</head>
+<body>
+
+<div class="header-block">
+    <h1>Data Scientist Task Guide</h1>
+    <div class="subtitle">Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity</div>
+    <table class="meta-table">
+        <tr><td>Prepared for:</td><td>Geospatial Analyst / Data Scientist</td></tr>
+        <tr><td>Project Lead:</td><td>Dr. Muhammad Naeem, MD — Mayo Clinic Arizona</td></tr>
+        <tr><td>Target Journal:</td><td>JACC: Advances — Health Equity in Cardiology</td></tr>
+        <tr><td>Deadline:</td><td>June 1, 2026 | First output: May 24, 2026</td></tr>
+    </table>
+</div>
+
+<div class="toc">
+    <strong>Contents</strong>
+    <ol>
+        <li>What Is This Project About?</li>
+        <li>Datasets Summary</li>
+        <li>What You Need To Do (Step-by-Step)</li>
+        <li>Open Source Tools You Will Use</li>
+        <li>Key Columns That Matter</li>
+        <li>Important Rules & Warnings</li>
+        <li>Final Deliverables Checklist</li>
+    </ol>
+</div>
+
+<!-- SECTION 1 -->
+<h2>1. What Is This Project About?</h2>
+
+<p>In simple terms: <strong>we want to find out if quality heart-scan facilities are fairly distributed across the US, or if they are clustered in rich urban areas while poorer rural communities have none.</strong></p>
+
+<div class="callout">
+    <strong>Key Terms Explained:</strong>
+    <ul>
+        <li><strong>ACR Accreditation</strong> — A quality stamp from the American College of Radiology. Facilities with this stamp meet high standards and are recognized by insurance companies.</li>
+        <li><strong>Cardiac MRI / Cardiac CT</strong> — Two types of advanced heart-imaging scans. We study each separately.</li>
+        <li><strong>Choropleth Map</strong> — A map where areas (counties) are colored based on a value (e.g., number of facilities). Darker = more, lighter = fewer.</li>
+        <li><strong>SVI (Social Vulnerability Index)</strong> — A score (0 to 1) measuring how disadvantaged a community is. Higher = more vulnerable.</li>
+    </ul>
+</div>
+
+<p><strong>What we will produce:</strong></p>
+<ol>
+    <li>A clean dataset linking every US county with its facility counts and socioeconomic data</li>
+    <li>A colored map of the US showing where heart-imaging facilities are concentrated</li>
+    <li>A summary table comparing access across vulnerable vs. non-vulnerable communities</li>
+    <li>Statistical models measuring how strongly community disadvantage relates to imaging access</li>
+</ol>
+
+<!-- SECTION 2 -->
+<h2>2. Datasets Summary</h2>
+
+<h3>Datasets Already Provided (in the <code>data/</code> folder)</h3>
+
+<table>
+    <tr>
+        <th>File</th>
+        <th>What It Contains</th>
+        <th>Records</th>
+        <th>Key Info</th>
+    </tr>
+    <tr>
+        <td><code>ACR_Cardiac_Imaging_Sites.xlsx</code></td>
+        <td>ACR-accredited cardiac imaging facilities (MRI + CT), filtered and ready to use</td>
+        <td>2,273</td>
+        <td>725 Cardiac MRI sites + 1,548 Cardiac CT sites. Use the sheet named <strong>"Cardiac MRI + CT (PRIMARY)"</strong></td>
+    </tr>
+    <tr>
+        <td><code>acr_dataset.xlsx</code></td>
+        <td>Full ACR facility extract (all modalities, not just cardiac)</td>
+        <td>37,328</td>
+        <td>Reference only — you do NOT need this for the main analysis</td>
+    </tr>
+</table>
+
+<h3>Datasets You Need to Download</h3>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>Dataset</th>
+        <th>Where to Get It</th>
+        <th>What It Gives You</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>HUD ZIP–County Crosswalk (Q1 2026)</td>
+        <td>huduser.gov/portal/datasets/usps_crosswalk.html</td>
+        <td>Converts ZIP codes → county FIPS codes</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>CDC Social Vulnerability Index (2022)</td>
+        <td>atsdr.cdc.gov/placeandhealth/svi/</td>
+        <td>Vulnerability score for each county</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>USDA Rural-Urban Continuum Codes (2023)</td>
+        <td>ers.usda.gov/data-products/rural-urban-continuum-codes</td>
+        <td>Classifies counties as urban or rural</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Census ACS Population Data (2019–2023)</td>
+        <td>census.gov/data/developers/data-sets/acs-5year.html</td>
+        <td>Population counts (total + adults aged 45+)</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>Census TIGER/Line County Shapefiles (2023)</td>
+        <td>census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html</td>
+        <td>County boundary shapes for the map</td>
+    </tr>
+</table>
+
+<!-- SECTION 3 -->
+<h2>3. What You Need To Do (Step-by-Step)</h2>
+
+<p class="section-intro">Follow these steps in order. Each step builds on the previous one.</p>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 1</span> Set Up Your Environment</h4>
+    <ul>
+        <li>Create a Python environment (virtual env or conda)</li>
+        <li>Install all libraries listed in Section 4</li>
+        <li>Create folders: <code>data/raw/</code>, <code>data/processed/</code>, <code>output/</code>, <code>code/</code></li>
+    </ul>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 2</span> Download the External Datasets</h4>
+    <ul>
+        <li>Download all 5 datasets listed above</li>
+        <li>Save them in <code>data/raw/</code></li>
+        <li>For the Census API, get a free API key at api.census.gov/data/key_signup.html</li>
+        <li><strong>Check:</strong> Before downloading SVI, verify if a 2024 version exists (if yes, ask project lead which to use)</li>
+    </ul>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 3</span> Clean the ACR Facility Data</h4>
+    <ul>
+        <li>Open <code>ACR_Cardiac_Imaging_Sites.xlsx</code>, sheet "Cardiac MRI + CT (PRIMARY)"</li>
+        <li>Keep only rows where Status = "Accredited" or "Under Review" (all 2,273 rows qualify)</li>
+        <li>Remove any facility whose Expiration Date is before May 20, 2026</li>
+        <li>Ensure ZIP codes are 5-digit strings (pad leading zeros, e.g., "07652" not "7652")</li>
+        <li>Separate into two groups: Cardiac MRI (modality = "MRAP") and Cardiac CT (modality = "CTAP")</li>
+    </ul>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 4</span> Link ZIP Codes to Counties</h4>
+    <ul>
+        <li>Use the HUD crosswalk to find which county each facility's ZIP code belongs to</li>
+        <li><strong>Problem:</strong> Some ZIPs span multiple counties. <strong>Solution:</strong> Pick the county with the highest <code>RES_RATIO</code> (where most people in that ZIP actually live)</li>
+        <li>After this, every facility has a 5-digit county FIPS code</li>
+        <li><strong>Verify:</strong> Total still adds to 2,273 facilities</li>
+    </ul>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 5</span> Build the County-Level Dataset</h4>
+    <p>Create one row per US county (3,143 total — 50 states + DC, no territories). For each county, include:</p>
+    <ul>
+        <li>Count of Cardiac MRI facilities and Cardiac CT facilities</li>
+        <li>SVI score + SVI quartile (divide all counties into 4 equal groups)</li>
+        <li>RUCC code + a simple metro/non-metro flag (RUCC 1–3 = metro, 4–9 = non-metro)</li>
+        <li>Total population and adults aged 45+</li>
+        <li>Rates: facilities per 100,000 adults aged 45+ (separately for MRI and CT)</li>
+        <li>A flag for counties with fewer than 1,000 adults 45+ (exclude these from rate calculations because rates would be unreliable with so few people)</li>
+    </ul>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 6</span> Create Table 1 (Summary Statistics)</h4>
+    <p>Build a table showing facility access broken down by:</p>
+    <ul>
+        <li><strong>Rows:</strong> All counties, then by SVI quartile (Q1–Q4), then by metro vs. non-metro</li>
+        <li><strong>Columns:</strong> Number of counties, population, facility counts, median rate per 100k (with range)</li>
+        <li><strong>Bottom row:</strong> Spearman correlation (a measure of how strongly two things move together) between facility rate and SVI score, with p-value</li>
+    </ul>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 7</span> Create Figure 1 (The Map)</h4>
+    <p>A two-panel US county map:</p>
+    <ul>
+        <li><strong>Panel A:</strong> Cardiac MRI rate per 100k adults 45+ | <strong>Panel B:</strong> Cardiac CT rate</li>
+        <li><strong>Colors:</strong> Blue scale (5 shades for counties with facilities) + light gray (zero facilities) + white (excluded counties)</li>
+        <li><strong>Binning:</strong> Quantile-based (each shade has ~same number of counties)</li>
+        <li><strong>Projection:</strong> Albers USA (standard US map look) with Alaska/Hawaii as insets</li>
+        <li><strong>Output:</strong> PDF (vector) + PNG (600 dpi backup)</li>
+        <li><strong>Layout:</strong> Stack panels vertically (A on top, B below)</li>
+    </ul>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 8</span> Run Statistical Models</h4>
+    <p><strong>What:</strong> Negative binomial regression — a model for count data that answers: "For every 10-point increase in vulnerability, how much does facility access change?"</p>
+    <ul>
+        <li>Outcome = facility count per county (run separately for MRI and CT)</li>
+        <li>Predictor = SVI score (per 10-percentile increment)</li>
+        <li>Offset = log(adult population 45+) — this converts counts into rates</li>
+        <li>Report: Incidence Rate Ratio (IRR) with 95% confidence interval</li>
+    </ul>
+    <p><strong>Sensitivity checks</strong> (re-run models with small changes to confirm results hold):</p>
+    <ol>
+        <li>Drop the 23 "Under Review" facilities</li>
+        <li>Use SVI quartiles instead of continuous SVI</li>
+        <li>Run separately for metro and non-metro counties</li>
+    </ol>
+</div>
+
+<div class="step-box">
+    <h4><span class="badge">STEP 9</span> Document & Deliver</h4>
+    <ul>
+        <li>Write a README with dataset versions, download dates, and decisions made</li>
+        <li>Comment all code clearly</li>
+        <li>Include a <code>requirements.txt</code> file</li>
+        <li>Package everything for delivery</li>
+    </ul>
+</div>
+
+<!-- SECTION 4 -->
+<h2>4. Open Source Tools You Will Use</h2>
+
+<h3>Core Data & Analysis Libraries</h3>
+
+<table>
+    <tr>
+        <th>Library</th>
+        <th>What It Does (Simple Explanation)</th>
+        <th>How You'll Use It Here</th>
+    </tr>
+    <tr>
+        <td><strong>pandas</strong></td>
+        <td>Works with data tables (like Excel but in Python)</td>
+        <td>Load files, merge datasets, calculate rates, make summary tables</td>
+    </tr>
+    <tr>
+        <td><strong>numpy</strong></td>
+        <td>Math operations on arrays of numbers</td>
+        <td>Calculations, rounding, handling missing values</td>
+    </tr>
+    <tr>
+        <td><strong>scipy</strong></td>
+        <td>Scientific/statistical functions</td>
+        <td>Spearman correlation test</td>
+    </tr>
+    <tr>
+        <td><strong>statsmodels</strong></td>
+        <td>Statistical models (regression, etc.)</td>
+        <td>Negative binomial regression, model comparison</td>
+    </tr>
+    <tr>
+        <td><strong>openpyxl</strong></td>
+        <td>Reads/writes Excel files</td>
+        <td>Load the .xlsx data files</td>
+    </tr>
+</table>
+
+<h3>Geospatial & Mapping Libraries</h3>
+
+<table>
+    <tr>
+        <th>Library</th>
+        <th>What It Does (Simple Explanation)</th>
+        <th>How You'll Use It Here</th>
+    </tr>
+    <tr>
+        <td><strong>geopandas</strong></td>
+        <td>Like pandas, but understands geographic shapes (counties, states)</td>
+        <td>Load shapefiles, merge data with map boundaries, draw choropleths</td>
+    </tr>
+    <tr>
+        <td><strong>matplotlib</strong></td>
+        <td>The main Python plotting library</td>
+        <td>Render the map, handle multi-panel layout, export PDF/PNG</td>
+    </tr>
+    <tr>
+        <td><strong>mapclassify</strong></td>
+        <td>Decides how to split data into color bins for maps</td>
+        <td>Create quantile and natural-breaks (Jenks) bins</td>
+    </tr>
+    <tr>
+        <td><strong>pyproj</strong></td>
+        <td>Handles map projections (how a round Earth is shown flat)</td>
+        <td>Apply Albers USA projection</td>
+    </tr>
+</table>
+
+<h3>Census Data Access</h3>
+
+<table>
+    <tr>
+        <th>Library</th>
+        <th>What It Does (Simple Explanation)</th>
+        <th>How You'll Use It Here</th>
+    </tr>
+    <tr>
+        <td><strong>census</strong></td>
+        <td>Talks to the US Census Bureau API for you</td>
+        <td>Pull population data by county automatically</td>
+    </tr>
+    <tr>
+        <td><strong>us</strong></td>
+        <td>Has US state codes, abbreviations, FIPS codes built in</td>
+        <td>Filter to 50 states + DC, look up state info</td>
+    </tr>
+</table>
+
+<h3>Install Everything At Once</h3>
+
+<div class="install-block">
+pip install pandas numpy openpyxl scipy statsmodels geopandas matplotlib mapclassify pyproj census us jupyter
+</div>
+
+<!-- SECTION 5 -->
+<h2>5. Key Columns That Matter</h2>
+
+<p class="section-intro">These are the most important columns across all datasets. Focus on these.</p>
+
+<h3>From the ACR Dataset (Your Starting Point)</h3>
+
+<table>
+    <tr>
+        <th>Column</th>
+        <th>Why It Matters</th>
+    </tr>
+    <tr>
+        <td><code>Zip Code</code></td>
+        <td>The geographic link — connects facilities to counties</td>
+    </tr>
+    <tr>
+        <td><code>modality</code></td>
+        <td>Tells you MRI vs CT: "MRAP" = MRI, "CTAP" = CT</td>
+    </tr>
+    <tr>
+        <td><code>Status</code></td>
+        <td>Must be "Accredited" or "Under Review" to be included</td>
+    </tr>
+    <tr>
+        <td><code>Expiration Date</code></td>
+        <td>Exclude if expired before May 20, 2026</td>
+    </tr>
+</table>
+
+<h3>From External Datasets</h3>
+
+<table>
+    <tr>
+        <th>Dataset</th>
+        <th>Key Column</th>
+        <th>What It Does</th>
+    </tr>
+    <tr>
+        <td>HUD Crosswalk</td>
+        <td><code>ZIP</code>, <code>COUNTY</code>, <code>RES_RATIO</code></td>
+        <td>Links ZIP → County; RES_RATIO picks the right county for multi-county ZIPs</td>
+    </tr>
+    <tr>
+        <td>CDC SVI</td>
+        <td><code>FIPS</code>, <code>RPL_THEMES</code></td>
+        <td>Overall vulnerability score (0–1). This is your main predictor variable.</td>
+    </tr>
+    <tr>
+        <td>USDA RUCC</td>
+        <td><code>FIPS</code>, <code>RUCC_2023</code></td>
+        <td>1–3 = metro/urban, 4–9 = non-metro/rural</td>
+    </tr>
+    <tr>
+        <td>Census ACS</td>
+        <td><code>GEOID</code>, population fields</td>
+        <td>Your denominator (adults 45+) for calculating rates</td>
+    </tr>
+    <tr>
+        <td>TIGER/Line</td>
+        <td><code>GEOID</code>, geometry</td>
+        <td>The actual shapes of counties for drawing the map</td>
+    </tr>
+</table>
+
+<!-- SECTION 6 -->
+<h2>6. Important Rules & Warnings</h2>
+
+<div class="callout callout-warning">
+    <strong>Do NOT fix the 5 states with zero MRI sites</strong> (Alaska, New Mexico, South Dakota, Utah, Wyoming). This is real — those states use a different accreditation system. It will be discussed in the paper's Limitations section.
+</div>
+
+<div class="callout callout-warning">
+    <strong>Always store ZIP codes and FIPS codes as text strings</strong>, not numbers. Otherwise leading zeros get dropped (e.g., "07652" becomes "7652") and your data linkage will break.
+</div>
+
+<div class="callout">
+    <strong>Other rules:</strong>
+    <ul>
+        <li>Only include 50 states + DC. Exclude US territories (Puerto Rico, Guam, etc.)</li>
+        <li>The 23 "Under Review" facilities ARE included in the main analysis</li>
+        <li>Nuclear Cardiology sheet is out of scope — ignore it</li>
+        <li>A facility accredited for BOTH MRI and CT counts once in each — this is correct, not a duplicate</li>
+    </ul>
+</div>
+
+<!-- SECTION 7 -->
+<h2>7. Final Deliverables Checklist</h2>
+
+<table>
+    <tr>
+        <th>#</th>
+        <th>What To Deliver</th>
+        <th>Format</th>
+        <th>Due</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>Linked county-level analytic dataset</td>
+        <td>CSV</td>
+        <td>May 24</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Figure 1 — Two-panel US choropleth map</td>
+        <td>PDF + PNG (600 dpi)</td>
+        <td>May 24</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Table 1 — Summary by SVI quartile & rurality</td>
+        <td>CSV or Excel</td>
+        <td>May 24</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Regression results (IRR, confidence intervals, model fit)</td>
+        <td>Text summary + pickle</td>
+        <td>May 24</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>All analysis code (well-commented)</td>
+        <td>.py or .ipynb</td>
+        <td>May 24</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>README documentation</td>
+        <td>Markdown</td>
+        <td>May 24</td>
+    </tr>
+</table>
+
+<div class="footer-note">
+    <p><strong>Document prepared:</strong> May 22, 2026 &nbsp;|&nbsp; <strong>Project:</strong> Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity &nbsp;|&nbsp; <strong>Target:</strong> JACC: Advances</p>
+</div>
+
+</body>
+</html>
