@@ -27,7 +27,8 @@ geo-spatial-analysis/
 │   ├── 03_descriptive_analysis.py    # Table 1 + Spearman correlations
 │   ├── 04_choropleth_map.py          # Figure 1 (two-panel US county map)
 │   ├── 05_regression_analysis.py     # Negative binomial regression + sensitivity
-│   └── 06_run_all.py                 # Master pipeline runner
+│   ├── 06_adi_sensitivity_analysis.py # ADI as alternative predictor (supplementary)
+│   └── 07_run_all.py                 # Master pipeline runner
 ├── data/
 │   ├── ACR_Cardiac_Imaging_Sites.xlsx  # Provided by Dr. Naeem (2,273 facilities)
 │   ├── acr_dataset.xlsx                # Full ACR extract (reference only)
@@ -35,6 +36,7 @@ geo-spatial-analysis/
 │   │   ├── tiger_county_2023/          # TIGER/Line county shapefiles
 │   │   ├── zcta_county_crosswalk_2020.txt
 │   │   ├── SVI_2022_US_county.csv      # ← Manual download required
+│   │   ├── county_health_rankings_2024.csv  # CHR (auto-downloaded for ADI)
 │   │   └── ruralurbancodes2023.xls     # ← Manual download required
 │   └── processed/
 │       ├── county_analytic_dataset.csv # Final analytic file (3,144 counties)
@@ -105,12 +107,24 @@ The following datasets could not be auto-downloaded (government sites restructur
 
 ## Key Decisions
 
-- **Unit of analysis:** US county (n=3,143; 50 states + DC)
+- **Unit of analysis:** US county (n=3,144; 50 states + DC)
 - **Multi-county ZIPs:** Assigned to county with largest land area overlap
 - **Rate denominator:** Adults aged ≥45 years
-- **Rate exclusion:** Counties with <1,000 adults ≥45 excluded from per-capita rates
+- **Rate exclusion:** Counties with <1,000 adults ≥45 excluded from per-capita rates (n=106)
 - **Double-counting:** Facility accredited for both MRI and CT counted once per modality
 - **Inclusion:** "Accredited" and "Under Review" status (sensitivity analysis excludes "Under Review")
+- **ADI construction:** County-level PCA of 6 ACS socioeconomic indicators (Singh 2003 methodology)
+
+## Key Findings
+
+| Predictor | Modality | IRR | p-value | Interpretation |
+|-----------|----------|-----|---------|----------------|
+| SVI per 10-pctl | CMR | 0.992 | 0.681 | Not significant |
+| SVI per 10-pctl | CCT | 1.020 | 0.213 | Not significant |
+| **ADI per 10-pctl** | **CMR** | **0.937** | **0.002** | **Significant — 6.3% decrease per 10-pctl** |
+| ADI per 10-pctl | CCT | 0.979 | 0.177 | Not significant |
+
+**Conclusion:** The primary disparity is geographic (metro vs rural). ADI detects a significant socioeconomic gradient for CMR that SVI misses, suggesting CMR access is sensitive to area deprivation beyond the metro/rural divide.
 
 ## Software
 
