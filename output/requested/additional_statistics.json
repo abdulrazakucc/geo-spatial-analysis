@@ -1,0 +1,13 @@
+{
+  "svi_adi_pearson_r": 0.8257,
+  "svi_adi_pearson_p": 0.0,
+  "metro_vs_nonmetro_cmr_mann_whitney_p": 3.1032524873609334e-95,
+  "metro_vs_nonmetro_cct_mann_whitney_p": 1.0091780176373513e-92,
+  "metro_cmr_mean_rate": 0.35,
+  "nonmetro_cmr_mean_rate": 0.02,
+  "metro_cct_mean_rate": 0.74,
+  "nonmetro_cct_mean_rate": 0.35,
+  "adi_q1_cmr_mean": 0.27,
+  "adi_q5_cmr_mean": 0.06,
+  "kruskal_wallis_cmr_p": 0.0
+}
