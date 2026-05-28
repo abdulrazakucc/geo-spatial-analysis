@@ -311,7 +311,7 @@ Singh (2003, American Journal of Public Health) and Kind and Buckingham (2018, N
 
 ### Validation
 
-The correlation between our PCA-constructed ADI and the CDC SVI is r = 0.826 (Pearson). They measure overlapping but distinct constructs: SVI includes non-economic themes (minority status, disability, transportation) while ADI focuses purely on socioeconomic disadvantage. This partial overlap (r = 0.83) combined with divergent regression results (ADI significant, SVI null) confirms that the ADI captures unique socioeconomic information not present in SVI.
+The correlation between our PCA-constructed ADI and the CDC SVI is r = 0.822 (Pearson). They measure overlapping but distinct constructs: SVI includes non-economic themes (minority status, disability, transportation) while ADI focuses purely on socioeconomic disadvantage. This partial overlap (r = 0.82) combined with divergent regression results (ADI significant, SVI null) confirms that the ADI captures unique socioeconomic information not present in SVI.
 
 ---
 
@@ -319,8 +319,8 @@ The correlation between our PCA-constructed ADI and the CDC SVI is r = 0.826 (Pe
 
 ### Finding 1: The Dominant Disparity is Geographic
 
-- Metropolitan counties (37.3% of all counties) contain **98.1% of all CMR** and **92.4% of all CCT** facilities.
-- 90.5% of counties have zero CMR sites; 82.4% have zero CCT sites.
+- Metropolitan counties (37.7% of all counties) contain **98.1% of all CMR** and **92.4% of all CCT** facilities.
+- 90.8% of counties have zero CMR sites; 83.1% have zero CCT sites.
 - Metro CMR rate: 0.35 per 100,000 vs Nonmetro: 0.02 per 100,000 (p < 0.0001, Mann-Whitney U test).
 - Metro CCT rate: 0.74 per 100,000 vs Nonmetro: 0.35 per 100,000 (p < 0.0001, Mann-Whitney U test).
 
@@ -328,7 +328,7 @@ The correlation between our PCA-constructed ADI and the CDC SVI is r = 0.826 (Pe
 
 - CMR: IRR = 0.992 (95% CI: 0.952 to 1.033), p = 0.681
 - CCT: IRR = 1.020 (95% CI: 0.989 to 1.053), p = 0.213
-- Spearman correlations also null (CMR rho = 0.008, p = 0.66; CCT rho = 0.023, p = 0.21)
+- Spearman correlations also null (CMR rho = 0.008, p = 0.66; CCT rho = 0.020, p = 0.21)
 
 ### Finding 3: ADI Reveals a CMR-Specific Socioeconomic Gradient
 
@@ -337,12 +337,12 @@ The correlation between our PCA-constructed ADI and the CDC SVI is r = 0.826 (Pe
 - Interpretation: For every 10-percentile increase in area deprivation, CMR facility rates decrease by 6.3%.
 - ADI Spearman: CMR rho = -0.172 (p < 0.0001); CCT rho = -0.163 (p < 0.0001)
 - ADI Q1 (least deprived) CMR mean rate: 0.27 per 100,000
-- ADI Q5 (most deprived) CMR mean rate: 0.06 per 100,000 (4.5x disparity)
+- ADI Q5 (most deprived) CMR mean rate: 0.06 per 100,000 (4.4x disparity)
 - Kruskal-Wallis across ADI quintiles for CMR: p < 0.0001
 
 ### Finding 4: Why CMR but Not CCT?
 
-CMR is a more specialized, rarer modality (725 sites vs 1,548 for CCT). Facilities offering CMR require:
+CMR is a more specialized, rarer modality (687 sites vs 1,481 for CCT). Facilities offering CMR require:
 
 - Higher-field MRI scanners (1.5T or 3T) with cardiac coils
 - Specialized technologists trained in cardiac protocols

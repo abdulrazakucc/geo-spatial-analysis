@@ -57,7 +57,7 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 | Statistic | CMR (Cardiac MRI) | CCT (Cardiac CT) |
 |-----------|:------------------:|:------------------:|
 | Total accredited facilities | 725 | 1,548 |
-| Counties with at least one facility | 299 (9.5%) | 553 (17.6%) |
+| Counties with at least one facility | 289 (9.2%) | 532 (16.9%) |
 | Counties with zero facilities | 2,845 (90.5%) | 2,591 (82.4%) |
 | Combined imaging deserts (zero of either) | 1,974 counties (62.8%) | -- |
 
@@ -65,7 +65,7 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 
 | Metric | Metropolitan | Nonmetropolitan |
 |--------|:---:|:---:|
-| Number of counties | 1,173 (37.3%) | 1,971 (62.7%) |
+| Number of counties | 1,173 (37.7%) | 1,971 (62.7%) |
 | Share of CMR facilities | 98.1% | 1.9% |
 | Share of CCT facilities | 92.4% | 7.6% |
 | Mean CMR rate (per 100,000 adults 45+) | 0.35 | 0.02 |
@@ -76,7 +76,7 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 
 ### Zero-Inflation Explanation
 
-Because 90.5% of counties have zero CMR facilities and 82.4% have zero CCT, the median facility count and median per-capita rate are both **zero**. This is not an error. It reflects the extreme concentration of specialized imaging in a small number of counties. The mean (average) is more informative for understanding the overall landscape, while the regression models account for the zero-inflation through the Negative Binomial distributional assumption.
+Because 90.8% of counties have zero CMR facilities and 83.1% have zero CCT, the median facility count and median per-capita rate are both **zero**. This is not an error. It reflects the extreme concentration of specialized imaging in a small number of counties. The mean (average) is more informative for understanding the overall landscape, while the regression models account for the zero-inflation through the Negative Binomial distributional assumption.
 
 ---
 
@@ -161,7 +161,7 @@ The first principal component explains **58.7% of total variance** across these 
 The ADI reveals a statistically significant and clinically meaningful relationship between area deprivation and CMR access that the SVI completely missed:
 
 - For every 10-percentile increase in area deprivation, CMR facility rates decrease by 6.3%.
-- Counties in the most deprived quintile (Q5) have 4.5 times fewer CMR facilities per capita than counties in the least deprived quintile (Q1).
+- Counties in the most deprived quintile (Q5) have 4.4 times fewer CMR facilities per capita than counties in the least deprived quintile (Q1).
 - This gradient is monotonic (steadily decreasing from Q1 to Q5), supporting a dose-response relationship.
 - The effect is specific to CMR. CCT shows a trend but does not reach statistical significance in the regression model.
 
@@ -185,7 +185,7 @@ The SVI dilutes its socioeconomic signal by including three non-economic themes.
 
 ### Correlation Between SVI and ADI
 
-- Pearson r = 0.826 (strong positive correlation)
+- Pearson r = 0.822 (strong positive correlation)
 - They are related but not identical
 - The 17.4% of ADI variance NOT shared with SVI is what drives the significant CMR finding
 
@@ -277,7 +277,7 @@ This is a cross-sectional ecologic study, so we cannot establish causality. Howe
 
 ### Q: Why is CMR significant but not CCT?
 
-CMR is rarer and more specialized (725 sites vs 1,548 for CCT). It requires:
+CMR is rarer and more specialized (687 sites vs 1,481 for CCT). It requires:
 - 1.5T or 3T MRI scanners with dedicated cardiac coils
 - Specially trained technologists for cardiac-gated sequences
 - Cardiologist or radiologist expertise in CMR interpretation
@@ -330,7 +330,7 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 | Correlation | SVI | CCT rate | Spearman | rho = 0.023 | 0.21 | Null |
 | Correlation | ADI | CMR rate | Spearman | rho = -0.172 | < 0.0001 | **Significant** |
 | Correlation | ADI | CCT rate | Spearman | rho = -0.163 | < 0.0001 | **Significant** |
-| SVI-ADI agreement | -- | -- | Pearson | r = 0.826 | < 0.0001 | Strong but not identical |
+| SVI-ADI agreement | -- | -- | Pearson | r = 0.822 | < 0.0001 | Strong but not identical |
 | Metro vs nonmetro | -- | CMR rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
 | Metro vs nonmetro | -- | CCT rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
 | Quintile comparison | ADI quintiles | CMR rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
