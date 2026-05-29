@@ -1,6 +1,6 @@
 # Results and Interpretation Guide
 
-## Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity Across US Counties
+## Geographic Disparities in Accredited Cardiac Imaging Across the United States: Social Vulnerability versus Economic Deprivation
 
 **Document Purpose:** This guide provides a detailed explanation of all results, statistical findings, and their clinical and policy implications. It is intended for collaborators, reviewers, and anyone interested in understanding the analysis and its conclusions.
 
@@ -69,7 +69,7 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 | Share of CMR facilities | 98.1% | 1.9% |
 | Share of CCT facilities | 92.4% | 7.6% |
 | Mean CMR rate (per 100,000 adults 45+) | 0.35 | 0.02 |
-| Mean CCT rate (per 100,000 adults 45+) | 0.74 | 0.35 |
+| Mean CCT rate (per 100,000 adults 45+) | 0.73 | 0.35 |
 | Mann-Whitney U test (metro vs nonmetro) | p < 0.0001 | p < 0.0001 |
 
 **Interpretation:** The overwhelming majority of cardiac imaging capacity is concentrated in metropolitan counties. Nearly all nonmetropolitan counties (which house 62.7% of US counties and millions of residents) have zero or near-zero access to accredited cardiac MRI.
@@ -103,7 +103,7 @@ The offset converts the count model to a rate model. The predictor is divided by
 | Modality | rho | p-value |
 |----------|:---:|:-------:|
 | CMR rate vs SVI | 0.008 | 0.66 |
-| CCT rate vs SVI | 0.023 | 0.21 |
+| CCT rate vs SVI | 0.020 | 0.27 |
 
 ### What This Means
 
@@ -337,7 +337,7 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 | Sensitivity regression | ADI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.937 | 0.002 | **Significant** |
 | Sensitivity regression | ADI (per 10-pctl) | CCT | NegBin GLM | IRR = 0.979 | 0.177 | Null |
 | Correlation | SVI | CMR rate | Spearman | rho = 0.008 | 0.66 | Null |
-| Correlation | SVI | CCT rate | Spearman | rho = 0.023 | 0.21 | Null |
+| Correlation | SVI | CCT rate | Spearman | rho = 0.020 | 0.27 | Null |
 | Correlation | ADI | CMR rate | Spearman | rho = -0.172 | < 0.0001 | **Significant** |
 | Correlation | ADI | CCT rate | Spearman | rho = -0.163 | < 0.0001 | **Significant** |
 | SVI-ADI agreement | -- | -- | Pearson | r = 0.821 | < 0.0001 | Strong but not identical |
@@ -352,7 +352,7 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 
 ## How to Cite This Work
 
-> Naeem M, Razak A. Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity: A Cross-Sectional Ecologic Analysis of 3,144 US Counties. 2026. GitHub: https://github.com/abdulrazakucc/geo-spatial-analysis
+> Naeem M, Razak A. Geographic Disparities in Accredited Cardiac Imaging Across the United States: Social Vulnerability versus Economic Deprivation. 2026. GitHub: https://github.com/abdulrazakucc/geo-spatial-analysis
 
 ---
 

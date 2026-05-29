@@ -1,4 +1,4 @@
-# Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity
+# Geographic Disparities in Accredited Cardiac Imaging Across the United States: Social Vulnerability versus Economic Deprivation
 
 A cross-sectional ecologic analysis of 3,144 US counties examining whether social vulnerability and area deprivation predict access to accredited cardiac imaging facilities.
 
