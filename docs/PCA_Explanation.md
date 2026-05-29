@@ -95,8 +95,8 @@ We follow the same PCA methodology, applied at the county level to cardiac imagi
 
 | Predictor | CMR IRR | p-value |
 |-----------|---------|---------|
-| SVI (CDC composite of 16 variables) | 0.992 | 0.681 (not significant) |
-| ADI (PCA of 6 economic variables) | 0.937 | 0.002 (significant) |
+| SVI (CDC composite of 16 variables) | 0.9915 | 0.6808 (not significant) |
+| ADI (PCA of 6 economic variables) | 0.9373 | 0.0018 (significant) |
 
 The SVI dilutes the economic signal by including non-economic themes (minority status, disability, vehicle access). ADI, by focusing purely on socioeconomic indicators via PCA, isolates the economic component and reveals a true association with CMR access.
 

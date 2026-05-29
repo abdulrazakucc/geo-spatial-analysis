@@ -32,12 +32,12 @@ We analyzed the geographic distribution of 687 ACR-accredited Cardiac MRI (CMR) 
 
 | Predictor | Modality | IRR | 95% CI | p-value | Significant? |
 |-----------|----------|-----|--------|---------|:---:|
-| SVI per 10-percentile | CMR | 0.992 | 0.952 - 1.033 | 0.681 | No |
-| SVI per 10-percentile | CCT | 1.020 | 0.989 - 1.053 | 0.213 | No |
-| **ADI per 10-percentile** | **CMR** | **0.937** | **0.900 - 0.976** | **0.002** | **Yes** |
-| ADI per 10-percentile | CCT | 0.979 | 0.949 - 1.010 | 0.177 | No |
+| SVI per 10-percentile | CMR | 0.9915 | 0.9521 - 1.0325 | 0.6808 | No |
+| SVI per 10-percentile | CCT | 1.0203 | 0.9885 - 1.0530 | 0.2130 | No |
+| **ADI per 10-percentile** | **CMR** | **0.9373** | **0.9000 - 0.9762** | **0.0018** | **Yes** |
+| ADI per 10-percentile | CCT | 0.9789 | 0.9490 - 1.0097 | 0.1767 | No |
 
-**Bottom line:** The primary disparity is geographic (metro vs rural). ADI detects a significant 6.3% reduction in CMR capacity per 10-percentile increase in area deprivation, a signal that SVI missed entirely. This suggests that CMR access (more specialized, fewer sites) is sensitive to neighborhood socioeconomic factors.
+**Bottom line:** The primary disparity is geographic (metro vs rural). ADI detects a significant 6.27% reduction in CMR capacity per 10-percentile increase in area deprivation (1 - 0.9373 = 0.0627), a signal that SVI missed entirely. This suggests that CMR access (more specialized, fewer sites) is sensitive to neighborhood socioeconomic factors.
 
 ---
 
@@ -123,25 +123,26 @@ Counties with fewer than 1,000 adults aged 45 and older were excluded from rate 
 
 ### Finding 1: The Dominant Disparity is Geographic
 
-- Metropolitan counties (1,186 counties, 37.7%) contain 98.1% of all CMR and 92.4% of all CCT facilities.
-- 90.8% of counties have zero CMR sites; 83.1% have zero CCT sites.
-- Metro CMR rate: 0.35 per 100,000 vs Nonmetro: 0.02 per 100,000 (p < 0.0001).
-- Metro CCT rate: 0.73 per 100,000 vs Nonmetro: 0.35 per 100,000 (p < 0.0001).
+- Metropolitan counties (1,186 counties, 37.72%) contain 98.11% of all CMR and 92.44% of all CCT facilities.
+- 90.81% of counties have zero CMR sites; 83.08% have zero CCT sites.
+- Metro CMR rate: 0.3480 per 100,000 vs Nonmetro: 0.0236 per 100,000 (p < 0.0001).
+- Metro CCT rate: 0.7323 per 100,000 vs Nonmetro: 0.3540 per 100,000 (p < 0.0001).
 
 ### Finding 2: SVI Does Not Predict Facility Distribution
 
-- CMR: IRR = 0.992 (95% CI: 0.952 - 1.033), p = 0.681
-- CCT: IRR = 1.020 (95% CI: 0.989 - 1.053), p = 0.213
-- Spearman: CMR rho = 0.008, p = 0.66; CCT rho = 0.020, p = 0.27
+- CMR: IRR = 0.9915 (95% CI: 0.9521 - 1.0325), p = 0.6808
+- CCT: IRR = 1.0203 (95% CI: 0.9885 - 1.0530), p = 0.2130
+- Spearman: CMR rho = 0.0079, p = 0.6646; CCT rho = 0.0201, p = 0.2681
 
 ### Finding 3: ADI Reveals a CMR-Specific Socioeconomic Gradient
 
-- **CMR: IRR = 0.937 (95% CI: 0.900 - 0.976), p = 0.002** (SIGNIFICANT)
-- CCT: IRR = 0.979 (95% CI: 0.949 - 1.010), p = 0.177
-- ADI Spearman: CMR rho = -0.172 (p < 0.0001); CCT rho = -0.163 (p < 0.0001)
-- ADI Q1 (least deprived) CMR mean rate: 0.27 per 100,000
-- ADI Q5 (most deprived) CMR mean rate: 0.06 per 100,000 (4.5x disparity)
-- AIC comparison: ADI CMR model AIC = 1,831 vs SVI CMR model AIC = 1,851 (ADI fits better)
+- **CMR: IRR = 0.9373 (95% CI: 0.9000 - 0.9762), p = 0.0018** (SIGNIFICANT)
+- CCT: IRR = 0.9789 (95% CI: 0.9490 - 1.0097), p = 0.1767
+- ADI Spearman: CMR rho = -0.1715 (p = 1.99e-21); CCT rho = -0.1632 (p = 1.58e-19)
+- ADI Q1 (least deprived) CMR mean rate: 0.2715 per 100,000
+- ADI Q5 (most deprived) CMR mean rate: 0.0622 per 100,000
+- Q1/Q5 ratio: 0.2715 / 0.0622 = 4.37x disparity
+- AIC comparison: ADI CMR model AIC = 1830.98 vs SVI CMR model AIC = 1851.01 (ADI fits better)
 
 ### Finding 4: Why CMR but Not CCT?
 
@@ -151,7 +152,7 @@ CMR is more specialized and rarer (687 sites vs 1,481 for CCT). Facilities offer
 
 The SVI includes 4 themes: (1) Socioeconomic Status, (2) Household Characteristics/Disability, (3) Racial/Ethnic Minority Status, (4) Housing Type/Transportation. Themes 2-4 introduce non-economic variation that dilutes the socioeconomic signal. ADI focuses purely on economic deprivation, which more directly relates to healthcare infrastructure investment decisions.
 
-The correlation between SVI and ADI is Pearson r = 0.821 - strong but not identical. They measure overlapping but distinct constructs.
+The correlation between SVI and ADI is Pearson r = 0.8209 - strong but not identical. They measure overlapping but distinct constructs.
 
 ---
 

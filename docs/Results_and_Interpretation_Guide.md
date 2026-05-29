@@ -57,26 +57,26 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 | Statistic | CMR (Cardiac MRI) | CCT (Cardiac CT) |
 |-----------|:------------------:|:------------------:|
 | Total accredited facilities | 687 | 1,481 |
-| Counties with at least one facility | 289 (9.2%) | 532 (16.9%) |
-| Counties with zero facilities | 2,855 (90.8%) | 2,612 (83.1%) |
+| Counties with at least one facility | 289 (9.19%) | 532 (16.92%) |
+| Counties with zero facilities | 2,855 (90.81%) | 2,612 (83.08%) |
 | Combined imaging deserts (zero of either) | 1,974 counties (62.8%) | -- |
 
 ### The Metro-Rural Divide
 
 | Metric | Metropolitan | Nonmetropolitan |
 |--------|:---:|:---:|
-| Number of counties | 1,186 (37.7%) | 1,958 (62.3%) |
-| Share of CMR facilities | 98.1% | 1.9% |
-| Share of CCT facilities | 92.4% | 7.6% |
-| Mean CMR rate (per 100,000 adults 45+) | 0.35 | 0.02 |
-| Mean CCT rate (per 100,000 adults 45+) | 0.73 | 0.35 |
+| Number of counties | 1,186 (37.72%) | 1,958 (62.28%) |
+| Share of CMR facilities | 98.11% | 1.89% |
+| Share of CCT facilities | 92.44% | 7.56% |
+| Mean CMR rate (per 100,000 adults 45+) | 0.3480 | 0.0236 |
+| Mean CCT rate (per 100,000 adults 45+) | 0.7323 | 0.3540 |
 | Mann-Whitney U test (metro vs nonmetro) | p < 0.0001 | p < 0.0001 |
 
-**Interpretation:** The overwhelming majority of cardiac imaging capacity is concentrated in metropolitan counties. Nearly all nonmetropolitan counties (which house 62.7% of US counties and millions of residents) have zero or near-zero access to accredited cardiac MRI.
+**Interpretation:** The overwhelming majority of cardiac imaging capacity is concentrated in metropolitan counties. Nearly all nonmetropolitan counties (which constitute 62.28% of US counties and house millions of residents) have zero or near-zero access to accredited cardiac MRI.
 
 ### Zero-Inflation Explanation
 
-Because 90.8% of counties have zero CMR facilities and 83.1% have zero CCT, the median facility count and median per-capita rate are both **zero**. This is not an error. It reflects the extreme concentration of specialized imaging in a small number of counties. The mean (average) is more informative for understanding the overall landscape, while the regression models account for the zero-inflation through the Negative Binomial distributional assumption.
+Because 90.81% of counties have zero CMR facilities and 83.08% have zero CCT, the median facility count and median per-capita rate are both **zero**. This is not an error. It reflects the extreme concentration of specialized imaging in a small number of counties. The mean (average) is more informative for understanding the overall landscape, while the regression models account for the zero-inflation through the Negative Binomial distributional assumption.
 
 ---
 
@@ -95,15 +95,15 @@ The offset converts the count model to a rate model. The predictor is divided by
 
 | Modality | IRR | 95% CI | p-value | Interpretation |
 |----------|:---:|:------:|:-------:|----------------|
-| CMR | 0.992 | 0.952 to 1.033 | 0.681 | No association |
-| CCT | 1.020 | 0.989 to 1.053 | 0.213 | No association |
+| CMR | 0.9915 | 0.9521 to 1.0325 | 0.6808 | No association |
+| CCT | 1.0203 | 0.9885 to 1.0530 | 0.2130 | No association |
 
 ### Spearman Rank Correlations (Non-parametric)
 
 | Modality | rho | p-value |
 |----------|:---:|:-------:|
-| CMR rate vs SVI | 0.008 | 0.66 |
-| CCT rate vs SVI | 0.020 | 0.27 |
+| CMR rate vs SVI | 0.0079 | 0.6646 |
+| CCT rate vs SVI | 0.0201 | 0.2681 |
 
 ### What This Means
 
@@ -144,34 +144,34 @@ The first principal component explains **58.7% of total variance** across these 
 
 | Modality | IRR | 95% CI | p-value | Interpretation |
 |----------|:---:|:------:|:-------:|----------------|
-| **CMR** | **0.937** | **0.900 to 0.976** | **0.002** | **Significant: 6.3% decrease per 10-pctl** |
-| CCT | 0.979 | 0.949 to 1.010 | 0.177 | No association |
+| **CMR** | **0.9373** | **0.9000 to 0.9762** | **0.0018** | **Significant: 6.27% decrease per 10-pctl** |
+| CCT | 0.9789 | 0.9490 to 1.0097 | 0.1767 | No association |
 
 ### Spearman Rank Correlations (ADI)
 
 | Modality | rho | p-value |
 |----------|:---:|:-------:|
-| CMR rate vs ADI | -0.172 | < 0.0001 |
-| CCT rate vs ADI | -0.163 | < 0.0001 |
+| CMR rate vs ADI | -0.1715 | 1.99e-21 |
+| CCT rate vs ADI | -0.1632 | 1.58e-19 |
 
 ### ADI Quintile Analysis (Dose-Response)
 
 | ADI Quintile | Mean CMR Rate (per 100,000) | Mean CCT Rate (per 100,000) |
 |:---:|:---:|:---:|
-| Q1 (Least deprived) | 0.27 | 0.60 |
-| Q2 | 0.15 | 0.40 |
-| Q3 | 0.19 | 0.57 |
-| Q4 | 0.08 | 0.60 |
-| Q5 (Most deprived) | 0.06 | 0.34 |
-| **Q1 vs Q5 ratio** | **4.5x** | **1.8x** |
+| Q1 (Least deprived) | 0.2715 | 0.6017 |
+| Q2 | 0.1491 | 0.4034 |
+| Q3 | 0.1870 | 0.5666 |
+| Q4 | 0.0806 | 0.5970 |
+| Q5 (Most deprived) | 0.0622 | 0.3437 |
+| **Q1 vs Q5 ratio** | **0.2715/0.0622 = 4.37x** | **0.6017/0.3437 = 1.75x** |
 | Kruskal-Wallis p | < 0.0001 | < 0.0001 |
 
 ### What This Means
 
 The ADI reveals a statistically significant and clinically meaningful relationship between area deprivation and CMR access that the SVI completely missed:
 
-- For every 10-percentile increase in area deprivation, CMR facility rates decrease by 6.3%.
-- Counties in the most deprived quintile (Q5) have 4.5 times fewer CMR facilities per capita than counties in the least deprived quintile (Q1).
+- For every 10-percentile increase in area deprivation, CMR facility rates decrease by 6.27% (1 - 0.9373 = 0.0627).
+- Counties in the most deprived quintile (Q5) have 4.37 times fewer CMR facilities per capita than counties in the least deprived quintile (Q1).
 - This gradient is monotonic (steadily decreasing from Q1 to Q5), supporting a dose-response relationship.
 - The effect is specific to CMR. CCT shows a trend but does not reach statistical significance in the regression model.
 
@@ -195,9 +195,9 @@ The SVI dilutes its socioeconomic signal by including three non-economic themes.
 
 ### Correlation Between SVI and ADI
 
-- Pearson r = 0.821 (strong positive correlation)
+- Pearson r = 0.8209 (strong positive correlation)
 - They are related but not identical
-- The 17.4% of ADI variance NOT shared with SVI is what drives the significant CMR finding
+- The portion of ADI variance NOT shared with SVI is what drives the significant CMR finding
 
 ### Visual Evidence (Figure 2)
 
@@ -211,25 +211,25 @@ Figure 2 (Panel D) shows a scatter plot of SVI vs ADI for all counties. CMR-cont
 
 | Stratum | Modality | IRR | p-value | Notes |
 |---------|----------|:---:|:-------:|-------|
-| Metro only | CMR | 1.005 | 0.82 | No association |
-| Metro only | CCT | 1.036 | 0.054 | Borderline positive |
-| Nonmetro only | CMR | 0.814 | 0.064 | Borderline negative (trend) |
-| Nonmetro only | CCT | 0.982 | 0.62 | No association |
+| Metro only | CMR | 1.0050 | 0.8225 | No association |
+| Metro only | CCT | 1.0364 | 0.0540 | Borderline positive |
+| Nonmetro only | CMR | 0.8144 | 0.0635 | Borderline negative (trend) |
+| Nonmetro only | CCT | 0.9818 | 0.6203 | No association |
 
-**Interpretation:** Among nonmetropolitan counties only, there is a borderline suggestion that higher SVI reduces CMR access (IRR = 0.814, p = 0.064). This does not reach conventional significance but hints that the metro-rural divide may mask within-stratum socioeconomic effects.
+**Interpretation:** Among nonmetropolitan counties only, there is a borderline suggestion that higher SVI reduces CMR access (IRR = 0.8144, p = 0.0635). This does not reach conventional significance but hints that the metro-rural divide may mask within-stratum socioeconomic effects.
 
 ### SVI Quartile Contrasts
 
 | Contrast | Modality | IRR | p-value |
 |----------|----------|:---:|:-------:|
-| Q2 vs Q1 | CMR | 0.984 | 0.92 |
-| Q3 vs Q1 | CMR | 0.844 | 0.36 |
-| Q4 vs Q1 | CMR | 0.870 | 0.44 |
-| Q2 vs Q1 | CCT | 1.181 | 0.14 |
-| Q3 vs Q1 | CCT | 1.310 | 0.038 |
-| Q4 vs Q1 | CCT | 1.123 | 0.35 |
+| Q2 vs Q1 | CMR | 0.9490 | 0.7562 |
+| Q3 vs Q1 | CMR | 1.0494 | 0.7664 |
+| Q4 vs Q1 | CMR | 0.9277 | 0.6551 |
+| Q2 vs Q1 | CCT | 1.2035 | 0.1662 |
+| Q3 vs Q1 | CCT | 1.3096 | 0.0382 |
+| Q4 vs Q1 | CCT | 1.1739 | 0.2329 |
 
-**Interpretation:** CCT Q3 vs Q1 is borderline significant (p = 0.038) but the pattern is non-monotonic (Q4 returns to null). This isolated finding does not survive multiple comparison correction and does not support a consistent socioeconomic gradient.
+**Interpretation:** CCT Q3 vs Q1 is borderline significant (p = 0.0382) but the pattern is non-monotonic (Q4 returns to null). This isolated finding does not survive multiple comparison correction and does not support a consistent socioeconomic gradient.
 
 ---
 
@@ -332,21 +332,21 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 
 | Analysis | Predictor | Modality | Test | Statistic | p-value | Conclusion |
 |----------|-----------|----------|------|-----------|---------|------------|
-| Primary regression | SVI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.992 | 0.681 | Null |
-| Primary regression | SVI (per 10-pctl) | CCT | NegBin GLM | IRR = 1.020 | 0.213 | Null |
-| Sensitivity regression | ADI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.937 | 0.002 | **Significant** |
-| Sensitivity regression | ADI (per 10-pctl) | CCT | NegBin GLM | IRR = 0.979 | 0.177 | Null |
-| Correlation | SVI | CMR rate | Spearman | rho = 0.008 | 0.66 | Null |
-| Correlation | SVI | CCT rate | Spearman | rho = 0.020 | 0.27 | Null |
-| Correlation | ADI | CMR rate | Spearman | rho = -0.172 | < 0.0001 | **Significant** |
-| Correlation | ADI | CCT rate | Spearman | rho = -0.163 | < 0.0001 | **Significant** |
-| SVI-ADI agreement | -- | -- | Pearson | r = 0.821 | < 0.0001 | Strong but not identical |
+| Primary regression | SVI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.9915 | 0.6808 | Null |
+| Primary regression | SVI (per 10-pctl) | CCT | NegBin GLM | IRR = 1.0203 | 0.2130 | Null |
+| Sensitivity regression | ADI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.9373 | 0.0018 | **Significant** |
+| Sensitivity regression | ADI (per 10-pctl) | CCT | NegBin GLM | IRR = 0.9789 | 0.1767 | Null |
+| Correlation | SVI | CMR rate | Spearman | rho = 0.0079 | 0.6646 | Null |
+| Correlation | SVI | CCT rate | Spearman | rho = 0.0201 | 0.2681 | Null |
+| Correlation | ADI | CMR rate | Spearman | rho = -0.1715 | 1.99e-21 | **Significant** |
+| Correlation | ADI | CCT rate | Spearman | rho = -0.1632 | 1.58e-19 | **Significant** |
+| SVI-ADI agreement | -- | -- | Pearson | r = 0.8209 | < 0.0001 | Strong but not identical |
 | Metro vs nonmetro | -- | CMR rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
 | Metro vs nonmetro | -- | CCT rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
 | Quintile comparison | ADI quintiles | CMR rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
 | Quintile comparison | ADI quintiles | CCT rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
-| Stratified (nonmetro) | SVI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.814 | 0.064 | Borderline |
-| Stratified (metro) | SVI (per 10-pctl) | CCT | NegBin GLM | IRR = 1.036 | 0.054 | Borderline |
+| Stratified (nonmetro) | SVI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.8144 | 0.0635 | Borderline |
+| Stratified (metro) | SVI (per 10-pctl) | CCT | NegBin GLM | IRR = 1.0364 | 0.0540 | Borderline |
 
 ---
 
