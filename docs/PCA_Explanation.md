@@ -55,15 +55,41 @@ When you combine 6 variables into 1 score, the maximum possible variance explain
 - But they also have unique variation (each tells you something different)
 - One score is a good summary without losing too much information
 
+## Why We Constructed Our Own ADI (Rather Than Using the Pre-Built Neighborhood Atlas)
+
+The University of Wisconsin Neighborhood Atlas provides a validated, downloadable ADI - but only at the Census block group and ZIP code level. **No pre-built county-level ADI exists.**
+
+### Why not just download the Neighborhood Atlas ADI?
+
+| Issue | Explanation |
+|-------|-------------|
+| **Resolution mismatch** | Neighborhood Atlas ADI is at block group (~600-3,000 people) or ZIP code level. Our unit of analysis is the county (~100,000 people). |
+| **No county product exists** | There is simply no downloadable county-level ADI from any standard source. |
+| **Aggregation problems** | Averaging block group ADIs up to counties introduces ecological fallacy (a county with one rich area and one poor area averages to "middle"), requires arbitrary weighting decisions, and is biased by suppressed/missing block groups. |
+| **Our predictors must match** | SVI is published at the county level. For a valid head-to-head comparison, ADI must also be at the county level. |
+
+### How Mango et al. (JACR 2023) Used ADI Differently
+
+Mango et al. studied breast imaging accreditation at the ZIP code level. The Neighborhood Atlas provides ZIP-level ADI directly, so they could simply download and merge. They also used ADI as a binary classifier (top 3% vs bottom 3%) with chi-square tests.
+
+Our study differs in three key ways:
+1. **County-level unit** (no pre-built ADI available) - we must construct our own
+2. **Continuous predictor** (per 10-percentile in regression) - more statistical power than binary extremes
+3. **Count-based outcome** (negative binomial) - more information than presence/absence
+
+### Our Solution: Replicate the Validated PCA Methodology at County Level
+
+We applied the same PCA approach that Singh (2003) and Kind/Buckingham (2018) used, but computed directly on county-level ACS data. This is standard practice when the geographic unit differs from published ADI products.
+
 ## Why This Approach is Validated
 
 This is not a new or experimental method. It has been used in published research for decades:
 
 - **Singh (2003)** used PCA of Census variables to create the original ADI (cited 2,500+ times)
 - **Kind and Buckingham (2018)** updated the ADI using PCA in the New England Journal of Medicine
-- **Mango et al. (2021)** applied ADI to breast imaging accreditation disparities
+- **Mango et al. (2023)** applied the pre-built ADI to breast imaging accreditation disparities at the ZIP level
 
-We follow the same methodology, applied to cardiac imaging.
+We follow the same PCA methodology, applied at the county level to cardiac imaging - extending the Mango et al. framework with more sophisticated statistical methods.
 
 ## The Key Result: ADI Finds What SVI Misses
 

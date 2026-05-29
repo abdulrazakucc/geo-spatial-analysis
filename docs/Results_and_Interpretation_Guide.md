@@ -56,16 +56,16 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 
 | Statistic | CMR (Cardiac MRI) | CCT (Cardiac CT) |
 |-----------|:------------------:|:------------------:|
-| Total accredited facilities | 725 | 1,548 |
+| Total accredited facilities | 687 | 1,481 |
 | Counties with at least one facility | 289 (9.2%) | 532 (16.9%) |
-| Counties with zero facilities | 2,845 (90.5%) | 2,591 (82.4%) |
+| Counties with zero facilities | 2,855 (90.8%) | 2,612 (83.1%) |
 | Combined imaging deserts (zero of either) | 1,974 counties (62.8%) | -- |
 
 ### The Metro-Rural Divide
 
 | Metric | Metropolitan | Nonmetropolitan |
 |--------|:---:|:---:|
-| Number of counties | 1,173 (37.7%) | 1,971 (62.7%) |
+| Number of counties | 1,186 (37.7%) | 1,958 (62.3%) |
 | Share of CMR facilities | 98.1% | 1.9% |
 | Share of CCT facilities | 92.4% | 7.6% |
 | Mean CMR rate (per 100,000 adults 45+) | 0.35 | 0.02 |
@@ -115,7 +115,17 @@ Social vulnerability (as measured by the CDC SVI) does **not** predict where car
 
 ### Why ADI?
 
-The SVI was designed for disaster preparedness, not healthcare access. It includes themes (minority status, disability, vehicle access) that may not directly relate to healthcare infrastructure investment. The Area Deprivation Index (ADI), developed by Singh (2003) and updated by Kind and Buckingham (2018, NEJM), was specifically designed for healthcare-access research. The Mango et al. (2021) paper demonstrated ADI-associated disparities in breast imaging accreditation, motivating its application to cardiac imaging.
+The SVI was designed for disaster preparedness, not healthcare access. It includes themes (minority status, disability, vehicle access) that may not directly relate to healthcare infrastructure investment. The Area Deprivation Index (ADI), developed by Singh (2003) and updated by Kind and Buckingham (2018, NEJM), was specifically designed for healthcare-access research. The Mango et al. (JACR 2023) paper demonstrated ADI-associated disparities in breast imaging accreditation, motivating its application to cardiac imaging.
+
+### Why We Constructed Our Own ADI (Not the Pre-Built Neighborhood Atlas)
+
+The University of Wisconsin Neighborhood Atlas provides a validated, downloadable ADI at the Census block group and ZIP code level. However, **no pre-built county-level ADI exists.** Since our unit of analysis is the county (to match SVI, RUCC, and ACS population denominators), we must construct our own.
+
+Mango et al. (2023) worked at the ZIP code level and could directly download and merge the Neighborhood Atlas ADI. Our study uses counties because: (1) SVI is published at county level, (2) RUCC metro/nonmetro classification is county-based, (3) ACS population denominators are most reliable at county level, and (4) counties are the standard unit for health policy planning (HRSA shortage designations, County Health Rankings).
+
+Aggregating block-group ADIs up to counties was rejected because it introduces ecological fallacy (a county with one affluent suburb and one impoverished neighborhood would appear "average"), requires arbitrary weighting decisions, and is biased by suppressed/missing block groups in the Neighborhood Atlas.
+
+Our solution: replicate the validated PCA methodology at county level using the same theoretical domains (income, education, employment, housing) from ACS data. This is exactly what Singh (2003) did originally and is standard practice when the geographic unit differs from existing ADI products.
 
 ### ADI Construction Method
 
@@ -185,7 +195,7 @@ The SVI dilutes its socioeconomic signal by including three non-economic themes.
 
 ### Correlation Between SVI and ADI
 
-- Pearson r = 0.822 (strong positive correlation)
+- Pearson r = 0.821 (strong positive correlation)
 - They are related but not identical
 - The 17.4% of ADI variance NOT shared with SVI is what drives the significant CMR finding
 
@@ -330,7 +340,7 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 | Correlation | SVI | CCT rate | Spearman | rho = 0.023 | 0.21 | Null |
 | Correlation | ADI | CMR rate | Spearman | rho = -0.172 | < 0.0001 | **Significant** |
 | Correlation | ADI | CCT rate | Spearman | rho = -0.163 | < 0.0001 | **Significant** |
-| SVI-ADI agreement | -- | -- | Pearson | r = 0.822 | < 0.0001 | Strong but not identical |
+| SVI-ADI agreement | -- | -- | Pearson | r = 0.821 | < 0.0001 | Strong but not identical |
 | Metro vs nonmetro | -- | CMR rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
 | Metro vs nonmetro | -- | CCT rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
 | Quintile comparison | ADI quintiles | CMR rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
