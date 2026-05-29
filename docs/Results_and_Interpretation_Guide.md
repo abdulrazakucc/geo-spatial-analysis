@@ -352,7 +352,7 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 
 ## How to Cite This Work
 
-> Razak A, Ahmad N. Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity: A Cross-Sectional Ecologic Analysis of 3,144 US Counties. 2026. GitHub: https://github.com/abdulrazakucc/geo-spatial-analysis
+> Ahmad N, Razak A. Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity: A Cross-Sectional Ecologic Analysis of 3,144 US Counties. 2026. GitHub: https://github.com/abdulrazakucc/geo-spatial-analysis
 
 ---
 
