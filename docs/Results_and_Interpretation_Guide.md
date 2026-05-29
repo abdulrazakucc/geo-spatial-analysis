@@ -163,7 +163,7 @@ The first principal component explains **58.7% of total variance** across these 
 | Q3 | 0.19 | 0.57 |
 | Q4 | 0.08 | 0.60 |
 | Q5 (Most deprived) | 0.06 | 0.34 |
-| **Q1 vs Q5 ratio** | **4.4x** | **1.8x** |
+| **Q1 vs Q5 ratio** | **4.5x** | **1.8x** |
 | Kruskal-Wallis p | < 0.0001 | < 0.0001 |
 
 ### What This Means
@@ -171,7 +171,7 @@ The first principal component explains **58.7% of total variance** across these 
 The ADI reveals a statistically significant and clinically meaningful relationship between area deprivation and CMR access that the SVI completely missed:
 
 - For every 10-percentile increase in area deprivation, CMR facility rates decrease by 6.3%.
-- Counties in the most deprived quintile (Q5) have 4.4 times fewer CMR facilities per capita than counties in the least deprived quintile (Q1).
+- Counties in the most deprived quintile (Q5) have 4.5 times fewer CMR facilities per capita than counties in the least deprived quintile (Q1).
 - This gradient is monotonic (steadily decreasing from Q1 to Q5), supporting a dose-response relationship.
 - The effect is specific to CMR. CCT shows a trend but does not reach statistical significance in the regression model.
 

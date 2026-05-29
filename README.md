@@ -140,7 +140,7 @@ Counties with fewer than 1,000 adults aged 45 and older were excluded from rate 
 - CCT: IRR = 0.979 (95% CI: 0.949 - 1.010), p = 0.177
 - ADI Spearman: CMR rho = -0.172 (p < 0.0001); CCT rho = -0.163 (p < 0.0001)
 - ADI Q1 (least deprived) CMR mean rate: 0.27 per 100,000
-- ADI Q5 (most deprived) CMR mean rate: 0.06 per 100,000 (4.4x disparity)
+- ADI Q5 (most deprived) CMR mean rate: 0.06 per 100,000 (4.5x disparity)
 - AIC comparison: ADI CMR model AIC = 1,831 vs SVI CMR model AIC = 1,851 (ADI fits better)
 
 ### Finding 4: Why CMR but Not CCT?
