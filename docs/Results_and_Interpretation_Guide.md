@@ -158,12 +158,12 @@ The first principal component explains **58.7% of total variance** across these 
 
 | ADI Quintile | Mean CMR Rate (per 100,000) | Mean CCT Rate (per 100,000) |
 |:---:|:---:|:---:|
-| Q1 (Least deprived) | 0.27 | 0.61 |
-| Q2 | 0.18 | 0.53 |
-| Q3 | 0.12 | 0.49 |
-| Q4 | 0.08 | 0.44 |
-| Q5 (Most deprived) | 0.06 | 0.39 |
-| **Q1 vs Q5 ratio** | **4.5x** | **1.6x** |
+| Q1 (Least deprived) | 0.27 | 0.60 |
+| Q2 | 0.15 | 0.40 |
+| Q3 | 0.19 | 0.57 |
+| Q4 | 0.08 | 0.60 |
+| Q5 (Most deprived) | 0.06 | 0.34 |
+| **Q1 vs Q5 ratio** | **4.4x** | **1.8x** |
 | Kruskal-Wallis p | < 0.0001 | < 0.0001 |
 
 ### What This Means
@@ -352,7 +352,7 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 
 ## How to Cite This Work
 
-> Ahmad N, Razak A. Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity: A Cross-Sectional Ecologic Analysis of 3,144 US Counties. 2026. GitHub: https://github.com/abdulrazakucc/geo-spatial-analysis
+> Naeem M, Razak A. Geographic Disparities in ACR-Accredited Cardiac Imaging Capacity: A Cross-Sectional Ecologic Analysis of 3,144 US Counties. 2026. GitHub: https://github.com/abdulrazakucc/geo-spatial-analysis
 
 ---
 

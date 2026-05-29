@@ -2,7 +2,7 @@
 
 A cross-sectional ecologic analysis of 3,144 US counties examining whether social vulnerability and area deprivation predict access to accredited cardiac imaging facilities.
 
-**Authors:** Naeem Ahmad, MD and Abdul Razak, MD
+**Authors:** Muhammad Naeem, MBBS, MD and Abdul Razak, PhD
 **Target Journal:** JACC: Advances (Special Focus Issue on Health Equity in Cardiology)
 **Last Updated:** May 28, 2026
 
