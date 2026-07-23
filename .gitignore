@@ -5,9 +5,11 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+publication/
 .DS_Store
 data/raw/cc-est2023-agesex-all.csv
 output/models/model_objects.pkl
+CLAUDE.md
 
 # Large files (exceed GitHub 100MB limit)
 data/processed/county_analytic_geo.gpkg
