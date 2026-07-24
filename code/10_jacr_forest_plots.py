@@ -37,21 +37,23 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle, FancyBboxPatch
+import matplotlib.colors as mcolors
+from matplotlib.patches import FancyBboxPatch
+from matplotlib.patheffects import withStroke
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(BASE_DIR, "output", "jacr_revision")
 RES = json.load(open(os.path.join(OUT, "validated_index_results.json")))
 
-# Palette
-INK   = "#17262f"      # near-black text
-TEAL  = "#0d7d75"      # CMR outcome and our EDI
-INDIGO= "#3a5ba0"      # CCT outcome
-AMBER = "#c07214"      # external Graham SDI
-GRID  = "#c7d0d6"      # reference line
-BAND  = "#f3f6f8"      # row banding
-MUTE  = "#5f6f7a"      # secondary text
-HAIR  = "#dfe6ea"      # hairline rules
+# Palette, refined for an elegant journal look
+INK    = "#16232e"     # near-black text
+TEAL   = "#0f766e"     # CMR outcome and our EDI
+INDIGO = "#3d5a99"     # CCT outcome
+AMBER  = "#bd6b16"     # external Graham SDI
+PAGE   = "#ffffff"
+MUTE   = "#61707b"     # secondary text
+HAIR   = "#e4eaee"     # hairline rules
+FRAME  = "#e8edf0"     # panel frame
 
 plt.rcParams.update({
     "font.family": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
@@ -60,9 +62,15 @@ plt.rcParams.update({
 })
 
 # Column geometry in axes-fraction units
-LABEL_X = 0.015
-FL, FR  = 0.355, 0.610
-STAT_X  = 0.650
+LABEL_X = 0.028
+FL, FR  = 0.360, 0.605
+STAT_X  = 0.648
+
+
+def tint(color, amount):
+    """Blend a colour toward white. amount 0 keeps colour, 1 gives white."""
+    r, g, b = mcolors.to_rgb(color)
+    return (r + (1 - r) * amount, g + (1 - g) * amount, b + (1 - b) * amount)
 
 
 def fmt(r):
@@ -77,38 +85,54 @@ def _map(v, xmin, xmax, logscale):
     return FL + (v - xmin) / (xmax - xmin) * (FR - FL)
 
 
-def draw_panel(ax, panel_title, accent, rows, xmin, xmax, ticks, logscale, xnote):
+def _rrect(ax, x, y, w, h, fc, ec="none", lw=0, r=0.02, z=0):
+    ax.add_patch(FancyBboxPatch((x, y), w, h,
+                 boxstyle=f"round,pad=0,rounding_size={r}", facecolor=fc,
+                 edgecolor=ec, linewidth=lw, zorder=z, mutation_aspect=0.55,
+                 clip_on=False))
+
+
+def draw_panel(ax, panel_title, accent, rows, xmin, xmax, ticks, logscale,
+               xnote, marker="o", arrows=False):
     n = len(rows)
     ax.set_xlim(0, 1)
-    top, bot = 1.35, -(n - 1) - 1.55
+    top, bot = 1.55, -(n - 1) - 1.9
     ax.set_ylim(bot, top)
     ax.axis("off")
     ys = [-i for i in range(n)]
 
-    # banding
-    for i, y in enumerate(ys):
-        if i % 2 == 0:
-            ax.add_patch(Rectangle((0.0, y - 0.5), 1.0, 1.0, facecolor=BAND,
-                                   edgecolor="none", zorder=0))
+    # soft panel frame
+    _rrect(ax, -0.005, ys[-1] - 0.62, 1.01, (top - 0.05) - (ys[-1] - 0.62),
+           fc=PAGE, ec=FRAME, lw=1.3, r=0.02, z=0)
 
-    # coloured accent chip and panel title
-    ax.add_patch(FancyBboxPatch((LABEL_X, top - 0.30), 0.022, 0.30,
-                 boxstyle="round,pad=0,rounding_size=0.01", facecolor=accent,
-                 edgecolor="none", zorder=2, mutation_aspect=0.5, clip_on=False))
-    ax.text(LABEL_X + 0.036, top - 0.15, panel_title, fontsize=11,
+    # tinted header band
+    _rrect(ax, -0.005, top - 0.52, 1.01, 0.50, fc=tint(accent, 0.90),
+           ec="none", r=0.02, z=0.5)
+
+    # highlight band behind each significant row, soft neutral behind the rest
+    for y, r in zip(ys, rows):
+        sig = r["est"]["P"] < 0.05
+        fc = tint(r["color"], 0.86) if sig else "#f7f9fa"
+        _rrect(ax, -0.005, y - 0.5, 1.01, 1.0, fc=fc, ec="none", r=0.015, z=0.6)
+
+    # accent chip and panel title
+    _rrect(ax, LABEL_X, top - 0.42, 0.020, 0.30, fc=accent, ec="none", r=0.008, z=2)
+    ax.text(LABEL_X + 0.034, top - 0.27, panel_title, fontsize=11.2,
             fontweight="bold", color=INK, va="center", ha="left")
-    ax.text(STAT_X, top - 0.15, "IRR (95% CI)", fontsize=9.4, fontweight="bold",
+    ax.text(STAT_X, top - 0.27, "IRR (95% CI)", fontsize=9.3, fontweight="bold",
             color=INK, va="center", ha="left")
-    ax.text(STAT_X + 0.205, top - 0.15, "P value", fontsize=9.4, fontweight="bold",
+    ax.text(STAT_X + 0.208, top - 0.27, "P value", fontsize=9.3, fontweight="bold",
             color=INK, va="center", ha="left")
-    ax.plot([LABEL_X, 0.995], [top - 0.42, top - 0.42], color=HAIR, lw=1.0, zorder=1)
 
     # reference line at IRR = 1
     if xmin <= 1 <= xmax:
         xref = _map(1.0, xmin, xmax, logscale)
-        ax.plot([xref, xref], [ys[-1] - 0.5, ys[0] + 0.5], ls=(0, (4, 3)), lw=1.1,
-                color=GRID, zorder=1)
+        ax.plot([xref, xref], [ys[-1] - 0.5, ys[0] + 0.5], ls=(0, (3, 3)), lw=1.2,
+                color="#b4c0c8", zorder=1.2)
+        ax.text(xref, ys[0] + 0.62, "no effect", fontsize=7.6, style="italic",
+                color="#9aa7b0", va="bottom", ha="center")
 
+    halo = [withStroke(linewidth=3.4, foreground="white")]
     for y, r in zip(ys, rows):
         est = r["est"]
         sig = est["P"] < 0.05
@@ -116,60 +140,76 @@ def draw_panel(ax, panel_title, accent, rows, xmin, xmax, ticks, logscale, xnote
         xp = _map(est["IRR"], xmin, xmax, logscale)
         xlo = _map(max(est["CI_low"], xmin), xmin, xmax, logscale)
         xhi = _map(min(est["CI_high"], xmax), xmin, xmax, logscale)
-        ax.plot([xlo, xhi], [y, y], color=col, lw=2.4, zorder=3, solid_capstyle="round")
+        ax.plot([xlo, xhi], [y, y], color=col, lw=2.6, zorder=3,
+                solid_capstyle="round", path_effects=halo)
         for xc in (xlo, xhi):
-            ax.plot([xc, xc], [y - 0.11, y + 0.11], color=col, lw=2.0, zorder=3)
-        ax.scatter([xp], [y], s=104 if sig else 92,
+            ax.plot([xc, xc], [y - 0.10, y + 0.10], color=col, lw=2.2, zorder=3)
+        ax.scatter([xp], [y], s=150 if sig else 118, marker=marker,
                    color=(col if sig else "white"), edgecolor=col,
-                   linewidth=2.1, zorder=4)
-        ax.text(LABEL_X, y, r["label"], fontsize=9.7, color=INK, va="center", ha="left")
+                   linewidth=2.3, zorder=4, path_effects=halo)
+        ax.text(LABEL_X, y, r["label"], fontsize=9.8,
+                color=(INK if sig else "#33434e"),
+                fontweight=("bold" if sig else "normal"), va="center", ha="left")
         est_txt, p_txt = fmt(est)
-        ax.text(STAT_X, y, est_txt, fontsize=9.5, fontweight=("bold" if sig else "normal"),
-                color=(INK if sig else MUTE), va="center", ha="left")
-        ax.text(STAT_X + 0.205, y, p_txt, fontsize=9.5,
+        ax.text(STAT_X, y, est_txt, fontsize=9.6, fontweight=("bold" if sig else "normal"),
+                color=(col if sig else MUTE), va="center", ha="left")
+        ax.text(STAT_X + 0.208, y, p_txt, fontsize=9.6,
                 fontweight=("bold" if sig else "normal"),
-                color=(accent if sig else MUTE), va="center", ha="left")
+                color=(col if sig else MUTE), va="center", ha="left")
 
     # forest x-axis
-    axis_y = ys[-1] - 0.60
-    ax.plot([FL, FR], [axis_y, axis_y], color="#9aa6ae", lw=1.0)
+    axis_y = ys[-1] - 0.52
+    ax.plot([FL, FR], [axis_y, axis_y], color="#aab4bc", lw=1.0)
     for t in ticks:
         xt = _map(t, xmin, xmax, logscale)
-        ax.plot([xt, xt], [axis_y, axis_y - 0.10], color="#9aa6ae", lw=1.0)
-        ax.text(xt, axis_y - 0.30, f"{t:g}", fontsize=8.6, color=MUTE, va="center", ha="center")
-    ax.text((FL + FR) / 2, axis_y - 0.72, xnote, fontsize=8.4, color=MUTE,
-            va="center", ha="center")
+        ax.plot([xt, xt], [axis_y, axis_y - 0.09], color="#aab4bc", lw=1.0)
+        ax.text(xt, axis_y - 0.28, f"{t:g}", fontsize=8.6, color=MUTE, va="center", ha="center")
+
+    if arrows:
+        yb = axis_y - 0.62
+        ax.annotate("", xy=(FL - 0.005, yb), xytext=(FL + 0.085, yb),
+                    arrowprops=dict(arrowstyle="->", color="#9aa7b0", lw=1.1))
+        ax.annotate("", xy=(FR + 0.005, yb), xytext=(FR - 0.085, yb),
+                    arrowprops=dict(arrowstyle="->", color="#9aa7b0", lw=1.1))
+        ax.text(FL + 0.095, yb, "lower capacity", fontsize=7.9, color=MUTE, va="center", ha="left")
+        ax.text(FR - 0.095, yb, "higher capacity", fontsize=7.9, color=MUTE, va="center", ha="right")
+        ax.text((FL + FR) / 2, yb - 0.30, xnote, fontsize=8.3, color=MUTE, va="center", ha="center")
+    else:
+        ax.text((FL + FR) / 2, axis_y - 0.66, xnote, fontsize=8.3, color=MUTE, va="center", ha="center")
 
 
 def legend_row(fig, y, items):
-    """Draw a compact colour key as a single centred row near the top."""
-    ax = fig.add_axes([0.0, y, 1.0, 0.04]); ax.axis("off"); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
-    xs = 0.5 - 0.5 * 0.9
-    x = 0.02
+    """Draw a compact rounded colour key as a single row near the top."""
+    ax = fig.add_axes([0.0, y, 1.0, 0.05]); ax.axis("off"); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
+    x = 0.028
     for label, color, filled in items:
-        ax.scatter([x], [0.5], s=90, color=(color if filled else "white"),
-                   edgecolor=color, linewidth=2.0, transform=ax.transAxes)
-        ax.text(x + 0.016, 0.5, label, fontsize=9.2, color=INK, va="center",
+        ax.scatter([x], [0.5], s=104, color=(color if filled else "white"),
+                   edgecolor=color, linewidth=2.2, transform=ax.transAxes,
+                   path_effects=[withStroke(linewidth=3.0, foreground="white")])
+        ax.text(x + 0.017, 0.5, label, fontsize=9.3, color=INK, va="center",
                 ha="left", transform=ax.transAxes)
-        x += 0.016 + 0.011 * len(label) + 0.03
+        x += 0.017 + 0.0108 * len(label) + 0.032
 
 
-def build_figure(title, footer, legend_items, panels, stem):
-    heights = [len(p["rows"]) + 1.9 for p in panels]
-    fig = plt.figure(figsize=(9.0, 0.56 * sum(heights) + 1.35))
-    gs = fig.add_gridspec(len(panels), 1, height_ratios=heights, hspace=0.34,
-                          left=0.02, right=0.99, top=0.855, bottom=0.05)
+def build_figure(title, subtitle, footer, legend_items, panels, stem):
+    heights = [len(p["rows"]) + 2.35 for p in panels]
+    fig = plt.figure(figsize=(9.2, 0.56 * sum(heights) + 1.6))
+    gs = fig.add_gridspec(len(panels), 1, height_ratios=heights, hspace=0.40,
+                          left=0.02, right=0.985, top=0.845, bottom=0.055)
     for i, p in enumerate(panels):
         ax = fig.add_subplot(gs[i])
         draw_panel(ax, p["title"], p["accent"], p["rows"], p["xmin"], p["xmax"],
-                   p["ticks"], p["log"], p["xnote"])
-    fig.suptitle(title, x=0.02, ha="left", fontsize=15, fontweight="bold",
-                 color=INK, y=0.985)
-    legend_row(fig, 0.905, legend_items)
-    fig.text(0.02, 0.012, footer, ha="left", fontsize=8.4, color=MUTE)
+                   p["ticks"], p["log"], p["xnote"],
+                   marker=p.get("marker", "o"), arrows=p.get("arrows", False))
+    fig.suptitle(title, x=0.028, ha="left", fontsize=15.5, fontweight="bold",
+                 color=INK, y=0.988)
+    fig.text(0.028, 0.928, subtitle, ha="left", fontsize=9.6, color=MUTE)
+    fig.add_artist(plt.Line2D([0.028, 0.30], [0.912, 0.912], color=TEAL, lw=2.4))
+    legend_row(fig, 0.868, legend_items)
+    fig.text(0.028, 0.014, footer, ha="left", fontsize=8.3, color=MUTE)
     for ext, dpi in [("png", 600), ("pdf", None)]:
         fig.savefig(os.path.join(OUT, f"{stem}.{ext}"), dpi=dpi,
-                    bbox_inches="tight", pad_inches=0.22, facecolor="white")
+                    bbox_inches="tight", pad_inches=0.24, facecolor="white")
     plt.close(fig)
     print(f"wrote {stem}.png and {stem}.pdf")
 
@@ -183,6 +223,7 @@ MET_NOTE = "IRR, metropolitan versus nonmetropolitan (log scale)"
 e = RES["EDI_models"]["outcomes"]
 build_figure(
     "Figure 1B.  Area deprivation and accredited cardiac imaging capacity",
+    "The deprivation signal for cardiac MRI disappears once metropolitan status is taken into account.",
     "Economic Deprivation Index, negative binomial regression with population offset, n = 3,029 counties.",
     [("Cardiac MRI", TEAL, True), ("Cardiac CT", INDIGO, True),
      ("filled significant", INK, True), ("open not significant", INK, False)],
@@ -196,7 +237,7 @@ build_figure(
              {"label": "Cardiac CT, adjusted for metro", "color": INDIGO, "est": e["cct_facility_count"]["adjusted"]},
          ]},
         {"title": "Metropolitan status, from the adjusted models", "accent": INDIGO, "log": True,
-         "xmin": MET_RANGE[0], "xmax": MET_RANGE[1], "ticks": MET_TICKS, "xnote": MET_NOTE,
+         "xmin": MET_RANGE[0], "xmax": MET_RANGE[1], "ticks": MET_TICKS, "xnote": MET_NOTE, "marker": "D",
          "rows": [
              {"label": "Cardiac MRI capacity", "color": TEAL, "est": e["cmr_facility_count"]["metro_in_adjusted"]},
              {"label": "Cardiac CT capacity", "color": INDIGO, "est": e["cct_facility_count"]["metro_in_adjusted"]},
@@ -209,6 +250,7 @@ s = RES["SDI_models"]["outcomes"]["cmr_facility_count"]
 ec = e["cmr_facility_count"]
 build_figure(
     "Figure S.  External validation with a published deprivation index",
+    "A published outside index does not reproduce our unadjusted result, yet both agree the driver is metropolitan status.",
     "Cardiac MRI outcome. Our EDI compared with the Robert Graham Center Social Deprivation Index (SDI, 2015 to 2019).",
     [("Our EDI", TEAL, True), ("Graham Center SDI", AMBER, True),
      ("filled significant", INK, True), ("open not significant", INK, False)],
@@ -222,7 +264,7 @@ build_figure(
              {"label": "Adjusted for metro, Graham SDI", "color": AMBER, "est": s["adjusted"]},
          ]},
         {"title": "Metropolitan status and CMR capacity, from the adjusted models", "accent": AMBER, "log": True,
-         "xmin": MET_RANGE[0], "xmax": MET_RANGE[1], "ticks": MET_TICKS, "xnote": MET_NOTE,
+         "xmin": MET_RANGE[0], "xmax": MET_RANGE[1], "ticks": MET_TICKS, "xnote": MET_NOTE, "marker": "D",
          "rows": [
              {"label": "Our EDI model", "color": TEAL, "est": ec["metro_in_adjusted"]},
              {"label": "Graham Center SDI model", "color": AMBER, "est": s["metro_in_adjusted"]},
