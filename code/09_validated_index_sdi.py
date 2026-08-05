@@ -71,6 +71,9 @@ def load():
     m = df.merge(edi, on="county_fips", how="left")
     m = m.merge(sdi[["COUNTY_FIPS", "SDI_score"]], left_on="county_fips",
                 right_on="COUNTY_FIPS", how="left")
+    # SVI ships as a 0-1 percentile. Rescale to 0-100 so that every index in this
+    # script is on the same footing and run_index's /10 gives IRR per 10 percentile points.
+    m["svi_percentile_100"] = m["svi_percentile"] * 100.0
     return m
 
 
@@ -133,6 +136,7 @@ def main():
                           "SDI": rurality_link(m, "SDI_score")},
         "EDI_models": run_index(m, "edi_national_percentile", "Our EDI (self-built PCA)"),
         "SDI_models": run_index(m, "SDI_score", "External SDI (Graham Center)"),
+        "SVI_models": run_index(m, "svi_percentile_100", "CDC/ATSDR SVI (primary predictor)"),
     }
     with open(os.path.join(OUT, "validated_index_results.json"), "w") as f:
         json.dump(results, f, indent=2)
@@ -150,7 +154,7 @@ def main():
     dd = results["descriptive_SDI_by_facility_rate_eligible"]
     a(f"Mean SDI, no-facility vs facility counties, {dd['no_facility_mean']:.1f} vs {dd['facility_mean']:.1f}")
     a("")
-    for key in ["EDI_models", "SDI_models"]:
+    for key in ["SVI_models", "EDI_models", "SDI_models"]:
         blk = results[key]
         a("-" * 78)
         a(f"{blk['label']}   (n = {blk['n']})")
@@ -162,7 +166,7 @@ def main():
                 r = blk["outcomes"][oc][mdl]
                 ci = f"{r['CI_low']:.3f}-{r['CI_high']:.3f}"
                 star = " *sig" if r["P"] < 0.05 else ""
-                a(f"{('  deprivation, '+mdl):<32}{short:<7}{r['IRR']:>8.4f}{ci:>18}{r['P']:>11.4f}{star}")
+                a(f"{('  index, '+mdl):<32}{short:<7}{r['IRR']:>8.4f}{ci:>18}{r['P']:>11.4f}{star}")
             mr = blk["outcomes"][oc]["metro_in_adjusted"]
             ci = f"{mr['CI_low']:.2f}-{mr['CI_high']:.2f}"
             a(f"{'  metropolitan status (adj)':<32}{short:<7}{mr['IRR']:>8.4f}{ci:>18}{mr['P']:>11.2e}")

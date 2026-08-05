@@ -6,25 +6,29 @@ JACR revision figures. Reads output/jacr_revision/validated_index_results.json
 (single source of truth, so numbers and plots can never drift apart) and writes
 two publication-quality forest plots.
 
-    Figure1B_Unadjusted_vs_Adjusted   Panel B redesigned. Our EDI association with
-                                       CMR and CCT capacity, shown unadjusted and
-                                       adjusted for metropolitan status, side by
-                                       side, with metropolitan status in its own
-                                       panel because its effect is on a different
-                                       scale. Colour marks the modality.
+    Figure1B_Unadjusted_vs_Adjusted   Manuscript Panel B. Three stacked panels. The SVI
+                                       and the EDI each get a panel showing CMR and CCT
+                                       capacity, unadjusted and adjusted for metropolitan
+                                       status, and metropolitan status gets its own panel
+                                       because its effect is an order of magnitude larger.
+                                       Both indices appear so the panel carries the
+                                       paper's claim on its own, that neither index
+                                       survives adjustment. Colour marks the modality.
 
     Figure_SDI_External_Validation     Our self-built EDI compared with the external
                                        Graham Center SDI for the CMR outcome. Colour
                                        marks the index.
 
 Design notes
-    Two stacked panels per figure with scales matched to the estimates, so the small
-    deprivation confidence intervals are readable and the large metropolitan effect
-    is not compressed. Colour encodes group, a filled marker means significant and an
-    open marker means not significant. Light table banding, a clean sans-serif face,
-    heavy strokes for crisp rendering at 600 dpi, and a short colour key. No
-    descriptive paragraph is placed on the plot. All figure text avoids em-dashes and
-    colons.
+    Stacked panels with scales matched to the estimates, so the small index confidence
+    intervals are readable and the large metropolitan effect is not compressed. Index
+    panels use a linear scale, the metropolitan panel a log scale, and the figure legend
+    in the manuscript says so. Colour encodes the data series, modality or index, and is
+    never reused for panel furniture, which is why panel accents are neutral slate. A
+    filled marker means significant and an open marker means not significant. Light table
+    banding, a clean sans-serif face, heavy strokes for crisp rendering at 600 dpi, and a
+    short colour key. No descriptive paragraph is placed on the plot. All figure text
+    avoids em-dashes and colons.
 
 Run
     python code/09_validated_index_sdi.py     (first, produces the JSON)
@@ -49,7 +53,8 @@ RES = json.load(open(os.path.join(OUT, "validated_index_results.json")))
 INK    = "#16232e"     # near-black text
 TEAL   = "#0f766e"     # CMR outcome and our EDI
 INDIGO = "#3d5a99"     # CCT outcome
-AMBER  = "#bd6b16"     # external Graham SDI
+AMBER  = "#bd6b16"     # external Graham SDI, and the metropolitan-status panel
+SLATE  = "#5b6b7a"     # neutral panel accent, never used for a data series
 PAGE   = "#ffffff"
 MUTE   = "#61707b"     # secondary text
 HAIR   = "#e4eaee"     # hairline rules
@@ -96,7 +101,7 @@ def draw_panel(ax, panel_title, accent, rows, xmin, xmax, ticks, logscale,
                xnote, marker="o", arrows=False):
     n = len(rows)
     ax.set_xlim(0, 1)
-    top, bot = 1.55, -(n - 1) - 1.9
+    top, bot = 1.45, -(n - 1) - 1.42
     ax.set_ylim(bot, top)
     ax.axis("off")
     ys = [-i for i in range(n)]
@@ -192,9 +197,9 @@ def legend_row(fig, y, items):
 
 
 def build_figure(title, subtitle, footer, legend_items, panels, stem):
-    heights = [len(p["rows"]) + 2.35 for p in panels]
-    fig = plt.figure(figsize=(9.2, 0.56 * sum(heights) + 1.6))
-    gs = fig.add_gridspec(len(panels), 1, height_ratios=heights, hspace=0.40,
+    heights = [len(p["rows"]) + 1.85 for p in panels]
+    fig = plt.figure(figsize=(9.6, 0.50 * sum(heights) + 1.5))
+    gs = fig.add_gridspec(len(panels), 1, height_ratios=heights, hspace=0.30,
                           left=0.02, right=0.985, top=0.845, bottom=0.055)
     for i, p in enumerate(panels):
         ax = fig.add_subplot(gs[i])
@@ -216,30 +221,50 @@ def build_figure(title, subtitle, footer, legend_items, panels, stem):
 
 DEP_TICKS, DEP_RANGE = [0.9, 1.0, 1.1], (0.85, 1.13)
 MET_TICKS, MET_RANGE = [1, 2, 5, 10, 20], (0.9, 20)
-DEP_NOTE = "IRR per 10-point rise in deprivation (below 1 lower capacity, above 1 higher)"
+DEP_NOTE = "IRR per 10-percentile increase in the index (below 1 lower capacity, above 1 higher)"
 MET_NOTE = "IRR, metropolitan versus nonmetropolitan (log scale)"
 
-# ---- Figure 1B, our EDI, colour encodes modality --------------------------
+
+def index_rows(block):
+    """Four rows for one index: each modality, unadjusted then adjusted."""
+    o = block["outcomes"]
+    return [
+        {"label": "Cardiac MR, unadjusted", "color": TEAL,
+         "est": o["cmr_facility_count"]["unadjusted"]},
+        {"label": "Cardiac MR, adjusted for metropolitan status", "color": TEAL,
+         "est": o["cmr_facility_count"]["adjusted"]},
+        {"label": "Cardiac CT, unadjusted", "color": INDIGO,
+         "est": o["cct_facility_count"]["unadjusted"]},
+        {"label": "Cardiac CT, adjusted for metropolitan status", "color": INDIGO,
+         "est": o["cct_facility_count"]["adjusted"]},
+    ]
+
+
+# ---- Figure 1B, both indices side by side, colour encodes modality --------
+# Three panels so the figure carries the paper's central claim on its own:
+# neither index survives adjustment, and metropolitan status is what remains.
 e = RES["EDI_models"]["outcomes"]
+s_svi = RES["SVI_models"]
+n_svi, n_edi = RES["SVI_models"]["n"], RES["EDI_models"]["n"]
 build_figure(
-    "Figure 1B.  Area deprivation and accredited cardiac imaging capacity",
-    "The deprivation signal for cardiac MRI disappears once metropolitan status is taken into account.",
-    "Economic Deprivation Index, negative binomial regression with population offset, n = 3,029 counties.",
-    [("Cardiac MRI", TEAL, True), ("Cardiac CT", INDIGO, True),
+    "Figure 1B.  Area disadvantage, metropolitan status, and accredited cardiac imaging capacity",
+    "Neither index is associated with capacity once metropolitan status is in the model. "
+    "Metropolitan status is what remains.",
+    f"Negative binomial regression with a log-population offset (adults aged 45 and older). "
+    f"n = {n_svi:,} counties for the SVI and {n_edi:,} for the EDI.",
+    [("Cardiac MR", TEAL, True), ("Cardiac CT", INDIGO, True),
      ("filled significant", INK, True), ("open not significant", INK, False)],
     [
-        {"title": "Area deprivation, per 10-point increase", "accent": TEAL, "log": False,
+        {"title": "Social Vulnerability Index, per 10 percentiles", "accent": SLATE, "log": False,
          "xmin": DEP_RANGE[0], "xmax": DEP_RANGE[1], "ticks": DEP_TICKS, "xnote": DEP_NOTE,
-         "rows": [
-             {"label": "Cardiac MRI, unadjusted", "color": TEAL, "est": e["cmr_facility_count"]["unadjusted"]},
-             {"label": "Cardiac MRI, adjusted for metro", "color": TEAL, "est": e["cmr_facility_count"]["adjusted"]},
-             {"label": "Cardiac CT, unadjusted", "color": INDIGO, "est": e["cct_facility_count"]["unadjusted"]},
-             {"label": "Cardiac CT, adjusted for metro", "color": INDIGO, "est": e["cct_facility_count"]["adjusted"]},
-         ]},
-        {"title": "Metropolitan status, from the adjusted models", "accent": INDIGO, "log": True,
+         "rows": index_rows(s_svi)},
+        {"title": "Economic Deprivation Index, per 10 percentiles", "accent": SLATE, "log": False,
+         "xmin": DEP_RANGE[0], "xmax": DEP_RANGE[1], "ticks": DEP_TICKS, "xnote": DEP_NOTE,
+         "rows": index_rows(RES["EDI_models"])},
+        {"title": "Metropolitan status, from the adjusted models", "accent": AMBER, "log": True,
          "xmin": MET_RANGE[0], "xmax": MET_RANGE[1], "ticks": MET_TICKS, "xnote": MET_NOTE, "marker": "D",
          "rows": [
-             {"label": "Cardiac MRI capacity", "color": TEAL, "est": e["cmr_facility_count"]["metro_in_adjusted"]},
+             {"label": "Cardiac MR capacity", "color": TEAL, "est": e["cmr_facility_count"]["metro_in_adjusted"]},
              {"label": "Cardiac CT capacity", "color": INDIGO, "est": e["cct_facility_count"]["metro_in_adjusted"]},
          ]},
     ],

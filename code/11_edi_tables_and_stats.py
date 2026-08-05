@@ -19,6 +19,7 @@ Every quantity produced here is computed at run time from:
 Outputs
     output/tables/Supplementary_Table_EDI_Regression.docx
     output/tables/Table4_SVI_vs_EDI_Comparison.docx
+    output/tables/Table4_External_Validation_SDI.docx   (manuscript Table 4)
     output/{tables,requested}/additional_statistics.json
     output/supplementary_data/additional_statistics.json
     (Word tables are also copied to output/requested/)
@@ -236,6 +237,51 @@ def comparison_table(edi_res, svi_res, sdi_res, m):
     print("  wrote Table4_SVI_vs_EDI_Comparison.docx")
 
 
+def external_validation_table(sdi_res):
+    """Manuscript Table 4, our EDI head to head with the external Graham Center SDI."""
+    if sdi_res is None:
+        print("  skipped Table4_External_Validation_SDI.docx (run 09 first)")
+        return
+    E = sdi_res["EDI_models"]["outcomes"]
+    S = sdi_res["SDI_models"]["outcomes"]
+    doc = Document()
+    _style(doc)
+    doc.add_heading("Table 4. External validation of the deprivation finding using a "
+                    "published county-level index", level=1)
+    rows = []
+    for modality, key in [("Cardiac MR", "cmr_facility_count"),
+                          ("Cardiac CT", "cct_facility_count")]:
+        rows.append((modality, "", "", "", ""))
+        for label, mdl in [("Index, unadjusted", "unadjusted"),
+                           ("Index, adjusted for metropolitan status", "adjusted"),
+                           ("Metropolitan status", "metro_in_adjusted")]:
+            rows.append((f"    {label}",
+                         fmt(E[key][mdl], 2), fmt_p(norm(E[key][mdl])["p"]),
+                         fmt(S[key][mdl], 2), fmt_p(norm(S[key][mdl])["p"])))
+    _table(doc, ["Exposure", "EDI IRR (95% CI)", "P value", "SDI IRR (95% CI)", "P value"], rows)
+
+    ag = sdi_res["agreement_with_EDI"]
+    rl = sdi_res["rurality_link"]
+    doc.add_paragraph(
+        f"EDI = economic deprivation index; IRR = incidence rate ratio; SDI = Social "
+        f"Deprivation Index (Robert Graham Center, 2015-2019). Negative binomial regression "
+        f"with a log-population offset (adults aged 45 and older); index IRRs are per "
+        f"10-percentile increase. Analytic sample: {sdi_res['EDI_models']['n']:,} counties "
+        f"(EDI) and {sdi_res['SDI_models']['n']:,} (SDI); the SDI matched "
+        f"{sdi_res['sdi_matched_counties']:,} of {sdi_res['total_counties']:,} counties. The "
+        f"two indices agree closely at the county level (Spearman rho = "
+        f"{ag['spearman_rho']:.2f}) but differ in how strongly they encode rurality: Spearman "
+        f"rho with the ordinal Rural-Urban Continuum Code was "
+        f"{rl['EDI']['spearman_vs_rucc']:.2f} for the EDI and "
+        f"{rl['SDI']['spearman_vs_rucc']:.2f} for the SDI, with mean nonmetropolitan minus "
+        f"metropolitan gaps of {rl['EDI']['gap']:.1f} and {rl['SDI']['gap']:.1f} percentile "
+        f"points, respectively. Metropolitan status rows are the metropolitan-status "
+        f"coefficients from the corresponding adjusted models.")
+    for d in (TABLES, REQUESTED):
+        doc.save(os.path.join(d, "Table4_External_Validation_SDI.docx"))
+    print("  wrote Table4_External_Validation_SDI.docx")
+
+
 def additional_stats(m, edi_res, svi_res):
     """Recompute every loose descriptive number the manuscript quotes."""
     el = m[m.rate_excluded == 0]
@@ -323,6 +369,7 @@ def main():
     svi_res = svi_models(m)
     supplementary_table(edi_res)
     comparison_table(edi_res, svi_res, sdi_res, m)
+    external_validation_table(sdi_res)
     s = additional_stats(m, edi_res, svi_res)
     print(f"\n  Counties with neither modality: {s['counties_neither_modality']} "
           f"({s['counties_neither_modality_pct']}%)")

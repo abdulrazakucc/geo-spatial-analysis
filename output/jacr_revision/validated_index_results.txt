@@ -8,15 +8,27 @@ Agreement with our EDI, Spearman rho 0.883 (P 0.0e+00), Pearson r 0.882
 Mean SDI, no-facility vs facility counties, 48.7 vs 44.8
 
 ------------------------------------------------------------------------------
+CDC/ATSDR SVI (primary predictor)   (n = 3038)
+------------------------------------------------------------------------------
+Model                           Outcome     IRR            95% CI          P
+..............................................................................
+  index, unadjusted             CMR      0.9915       0.952-1.033     0.6808
+  index, adjusted               CMR      0.9964       0.955-1.040     0.8698
+  metropolitan status (adj)     CMR      8.4357        4.80-14.83   1.26e-13
+  index, unadjusted             CCT      1.0203       0.989-1.053     0.2130
+  index, adjusted               CCT      1.0257       0.993-1.060     0.1265
+  metropolitan status (adj)     CCT      1.9371         1.55-2.42   4.60e-09
+
+------------------------------------------------------------------------------
 Our EDI (self-built PCA)   (n = 3029)
 ------------------------------------------------------------------------------
 Model                           Outcome     IRR            95% CI          P
 ..............................................................................
-  deprivation, unadjusted       CMR      0.9373       0.900-0.976     0.0018 *sig
-  deprivation, adjusted         CMR      0.9828       0.941-1.027     0.4343
+  index, unadjusted             CMR      0.9373       0.900-0.976     0.0018 *sig
+  index, adjusted               CMR      0.9828       0.941-1.027     0.4343
   metropolitan status (adj)     CMR      8.2307        4.65-14.56   4.43e-13
-  deprivation, unadjusted       CCT      0.9789       0.949-1.010     0.1767
-  deprivation, adjusted         CCT      1.0074       0.974-1.041     0.6633
+  index, unadjusted             CCT      0.9789       0.949-1.010     0.1767
+  index, adjusted               CCT      1.0074       0.974-1.041     0.6633
   metropolitan status (adj)     CCT      1.9619         1.56-2.47   9.81e-09
 
 ------------------------------------------------------------------------------
@@ -24,11 +36,11 @@ External SDI (Graham Center)   (n = 3027)
 ------------------------------------------------------------------------------
 Model                           Outcome     IRR            95% CI          P
 ..............................................................................
-  deprivation, unadjusted       CMR      1.0064       0.968-1.046     0.7458
-  deprivation, adjusted         CMR      1.0260       0.985-1.069     0.2149
+  index, unadjusted             CMR      1.0064       0.968-1.046     0.7458
+  index, adjusted               CMR      1.0260       0.985-1.069     0.2149
   metropolitan status (adj)     CMR      8.6648        4.93-15.24   6.80e-14
-  deprivation, unadjusted       CCT      1.0166       0.986-1.048     0.2901
-  deprivation, adjusted         CCT      1.0303       0.998-1.063     0.0634
+  index, unadjusted             CCT      1.0166       0.986-1.048     0.2901
+  index, adjusted               CCT      1.0303       0.998-1.063     0.0634
   metropolitan status (adj)     CCT      1.9832         1.59-2.48   1.73e-09
 
 HOW STRONGLY DOES EACH INDEX TRACK RURALITY (the confounder)
