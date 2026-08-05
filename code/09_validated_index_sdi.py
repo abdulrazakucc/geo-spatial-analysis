@@ -103,6 +103,21 @@ def run_index(d, index_col, label):
     return out
 
 
+def svi_edi_agreement(m):
+    """
+    Correlation between the CDC SVI and our EDI, as quoted in the Results.
+
+    Computed over every county holding both values (not the rate-eligible subset),
+    which is the sample 11_edi_tables_and_stats.py uses for the same statistic.
+    The two samples agree to 2 decimal places (0.8209 vs 0.8215).
+    """
+    d = m.dropna(subset=["svi_percentile", "edi_national_percentile"])
+    r, p = stats.pearsonr(d.svi_percentile, d.edi_national_percentile)
+    rho, _ = stats.spearmanr(d.svi_percentile, d.edi_national_percentile)
+    return {"n": int(len(d)), "pearson_r": float(r), "pearson_p": float(p),
+            "spearman_rho": float(rho), "sample": "all counties with both indices"}
+
+
 def rurality_link(m, index_col):
     d = m.dropna(subset=[index_col, "rucc_code"])
     rho, _ = stats.spearmanr(d[index_col], d.rucc_code)
@@ -129,6 +144,11 @@ def main():
         "total_counties": int(len(m)),
         "agreement_with_EDI": {"spearman_rho": float(rho), "spearman_p": float(prho),
                                "pearson_r": float(rpear)},
+        # SVI vs EDI agreement is quoted in the manuscript Results. It is also
+        # emitted by 11_edi_tables_and_stats.py into additional_statistics.json,
+        # but it is repeated here so every correlation the manuscript cites can be
+        # found in one place alongside the models.
+        "svi_edi_agreement": svi_edi_agreement(m),
         "descriptive_SDI_by_facility_rate_eligible": {
             "no_facility_mean": float(el.loc[neither, "SDI_score"].mean()),
             "facility_mean": float(el.loc[~neither, "SDI_score"].mean())},
@@ -151,6 +171,8 @@ def main():
     a(f"External index, {results['external_index']}")
     a(f"Counties matched to SDI, {results['sdi_matched_counties']} of {results['total_counties']}")
     a(f"Agreement with our EDI, Spearman rho {rho:.3f} (P {prho:.1e}), Pearson r {rpear:.3f}")
+    sv = results["svi_edi_agreement"]
+    a(f"Agreement SVI with EDI, Pearson r {sv['pearson_r']:.4f}, Spearman rho {sv['spearman_rho']:.4f}, n {sv['n']}")
     dd = results["descriptive_SDI_by_facility_rate_eligible"]
     a(f"Mean SDI, no-facility vs facility counties, {dd['no_facility_mean']:.1f} vs {dd['facility_mean']:.1f}")
     a("")

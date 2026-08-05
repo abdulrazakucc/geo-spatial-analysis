@@ -5,6 +5,7 @@ Graham Center SDI compared with our EDI
 External index, Robert Graham Center Social Deprivation Index (SDI), 2015-2019
 Counties matched to SDI, 3133 of 3144
 Agreement with our EDI, Spearman rho 0.883 (P 0.0e+00), Pearson r 0.882
+Agreement SVI with EDI, Pearson r 0.8209, Spearman rho 0.8210, n 3134
 Mean SDI, no-facility vs facility counties, 48.7 vs 44.8
 
 ------------------------------------------------------------------------------

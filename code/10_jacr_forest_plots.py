@@ -246,12 +246,19 @@ def index_rows(block):
 e = RES["EDI_models"]["outcomes"]
 s_svi = RES["SVI_models"]
 n_svi, n_edi = RES["SVI_models"]["n"], RES["EDI_models"]["n"]
+# The lower panel plots the metropolitan term from the EDI models. The SVI models
+# give near-identical values, stated in the footer so the panel cannot be misread
+# as belonging to both indices.
+svi_met = RES["SVI_models"]["outcomes"]
 build_figure(
     "Figure 1B.  Area disadvantage, metropolitan status, and accredited cardiac imaging capacity",
     "Neither index is associated with capacity once metropolitan status is in the model. "
     "Metropolitan status is what remains.",
     f"Negative binomial regression with a log-population offset (adults aged 45 and older). "
-    f"n = {n_svi:,} counties for the SVI and {n_edi:,} for the EDI.",
+    f"n = {n_svi:,} counties for the SVI and {n_edi:,} for the EDI. "
+    f"Metropolitan status estimates in the lower panel are from the EDI models. The SVI models give "
+    f"{svi_met['cmr_facility_count']['metro_in_adjusted']['IRR']:.2f} for cardiac MR and "
+    f"{svi_met['cct_facility_count']['metro_in_adjusted']['IRR']:.2f} for cardiac CT.",
     [("Cardiac MR", TEAL, True), ("Cardiac CT", INDIGO, True),
      ("filled significant", INK, True), ("open not significant", INK, False)],
     [
@@ -276,7 +283,11 @@ ec = e["cmr_facility_count"]
 build_figure(
     "Figure S.  External validation with a published deprivation index",
     "A published outside index does not reproduce our unadjusted result, yet both agree the driver is metropolitan status.",
-    "Cardiac MRI outcome. Our EDI compared with the Robert Graham Center Social Deprivation Index (SDI, 2015 to 2019).",
+    f"Cardiac MR outcome. Our EDI compared with the Robert Graham Center Social Deprivation Index "
+    f"(SDI, 2015 to 2019). Negative binomial regression with a log-population offset (adults aged 45 "
+    f"and older). n = {RES['EDI_models']['n']:,} counties for the EDI and "
+    f"{RES['SDI_models']['n']:,} for the SDI, which matched "
+    f"{RES['sdi_matched_counties']:,} of {RES['total_counties']:,} counties.",
     [("Our EDI", TEAL, True), ("Graham Center SDI", AMBER, True),
      ("filled significant", INK, True), ("open not significant", INK, False)],
     [

@@ -8,6 +8,13 @@
     "spearman_p": 0.0,
     "pearson_r": 0.8823276013476631
   },
+  "svi_edi_agreement": {
+    "n": 3134,
+    "pearson_r": 0.8209363437194761,
+    "pearson_p": 0.0,
+    "spearman_rho": 0.8209544863741957,
+    "sample": "all counties with both indices"
+  },
   "descriptive_SDI_by_facility_rate_eligible": {
     "no_facility_mean": 48.74817518248175,
     "facility_mean": 44.84670231729055
