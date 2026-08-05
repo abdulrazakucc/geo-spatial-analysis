@@ -1,4 +1,4 @@
-# Why We Use Principal Component Analysis (PCA) to Construct the Area Deprivation Index
+# Why We Use Principal Component Analysis (PCA) to Construct the Economic Deprivation Index
 
 ## The Simple Explanation
 
@@ -37,11 +37,11 @@ PCA finds the single linear combination of all 6 variables that captures the mos
 ADI_score = w1*(poverty) + w2*(unemployment) + w3*(no_diploma) + w4*(housing_burden) + w5*(-income) + w6*(child_poverty)
 ```
 
-The weights (w1 through w6) are chosen to maximize the spread of county scores. Counties that are consistently high on all 6 indicators get high ADI scores. Counties that are consistently low get low scores.
+The weights (w1 through w6) are chosen to maximize the spread of county scores. Counties that are consistently high on all 6 indicators get high EDI scores. Counties that are consistently low get low scores.
 
 ### Step 3: Extract the Score
 
-The first principal component (PC1) IS the ADI score. In our data, PC1 explains 58.7% of the total variance across all 6 variables. This means one number captures more than half of all the information contained in 6 different measurements.
+The first principal component (PC1) IS the EDI score. In our data, PC1 explains 58.7% of the total variance across all 6 variables. This means one number captures more than half of all the information contained in 6 different measurements.
 
 ### Step 4: Convert to Percentile
 
@@ -55,56 +55,56 @@ When you combine 6 variables into 1 score, the maximum possible variance explain
 - But they also have unique variation (each tells you something different)
 - One score is a good summary without losing too much information
 
-## Why We Constructed Our Own ADI (Rather Than Using the Pre-Built Neighborhood Atlas)
+## Why We Constructed Our Own EDI (Rather Than Using the Pre-Built Neighborhood Atlas)
 
-The University of Wisconsin Neighborhood Atlas provides a validated, downloadable ADI - but only at the Census block group and ZIP code level. **No pre-built county-level ADI exists.**
+The University of Wisconsin Neighborhood Atlas provides a validated, downloadable EDI - but only at the Census block group and ZIP code level. **No pre-built county-level EDI exists.**
 
-### Why not just download the Neighborhood Atlas ADI?
+### Why not just download the Neighborhood Atlas EDI?
 
 | Issue | Explanation |
 |-------|-------------|
-| **Resolution mismatch** | Neighborhood Atlas ADI is at block group (~600-3,000 people) or ZIP code level. Our unit of analysis is the county (~100,000 people). |
-| **No county product exists** | There is simply no downloadable county-level ADI from any standard source. |
+| **Resolution mismatch** | Neighborhood Atlas EDI is at block group (~600-3,000 people) or ZIP code level. Our unit of analysis is the county (~100,000 people). |
+| **No county product exists** | There is simply no downloadable county-level EDI from any standard source. |
 | **Aggregation problems** | Averaging block group ADIs up to counties introduces ecological fallacy (a county with one rich area and one poor area averages to "middle"), requires arbitrary weighting decisions, and is biased by suppressed/missing block groups. |
-| **Our predictors must match** | SVI is published at the county level. For a valid head-to-head comparison, ADI must also be at the county level. |
+| **Our predictors must match** | SVI is published at the county level. For a valid head-to-head comparison, EDI must also be at the county level. |
 
-### How Mango et al. (JACR 2023) Used ADI Differently
+### How Mango et al. (JACR 2023) Used EDI Differently
 
-Mango et al. studied breast imaging accreditation at the ZIP code level. The Neighborhood Atlas provides ZIP-level ADI directly, so they could simply download and merge. They also used ADI as a binary classifier (top 3% vs bottom 3%) with chi-square tests.
+Mango et al. studied breast imaging accreditation at the ZIP code level. The Neighborhood Atlas provides ZIP-level EDI directly, so they could simply download and merge. They also used EDI as a binary classifier (top 3% vs bottom 3%) with chi-square tests.
 
 Our study differs in three key ways:
-1. **County-level unit** (no pre-built ADI available) - we must construct our own
+1. **County-level unit** (no pre-built EDI available) - we must construct our own
 2. **Continuous predictor** (per 10-percentile in regression) - more statistical power than binary extremes
 3. **Count-based outcome** (negative binomial) - more information than presence/absence
 
 ### Our Solution: Replicate the Validated PCA Methodology at County Level
 
-We applied the same PCA approach that Singh (2003) and Kind/Buckingham (2018) used, but computed directly on county-level ACS data. This is standard practice when the geographic unit differs from published ADI products.
+We applied the same PCA approach that Singh (2003) and Kind/Buckingham (2018) used, but computed directly on county-level ACS data. This is standard practice when the geographic unit differs from published EDI products.
 
 ## Why This Approach is Validated
 
 This is not a new or experimental method. It has been used in published research for decades:
 
-- **Singh (2003)** used PCA of Census variables to create the original ADI (cited 2,500+ times)
-- **Kind and Buckingham (2018)** updated the ADI using PCA in the New England Journal of Medicine
-- **Mango et al. (2023)** applied the pre-built ADI to breast imaging accreditation disparities at the ZIP level
+- **Singh (2003)** used PCA of Census variables to create the original EDI (cited 2,500+ times)
+- **Kind and Buckingham (2018)** updated the EDI using PCA in the New England Journal of Medicine
+- **Mango et al. (2023)** applied the pre-built EDI to breast imaging accreditation disparities at the ZIP level
 
 We follow the same PCA methodology, applied at the county level to cardiac imaging - extending the Mango et al. framework with more sophisticated statistical methods.
 
-## The Key Result: ADI Finds What SVI Misses
+## The Key Result: EDI Finds What SVI Misses
 
 | Predictor | CMR IRR | p-value |
 |-----------|---------|---------|
 | SVI (CDC composite of 16 variables) | 0.9915 | 0.6808 (not significant) |
-| ADI (PCA of 6 economic variables) | 0.9373 | 0.0018 (significant) |
+| EDI (PCA of 6 economic variables) | 0.9373 | 0.0018 (significant) |
 
-The SVI dilutes the economic signal by including non-economic themes (minority status, disability, vehicle access). ADI, by focusing purely on socioeconomic indicators via PCA, isolates the economic component and reveals a true association with CMR access.
+The SVI dilutes the economic signal by including non-economic themes (minority status, disability, vehicle access). EDI, by focusing purely on socioeconomic indicators via PCA, isolates the economic component and reveals a true association with CMR access.
 
 ## Analogy
 
 Think of it like a medical test:
 
 - **SVI** is like a broad screening panel that tests for many things at once. It may miss subtle findings because of noise from unrelated tests.
-- **ADI (via PCA)** is like a targeted test focused specifically on the condition you are looking for (economic deprivation). It has better sensitivity for that specific question.
+- **EDI (via PCA)** is like a targeted test focused specifically on the condition you are looking for (economic deprivation). It has better sensitivity for that specific question.
 
-Both have their place, but for the question "does economic deprivation predict imaging access?" the focused measure (ADI) outperforms the broad measure (SVI).
+Both have their place, but for the question "does economic deprivation predict imaging access?" the focused measure (EDI) outperforms the broad measure (SVI).

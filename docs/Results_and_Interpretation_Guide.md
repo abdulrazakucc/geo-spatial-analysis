@@ -4,7 +4,25 @@
 
 **Document Purpose:** This guide provides a detailed explanation of all results, statistical findings, and their clinical and policy implications. It is intended for collaborators, reviewers, and anyone interested in understanding the analysis and its conclusions.
 
-**Last Updated:** May 28, 2026
+**Last Updated:** August 4, 2026
+
+---
+
+> ## ⚠️ Corrections applied August 4, 2026
+>
+> **This document is hand-maintained. No script generates it.** That is how two wrong numbers reached the JACC manuscript, and it is the single most important thing to know before quoting anything below.
+>
+> **1. Counties with neither modality.** This document read `1,974 counties (62.8%)` from creation until today. The correct value is **2,583 (82.16%)**. The stale figure was a nonmetropolitan-county count sitting in a facility row: the "Metro-Rural Divide" table immediately below it was corrected three times (1,971 → 1,958 counties) while the desert row above was never recomputed. The JACC manuscript's "1,974 (62.3%)" paired the stale count from one row with the refreshed percentage from the other.
+>
+> **2. Mean deprivation, no-facility vs facility counties.** This document read `58.2 vs 41.7`. The correct value is **52.9 vs 39.4** (rate-eligible counties). The original pair does not correspond to any grouping of the current data and cannot be reconstructed; the deprivation index has only one version in the repository's history.
+>
+> Neither value entered any model. All regression coefficients reproduce exactly.
+>
+> **3. Framing.** The analysis has been reframed around metropolitan concentration. The deprivation association reported throughout Section 4 does not survive adjustment for rurality. Sections have been updated, but treat any number here as secondary to the generated outputs in `output/`.
+>
+> **4. Naming.** The index formerly called "ADI" in this document is now **EDI (Economic Deprivation Index)**, to avoid collision with the validated Singh / Wisconsin Area Deprivation Index.
+>
+> **Before quoting any figure below, verify it against the generated outputs**, which come from committed scripts: `output/supplementary_data/EDI_Regression_Results.txt`, `output/jacr_revision/validated_index_results.txt`, and `data/processed/edi_regression_results.json`.
 
 ---
 
@@ -13,8 +31,8 @@
 1. [Overview of the Analysis](#1-overview-of-the-analysis)
 2. [Descriptive Results](#2-descriptive-results)
 3. [Primary Analysis: SVI Regression](#3-primary-analysis-svi-regression)
-4. [Sensitivity Analysis: ADI Regression](#4-sensitivity-analysis-adi-regression)
-5. [SVI vs ADI Comparison](#5-svi-vs-adi-comparison)
+4. [Sensitivity Analysis: EDI Regression](#4-sensitivity-analysis-edi-regression)
+5. [SVI vs EDI Comparison](#5-svi-vs-edi-comparison)
 6. [Stratified and Subgroup Analyses](#6-stratified-and-subgroup-analyses)
 7. [Interpreting the Figures](#7-interpreting-the-figures)
 8. [Frequently Asked Questions](#8-frequently-asked-questions)
@@ -39,14 +57,14 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 | Predictor | What It Measures | Designed For | Source |
 |-----------|-----------------|--------------|--------|
 | SVI (Social Vulnerability Index) | 16-variable composite including poverty, minority status, disability, housing type, transportation | Disaster preparedness | CDC/ATSDR 2022 |
-| ADI (Area Deprivation Index) | 6-variable composite of income, poverty, unemployment, education, housing cost | Healthcare access research | Constructed via PCA (Singh 2003 methodology) |
+| EDI (Area Deprivation Index) | 6-variable composite of income, poverty, unemployment, education, housing cost | Healthcare access research | Constructed via PCA (Singh 2003 methodology) |
 
 ### Analytic Sample
 
 - **Total counties:** 3,144 (all US counties, 50 states plus DC)
 - **Excluded from regressions:** 106 counties with fewer than 1,000 adults aged 45 and older (prevents unstable rates)
 - **Final analytic sample (SVI models):** 3,038 counties
-- **Final analytic sample (ADI models):** 3,029 counties (9 additional lacked ADI variables)
+- **Final analytic sample (EDI models):** 3,029 counties (9 additional lacked EDI variables)
 
 ---
 
@@ -59,7 +77,7 @@ The Deficit Reduction Act (DRA) of 2005 requires facilities to hold ACR or IAC a
 | Total accredited facilities | 687 | 1,481 |
 | Counties with at least one facility | 289 (9.19%) | 532 (16.92%) |
 | Counties with zero facilities | 2,855 (90.81%) | 2,612 (83.08%) |
-| Combined imaging deserts (zero of either) | 1,974 counties (62.8%) | -- |
+| Counties with neither modality (zero CMR AND zero CCT) | 2,583 counties (82.16%) | -- |
 
 ### The Metro-Rural Divide
 
@@ -111,25 +129,25 @@ Social vulnerability (as measured by the CDC SVI) does **not** predict where car
 
 ---
 
-## 4. Sensitivity Analysis: ADI Regression
+## 4. Sensitivity Analysis: EDI Regression
 
-### Why ADI?
+### Why EDI?
 
-The SVI was designed for disaster preparedness, not healthcare access. It includes themes (minority status, disability, vehicle access) that may not directly relate to healthcare infrastructure investment. The Area Deprivation Index (ADI), developed by Singh (2003) and updated by Kind and Buckingham (2018, NEJM), was specifically designed for healthcare-access research. The Mango et al. (JACR 2023) paper demonstrated ADI-associated disparities in breast imaging accreditation, motivating its application to cardiac imaging.
+The SVI was designed for disaster preparedness, not healthcare access. It includes themes (minority status, disability, vehicle access) that may not directly relate to healthcare infrastructure investment. The Economic Deprivation Index (EDI), developed by Singh (2003) and updated by Kind and Buckingham (2018, NEJM), was specifically designed for healthcare-access research. The Mango et al. (JACR 2023) paper demonstrated EDI-associated disparities in breast imaging accreditation, motivating its application to cardiac imaging.
 
-### Why We Constructed Our Own ADI (Not the Pre-Built Neighborhood Atlas)
+### Why We Constructed Our Own EDI (Not the Pre-Built Neighborhood Atlas)
 
-The University of Wisconsin Neighborhood Atlas provides a validated, downloadable ADI at the Census block group and ZIP code level. However, **no pre-built county-level ADI exists.** Since our unit of analysis is the county (to match SVI, RUCC, and ACS population denominators), we must construct our own.
+The University of Wisconsin Neighborhood Atlas provides a validated, downloadable EDI at the Census block group and ZIP code level. However, **no pre-built county-level EDI exists.** Since our unit of analysis is the county (to match SVI, RUCC, and ACS population denominators), we must construct our own.
 
-Mango et al. (2023) worked at the ZIP code level and could directly download and merge the Neighborhood Atlas ADI. Our study uses counties because: (1) SVI is published at county level, (2) RUCC metro/nonmetro classification is county-based, (3) ACS population denominators are most reliable at county level, and (4) counties are the standard unit for health policy planning (HRSA shortage designations, County Health Rankings).
+Mango et al. (2023) worked at the ZIP code level and could directly download and merge the Neighborhood Atlas EDI. Our study uses counties because: (1) SVI is published at county level, (2) RUCC metro/nonmetro classification is county-based, (3) ACS population denominators are most reliable at county level, and (4) counties are the standard unit for health policy planning (HRSA shortage designations, County Health Rankings).
 
 Aggregating block-group ADIs up to counties was rejected because it introduces ecological fallacy (a county with one affluent suburb and one impoverished neighborhood would appear "average"), requires arbitrary weighting decisions, and is biased by suppressed/missing block groups in the Neighborhood Atlas.
 
-Our solution: replicate the validated PCA methodology at county level using the same theoretical domains (income, education, employment, housing) from ACS data. This is exactly what Singh (2003) did originally and is standard practice when the geographic unit differs from existing ADI products.
+Our solution: replicate the validated PCA methodology at county level using the same theoretical domains (income, education, employment, housing) from ACS data. This is exactly what Singh (2003) did originally and is standard practice when the geographic unit differs from existing EDI products.
 
-### ADI Construction Method
+### EDI Construction Method
 
-We constructed a county-level ADI via Principal Component Analysis (PCA) of 6 socioeconomic indicators from the American Community Survey and County Health Rankings:
+We constructed a county-level EDI via Principal Component Analysis (PCA) of 6 socioeconomic indicators from the American Community Survey and County Health Rankings:
 
 1. Percent below 150% of the federal poverty line (EP_POV150)
 2. Percent unemployed, ages 16+ (EP_UNEMP)
@@ -142,21 +160,37 @@ The first principal component explains **58.7% of total variance** across these 
 
 ### Results
 
+Unadjusted models (as originally reported):
+
 | Modality | IRR | 95% CI | p-value | Interpretation |
 |----------|:---:|:------:|:-------:|----------------|
-| **CMR** | **0.9373** | **0.9000 to 0.9762** | **0.0018** | **Significant: 6.27% decrease per 10-pctl** |
+| CMR | 0.9373 | 0.9000 to 0.9762 | 0.0018 | Significant: 6.27% decrease per 10-pctl |
 | CCT | 0.9789 | 0.9490 to 1.0097 | 0.1767 | No association |
 
-### Spearman Rank Correlations (ADI)
+**Adjusted for rurality — this is the model that matters:**
+
+| Model | Modality | IRR | 95% CI | p-value | Interpretation |
+|-------|----------|:---:|:------:|:-------:|----------------|
+| EDI, adjusted for metro status | CMR | 0.9828 | 0.9409 to 1.0265 | 0.4343 | **No association** |
+| EDI, adjusted for ordinal RUCC | CMR | 0.9937 | 0.9500 to 1.0396 | 0.7834 | No association |
+| EDI, metro counties only | CMR | 0.9944 | 0.9510 to 1.0395 | 0.8053 | No association |
+| EDI, nonmetro counties only | CMR | 0.7265 | 0.5720 to 0.9226 | 0.0086 | Significant, but see caveat |
+| **Metropolitan status** | **CMR** | **8.2307** | **4.652 to 14.561** | **<0.0001** | **Dominant effect** |
+| EDI, adjusted for metro status | CCT | 1.0074 | 0.9745 to 1.0414 | 0.6633 | No association |
+| Metropolitan status | CCT | 1.9619 | 1.558 to 2.470 | <0.0001 | Strong |
+
+> **Caveat on the nonmetro stratum.** That significant within-nonmetro estimate rests on only **13 CMR facilities across 13 of 1,856 nonmetropolitan counties**. It holds under both negative binomial and Poisson families, but with 13 events it is unstable. Treat it as exploratory, not as evidence of an independent deprivation gradient.
+
+### Spearman Rank Correlations (EDI)
 
 | Modality | rho | p-value |
 |----------|:---:|:-------:|
-| CMR rate vs ADI | -0.1715 | 1.99e-21 |
-| CCT rate vs ADI | -0.1632 | 1.58e-19 |
+| CMR rate vs EDI | -0.1715 | 1.99e-21 |
+| CCT rate vs EDI | -0.1632 | 1.58e-19 |
 
-### ADI Quintile Analysis (Dose-Response)
+### EDI Quintile Analysis (Dose-Response)
 
-| ADI Quintile | Mean CMR Rate (per 100,000) | Mean CCT Rate (per 100,000) |
+| EDI Quintile | Mean CMR Rate (per 100,000) | Mean CCT Rate (per 100,000) |
 |:---:|:---:|:---:|
 | Q1 (Least deprived) | 0.2715 | 0.6017 |
 | Q2 | 0.1491 | 0.4034 |
@@ -168,20 +202,23 @@ The first principal component explains **58.7% of total variance** across these 
 
 ### What This Means
 
-The ADI reveals a statistically significant and clinically meaningful relationship between area deprivation and CMR access that the SVI completely missed:
+The unadjusted EDI-CMR association is real as an association, but it is **not** an independent deprivation effect. It is rurality.
 
-- For every 10-percentile increase in area deprivation, CMR facility rates decrease by 6.27% (1 - 0.9373 = 0.0627).
-- Counties in the most deprived quintile (Q5) have 4.37 times fewer CMR facilities per capita than counties in the least deprived quintile (Q1).
-- This gradient is monotonic (steadily decreasing from Q1 to Q5), supporting a dose-response relationship.
-- The effect is specific to CMR. CCT shows a trend but does not reach statistical significance in the regression model.
+- Unadjusted, CMR facility rates fall 6.27% per 10-percentile increase in deprivation, and the Q1 vs Q5 gradient is 4.37x. Those numbers are correct.
+- Adjusted for metropolitan status, the association is gone (IRR 0.9828, p = 0.4343). The same is true using ordinal RUCC, and within the metropolitan stratum.
+- Metropolitan status itself carries IRR 8.23 for CMR. That is the dominant effect in the data.
+- The EDI tracks rurality directly: Spearman rho 0.28 against RUCC, mean EDI 39.9 in metro counties versus 56.9 in nonmetro counties. An unadjusted deprivation model absorbs the rurality signal and mislabels it as deprivation.
+- An external check confirms this. The validated Graham Center SDI, which tracks rurality much more weakly (rho 0.07), shows **no** unadjusted CMR association (IRR 1.0064, p = 0.746) while reproducing the metropolitan effect (IRR 8.66).
+
+**The conclusion to draw:** deprivation indices should not be used as proxies for imaging access without adjusting for rurality. Whether an unadjusted deprivation association appears at all depends on which index you choose; the metropolitan concentration finding does not.
 
 ---
 
-## 5. SVI vs ADI Comparison
+## 5. SVI vs EDI Comparison
 
 ### Why Do They Give Different Answers?
 
-| Feature | SVI | ADI |
+| Feature | SVI | EDI |
 |---------|-----|-----|
 | Number of input variables | 16 | 6 |
 | Includes minority status | Yes | No |
@@ -191,17 +228,17 @@ The ADI reveals a statistically significant and clinically meaningful relationsh
 | Focuses on economic deprivation | Partially (1 of 4 themes) | Entirely |
 | Designed for | Disaster response | Healthcare access research |
 
-The SVI dilutes its socioeconomic signal by including three non-economic themes. When you ask "does economic deprivation predict imaging access?", the SVI mixes the relevant signal (poverty, income) with irrelevant noise (minority status, vehicle access, group quarters). The ADI, by focusing exclusively on economic deprivation, provides a cleaner test of the socioeconomic hypothesis.
+The SVI dilutes its socioeconomic signal by including three non-economic themes. When you ask "does economic deprivation predict imaging access?", the SVI mixes the relevant signal (poverty, income) with irrelevant noise (minority status, vehicle access, group quarters). The EDI, by focusing exclusively on economic deprivation, provides a cleaner test of the socioeconomic hypothesis.
 
-### Correlation Between SVI and ADI
+### Correlation Between SVI and EDI
 
 - Pearson r = 0.8209 (strong positive correlation)
 - They are related but not identical
-- The portion of ADI variance NOT shared with SVI is what drives the significant CMR finding
+- The portion of EDI variance NOT shared with SVI is what drives the significant CMR finding
 
 ### Visual Evidence (Figure 2)
 
-Figure 2 (Panel D) shows a scatter plot of SVI vs ADI for all counties. CMR-containing counties (blue dots) are spread evenly across SVI values (confirming the null SVI result) but cluster in the low-ADI region (confirming the significant ADI result). This visual directly demonstrates why the two predictors yield different conclusions.
+Figure 2 (Panel D) shows a scatter plot of SVI vs EDI for all counties. CMR-containing counties (blue dots) are spread evenly across SVI values (confirming the null SVI result) but cluster in the low-EDI region (confirming the significant EDI result). This visual directly demonstrates why the two predictors yield different conclusions.
 
 ---
 
@@ -242,14 +279,14 @@ Figure 2 (Panel D) shows a scatter plot of SVI vs ADI for all counties. CMR-cont
 - The vast empty space in rural America is immediately visible
 - Metropolitan clusters (Northeast corridor, California, Texas cities, Florida) dominate
 
-### Figure 2: SVI vs ADI Comparison (4 Panels)
+### Figure 2: SVI vs EDI Comparison (4 Panels)
 
 - **Panel A:** SVI distribution. Dark blue = high vulnerability. Concentrated in the Deep South, Appalachia, and tribal lands.
-- **Panel B:** ADI distribution. Dark red = high deprivation. Similar to SVI but with differences in the Southwest and urban areas.
-- **Panel C:** CMR counties (blue) overlaid on ADI. Notice how CMR facilities (blue) are concentrated in light-colored (low-ADI, affluent) areas.
-- **Panel D:** Scatter of SVI vs ADI. Blue dots (CMR counties) cluster in the lower-left (low deprivation by both measures), but the clustering is tighter on the ADI axis (y-axis) than on the SVI axis (x-axis).
+- **Panel B:** EDI distribution. Dark red = high deprivation. Similar to SVI but with differences in the Southwest and urban areas.
+- **Panel C:** CMR counties (blue) overlaid on EDI. Notice how CMR facilities (blue) are concentrated in light-colored (low-EDI, affluent) areas.
+- **Panel D:** Scatter of SVI vs EDI. Blue dots (CMR counties) cluster in the lower-left (low deprivation by both measures), but the clustering is tighter on the EDI axis (y-axis) than on the SVI axis (x-axis).
 
-### Figure 3: ADI Quintile Bar Charts
+### Figure 3: EDI Quintile Bar Charts
 
 - Left panel (CMR): Clear monotonic decrease from Q1 to Q5. Error bars (95% CI) confirm the differences are statistically meaningful.
 - Right panel (CCT): Decrease is present but smaller in magnitude and error bars overlap more between adjacent quintiles.
@@ -273,16 +310,16 @@ Because more than 50% of counties have zero facilities for both CMR and CCT. In 
 - **Why not linear regression?** The outcome is a count variable bounded at zero with extreme right skew. Linear regression assumes normally distributed residuals and can produce impossible negative predicted values.
 - **Why Negative Binomial?** It adds a dispersion parameter (alpha) that accounts for the excess variance. AIC comparison confirmed NegBin is preferred over Poisson (delta-AIC > 30 for all models).
 
-### Q: Why does ADI find what SVI misses?
+### Q: Why does EDI find what SVI misses?
 
-Think of it like medical testing. The SVI is a broad screening panel that tests for many things simultaneously (poverty, minority status, disability, housing type, transportation). It may miss subtle economic signals because of noise from unrelated domains. The ADI is a targeted test focused specifically on economic deprivation. It has better sensitivity for the specific question: "does neighborhood economic status predict imaging access?"
+Think of it like medical testing. The SVI is a broad screening panel that tests for many things simultaneously (poverty, minority status, disability, housing type, transportation). It may miss subtle economic signals because of noise from unrelated domains. The EDI is a targeted test focused specifically on economic deprivation. It has better sensitivity for the specific question: "does neighborhood economic status predict imaging access?"
 
-### Q: Is the ADI finding causal?
+### Q: Is the EDI finding causal?
 
 This is a cross-sectional ecologic study, so we cannot establish causality. However, several features support a causal interpretation:
 - The dose-response relationship (monotonic Q1 to Q5 gradient)
 - Biological plausibility (deprived areas have lower patient volume, worse payer mix, lower revenue potential for capital-intensive imaging)
-- Consistency with prior literature (Mango et al. found similar ADI-accreditation associations for breast imaging)
+- Consistency with prior literature (Mango et al. found similar EDI-accreditation associations for breast imaging)
 - Specificity (the effect is stronger for CMR, which has higher barriers to entry)
 
 ### Q: Why is CMR significant but not CCT?
@@ -306,13 +343,13 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 
 ### For Health Systems and Policymakers
 
-- **"Cardiac imaging deserts"**: 1,974 counties (62.8%) have zero accredited facilities of any kind. The mean ADI of these deserts is 58.2 vs 41.7 for counties with at least one facility (p < 0.0001).
-- Targeted incentive programs (analogous to HPSA designations for physician shortages) could encourage accreditation in high-ADI areas.
+- **"Cardiac imaging deserts"**: 2,583 counties (82.16%) have zero accredited facilities of either modality. The mean EDI of these counties is 52.9 vs 39.4 for counties with at least one facility, among rate-eligible counties (p < 0.0001). Note that this contrast is unadjusted and is confounded by rurality; see Section 4.
+- Targeted incentive programs (analogous to HPSA designations for physician shortages) could encourage accreditation in high-EDI areas.
 - Telehealth and mobile imaging partnerships may bridge access gaps in the short term.
 
 ### For Researchers
 
-- The SVI (commonly used in health equity research) may not be the best tool for healthcare-access questions. ADI or other economically focused indices may be more appropriate.
+- The SVI (commonly used in health equity research) may not be the best tool for healthcare-access questions. EDI or other economically focused indices may be more appropriate.
 - Future studies should examine whether these supply-side disparities translate to outcome disparities (cardiac mortality, event rates, stage at diagnosis).
 
 ---
@@ -323,7 +360,7 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 2. **ACR only:** We captured only ACR-accredited facilities. IAC-accredited sites are not included and may partially fill gaps.
 3. **Cross-sectional:** We cannot assess temporal trends or determine whether disparities are widening or narrowing.
 4. **No travel time:** We did not calculate actual travel distances. A patient near a county border may access facilities in an adjacent county.
-5. **ADI construction:** Our ADI is constructed from available variables following published methodology, but it has not been independently validated against patient-level outcomes in this specific context.
+5. **EDI construction:** Our EDI is constructed from available variables following published methodology, but it has not been independently validated against patient-level outcomes in this specific context.
 6. **No demand adjustment:** We did not account for local disease burden. Counties with higher cardiac disease prevalence may need more facilities per capita.
 
 ---
@@ -334,17 +371,17 @@ These higher barriers mean CMR facility siting decisions are more sensitive to l
 |----------|-----------|----------|------|-----------|---------|------------|
 | Primary regression | SVI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.9915 | 0.6808 | Null |
 | Primary regression | SVI (per 10-pctl) | CCT | NegBin GLM | IRR = 1.0203 | 0.2130 | Null |
-| Sensitivity regression | ADI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.9373 | 0.0018 | **Significant** |
-| Sensitivity regression | ADI (per 10-pctl) | CCT | NegBin GLM | IRR = 0.9789 | 0.1767 | Null |
+| Sensitivity regression | EDI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.9373 | 0.0018 | **Significant** |
+| Sensitivity regression | EDI (per 10-pctl) | CCT | NegBin GLM | IRR = 0.9789 | 0.1767 | Null |
 | Correlation | SVI | CMR rate | Spearman | rho = 0.0079 | 0.6646 | Null |
 | Correlation | SVI | CCT rate | Spearman | rho = 0.0201 | 0.2681 | Null |
-| Correlation | ADI | CMR rate | Spearman | rho = -0.1715 | 1.99e-21 | **Significant** |
-| Correlation | ADI | CCT rate | Spearman | rho = -0.1632 | 1.58e-19 | **Significant** |
-| SVI-ADI agreement | -- | -- | Pearson | r = 0.8209 | < 0.0001 | Strong but not identical |
+| Correlation | EDI | CMR rate | Spearman | rho = -0.1715 | 1.99e-21 | **Significant** |
+| Correlation | EDI | CCT rate | Spearman | rho = -0.1632 | 1.58e-19 | **Significant** |
+| SVI-EDI agreement | -- | -- | Pearson | r = 0.8209 | < 0.0001 | Strong but not identical |
 | Metro vs nonmetro | -- | CMR rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
 | Metro vs nonmetro | -- | CCT rate | Mann-Whitney U | -- | < 0.0001 | **Significant** |
-| Quintile comparison | ADI quintiles | CMR rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
-| Quintile comparison | ADI quintiles | CCT rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
+| Quintile comparison | EDI quintiles | CMR rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
+| Quintile comparison | EDI quintiles | CCT rate | Kruskal-Wallis | -- | < 0.0001 | **Significant** |
 | Stratified (nonmetro) | SVI (per 10-pctl) | CMR | NegBin GLM | IRR = 0.8144 | 0.0635 | Borderline |
 | Stratified (metro) | SVI (per 10-pctl) | CCT | NegBin GLM | IRR = 1.0364 | 0.0540 | Borderline |
 

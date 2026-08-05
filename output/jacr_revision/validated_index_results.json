@@ -1,0 +1,121 @@
+{
+  "external_index": "Robert Graham Center Social Deprivation Index (SDI), 2015-2019",
+  "sdi_source_url": "https://www.aafp.org/assets/raw/upload/v1779124857/asset_rgc_sdi_2015_through_2019_county.csv",
+  "sdi_matched_counties": 3133,
+  "total_counties": 3144,
+  "agreement_with_EDI": {
+    "spearman_rho": 0.882621826998318,
+    "spearman_p": 0.0,
+    "pearson_r": 0.8823276013476631
+  },
+  "descriptive_SDI_by_facility_rate_eligible": {
+    "no_facility_mean": 48.74817518248175,
+    "facility_mean": 44.84670231729055
+  },
+  "rurality_link": {
+    "EDI": {
+      "spearman_vs_rucc": 0.2493711557732655,
+      "metro_mean": 39.92928210556653,
+      "nonmetro_mean": 56.09064707548191,
+      "gap": 16.161364969915383
+    },
+    "SDI": {
+      "spearman_vs_rucc": 0.06802098533580582,
+      "metro_mean": 43.02459711620017,
+      "nonmetro_mean": 50.08955987717503,
+      "gap": 7.064962760974858
+    }
+  },
+  "EDI_models": {
+    "label": "Our EDI (self-built PCA)",
+    "n": 3029,
+    "outcomes": {
+      "cmr_facility_count": {
+        "unadjusted": {
+          "IRR": 0.9373327630295015,
+          "CI_low": 0.8999697444380039,
+          "CI_high": 0.9762469394981347,
+          "P": 0.0018191130442341149
+        },
+        "adjusted": {
+          "IRR": 0.982775451762755,
+          "CI_low": 0.9408936395026554,
+          "CI_high": 1.0265215408385824,
+          "P": 0.4342538996067733
+        },
+        "metro_in_adjusted": {
+          "IRR": 8.230703791693271,
+          "CI_low": 4.652329484237605,
+          "CI_high": 14.56141168335491,
+          "P": 4.4345434444708407e-13
+        }
+      },
+      "cct_facility_count": {
+        "unadjusted": {
+          "IRR": 0.9788781318171356,
+          "CI_low": 0.9490238772622367,
+          "CI_high": 1.0096715371525182,
+          "P": 0.17672879546283893
+        },
+        "adjusted": {
+          "IRR": 1.0074042175250257,
+          "CI_low": 0.974499855797741,
+          "CI_high": 1.0414196076575364,
+          "P": 0.6632755849291654
+        },
+        "metro_in_adjusted": {
+          "IRR": 1.9619337337634009,
+          "CI_low": 1.5582614253984117,
+          "CI_high": 2.470178567562661,
+          "P": 9.809873352094418e-09
+        }
+      }
+    }
+  },
+  "SDI_models": {
+    "label": "External SDI (Graham Center)",
+    "n": 3027,
+    "outcomes": {
+      "cmr_facility_count": {
+        "unadjusted": {
+          "IRR": 1.0064476275273213,
+          "CI_low": 0.9680835098036976,
+          "CI_high": 1.0463320743483908,
+          "P": 0.745847196150613
+        },
+        "adjusted": {
+          "IRR": 1.0260392659304955,
+          "CI_low": 0.9851890114828673,
+          "CI_high": 1.068583350972036,
+          "P": 0.21493519335817346
+        },
+        "metro_in_adjusted": {
+          "IRR": 8.66480650826005,
+          "CI_low": 4.925170356125068,
+          "CI_high": 15.243913691678852,
+          "P": 6.803403919355217e-14
+        }
+      },
+      "cct_facility_count": {
+        "unadjusted": {
+          "IRR": 1.0165697177172373,
+          "CI_low": 0.9860819241662889,
+          "CI_high": 1.0480001363511788,
+          "P": 0.2901443749399718
+        },
+        "adjusted": {
+          "IRR": 1.0302724159100727,
+          "CI_low": 0.9983346819068812,
+          "CI_high": 1.0632318702558954,
+          "P": 0.06342126027686475
+        },
+        "metro_in_adjusted": {
+          "IRR": 1.983207705783517,
+          "CI_low": 1.587010432146866,
+          "CI_high": 2.478315658554625,
+          "P": 1.725930586422037e-09
+        }
+      }
+    }
+  }
+}

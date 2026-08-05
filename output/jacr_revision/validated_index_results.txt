@@ -1,0 +1,49 @@
+==============================================================================
+EXTERNAL VALIDATION OF THE DEPRIVATION FINDING
+Graham Center SDI compared with our EDI
+==============================================================================
+External index, Robert Graham Center Social Deprivation Index (SDI), 2015-2019
+Counties matched to SDI, 3133 of 3144
+Agreement with our EDI, Spearman rho 0.883 (P 0.0e+00), Pearson r 0.882
+Mean SDI, no-facility vs facility counties, 48.7 vs 44.8
+
+------------------------------------------------------------------------------
+Our EDI (self-built PCA)   (n = 3029)
+------------------------------------------------------------------------------
+Model                           Outcome     IRR            95% CI          P
+..............................................................................
+  deprivation, unadjusted       CMR      0.9373       0.900-0.976     0.0018 *sig
+  deprivation, adjusted         CMR      0.9828       0.941-1.027     0.4343
+  metropolitan status (adj)     CMR      8.2307        4.65-14.56   4.43e-13
+  deprivation, unadjusted       CCT      0.9789       0.949-1.010     0.1767
+  deprivation, adjusted         CCT      1.0074       0.974-1.041     0.6633
+  metropolitan status (adj)     CCT      1.9619         1.56-2.47   9.81e-09
+
+------------------------------------------------------------------------------
+External SDI (Graham Center)   (n = 3027)
+------------------------------------------------------------------------------
+Model                           Outcome     IRR            95% CI          P
+..............................................................................
+  deprivation, unadjusted       CMR      1.0064       0.968-1.046     0.7458
+  deprivation, adjusted         CMR      1.0260       0.985-1.069     0.2149
+  metropolitan status (adj)     CMR      8.6648        4.93-15.24   6.80e-14
+  deprivation, unadjusted       CCT      1.0166       0.986-1.048     0.2901
+  deprivation, adjusted         CCT      1.0303       0.998-1.063     0.0634
+  metropolitan status (adj)     CCT      1.9832         1.59-2.48   1.73e-09
+
+HOW STRONGLY DOES EACH INDEX TRACK RURALITY (the confounder)
+------------------------------------------------------------------------------
+  EDI  Spearman vs RUCC +0.249, metro mean 39.9, nonmetro mean 56.1, gap +16.2
+  SDI  Spearman vs RUCC +0.068, metro mean 43.0, nonmetro mean 50.1, gap +7.1
+
+PLAIN-LANGUAGE SUMMARY
+------------------------------------------------------------------------------
+Our EDI shows a significant unadjusted CMR association (IRR 0.937, P 0.0018).
+The validated external SDI does not (IRR 1.006, P 0.746).
+So the unadjusted result is specific to our index. After adjusting for
+metropolitan status, neither index is associated with capacity, and metro
+status carries a large effect with both indices (CMR metro IRR near 8).
+Our EDI tracks rurality more strongly than the SDI, which explains why our
+index detects the rurality-driven signal while the more urban-balanced SDI
+does not. The paper's central point about metropolitan concentration holds
+with both indices.
