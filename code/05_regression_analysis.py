@@ -152,6 +152,31 @@ def main():
         output_lines.append(f"\nPoisson AIC: {pois_result.aic:.1f} vs NegBin AIC: {nb_result.aic:.1f}")
         output_lines.append(f"→ {'Negative Binomial preferred' if nb_result.aic < pois_result.aic else 'Poisson preferred'}")
         
+        # --- Primary Model, adjusted for rurality ---
+        # Added for the JACR revision. The unadjusted models above are confounded
+        # by rurality: accredited capacity is concentrated in metropolitan
+        # counties, and both indices track rurality. Any predictor reported from
+        # this pipeline should be read from the adjusted model.
+        X_adj = sm.add_constant(df[['svi_per10', 'metro_indicator']])
+        nb_adj = fit_negbin(endog, X_adj, offset, label=f"{modality} adjusted")
+        model_objects[f'{modality}_negbin_adjusted_metro'] = nb_adj
+        output_lines = report_model(
+            nb_adj, f"{modality} — Primary adjusted for metropolitan status", output_lines)
+
+        # Same, with ordinal RUCC instead of the binary metro flag
+        X_rucc = sm.add_constant(df[['svi_per10', 'rucc_code']])
+        nb_rucc = fit_negbin(endog, X_rucc, offset, label=f"{modality} adjusted RUCC")
+        model_objects[f'{modality}_negbin_adjusted_rucc'] = nb_rucc
+        output_lines = report_model(
+            nb_rucc, f"{modality} — Primary adjusted for ordinal RUCC", output_lines)
+
+        metro_irr = np.exp(nb_adj.params['metro_indicator'])
+        metro_ci = np.exp(nb_adj.conf_int().loc['metro_indicator'])
+        output_lines.append(
+            f"\nMetropolitan status effect: IRR = {metro_irr:.4f} "
+            f"(95% CI {metro_ci.iloc[0]:.3f}-{metro_ci.iloc[1]:.3f}, "
+            f"p = {nb_adj.pvalues['metro_indicator']:.2e})")
+
         # --- Sensitivity 1: SVI Quartile Dummies ---
         X_q = sm.add_constant(df[['svi_q2', 'svi_q3', 'svi_q4']])
         nb_q = fit_negbin(endog, X_q, offset, label=f"{modality} quartile")

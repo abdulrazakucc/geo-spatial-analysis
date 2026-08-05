@@ -1,0 +1,45 @@
+==============================================================================
+EDI SENSITIVITY ANALYSIS — UNADJUSTED AND RURALITY-ADJUSTED MODELS
+==============================================================================
+Economic Deprivation Index (EDI), county-level, PCA of 6 ACS indicators.
+Negative binomial regression, offset log(adults 45+), IRR per 10 percentile points.
+
+------------------------------------------------------------------------------
+CMR   (n = 3029 rate-eligible counties)
+------------------------------------------------------------------------------
+Model                                        IRR              95% CI         P
+..............................................................................
+EDI, unadjusted                           0.9373         0.900-0.976    0.0018 *
+EDI, adjusted for metropolitan status     0.9828         0.941-1.027    0.4343
+EDI, adjusted for ordinal RUCC            0.9937         0.950-1.040    0.7834
+EDI, metropolitan counties only           0.9944         0.951-1.039    0.8053
+EDI, nonmetropolitan counties only        0.7265         0.572-0.922    0.0086 *
+Metropolitan status (from adjusted model)  8.2307        4.652-14.561    0.0000 *
+
+  Stratum sizes. Metropolitan, 1173 counties carrying 674 facilities in 276 counties. Nonmetropolitan, 1856 counties carrying 13 facilities in 13 counties.
+  CAUTION. The nonmetropolitan CMR stratum contains only 13 facilities. Any estimate from it is unstable and
+  should be read as exploratory, not as evidence of an independent gradient.
+
+------------------------------------------------------------------------------
+CCT   (n = 3029 rate-eligible counties)
+------------------------------------------------------------------------------
+Model                                        IRR              95% CI         P
+..............................................................................
+EDI, unadjusted                           0.9789         0.949-1.010    0.1767
+EDI, adjusted for metropolitan status     1.0074         0.974-1.041    0.6633
+EDI, adjusted for ordinal RUCC            1.0187         0.984-1.054    0.2888
+EDI, metropolitan counties only           1.0193         0.983-1.057    0.3082
+EDI, nonmetropolitan counties only        0.9569         0.887-1.033    0.2578
+Metropolitan status (from adjusted model)  1.9619         1.558-2.470    0.0000 *
+
+  Stratum sizes. Metropolitan, 1173 counties carrying 1369 facilities in 427 counties. Nonmetropolitan, 1856 counties carrying 112 facilities in 105 counties.
+
+------------------------------------------------------------------------------
+WHY THE UNADJUSTED SIGNAL APPEARS
+------------------------------------------------------------------------------
+The EDI itself tracks rurality. Spearman rho vs RUCC = 0.280, mean EDI 39.9 in metropolitan counties versus 56.9 in nonmetropolitan counties, a gap of 17.0 points.
+Because accredited capacity is concentrated in metropolitan counties, an
+unadjusted deprivation model absorbs that rurality signal. Once metropolitan
+status is in the model the deprivation term is no longer associated with capacity.
+
+* P < 0.05

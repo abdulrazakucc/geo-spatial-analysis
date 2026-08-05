@@ -39,7 +39,7 @@
 <li><strong>CMR</strong> = Cardiac Magnetic Resonance (MRI imaging of the heart)</li>
 <li><strong>CCT</strong> = Cardiac Computed Tomography (CT imaging of the heart)</li>
 <li><strong>SVI</strong> = Social Vulnerability Index (a CDC measure of community vulnerability, scored 0 to 1)</li>
-<li><strong>ADI</strong> = Area Deprivation Index (a measure of neighborhood socioeconomic disadvantage, scored 0 to 100)</li>
+<li><strong>EDI</strong> = Economic Deprivation Index (a measure of neighborhood socioeconomic disadvantage, scored 0 to 100)</li>
 <li><strong>RUCC</strong> = Rural-Urban Continuum Code (a USDA classification system with 9 levels)</li>
 <li><strong>IRR</strong> = Incidence Rate Ratio (the output of a regression model showing multiplicative change in rate)</li>
 <li><strong>ACS</strong> = American Community Survey (a Census Bureau survey providing population estimates)</li>
@@ -66,7 +66,7 @@
 <li><strong>Unit of analysis:</strong> US county (n = 3,144 counties across 50 states plus Washington DC)</li>
 <li><strong>Outcome:</strong> Count of ACR-accredited cardiac imaging facilities per county</li>
 <li><strong>Primary predictor:</strong> Social Vulnerability Index (SVI) percentile</li>
-<li><strong>Supplementary predictor:</strong> Area Deprivation Index (ADI) percentile</li>
+<li><strong>Supplementary predictor:</strong> Economic Deprivation Index (EDI) percentile</li>
 <li><strong>Stratifier:</strong> Metropolitan vs. nonmetropolitan status</li>
 </ul>
 
@@ -84,7 +84,7 @@
 <tr><td>4</td><td>Rural-Urban Continuum Codes</td><td>USDA Economic Research Service</td><td>2023</td><td>3,144</td><td><code>data/raw/ruralurbancodes2023.xls</code></td><td>Classify counties as metropolitan or nonmetropolitan</td></tr>
 <tr><td>5</td><td>Population Estimates (adults aged 45 and older)</td><td>American Community Survey 5-Year</td><td>2019-2023</td><td>3,144</td><td>Derived during processing</td><td>Rate denominators</td></tr>
 <tr><td>6</td><td>County Boundaries (shapefile)</td><td>Census TIGER/Line</td><td>2023</td><td>3,144</td><td><code>data/raw/tiger_county_2023/</code></td><td>Geographic mapping (choropleth)</td></tr>
-<tr><td>7</td><td>County Health Rankings</td><td>University of Wisconsin Population Health Institute</td><td>2024</td><td>3,143</td><td><code>data/raw/county_health_rankings_2024.csv</code></td><td>ADI construction (median income, child poverty)</td></tr>
+<tr><td>7</td><td>County Health Rankings</td><td>University of Wisconsin Population Health Institute</td><td>2024</td><td>3,143</td><td><code>data/raw/county_health_rankings_2024.csv</code></td><td>EDI construction (median income, child poverty)</td></tr>
 </table>
 
 <h3>2.2 Dataset 1: ACR Cardiac Imaging Facilities</h3>
@@ -136,10 +136,10 @@
 <tr><th>Column Used</th><th>Description</th></tr>
 <tr><td>FIPS</td><td>5-digit county FIPS code</td></tr>
 <tr><td>RPL_THEMES</td><td>Overall SVI percentile (0 to 1)</td></tr>
-<tr><td>EP_POV150</td><td>Percent of population below 150% poverty (used for ADI)</td></tr>
-<tr><td>EP_UNEMP</td><td>Percent unemployed (used for ADI)</td></tr>
-<tr><td>EP_NOHSDP</td><td>Percent without high school diploma (used for ADI)</td></tr>
-<tr><td>EP_HBURD</td><td>Percent housing cost-burdened (used for ADI)</td></tr>
+<tr><td>EP_POV150</td><td>Percent of population below 150% poverty (used for EDI)</td></tr>
+<tr><td>EP_UNEMP</td><td>Percent unemployed (used for EDI)</td></tr>
+<tr><td>EP_NOHSDP</td><td>Percent without high school diploma (used for EDI)</td></tr>
+<tr><td>EP_HBURD</td><td>Percent housing cost-burdened (used for EDI)</td></tr>
 </table>
 
 <h3>2.5 Dataset 4: USDA Rural-Urban Continuum Codes (RUCC)</h3>
@@ -157,8 +157,8 @@
 <tr><td>9</td><td>Completely rural, not adjacent to metro</td></tr>
 </table>
 
-<h3>2.6 Dataset 5: County Health Rankings (for ADI Construction)</h3>
-<p><strong>Purpose:</strong> Provides median household income and child poverty rate at the county level, which are needed to construct the Area Deprivation Index.</p>
+<h3>2.6 Dataset 5: County Health Rankings (for EDI Construction)</h3>
+<p><strong>Purpose:</strong> Provides median household income and child poverty rate at the county level, which are needed to construct the Economic Deprivation Index.</p>
 <table>
 <tr><th>Column Used</th><th>Description</th></tr>
 <tr><td>5-digit FIPS Code</td><td>County identifier</td></tr>
@@ -188,13 +188,13 @@
 <tr><td>cct_rate_per_100k</td><td>Float</td><td>CCT facilities per 100,000 adults aged 45 and older</td></tr>
 </table>
 
-<h3>3.2 Supplementary File: <code>data/processed/county_adi_constructed.csv</code></h3>
-<p>Area Deprivation Index constructed for the supplementary analysis (3,134 rows, 3 columns).</p>
+<h3>3.2 Supplementary File: <code>data/processed/county_edi_constructed.csv</code></h3>
+<p>Economic Deprivation Index constructed for the supplementary analysis (3,134 rows, 3 columns).</p>
 <table>
 <tr><th>Column</th><th>Type</th><th>Description</th></tr>
 <tr><td>fips</td><td>String (5 chars)</td><td>County FIPS code</td></tr>
-<tr><td>adi_raw</td><td>Float</td><td>Raw PCA score (higher = more deprived)</td></tr>
-<tr><td>adi_national_percentile</td><td>Float (0 to 100)</td><td>National percentile rank: 0 = least deprived, 100 = most deprived</td></tr>
+<tr><td>edi_raw</td><td>Float</td><td>Raw PCA score (higher = more deprived)</td></tr>
+<tr><td>edi_national_percentile</td><td>Float (0 to 100)</td><td>National percentile rank: 0 = least deprived, 100 = most deprived</td></tr>
 </table>
 
 <h2>4. Methodology</h2>
@@ -214,7 +214,7 @@
 <p>County-level facility counts and per-capita rates are summarized by SVI quartile and by metropolitan/nonmetropolitan status. We report median (IQR) and mean rates.</p>
 
 <h4>4.2.2 Spearman Rank Correlation</h4>
-<p>We use Spearman (not Pearson) correlation because the data is heavily skewed. Most counties have zero facilities, so the distribution is not normal. Spearman measures the monotonic relationship between facility rate and SVI (or ADI) percentile.</p>
+<p>We use Spearman (not Pearson) correlation because the data is heavily skewed. Most counties have zero facilities, so the distribution is not normal. Spearman measures the monotonic relationship between facility rate and SVI (or EDI) percentile.</p>
 
 <h4>4.2.3 Negative Binomial Regression (Primary Analysis)</h4>
 <p>We model the facility count in each county using a Negative Binomial regression.</p>
@@ -224,7 +224,7 @@ log(expected count) = intercept + coefficient * predictor + offset(log of popula
 <strong>Why Negative Binomial instead of Poisson?</strong><br>
 The variance of facility counts is much larger than the mean (this is called overdispersion). Poisson regression assumes variance equals mean. Negative Binomial adds a dispersion parameter to handle the extra variance. Model comparison confirmed Negative Binomial is preferred (difference in AIC greater than 30 for both modalities).
 </div>
-<p><strong>Predictor scaling:</strong> SVI percentile is scaled per 10-percentile increment. This means the Incidence Rate Ratio (IRR) represents the multiplicative change in facility rate for every 0.10 increase in SVI (or every 10-point increase in ADI).</p>
+<p><strong>Predictor scaling:</strong> SVI percentile is scaled per 10-percentile increment. This means the Incidence Rate Ratio (IRR) represents the multiplicative change in facility rate for every 0.10 increase in SVI (or every 10-point increase in EDI).</p>
 <p><strong>Offset:</strong> The natural log of the adult population aged 45 and older is used as an offset. This effectively converts the model from predicting counts to predicting rates.</p>
 
 <h4>4.2.4 Sensitivity Analyses</h4>
@@ -232,11 +232,11 @@ The variance of facility counts is much larger than the mean (this is called ove
 <li><strong>Accredited-only:</strong> Exclude the 23 "Under Review" facilities</li>
 <li><strong>SVI quartile dummies:</strong> Use categorical SVI (Q2, Q3, Q4 versus Q1 as reference) instead of continuous</li>
 <li><strong>Metro-stratified:</strong> Run separate models for metropolitan and nonmetropolitan counties</li>
-<li><strong>ADI as alternative predictor:</strong> Replace SVI with the Area Deprivation Index</li>
+<li><strong>EDI as alternative predictor:</strong> Replace SVI with the Economic Deprivation Index</li>
 </ol>
 
-<h4>4.2.5 ADI Construction (Singh 2003 Methodology)</h4>
-<p>The Area Deprivation Index was constructed using Principal Component Analysis (PCA) of six socioeconomic indicators at the county level:</p>
+<h4>4.2.5 EDI Construction (Singh 2003 Methodology)</h4>
+<p>The Economic Deprivation Index was constructed using Principal Component Analysis (PCA) of six socioeconomic indicators at the county level:</p>
 <ol>
 <li>Percent of population below 150% of the federal poverty level</li>
 <li>Percent of civilian labor force that is unemployed</li>
@@ -267,24 +267,24 @@ The variance of facility counts is much larger than the mean (this is called ove
 </table>
 <p><strong>Spearman correlation (SVI):</strong> CMR rho = 0.0079 (p = 0.6646); CCT rho = 0.0201 (p = 0.2681)</p>
 
-<h3>5.3 Supplementary Analysis Results (ADI)</h3>
+<h3>5.3 Supplementary Analysis Results (EDI)</h3>
 <div class="finding">
-<strong>Key Finding: ADI detects a significant signal for CMR that SVI missed.</strong>
+<strong>Key Finding: EDI detects a significant signal for CMR that SVI missed.</strong>
 </div>
 <table>
 <tr><th>Modality</th><th>IRR</th><th>95% CI</th><th>p-value</th><th>Interpretation</th></tr>
 <tr><td><strong>CMR</strong></td><td><strong>0.937</strong></td><td><strong>0.900 to 0.976</strong></td><td><strong>0.002</strong></td><td><strong>Significant. For every 10-percentile increase in deprivation, CMR rate drops by 6.3%.</strong></td></tr>
 <tr><td>CCT</td><td>0.979</td><td>0.949 to 1.010</td><td>0.177</td><td>Not significant. Consistent with SVI null result.</td></tr>
 </table>
-<p><strong>Spearman correlation (ADI):</strong> CMR rho = -0.1715 (p less than 0.0001); CCT rho = -0.1632 (p less than 0.0001)</p>
+<p><strong>Spearman correlation (EDI):</strong> CMR rho = -0.1715 (p less than 0.0001); CCT rho = -0.1632 (p less than 0.0001)</p>
 
-<h3>5.4 Summary Comparison: SVI versus ADI</h3>
+<h3>5.4 Summary Comparison: SVI versus EDI</h3>
 <table>
 <tr><th>Predictor</th><th>Modality</th><th>IRR</th><th>p-value</th><th>Significant?</th></tr>
 <tr><td>SVI per 10-percentile</td><td>CMR</td><td>0.992</td><td>0.681</td><td>No</td></tr>
 <tr><td>SVI per 10-percentile</td><td>CCT</td><td>1.020</td><td>0.213</td><td>No</td></tr>
-<tr style="background:#E8F5E9; font-weight:bold;"><td>ADI per 10-percentile</td><td>CMR</td><td>0.937</td><td>0.002</td><td>Yes</td></tr>
-<tr><td>ADI per 10-percentile</td><td>CCT</td><td>0.979</td><td>0.177</td><td>No</td></tr>
+<tr style="background:#E8F5E9; font-weight:bold;"><td>EDI per 10-percentile</td><td>CMR</td><td>0.937</td><td>0.002</td><td>Yes</td></tr>
+<tr><td>EDI per 10-percentile</td><td>CCT</td><td>0.979</td><td>0.177</td><td>No</td></tr>
 </table>
 
 <h3>5.5 Interpretation</h3>
@@ -293,9 +293,9 @@ The variance of facility counts is much larger than the mean (this is called ove
 <ol>
 <li><strong>The primary disparity is geographic (metropolitan versus rural).</strong> Metropolitan counties contain over 90% of all cardiac imaging sites despite being only 38% of counties.</li>
 <li><strong>SVI shows no association</strong> with facility availability for either CMR or CCT. Social vulnerability (as measured by the CDC composite) does not predict where facilities are located.</li>
-<li><strong>ADI detects a significant CMR disparity.</strong> The Area Deprivation Index, which was specifically designed for healthcare-access research, identifies a 6.3% decrease in CMR capacity for every 10-percentile increase in area deprivation. This suggests that CMR (which is more specialized and rarer) is sensitive to socioeconomic factors that SVI does not capture well.</li>
+<li><strong>EDI detects a significant CMR disparity.</strong> The Economic Deprivation Index, which was specifically designed for healthcare-access research, identifies a 6.3% decrease in CMR capacity for every 10-percentile increase in area deprivation. This suggests that CMR (which is more specialized and rarer) is sensitive to socioeconomic factors that SVI does not capture well.</li>
 </ol>
-<p><strong>Why ADI works where SVI does not:</strong> SVI was designed for disaster emergency response and includes themes (minority status, housing type) that may not directly relate to healthcare facility siting. ADI focuses specifically on income, education, employment, and housing quality, which are the factors that drive healthcare infrastructure investment.</p>
+<p><strong>Why EDI works where SVI does not:</strong> SVI was designed for disaster emergency response and includes themes (minority status, housing type) that may not directly relate to healthcare facility siting. EDI focuses specifically on income, education, employment, and housing quality, which are the factors that drive healthcare infrastructure investment.</p>
 </div>
 
 <h2>6. Pipeline Scripts</h2>
@@ -306,7 +306,7 @@ The variance of facility counts is much larger than the mean (this is called ove
 <tr><td><code>code/03_descriptive_analysis.py</code></td><td>Generates Table 1 and Spearman correlations</td><td><code>python code/03_descriptive_analysis.py</code></td></tr>
 <tr><td><code>code/04_choropleth_map.py</code></td><td>Creates Figure 1 (two-panel US county choropleth map)</td><td><code>python code/04_choropleth_map.py</code></td></tr>
 <tr><td><code>code/05_regression_analysis.py</code></td><td>Runs Negative Binomial models and sensitivity analyses (SVI)</td><td><code>python code/05_regression_analysis.py</code></td></tr>
-<tr><td><code>code/06_adi_sensitivity_analysis.py</code></td><td>Constructs ADI and runs supplementary regressions</td><td><code>python code/06_adi_sensitivity_analysis.py</code></td></tr>
+<tr><td><code>code/06_edi_sensitivity_analysis.py</code></td><td>Constructs EDI and runs supplementary regressions</td><td><code>python code/06_edi_sensitivity_analysis.py</code></td></tr>
 </table>
 
 <h2>7. Output Files</h2>
@@ -318,8 +318,8 @@ The variance of facility counts is much larger than the mean (this is called ove
 <tr><td>Table1_Capacity_by_SVI_Rurality.docx</td><td><code>output/requested/</code></td><td>Table 1 in Word format (publication quality)</td></tr>
 <tr><td>Table2_Regression_Results.docx</td><td><code>output/requested/</code></td><td>Regression results in Word format</td></tr>
 <tr><td>Table3_Sensitivity_Analyses.docx</td><td><code>output/requested/</code></td><td>Sensitivity analyses summary in Word format</td></tr>
-<tr><td>Supplementary_Table_ADI_Regression.docx</td><td><code>output/requested/</code></td><td>ADI versus SVI comparison table in Word format</td></tr>
-<tr><td>ADI_Regression_Results.txt</td><td><code>output/requested/</code></td><td>Full ADI analysis report (plain text)</td></tr>
+<tr><td>Supplementary_Table_EDI_Regression.docx</td><td><code>output/requested/</code></td><td>EDI versus SVI comparison table in Word format</td></tr>
+<tr><td>EDI_Regression_Results.txt</td><td><code>output/requested/</code></td><td>Full EDI analysis report (plain text)</td></tr>
 <tr><td>Regression_Results.txt</td><td><code>output/requested/</code></td><td>Full SVI regression report (plain text)</td></tr>
 <tr><td>Methodology_and_Results.pdf</td><td><code>output/requested/</code></td><td>Complete methodology and results document (PDF)</td></tr>
 <tr><td>ACR_Cardiac_Imaging_Presentation.pptx</td><td><code>output/requested/</code></td><td>PowerPoint presentation (13 slides with embedded maps)</td></tr>
@@ -340,7 +340,7 @@ The variance of facility counts is much larger than the mean (this is called ove
 <li><strong>Ecologic design:</strong> County-level analysis cannot tell us about individual patients' actual access or travel burden. A patient may cross county lines to reach a facility.</li>
 <li><strong>Cross-sectional:</strong> This is a snapshot from May 2026. We cannot assess whether access is improving or worsening over time.</li>
 <li><strong>ZIP geocoding:</strong> Multi-county ZIP codes are resolved by residential population share, which may introduce minor misclassification.</li>
-<li><strong>ADI at county level:</strong> The official ADI (University of Wisconsin Neighborhood Atlas) is validated at the census block group level. Our county-level construction uses the same underlying methodology (Singh 2003) but applied at a coarser geographic scale.</li>
+<li><strong>EDI at county level:</strong> The official EDI (University of Wisconsin Neighborhood Atlas) is validated at the census block group level. Our county-level construction uses the same underlying methodology (Singh 2003) but applied at a coarser geographic scale.</li>
 </ol>
 
 <h2>10. Software and Reproducibility</h2>

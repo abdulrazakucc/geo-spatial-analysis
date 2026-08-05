@@ -64,11 +64,11 @@ def ensure_sdi():
 def load():
     df = pd.read_csv(os.path.join(PROC, "county_analytic_dataset.csv"),
                      dtype={"county_fips": str})
-    adi = (pd.read_csv(os.path.join(PROC, "county_adi_constructed.csv"),
+    edi = (pd.read_csv(os.path.join(PROC, "county_edi_constructed.csv"),
                        dtype={"fips": str}).rename(columns={"fips": "county_fips"}))
     sdi = pd.read_csv(ensure_sdi(), dtype={"COUNTY_FIPS": str})
     sdi["COUNTY_FIPS"] = sdi["COUNTY_FIPS"].str.zfill(5)
-    m = df.merge(adi, on="county_fips", how="left")
+    m = df.merge(edi, on="county_fips", how="left")
     m = m.merge(sdi[["COUNTY_FIPS", "SDI_score"]], left_on="county_fips",
                 right_on="COUNTY_FIPS", how="left")
     return m
@@ -112,9 +112,9 @@ def rurality_link(m, index_col):
 def main():
     m = load()
 
-    both = m.dropna(subset=["SDI_score", "adi_national_percentile"])
-    rho, prho = stats.spearmanr(both.SDI_score, both.adi_national_percentile)
-    rpear, _ = stats.pearsonr(both.SDI_score, both.adi_national_percentile)
+    both = m.dropna(subset=["SDI_score", "edi_national_percentile"])
+    rho, prho = stats.spearmanr(both.SDI_score, both.edi_national_percentile)
+    rpear, _ = stats.pearsonr(both.SDI_score, both.edi_national_percentile)
 
     el = m[m.rate_excluded == 0]
     neither = (el.cmr_facility_count == 0) & (el.cct_facility_count == 0)
@@ -129,9 +129,9 @@ def main():
         "descriptive_SDI_by_facility_rate_eligible": {
             "no_facility_mean": float(el.loc[neither, "SDI_score"].mean()),
             "facility_mean": float(el.loc[~neither, "SDI_score"].mean())},
-        "rurality_link": {"EDI": rurality_link(m, "adi_national_percentile"),
+        "rurality_link": {"EDI": rurality_link(m, "edi_national_percentile"),
                           "SDI": rurality_link(m, "SDI_score")},
-        "EDI_models": run_index(m, "adi_national_percentile", "Our EDI (self-built PCA)"),
+        "EDI_models": run_index(m, "edi_national_percentile", "Our EDI (self-built PCA)"),
         "SDI_models": run_index(m, "SDI_score", "External SDI (Graham Center)"),
     }
     with open(os.path.join(OUT, "validated_index_results.json"), "w") as f:
