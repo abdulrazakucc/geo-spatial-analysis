@@ -426,7 +426,7 @@
     "kruskal_p_cmr": 2.8143727960819284e-18
   },
   "pca": {
-    "pca_variance_explained": 0.5872916851581103,
+    "pca_variance_explained": 0.5872916851581098,
     "pca_n_counties": 3134,
     "pca_features": [
       "EP_POV150",
