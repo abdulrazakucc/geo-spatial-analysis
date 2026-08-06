@@ -5,7 +5,7 @@
 Single source of truth for every number quoted in the manuscript.
 
 WHY THIS EXISTS
-    The JACC submission contained two values that had been transcribed by hand
+    An earlier submission contained two values that had been transcribed by hand
     from a narrative document and were wrong. This script removes the need for
     hand transcription entirely. It recomputes, at full precision and from the
     committed data, every quantity that appears in the manuscript text, tables,
@@ -52,8 +52,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC = os.path.join(BASE_DIR, "data", "processed")
 RAW = os.path.join(BASE_DIR, "data", "raw")
 OUT = os.path.join(BASE_DIR, "output", "validation")
-JACR = os.path.join(BASE_DIR, "output", "jacr_revision")
-MANUSCRIPT = os.path.join(BASE_DIR, "publications", "JACR", "JACR_manuscript_CLEAN.docx")
+RESULTS = os.path.join(BASE_DIR, "output", "results")
+MANUSCRIPT = os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx")
 os.makedirs(OUT, exist_ok=True)
 
 ALPHA = 1.0
@@ -283,7 +283,20 @@ def quintile_gradient(m):
     return {"cmr_rate_by_edi_quintile": means,
             "cct_rate_by_edi_quintile": cct,
             "q1_over_q5_ratio": float(means[0] / means[4]),
-            "kruskal_p_cmr": float(kw.pvalue)}
+            "kruskal_p_cmr": float(kw.pvalue),
+            # Q1 > Q2 > Q3 > Q4 > Q5 at every step. The manuscript must not
+            # describe the decline as monotonic unless this is True; it is not,
+            # because Q3 exceeds Q2.
+            "cmr_monotonic_decreasing": all(means[i] > means[i + 1] for i in range(4)),
+            # Unweighted mean of county-level rates, which is what the paper
+            # reports. The population-weighted (pooled) ratio is much smaller
+            # because most counties with any facility are small.
+            "q1_over_q5_ratio_pooled": float(
+                (el.loc[q == 0, "cmr_facility_count"].sum()
+                 / el.loc[q == 0, "adult_pop_45plus"].sum())
+                / (el.loc[q == 4, "cmr_facility_count"].sum()
+                   / el.loc[q == 4, "adult_pop_45plus"].sum())),
+            "quintile_rate_definition": "unweighted mean of county-level rates"}
 
 
 def pca_variance():
@@ -516,7 +529,7 @@ def check_manuscript(R):
     """
     if not os.path.exists(MANUSCRIPT):
         return (f"Manuscript not found at {MANUSCRIPT}\n"
-                "(The publications/ folder is not tracked in git. Check skipped.)\n")
+                "(The manuscript/ folder is not tracked in git. Check skipped.)\n")
 
     prose, doc_tables = read_manuscript(MANUSCRIPT)
 
@@ -550,6 +563,22 @@ def check_manuscript(R):
     ck_prose("Q1/Q5 gradient", f"{g['q1_over_q5_ratio']:.1f}-fold")
     ck_prose("Q1 CMR rate", f"{g['cmr_rate_by_edi_quintile'][0]:.2f}")
     ck_prose("Q5 CMR rate", f"{g['cmr_rate_by_edi_quintile'][4]:.2f}")
+
+    # Wording check, not a value check. The quintile means are not monotonic
+    # (Q3 exceeds Q2), so the paper must not claim that they are. A wrong claim
+    # here would pass every numeric check above, which is how it survived an
+    # earlier round of review.
+    # Matches an affirmative claim ("rates fell monotonically", "a monotonic
+    # decline") but not a correct negative one, such as the Spearman result
+    # reporting the *absence* of a monotonic relationship.
+    if not g["cmr_monotonic_decreasing"]:
+        affirmative = re.search(
+            r"(fell|declined|decreased|dropped|rose|increased)\s+monotonic"
+            r"|monotonic(ally)?\s+(decline|decrease|gradient|reduction)",
+            prose, re.I)
+        checks.append(("no unsupported monotonicity claim", "absent",
+                       f"claims: {affirmative.group(0)!r}" if affirmative else "absent",
+                       not affirmative))
 
     # ---- Table 1
     if len(doc_tables) >= 1:
@@ -670,7 +699,7 @@ def main():
         "quintiles": quintile_gradient(m),
         "pca": pca_variance(),
     }
-    sdi_path = os.path.join(JACR, "validated_index_results.json")
+    sdi_path = os.path.join(RESULTS, "index_comparison_results.json")
     if os.path.exists(sdi_path):
         with open(sdi_path) as f:
             R["sdi"] = json.load(f)

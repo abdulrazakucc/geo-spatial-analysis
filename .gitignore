@@ -5,7 +5,7 @@ __pycache__/
 *.egg-info/
 dist/
 build/
-publications/
+manuscript/
 .DS_Store
 data/raw/cc-est2023-agesex-all.csv
 output/models/model_objects.pkl

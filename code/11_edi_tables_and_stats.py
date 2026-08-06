@@ -6,7 +6,7 @@ Generates the supplementary Word tables and the descriptive statistics JSON
 directly from the committed data, so that no manuscript number is ever
 hand-transcribed again.
 
-This script exists because two values in the JACC submission (the count of
+This script exists because two values in an earlier submission (the count of
 counties with neither modality, and the mean deprivation contrast) were carried
 into the manuscript from a hand-maintained narrative document and were wrong.
 Every quantity produced here is computed at run time from:
@@ -14,15 +14,13 @@ Every quantity produced here is computed at run time from:
     data/processed/county_analytic_dataset.csv
     data/processed/county_edi_constructed.csv
     data/processed/edi_regression_results.json      (from 06_edi_sensitivity_analysis.py)
-    output/jacr_revision/validated_index_results.json (from 09_validated_index_sdi.py)
+    output/results/index_comparison_results.json      (from 09_validated_index_sdi.py)
 
 Outputs
     output/tables/Supplementary_Table_EDI_Regression.docx
     output/tables/Table4_SVI_vs_EDI_Comparison.docx
     output/tables/Table4_External_Validation_SDI.docx   (manuscript Table 4)
-    output/{tables,requested}/additional_statistics.json
-    output/supplementary_data/additional_statistics.json
-    (Word tables are also copied to output/requested/)
+    output/tables/additional_statistics.json
 
 Run
     python code/06_edi_sensitivity_analysis.py    (first)
@@ -47,10 +45,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC = os.path.join(BASE_DIR, "data", "processed")
 OUT = os.path.join(BASE_DIR, "output")
 TABLES = os.path.join(OUT, "tables")
-REQUESTED = os.path.join(OUT, "requested")
-SUPP = os.path.join(OUT, "supplementary_data")
-JACR = os.path.join(OUT, "jacr_revision")
-for d in (TABLES, REQUESTED, SUPP):
+RESULTS = os.path.join(OUT, "results")
+for d in (TABLES, RESULTS):
     os.makedirs(d, exist_ok=True)
 
 
@@ -65,7 +61,7 @@ def load():
     with open(os.path.join(PROC, "edi_regression_results.json")) as f:
         edi_res = json.load(f)
     sdi_res = None
-    sdi_path = os.path.join(JACR, "validated_index_results.json")
+    sdi_path = os.path.join(RESULTS, "index_comparison_results.json")
     if os.path.exists(sdi_path):
         with open(sdi_path) as f:
             sdi_res = json.load(f)
@@ -186,7 +182,7 @@ def supplementary_table(edi_res):
         "unadjusted deprivation model absorbs the rurality signal. Once metropolitan status "
         "is included, the deprivation term is no longer associated with capacity.")
 
-    for d in (TABLES, REQUESTED):
+    for d in (TABLES,):
         doc.save(os.path.join(d, "Supplementary_Table_EDI_Regression.docx"))
     print("  wrote Supplementary_Table_EDI_Regression.docx")
 
@@ -232,7 +228,7 @@ def comparison_table(edi_res, svi_res, sdi_res, m):
             f"{ag['spearman_rho']:.3f}, Pearson r = {ag['pearson_r']:.3f}, across "
             f"{sdi_res['sdi_matched_counties']} of {sdi_res['total_counties']} counties.")
 
-    for d in (TABLES, REQUESTED):
+    for d in (TABLES,):
         doc.save(os.path.join(d, "Table4_SVI_vs_EDI_Comparison.docx"))
     print("  wrote Table4_SVI_vs_EDI_Comparison.docx")
 
@@ -277,7 +273,7 @@ def external_validation_table(sdi_res):
         f"metropolitan gaps of {rl['EDI']['gap']:.1f} and {rl['SDI']['gap']:.1f} percentile "
         f"points, respectively. Metropolitan status rows are the metropolitan-status "
         f"coefficients from the corresponding adjusted models.")
-    for d in (TABLES, REQUESTED):
+    for d in (TABLES,):
         doc.save(os.path.join(d, "Table4_External_Validation_SDI.docx"))
     print("  wrote Table4_External_Validation_SDI.docx")
 
@@ -338,7 +334,7 @@ def additional_stats(m, edi_res, svi_res):
         "svi_cmr_irr_adjusted_metro": svi_res["CMR"]["adjusted_metro"],
     }
 
-    for d in (TABLES, REQUESTED, SUPP):
+    for d in (TABLES,):
         with open(os.path.join(d, "additional_statistics.json"), "w") as f:
             json.dump(stats_out, f, indent=2)
     print("  wrote additional_statistics.json")

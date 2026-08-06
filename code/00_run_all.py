@@ -53,9 +53,9 @@ VALIDATE = [
 PRESENT = [
     ("04_choropleth_map.py", "Figure 1A choropleth"),
     ("08_svi_edi_comparison_maps.py", "Figures 2 and 3"),
-    ("10_jacr_forest_plots.py", "Figure 1B and Figure S forest plots"),
+    ("10_forest_plots.py", "Figure 1B and Figure S forest plots"),
     ("11_edi_tables_and_stats.py", "Word tables and supplementary statistics"),
-    ("07_publication_outputs.py", "Journal figures, PPTX, PDF"),
+    ("07_publication_outputs.py", "Publication figure 1 and Table 1"),
 ]
 
 
@@ -122,7 +122,7 @@ def main():
     print("    data/processed/county_analytic_dataset.csv   one row per US county")
     print("    output/validation/manuscript_numbers.txt     every number in the paper")
     print("    output/validation/manuscript_check.txt       paper vs data, cell by cell")
-    print("    output/jacr_revision/                        revision figures and results")
+    print("    output/results/                              model results, machine-readable")
     print("    output/tables/                               Word tables")
     if not do_present:
         print()

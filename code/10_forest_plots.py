@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-10_jacr_forest_plots.py
+10_forest_plots.py
 =======================
-JACR revision figures. Reads output/jacr_revision/validated_index_results.json
+Forest-plot figures. Reads output/results/index_comparison_results.json
 (single source of truth, so numbers and plots can never drift apart) and writes
 two publication-quality forest plots.
 
@@ -32,7 +32,7 @@ Design notes
 
 Run
     python code/09_validated_index_sdi.py     (first, produces the JSON)
-    python code/10_jacr_forest_plots.py
+    python code/10_forest_plots.py
 """
 
 import os
@@ -46,8 +46,10 @@ from matplotlib.patches import FancyBboxPatch
 from matplotlib.patheffects import withStroke
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(BASE_DIR, "output", "jacr_revision")
-RES = json.load(open(os.path.join(OUT, "validated_index_results.json")))
+RESULTS = os.path.join(BASE_DIR, "output", "results")
+OUT = os.path.join(BASE_DIR, "output", "figures")
+os.makedirs(OUT, exist_ok=True)
+RES = json.load(open(os.path.join(RESULTS, "index_comparison_results.json")))
 
 # Palette, refined for an elegant journal look
 INK    = "#16232e"     # near-black text
@@ -306,4 +308,4 @@ build_figure(
              {"label": "Graham Center SDI model", "color": AMBER, "est": s["metro_in_adjusted"]},
          ]},
     ],
-    "Figure_SDI_External_Validation")
+    "FigureS_SDI_External_Validation")

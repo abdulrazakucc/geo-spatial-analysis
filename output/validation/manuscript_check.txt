@@ -1,8 +1,8 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: publications/JACR/JACR_manuscript_CLEAN.docx
-Checks:   123     Mismatches: 0
+Document: manuscript/manuscript_CLEAN.docx
+Checks:   124     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -21,6 +21,7 @@ ALL CHECKS
   ok    Q1/Q5 gradient                     4.4-fold
   ok    Q1 CMR rate                        0.27
   ok    Q5 CMR rate                        0.06
+  ok    no unsupported monotonicity claim  absent
   ok    T1 All counties counties           3,144
   ok    T1 All counties adults             141.6
   ok    T1 All counties CMR fac            687

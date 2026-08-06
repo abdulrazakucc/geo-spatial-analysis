@@ -3,11 +3,15 @@
 Reproducible analysis pipeline for the manuscript
 
 > **Area Deprivation, Rurality, and Accredited Cardiac Imaging Capacity in US Counties**
-> Submitted to the *Journal of the American College of Radiology* (JACR).
 
 This repository contains everything needed to reproduce the analysis: the source
 data, the code, the generated figures and tables, and a validation script that
 checks the manuscript against the data, number by number.
+
+The repository is written to be journal-agnostic. Nothing in `main` is specific
+to a particular journal, so the same package can accompany a submission
+anywhere. Every file in `output/` is produced by a named script in `code/`;
+there are no hand-maintained artifacts.
 
 ---
 
@@ -58,7 +62,7 @@ measure. The SDI shows **no** unadjusted CMR association (IRR 1.01, P = 0.746)
 while reproducing metropolitan status almost exactly (IRR 8.66). Whether an
 unadjusted deprivation signal appears at all depends on how strongly the chosen
 index encodes rurality; the metropolitan finding does not. See
-`output/jacr_revision/validated_index_results.txt`.
+`output/results/index_comparison_results.txt`.
 
 ---
 
@@ -136,19 +140,31 @@ code/                     numbered pipeline, run in order
   12_manuscript_numbers.py      D  recompute and check every manuscript number
   04_choropleth_map.py          E  Figure 1A
   08_svi_edi_comparison_maps.py E  Figures 2 and 3
-  10_jacr_forest_plots.py       E  Figure 1B and Figure S
+  10_forest_plots.py            E  Figure 1B and Figure S
   11_edi_tables_and_stats.py    E  Word tables, supplementary statistics
-  07_publication_outputs.py     E  journal figures, PPTX, PDF
+  07_publication_outputs.py     E  publication Figure 1 and Table 1
+
+tools/                    supporting utilities, not part of the pipeline
+  docx_tracked.py         library for tracked-change edits to a .docx
+  revise_manuscript.py    applies a dated revision round to the manuscript
 
 data/raw/                 source data as downloaded
 data/processed/           county_analytic_dataset.csv, the central artifact
 output/validation/        the reviewer-facing validation report
-output/jacr_revision/     revision figures and external-validation results
+output/results/           model results, machine-readable and formatted
+output/models/            regression output as text
 output/tables/            Word tables
 output/figures/           figures for the manuscript
 docs/                     methodology notes and the reproducibility guide
-webapp/                   read-only dashboard, decoupled from the pipeline
+manuscript/               the manuscript itself (not tracked in git)
 ```
+
+### Branches
+
+| Branch | Contents |
+|---|---|
+| `main` | The analysis and everything needed to reproduce and review it. |
+| `webapp` | The read-only MapLibre dashboard, its Docker deployment, and ancillary material (slide deck, workflow PDF, collaborator deliverables). Kept off `main` so a reviewer sees only the analysis. |
 
 Script numbers reflect the order in which the analyses were developed. Stage
 letters, not numbers, indicate execution order; `00_run_all.py` runs them

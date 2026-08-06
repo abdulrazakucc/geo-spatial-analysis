@@ -423,7 +423,10 @@
       0.3436805730363727
     ],
     "q1_over_q5_ratio": 4.365263068992283,
-    "kruskal_p_cmr": 2.8143727960819284e-18
+    "kruskal_p_cmr": 2.8143727960819284e-18,
+    "cmr_monotonic_decreasing": false,
+    "q1_over_q5_ratio_pooled": 1.4797444969453766,
+    "quintile_rate_definition": "unweighted mean of county-level rates"
   },
   "pca": {
     "pca_variance_explained": 0.5872916851581098,

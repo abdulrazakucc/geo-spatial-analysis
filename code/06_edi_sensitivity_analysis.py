@@ -6,7 +6,7 @@ Economic Deprivation Index (EDI) as an alternative predictor to SVI.
 
 Naming note
     This index was previously called "ADI" in earlier drafts. It was renamed to
-    EDI (Economic Deprivation Index) for the JACR submission because "ADI"
+    EDI (Economic Deprivation Index) because "ADI"
     collides with the validated Singh / Wisconsin Area Deprivation Index, which
     is a different instrument that we do not use here. The construction is
     unchanged, only the label. See docs/PCA_Explanation.md.
@@ -23,7 +23,7 @@ This script
        and stratified by metro status.
     4. Compares against the SVI models.
 
-Key finding (JACR framing)
+Key finding
     The unadjusted EDI-CMR association (IRR 0.937, P 0.002) does not survive
     adjustment for rurality (IRR 0.983, P 0.43). Metropolitan status itself
     carries IRR 8.23. The substantive conclusion is that accredited capacity is
@@ -31,7 +31,7 @@ Key finding (JACR framing)
     not be used as proxies for imaging access without adjusting for rurality.
 
     The earlier framing, that the EDI detects a deprivation gradient the SVI
-    misses, was the JACC submission's claim and did not survive review. It is
+    misses, was the earlier submission's claim and did not survive review. It is
     retained here only as the unadjusted row, for transparency.
 
 References
@@ -52,7 +52,7 @@ from sklearn.decomposition import PCA
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
 PROC_DIR = os.path.join(BASE_DIR, "data", "processed")
-OUT_DIR = os.path.join(BASE_DIR, "output", "requested")
+OUT_DIR = os.path.join(BASE_DIR, "output", "models")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 
@@ -290,12 +290,11 @@ def write_report(results):
     a("* P < 0.05")
 
     report = "\n".join(L)
-    for d in [os.path.join(BASE_DIR, "output", "supplementary_data"), OUT_DIR]:
-        os.makedirs(d, exist_ok=True)
-        with open(os.path.join(d, "EDI_Regression_Results.txt"), "w") as f:
-            f.write(report + "\n")
+    os.makedirs(OUT_DIR, exist_ok=True)
+    with open(os.path.join(OUT_DIR, "EDI_Regression_Results.txt"), "w") as f:
+        f.write(report + "\n")
     print(report)
-    print("\n  ✓ Saved: output/supplementary_data/EDI_Regression_Results.txt")
+    print("\n  ✓ Saved: output/models/EDI_Regression_Results.txt")
 
 
 if __name__ == "__main__":

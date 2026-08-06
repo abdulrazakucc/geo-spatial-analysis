@@ -30,10 +30,10 @@ Purpose:
   See code/06_edi_sensitivity_analysis.py for the adjusted models.
 
 Output:
-  output/requested/Figure2_SVI_vs_EDI_Comparison.png (300 DPI)
-  output/requested/Figure2_SVI_vs_EDI_Comparison.pdf (vector)
-  output/requested/Figure3_EDI_Quintile_Rates.png (300 DPI)
-  output/requested/Figure3_EDI_Quintile_Rates.pdf (vector)
+  output/figures/Figure2_SVI_vs_EDI_Comparison.png (300 DPI)
+  output/figures/Figure2_SVI_vs_EDI_Comparison.pdf (vector)
+  output/figures/Figure3_EDI_Quintile_Rates.png (300 DPI)
+  output/figures/Figure3_EDI_Quintile_Rates.pdf (vector)
 
 Usage:
   python code/08_svi_edi_comparison_maps.py
@@ -57,7 +57,7 @@ from scipy.stats import pearsonr, kruskal
 # ============================================================
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC_DIR = os.path.join(BASE_DIR, "data", "processed")
-OUT_DIR = os.path.join(BASE_DIR, "output", "requested")
+OUT_DIR = os.path.join(BASE_DIR, "output", "figures")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # Custom colormaps for visual distinction

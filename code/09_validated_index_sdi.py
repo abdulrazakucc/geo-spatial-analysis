@@ -2,7 +2,7 @@
 """
 09_validated_index_sdi.py
 =========================
-JACR revision, external validation of the economic-deprivation finding.
+External validation of the economic-deprivation finding.
 
 A reviewer may suspect that our self-constructed Economic Deprivation Index (EDI,
 a county-level PCA of ACS indicators) manufactured the only significant result.
@@ -16,7 +16,7 @@ What it does
     3. Refits the primary negative binomial models (unadjusted and adjusted for
        metropolitan status) for CMR and CCT, using BOTH indices.
     4. Measures how strongly each index tracks rurality (the confounder).
-    5. Writes machine-readable and human-readable results to output/jacr_revision/.
+    5. Writes machine-readable and human-readable results to output/results/.
 
 Model specification is identical to the manuscript.
     facility_count ~ index_per10 [+ metro_indicator] + offset(log adults 45+)
@@ -39,7 +39,7 @@ from scipy import stats
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC = os.path.join(BASE_DIR, "data", "processed")
 RAW = os.path.join(BASE_DIR, "data", "raw")
-OUT = os.path.join(BASE_DIR, "output", "jacr_revision")
+OUT = os.path.join(BASE_DIR, "output", "results")
 os.makedirs(OUT, exist_ok=True)
 
 SDI_LOCAL = os.path.join(RAW, "rgc_sdi_2015_2019_county.csv")
@@ -158,7 +158,7 @@ def main():
         "SDI_models": run_index(m, "SDI_score", "External SDI (Graham Center)"),
         "SVI_models": run_index(m, "svi_percentile_100", "CDC/ATSDR SVI (primary predictor)"),
     }
-    with open(os.path.join(OUT, "validated_index_results.json"), "w") as f:
+    with open(os.path.join(OUT, "index_comparison_results.json"), "w") as f:
         json.dump(results, f, indent=2)
 
     # Human-readable report (no colons or em-dashes by request)
@@ -217,10 +217,10 @@ def main():
     a("with both indices.")
 
     report = "\n".join(L)
-    with open(os.path.join(OUT, "validated_index_results.txt"), "w") as f:
+    with open(os.path.join(OUT, "index_comparison_results.txt"), "w") as f:
         f.write(report + "\n")
     print(report)
-    print(f"\nWrote output/jacr_revision/validated_index_results.json and .txt")
+    print(f"\nWrote output/results/index_comparison_results.json and .txt")
 
 
 if __name__ == "__main__":

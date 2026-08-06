@@ -153,7 +153,7 @@ def main():
         output_lines.append(f"→ {'Negative Binomial preferred' if nb_result.aic < pois_result.aic else 'Poisson preferred'}")
         
         # --- Primary Model, adjusted for rurality ---
-        # Added for the JACR revision. The unadjusted models above are confounded
+        # The unadjusted models above are confounded
         # by rurality: accredited capacity is concentrated in metropolitan
         # counties, and both indices track rurality. Any predictor reported from
         # this pipeline should be read from the adjusted model.
