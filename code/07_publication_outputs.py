@@ -463,9 +463,18 @@ def create_workflow_pdf(df, spearman_results):
     print("\n" + "="*70)
     print("PDF WORKFLOW DOCUMENT")
     print("="*70)
-    
-    import weasyprint
-    
+
+    # WeasyPrint needs system libraries (pango, cairo) that are awkward to install
+    # and are not required to reproduce any published number. If it is missing,
+    # skip this one optional document rather than failing the whole pipeline.
+    try:
+        import weasyprint
+    except (ImportError, OSError) as exc:
+        print(f"  SKIPPED: WeasyPrint unavailable ({exc.__class__.__name__}).")
+        print("  This affects only output/workflow/ACR_Cardiac_Analysis_Workflow.pdf.")
+        print("  Install with: pip install weasyprint  (plus system pango/cairo)")
+        return
+
     n_total = len(df)
     n_excluded = int(df['rate_excluded'].sum())
     n_cmr = int(df['cmr_facility_count'].sum())

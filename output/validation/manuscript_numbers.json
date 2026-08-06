@@ -1,0 +1,614 @@
+{
+  "descriptives": {
+    "total_counties": 3144,
+    "cmr_facilities": 687,
+    "cct_facilities": 1481,
+    "counties_with_cmr": 289,
+    "counties_with_cmr_pct": 9.192111959287532,
+    "counties_with_cct": 532,
+    "counties_with_cct_pct": 16.921119592875318,
+    "counties_neither": 2583,
+    "counties_neither_pct": 82.15648854961832,
+    "metro_counties": 1186,
+    "metro_counties_pct": 37.72264631043257,
+    "nonmetro_counties": 1958,
+    "pct_cmr_in_metro": 98.10771470160117,
+    "pct_cct_in_metro": 92.4375422012154,
+    "adults_45plus_total_millions": 141.596553,
+    "rate_eligible_n": 3038,
+    "rate_excluded_n": 106,
+    "metro_cmr_mean_rate": 0.348018808693063,
+    "nonmetro_cmr_mean_rate": 0.0236488142938531,
+    "metro_cct_mean_rate": 0.7323368543444756,
+    "nonmetro_cct_mean_rate": 0.354022623530428,
+    "mean_edi_no_facility": 52.85775346257237,
+    "mean_edi_has_facility": 39.37397549958081
+  },
+  "table1": {
+    "all_counties": {
+      "counties": 3144,
+      "adults_millions": 141.596553,
+      "cmr_facilities": 687,
+      "counties_ge1_cmr": 289,
+      "counties_ge1_cmr_pct": 9.192111959287532,
+      "cct_facilities": 1481,
+      "counties_ge1_cct": 532,
+      "counties_ge1_cct_pct": 16.921119592875318
+    },
+    "metropolitan": {
+      "counties": 1186,
+      "adults_millions": 120.33506,
+      "cmr_facilities": 674,
+      "counties_ge1_cmr": 276,
+      "counties_ge1_cmr_pct": 23.27150084317032,
+      "cct_facilities": 1369,
+      "counties_ge1_cct": 427,
+      "counties_ge1_cct_pct": 36.00337268128162
+    },
+    "nonmetropolitan": {
+      "counties": 1958,
+      "adults_millions": 21.261493,
+      "cmr_facilities": 13,
+      "counties_ge1_cmr": 13,
+      "counties_ge1_cmr_pct": 0.6639427987742594,
+      "cct_facilities": 112,
+      "counties_ge1_cct": 105,
+      "counties_ge1_cct_pct": 5.362614913176711
+    },
+    "edi_q1": {
+      "counties": 606,
+      "adults_millions": 42.991406,
+      "cmr_facilities": 235,
+      "counties_ge1_cmr": 107,
+      "counties_ge1_cmr_pct": 17.656765676567655,
+      "cct_facilities": 423,
+      "counties_ge1_cct": 169,
+      "counties_ge1_cct_pct": 27.887788778877887
+    },
+    "edi_q2": {
+      "counties": 606,
+      "adults_millions": 28.882701,
+      "cmr_facilities": 124,
+      "counties_ge1_cmr": 64,
+      "counties_ge1_cmr_pct": 10.561056105610561,
+      "cct_facilities": 290,
+      "counties_ge1_cct": 113,
+      "counties_ge1_cct_pct": 18.646864686468646
+    },
+    "edi_q3": {
+      "counties": 605,
+      "adults_millions": 29.556486,
+      "cmr_facilities": 174,
+      "counties_ge1_cmr": 66,
+      "counties_ge1_cmr_pct": 10.909090909090908,
+      "cct_facilities": 367,
+      "counties_ge1_cct": 116,
+      "counties_ge1_cct_pct": 19.173553719008265
+    },
+    "edi_q4": {
+      "counties": 606,
+      "adults_millions": 26.275633,
+      "cmr_facilities": 109,
+      "counties_ge1_cmr": 34,
+      "counties_ge1_cmr_pct": 5.6105610561056105,
+      "cct_facilities": 308,
+      "counties_ge1_cct": 90,
+      "counties_ge1_cct_pct": 14.85148514851485
+    },
+    "edi_q5": {
+      "counties": 606,
+      "adults_millions": 12.181844,
+      "cmr_facilities": 45,
+      "counties_ge1_cmr": 18,
+      "counties_ge1_cmr_pct": 2.9702970297029703,
+      "cct_facilities": 93,
+      "counties_ge1_cct": 44,
+      "counties_ge1_cct_pct": 7.2607260726072615
+    },
+    "_note": "Rurality strata use all counties. EDI quintiles are restricted to rate-eligible counties with an EDI value."
+  },
+  "regressions": {
+    "n_svi": 3038,
+    "n_edi": 3029,
+    "models": {
+      "SVI_CMR": {
+        "unadjusted": {
+          "irr": 0.9915292602373729,
+          "ci_low": 0.952143462700138,
+          "ci_high": 1.032544267141067,
+          "p": 0.6808173701708331
+        },
+        "adjusted_metro": {
+          "irr": 0.9964478975969372,
+          "ci_low": 0.9549482881608803,
+          "ci_high": 1.03975097388528,
+          "p": 0.869770332358107
+        },
+        "metro_effect": {
+          "irr": 8.435683815552354,
+          "ci_low": 4.799188507136605,
+          "ci_high": 14.827665412632308,
+          "p": 1.2604884803226164e-13
+        },
+        "adjusted_rucc": {
+          "irr": 0.9989316374307459,
+          "ci_low": 0.956936799737356,
+          "ci_high": 1.0427694039292335,
+          "p": 0.9610942594286934
+        },
+        "rucc_effect": {
+          "irr": 0.6885301493931553,
+          "ci_low": 0.6274569805584854,
+          "ci_high": 0.7555478404294719,
+          "p": 3.410483724398249e-15
+        }
+      },
+      "SVI_CCT": {
+        "unadjusted": {
+          "irr": 1.0202781367385436,
+          "ci_low": 0.9885478763605494,
+          "ci_high": 1.0530268702200987,
+          "p": 0.21298131464497116
+        },
+        "adjusted_metro": {
+          "irr": 1.0256781263551293,
+          "ci_low": 0.9928574778934032,
+          "ci_high": 1.0595837190202608,
+          "p": 0.12651963688658144
+        },
+        "metro_effect": {
+          "irr": 1.9370833518070867,
+          "ci_low": 1.552835706172103,
+          "ci_high": 2.416412693843804,
+          "p": 4.597789182910357e-09
+        },
+        "adjusted_rucc": {
+          "irr": 1.0282981590574825,
+          "ci_low": 0.9951183236099426,
+          "ci_high": 1.0625842965941368,
+          "p": 0.09540820405505789
+        },
+        "rucc_effect": {
+          "irr": 0.8579701145882344,
+          "ci_low": 0.8188098643654415,
+          "ci_high": 0.8990032357475544,
+          "p": 1.3039340287757242e-10
+        }
+      },
+      "EDI_CMR": {
+        "unadjusted": {
+          "irr": 0.9373327630295016,
+          "ci_low": 0.8999697444380039,
+          "ci_high": 0.9762469394981347,
+          "p": 0.001819113044234122
+        },
+        "adjusted_metro": {
+          "irr": 0.982775451762755,
+          "ci_low": 0.9408936395026554,
+          "ci_high": 1.0265215408385824,
+          "p": 0.43425389960677363
+        },
+        "metro_effect": {
+          "irr": 8.230703791693271,
+          "ci_low": 4.652329484237605,
+          "ci_high": 14.56141168335491,
+          "p": 4.4345434444708407e-13
+        },
+        "adjusted_rucc": {
+          "irr": 0.9936942109339844,
+          "ci_low": 0.9498732166861399,
+          "ci_high": 1.0395368218598617,
+          "p": 0.7833933258803227
+        },
+        "rucc_effect": {
+          "irr": 0.6906357911998108,
+          "ci_low": 0.6271582839864345,
+          "ci_high": 0.7605381420689419,
+          "p": 5.2915072436634644e-14
+        },
+        "stratified_metro": {
+          "irr": 0.9944463542361719,
+          "ci_low": 0.9513716564180535,
+          "ci_high": 1.039471319943401,
+          "p": 0.8052964661040898
+        },
+        "stratified_metro_n": 1173,
+        "stratified_metro_events": 674,
+        "stratified_nonmetro": {
+          "irr": 0.7265108529976837,
+          "ci_low": 0.572394113351665,
+          "ci_high": 0.9221234237242119,
+          "p": 0.00862816632781994
+        },
+        "stratified_nonmetro_n": 1856,
+        "stratified_nonmetro_events": 13
+      },
+      "EDI_CCT": {
+        "unadjusted": {
+          "irr": 0.9788781318171355,
+          "ci_low": 0.9490238772622367,
+          "ci_high": 1.0096715371525182,
+          "p": 0.17672879546283626
+        },
+        "adjusted_metro": {
+          "irr": 1.007404217525026,
+          "ci_low": 0.9744998557977413,
+          "ci_high": 1.0414196076575368,
+          "p": 0.6632755849291501
+        },
+        "metro_effect": {
+          "irr": 1.961933733763406,
+          "ci_low": 1.5582614253984157,
+          "ci_high": 2.4701785675626677,
+          "p": 9.809873352093237e-09
+        },
+        "adjusted_rucc": {
+          "irr": 1.0186545793744626,
+          "ci_low": 0.9844560206810048,
+          "ci_high": 1.0540411458530734,
+          "p": 0.28877489802030853
+        },
+        "rucc_effect": {
+          "irr": 0.8516142001983518,
+          "ci_low": 0.810430363299943,
+          "ci_high": 0.8948908861538571,
+          "p": 2.1377590241556785e-10
+        },
+        "stratified_metro": {
+          "irr": 1.0192635063666313,
+          "ci_low": 0.9825368394478236,
+          "ci_high": 1.0573629951571597,
+          "p": 0.3081807610190336
+        },
+        "stratified_metro_n": 1173,
+        "stratified_metro_events": 1369,
+        "stratified_nonmetro": {
+          "irr": 0.9569066572699092,
+          "ci_low": 0.8866190056296833,
+          "ci_high": 1.0327664362181768,
+          "p": 0.25777521455099817
+        },
+        "stratified_nonmetro_n": 1856,
+        "stratified_nonmetro_events": 112
+      }
+    }
+  },
+  "correlations": {
+    "svi_edi_pearson_r": 0.8209363437194761,
+    "svi_edi_pearson_p": 0.0,
+    "svi_edi_spearman_rho": 0.8209544863741957,
+    "svi_edi_spearman_p": 0.0,
+    "svi_edi_n": 3134,
+    "svi_cmr_spearman_rho": 0.007870433852762529,
+    "svi_cmr_spearman_p": 0.6645562757459982,
+    "edi_cmr_spearman_rho": NaN,
+    "edi_cmr_spearman_p": NaN,
+    "svi_cct_spearman_rho": 0.020099541301868404,
+    "svi_cct_spearman_p": 0.26807626470376394,
+    "edi_cct_spearman_rho": NaN,
+    "edi_cct_spearman_p": NaN,
+    "metro_vs_nonmetro_cmr_mannwhitney_p": 9.987568283402975e-95,
+    "metro_vs_nonmetro_cct_mannwhitney_p": 4.524265263284304e-92
+  },
+  "model_diagnostics": {
+    "overdispersion": {
+      "cmr_facility_count": {
+        "mean": 0.2261356155365372,
+        "variance": 1.1062380086026997,
+        "variance_to_mean_ratio": 4.891922955072783,
+        "pct_zero": 90.48716260697827
+      },
+      "cct_facility_count": {
+        "mean": 0.48749177090190915,
+        "variance": 4.3526587709233695,
+        "variance_to_mean_ratio": 8.928681530091287,
+        "pct_zero": 82.48847926267281
+      }
+    },
+    "aic_nb_vs_poisson": {
+      "SVI_CMR_unadjusted": {
+        "aic_negative_binomial": 1851.0149307809702,
+        "aic_poisson": 1932.6169606255637,
+        "poisson_pearson_dispersion": 0.479045885566904,
+        "nb_irr": 0.9915292602373729,
+        "nb_p": 0.6808173701708331,
+        "poisson_irr": 1.0026508356648358,
+        "poisson_p": 0.8551067474663896
+      },
+      "SVI_CMR_adjusted": {
+        "aic_negative_binomial": 1744.1768107814544,
+        "aic_poisson": 1795.4339829294527,
+        "poisson_pearson_dispersion": 0.5932158356626681,
+        "nb_irr": 0.9964478975969372,
+        "nb_p": 0.869770332358107,
+        "poisson_irr": 0.9977773256480987,
+        "poisson_p": 0.8782593715312392
+      },
+      "SVI_CCT_unadjusted": {
+        "aic_negative_binomial": 3071.2662568776036,
+        "aic_poisson": 3104.975754493448,
+        "poisson_pearson_dispersion": 0.6457360938858036,
+        "nb_irr": 1.0202781367385436,
+        "nb_p": 0.21298131464497116,
+        "poisson_irr": 1.036431477340779,
+        "poisson_p": 0.00036723868531515796
+      },
+      "SVI_CCT_adjusted": {
+        "aic_negative_binomial": 3033.6723040968172,
+        "aic_poisson": 3032.961835608553,
+        "poisson_pearson_dispersion": 0.7993981469371254,
+        "nb_irr": 1.0256781263551293,
+        "nb_p": 0.12651963688658144,
+        "poisson_irr": 1.0337018742103712,
+        "poisson_p": 0.000990459786776778
+      },
+      "EDI_CMR_unadjusted": {
+        "aic_negative_binomial": 1830.9786188991566,
+        "aic_poisson": 1908.8560841485942,
+        "poisson_pearson_dispersion": 0.47133233324846224,
+        "nb_irr": 0.9373327630295016,
+        "nb_p": 0.001819113044234122,
+        "poisson_irr": 0.9616111591639883,
+        "poisson_p": 0.0055698785253746365
+      },
+      "EDI_CMR_adjusted": {
+        "aic_negative_binomial": 1733.327517068302,
+        "aic_poisson": 1777.799180421759,
+        "poisson_pearson_dispersion": 0.584210212983452,
+        "nb_irr": 0.982775451762755,
+        "nb_p": 0.43425389960677363,
+        "poisson_irr": 0.9933576573071933,
+        "poisson_p": 0.6413826468668912
+      },
+      "EDI_CCT_unadjusted": {
+        "aic_negative_binomial": 3055.3617929980655,
+        "aic_poisson": 3083.2063531845142,
+        "poisson_pearson_dispersion": 0.6298331970098726,
+        "nb_irr": 0.9788781318171355,
+        "nb_p": 0.17672879546283626,
+        "poisson_irr": 1.002494790144366,
+        "poisson_p": 0.792696756214013
+      },
+      "EDI_CCT_adjusted": {
+        "aic_negative_binomial": 3019.4707859143423,
+        "aic_poisson": 3002.5504780367314,
+        "poisson_pearson_dispersion": 0.7838027587824314,
+        "nb_irr": 1.007404217525026,
+        "nb_p": 0.6632755849291501,
+        "poisson_irr": 1.0221721411806424,
+        "poisson_p": 0.02358138984977179
+      }
+    },
+    "alpha_sensitivity": {
+      "EDI_CMR_unadjusted": {
+        "fixed_alpha_1": {
+          "irr": 0.9373327630295016,
+          "p": 0.001819113044234122
+        },
+        "estimated_alpha": {
+          "irr": 0.9425260224105719,
+          "p": 0.0013604321386698295,
+          "alpha": 0.6254790696112806
+        }
+      },
+      "EDI_CMR_adjusted": {
+        "fixed_alpha_1": {
+          "irr": 0.982775451762755,
+          "p": 0.43425389960677363,
+          "metro_irr": 8.230703791693271
+        },
+        "estimated_alpha": {
+          "irr": 0.9875549181174772,
+          "p": 0.5069528012784217,
+          "alpha": 0.4631251969547466,
+          "metro_irr": 8.538762730869909
+        }
+      }
+    },
+    "_interpretation": "Both outcomes are overdispersed (variance-to-mean ratio well above 1), which is why negative binomial is used. The Poisson Pearson dispersion statistic is below 1 here because most fitted means are far below 1; it is unreliable for sparse counts and the AIC comparison is the informative one. Negative binomial wins on AIC in six of eight models, decisively for the primary CMR outcome. For the two adjusted CCT models Poisson has marginally lower AIC and yields nominally significant deprivation terms, but those estimates are above 1, that is, more capacity with more deprivation, so they do not support a deprivation-disadvantage reading under either family. Conclusions are unchanged when alpha is estimated rather than fixed at 1."
+  },
+  "quintiles": {
+    "cmr_rate_by_edi_quintile": [
+      0.27150742459685734,
+      0.1491435928600014,
+      0.18700654669359937,
+      0.08062156963717622,
+      0.062197265160364
+    ],
+    "cct_rate_by_edi_quintile": [
+      0.601670727001126,
+      0.4033787231114391,
+      0.5666483984010878,
+      0.5969947979952182,
+      0.3436805730363727
+    ],
+    "q1_over_q5_ratio": 4.365263068992283,
+    "kruskal_p_cmr": 2.8143727960819284e-18
+  },
+  "pca": {
+    "pca_variance_explained": 0.5872916851581103,
+    "pca_n_counties": 3134,
+    "pca_features": [
+      "EP_POV150",
+      "EP_UNEMP",
+      "EP_NOHSDP",
+      "EP_HBURD",
+      "neg_income",
+      "child_poverty"
+    ]
+  },
+  "sdi": {
+    "external_index": "Robert Graham Center Social Deprivation Index (SDI), 2015-2019",
+    "sdi_source_url": "https://www.aafp.org/assets/raw/upload/v1779124857/asset_rgc_sdi_2015_through_2019_county.csv",
+    "sdi_matched_counties": 3133,
+    "total_counties": 3144,
+    "agreement_with_EDI": {
+      "spearman_rho": 0.882621826998318,
+      "spearman_p": 0.0,
+      "pearson_r": 0.8823276013476631
+    },
+    "svi_edi_agreement": {
+      "n": 3134,
+      "pearson_r": 0.8209363437194761,
+      "pearson_p": 0.0,
+      "spearman_rho": 0.8209544863741957,
+      "sample": "all counties with both indices"
+    },
+    "descriptive_SDI_by_facility_rate_eligible": {
+      "no_facility_mean": 48.74817518248175,
+      "facility_mean": 44.84670231729055
+    },
+    "rurality_link": {
+      "EDI": {
+        "spearman_vs_rucc": 0.2493711557732655,
+        "metro_mean": 39.92928210556653,
+        "nonmetro_mean": 56.09064707548191,
+        "gap": 16.161364969915383
+      },
+      "SDI": {
+        "spearman_vs_rucc": 0.06802098533580582,
+        "metro_mean": 43.02459711620017,
+        "nonmetro_mean": 50.08955987717503,
+        "gap": 7.064962760974858
+      }
+    },
+    "EDI_models": {
+      "label": "Our EDI (self-built PCA)",
+      "n": 3029,
+      "outcomes": {
+        "cmr_facility_count": {
+          "unadjusted": {
+            "IRR": 0.9373327630295016,
+            "CI_low": 0.8999697444380039,
+            "CI_high": 0.9762469394981347,
+            "P": 0.001819113044234122
+          },
+          "adjusted": {
+            "IRR": 0.982775451762755,
+            "CI_low": 0.9408936395026554,
+            "CI_high": 1.0265215408385824,
+            "P": 0.43425389960677363
+          },
+          "metro_in_adjusted": {
+            "IRR": 8.230703791693271,
+            "CI_low": 4.652329484237605,
+            "CI_high": 14.56141168335491,
+            "P": 4.4345434444708407e-13
+          }
+        },
+        "cct_facility_count": {
+          "unadjusted": {
+            "IRR": 0.9788781318171355,
+            "CI_low": 0.9490238772622367,
+            "CI_high": 1.0096715371525182,
+            "P": 0.17672879546283626
+          },
+          "adjusted": {
+            "IRR": 1.007404217525026,
+            "CI_low": 0.9744998557977413,
+            "CI_high": 1.0414196076575368,
+            "P": 0.6632755849291501
+          },
+          "metro_in_adjusted": {
+            "IRR": 1.961933733763406,
+            "CI_low": 1.5582614253984157,
+            "CI_high": 2.4701785675626677,
+            "P": 9.809873352093237e-09
+          }
+        }
+      }
+    },
+    "SDI_models": {
+      "label": "External SDI (Graham Center)",
+      "n": 3027,
+      "outcomes": {
+        "cmr_facility_count": {
+          "unadjusted": {
+            "IRR": 1.0064476275273213,
+            "CI_low": 0.9680835098036976,
+            "CI_high": 1.0463320743483908,
+            "P": 0.745847196150613
+          },
+          "adjusted": {
+            "IRR": 1.0260392659304955,
+            "CI_low": 0.9851890114828673,
+            "CI_high": 1.068583350972036,
+            "P": 0.21493519335817346
+          },
+          "metro_in_adjusted": {
+            "IRR": 8.66480650826005,
+            "CI_low": 4.925170356125068,
+            "CI_high": 15.243913691678852,
+            "P": 6.803403919355217e-14
+          }
+        },
+        "cct_facility_count": {
+          "unadjusted": {
+            "IRR": 1.0165697177172373,
+            "CI_low": 0.9860819241662889,
+            "CI_high": 1.0480001363511788,
+            "P": 0.2901443749399718
+          },
+          "adjusted": {
+            "IRR": 1.0302724159100727,
+            "CI_low": 0.9983346819068812,
+            "CI_high": 1.0632318702558954,
+            "P": 0.06342126027686475
+          },
+          "metro_in_adjusted": {
+            "IRR": 1.983207705783517,
+            "CI_low": 1.587010432146866,
+            "CI_high": 2.478315658554625,
+            "P": 1.725930586422037e-09
+          }
+        }
+      }
+    },
+    "SVI_models": {
+      "label": "CDC/ATSDR SVI (primary predictor)",
+      "n": 3038,
+      "outcomes": {
+        "cmr_facility_count": {
+          "unadjusted": {
+            "IRR": 0.9915292602373729,
+            "CI_low": 0.952143462700138,
+            "CI_high": 1.032544267141067,
+            "P": 0.6808173701708331
+          },
+          "adjusted": {
+            "IRR": 0.9964478975969372,
+            "CI_low": 0.9549482881608803,
+            "CI_high": 1.03975097388528,
+            "P": 0.869770332358107
+          },
+          "metro_in_adjusted": {
+            "IRR": 8.435683815552354,
+            "CI_low": 4.799188507136605,
+            "CI_high": 14.827665412632308,
+            "P": 1.2604884803226164e-13
+          }
+        },
+        "cct_facility_count": {
+          "unadjusted": {
+            "IRR": 1.0202781367385436,
+            "CI_low": 0.9885478763605494,
+            "CI_high": 1.0530268702200987,
+            "P": 0.21298131464497116
+          },
+          "adjusted": {
+            "IRR": 1.0256781263551293,
+            "CI_low": 0.9928574778934032,
+            "CI_high": 1.0595837190202608,
+            "P": 0.12651963688658144
+          },
+          "metro_in_adjusted": {
+            "IRR": 1.9370833518070867,
+            "CI_low": 1.552835706172103,
+            "CI_high": 2.416412693843804,
+            "P": 4.597789182910357e-09
+          }
+        }
+      }
+    }
+  }
+}

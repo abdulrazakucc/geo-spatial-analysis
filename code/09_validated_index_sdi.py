@@ -172,7 +172,8 @@ def main():
     a(f"Counties matched to SDI, {results['sdi_matched_counties']} of {results['total_counties']}")
     a(f"Agreement with our EDI, Spearman rho {rho:.3f} (P {prho:.1e}), Pearson r {rpear:.3f}")
     sv = results["svi_edi_agreement"]
-    a(f"Agreement SVI with EDI, Pearson r {sv['pearson_r']:.4f}, Spearman rho {sv['spearman_rho']:.4f}, n {sv['n']}")
+    a(f"Agreement of the CDC SVI with our EDI, Pearson r {sv['pearson_r']:.4f}, "
+      f"Spearman rho {sv['spearman_rho']:.4f}, n {sv['n']:,}")
     dd = results["descriptive_SDI_by_facility_rate_eligible"]
     a(f"Mean SDI, no-facility vs facility counties, {dd['no_facility_mean']:.1f} vs {dd['facility_mean']:.1f}")
     a("")

@@ -18,3 +18,5 @@ output/figures/figure1_choropleth.pdf
 Figure1_Choropleth.pdf
 ~$*
  
+mdpdf.log
+code/__pycache__/
