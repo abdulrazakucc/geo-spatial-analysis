@@ -1,7 +1,7 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_SUBMISSION.docx
+Document: manuscript/manuscript_CLEAN.docx
 Checks:   156     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.

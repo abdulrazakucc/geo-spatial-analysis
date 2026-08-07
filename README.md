@@ -151,9 +151,10 @@ code/                     numbered pipeline, run in order
   07_publication_outputs.py     E  publication Figure 1 and Table 1
 
 tests/                    pipeline integrity tests (python tests/test_pipeline.py)
-tools/                    supporting utilities, not part of the pipeline
+tools/                    manuscript utilities, not part of the pipeline
   docx_tracked.py         library for tracked-change edits to a .docx
   revise_manuscript.py    applies a dated revision round to the manuscript
+  finalize_manuscript.py  produces the clean submission file from the working one
 
 data/raw/                 source data as downloaded
 data/processed/           county_analytic_dataset.csv, the central artifact
@@ -164,14 +165,37 @@ output/tables/            Word tables
 output/figures/           figures for the manuscript
 docs/                     methodology notes and the reproducibility guide
 manuscript/               the manuscript itself (not tracked in git)
+  manuscript_CLEAN.docx        working file, carries tracked changes
+  manuscript_SUBMISSION.docx   all changes accepted, comments stripped
 ```
+
+### The two manuscript files
+
+The working file accumulates every revision round as tracked changes, attributed
+and dated, so collaborators can see exactly what moved and when. The submission
+file is generated from it with every change accepted and all review apparatus
+removed. Both are regenerated after any change to the analysis:
+
+```bash
+python tools/revise_manuscript.py --from-check   # apply regenerated values
+python code/12_manuscript_numbers.py             # re-validate the working file
+python tools/finalize_manuscript.py --validate   # build and validate the submission file
+```
+
+The validation gate is run against **both**. Neither file is tracked in git while
+the manuscript is unpublished.
 
 ### Branches
 
 | Branch | Contents |
 |---|---|
-| `main` | The analysis and everything needed to reproduce and review it. |
-| `webapp` | The read-only MapLibre dashboard, its Docker deployment, and ancillary material (slide deck, workflow PDF, collaborator deliverables). Kept off `main` so a reviewer sees only the analysis. |
+| `updated-results` | **This branch.** The current analysis, carrying the corrected facility-to-county mapping and the estimated-dispersion model specification. Intended for submission and for merge into `main` once agreed. |
+| `main` | The previous state of the analysis, retained for comparison until this branch is merged. |
+| `webapp` | The read-only MapLibre dashboard, its Docker deployment, and ancillary material (slide deck, workflow PDF, collaborator deliverables). Kept off the analysis branches so a reviewer sees only the analysis. |
+
+Working notes, audit reports and branch-comparison documents are deliberately
+not carried here. This branch contains the analysis, the data needed to
+reproduce it, and the documentation required to review it — nothing else.
 
 Script numbers reflect the order in which the analyses were developed. Stage
 letters, not numbers, indicate execution order; `00_run_all.py` runs them
