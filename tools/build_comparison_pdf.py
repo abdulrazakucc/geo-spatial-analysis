@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -38,6 +39,15 @@ SOFFICE_CANDIDATES = [
 ]
 
 CSS = """
+/* Page-break control. LibreOffice honours these when exporting to PDF.
+   Without them a table can strand its header row at the foot of a page and
+   carry the body to the next, and a heading can be orphaned from the table it
+   introduces. `display: table-header-group` also repeats the header on every
+   page a long table spans. */
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+h2, h3, h4 { page-break-after: avoid; }
+.plain, .why, .good, .bad { page-break-inside: avoid; }
 @page { size: A4; margin: 16mm 14mm; }
 body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
        font-size: 9.2pt; color: #1a1a1a; line-height: 1.42; }
@@ -74,6 +84,22 @@ def _p(x):
 
 def _sig(x):
     return f"<b>{_p(x)}</b>" if x < 0.05 else _p(x)
+
+
+
+def _wrap_theads(html):
+    """Put each table's first row in <thead> so it repeats and never strands.
+
+    The tables are written as plain <tr><th> rows; LibreOffice only repeats a
+    header, and only avoids orphaning it, when it is inside <thead>.
+    """
+    def fix(m):
+        table = m.group(0)
+        row = re.search(r"<tr[^>]*>.*?</tr>", table, re.S)
+        if not row or "<th" not in row.group(0):
+            return table
+        return table.replace(row.group(0), f"<thead>{row.group(0)}</thead>", 1)
+    return re.sub(r"<table.*?</table>", fix, html, flags=re.S)
 
 
 def load():
@@ -309,7 +335,7 @@ pipeline rerun.</li>
 def main():
     html_path = os.path.join(DOCS, "Comparison_Report.html")
     with open(html_path, "w") as f:
-        f.write(build_html(*load()))
+        f.write(_wrap_theads(build_html(*load())))
     print(f"  wrote {os.path.relpath(html_path, BASE_DIR)}")
 
     soffice = next((p for p in SOFFICE_CANDIDATES if p and os.path.exists(p)), None)

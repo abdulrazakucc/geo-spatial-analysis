@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -39,6 +40,15 @@ SOFFICE = [
 # LibreOffice's HTML engine ignores flexbox and grid, so the layout is built
 # from block elements and tables only.
 CSS = """
+/* Page-break control. LibreOffice honours these when exporting to PDF.
+   Without them a table can strand its header row at the foot of a page and
+   carry the body to the next, and a heading can be orphaned from the table it
+   introduces. `display: table-header-group` also repeats the header on every
+   page a long table spans. */
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+h2, h3, h4 { page-break-after: avoid; }
+.plain, .why, .good, .bad { page-break-inside: avoid; }
 @page { size: A4; margin: 15mm 13mm 16mm 13mm; }
 body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
        font-size: 9.4pt; color: #16202b; line-height: 1.46; }
@@ -89,6 +99,20 @@ code { font-family: Menlo, Consolas, monospace; font-size: 8pt;
 .chip-neutral { background: #62717f; }
 .divider { border-top: 0.6pt solid #cfd9e2; margin: 6mm 0; }
 """
+
+def _wrap_theads(html):
+    """Put each table's first row in <thead> so it repeats and never strands.
+
+    The tables are written as plain <tr><th> rows; LibreOffice only repeats a
+    header, and only avoids orphaning it, when it is inside <thead>.
+    """
+    def fix(m):
+        table = m.group(0)
+        row = re.search(r"<tr[^>]*>.*?</tr>", table, re.S)
+        if not row or "<th" not in row.group(0):
+            return table
+        return table.replace(row.group(0), f"<thead>{row.group(0)}</thead>", 1)
+    return re.sub(r"<table.*?</table>", fix, html, flags=re.S)
 
 
 def load():
@@ -853,7 +877,7 @@ def main():
     b, a, bc, ac, commits = load()
     html = os.path.join(DOCS, "Branch_Comparison.html")
     with open(html, "w") as f:
-        f.write(build(b, a, bc, ac, commits))
+        f.write(_wrap_theads(build(b, a, bc, ac, commits)))
     print(f"  wrote {os.path.relpath(html, BASE_DIR)}")
 
     soffice = next((p for p in SOFFICE if p and os.path.exists(p)), None)

@@ -1,4 +1,13 @@
 <html><head><meta charset="utf-8"><style>
+/* Page-break control. LibreOffice honours these when exporting to PDF.
+   Without them a table can strand its header row at the foot of a page and
+   carry the body to the next, and a heading can be orphaned from the table it
+   introduces. `display: table-header-group` also repeats the header on every
+   page a long table spans. */
+thead { display: table-header-group; }
+tr { page-break-inside: avoid; }
+h2, h3, h4 { page-break-after: avoid; }
+.plain, .why, .good, .bad { page-break-inside: avoid; }
 @page { size: A4; margin: 15mm 13mm 16mm 13mm; }
 body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
        font-size: 9.4pt; color: #16202b; line-height: 1.46; }
@@ -57,7 +66,7 @@ code { font-family: Menlo, Consolas, monospace; font-size: 8pt;
 <code>validation</code> branch of the ACR cardiac imaging analysis</p>
 <p class="meta">Geographic Disparities in ACR-Accredited Cardiac Imaging Across the
 United States &nbsp;·&nbsp; Generated 2026-08-07 &nbsp;·&nbsp;
-11 commits &nbsp;·&nbsp; Validation gate 124 &rarr; 170 checks</p>
+12 commits &nbsp;·&nbsp; Validation gate 124 &rarr; 170 checks</p>
 </div>
 
 <div class="plain">
@@ -78,7 +87,7 @@ concentrated in cities — was not affected and is now on firmer ground.
 <p>Each section below has three layers, so you can read at whatever depth you
 need:</p>
 <table>
-<tr><th style="width:22%">Layer</th><th>What it gives you</th></tr>
+<thead><tr><th style="width:22%">Layer</th><th>What it gives you</th></tr></thead>
 <tr><td><b>Plain English</b><br><span class="small">blue boxes</span></td>
 <td>An explanation with no statistics or jargon. If you read only these, you
 will still understand what happened and why it matters.</td></tr>
@@ -92,7 +101,7 @@ full for reviewers and statisticians.</td></tr>
 
 <h3>A note on two words used throughout</h3>
 <table>
-<tr><th style="width:22%">Term</th><th>What it means here</th></tr>
+<thead><tr><th style="width:22%">Term</th><th>What it means here</th></tr></thead>
 <tr><td><b>Branch</b></td><td>A parallel copy of the project. <code>main</code>
 is the version as it stood before this work; <code>validation</code> contains the
 corrections. Keeping them separate means the old version is never lost and every
@@ -189,8 +198,8 @@ appear. It grew from 124 checks to 170.</p>
 <h2>3. The numbers, before and after</h2>
 <h3>3.1 What was counted</h3>
 <table>
-<tr><th>What is being counted</th><th class="n">Before (main)</th>
-<th class="n">After (validation)</th><th>Why it changed</th></tr>
+<thead><tr><th>What is being counted</th><th class="n">Before (main)</th>
+<th class="n">After (validation)</th><th>Why it changed</th></tr></thead>
 <tr><td>Accredited cardiac MR facilities</td><td class='n was'>687</td><td class='n now'>722</td><td class='small'>35 facilities were being lost by the old ZIP-to-county lookup</td></tr><tr class='alt'><td>Accredited cardiac CT facilities</td><td class='n was'>1,481</td><td class='n now'>1,542</td><td class='small'>61 facilities recovered, same cause</td></tr><tr><td>Counties with at least one CMR</td><td class='n was'>289</td><td class='n now'>300</td><td class='small'></td></tr><tr class='alt'><td>Counties with at least one CCT</td><td class='n was'>532</td><td class='n now'>552</td><td class='small'></td></tr><tr><td>Counties with neither modality</td><td class='n was'>2,583 (82.2%)</td><td class='n now'>2,570 (81.7%)</td><td class='small'>Fewer blank counties once facilities were found</td></tr><tr class='alt'><td>Share of CMR capacity in metro counties</td><td class='n was'>98.1%</td><td class='n now'>98.1%</td><td class='small'>Unchanged — the headline finding is robust</td></tr><tr><td>Share of CCT capacity in metro counties</td><td class='n was'>92.4%</td><td class='n now'>92.5%</td><td class='small'></td></tr><tr class='alt'><td>Counties in the SVI regression</td><td class='n was'>3,038</td><td class='n now'>3,144</td><td class='small'>Small counties restored to count models, per the project brief</td></tr><tr><td>Counties in the EDI regression</td><td class='n was'>3,029</td><td class='n now'>3,134</td><td class='small'></td></tr>
 </table>
 
@@ -200,7 +209,7 @@ city-versus-rural status constant. "IRR" is an incidence rate ratio: 1.00 means
 no difference, above 1.00 means more capacity, below means less. The range in
 brackets is the 95% confidence interval; if it does not cross 1.00, the result
 is conventionally called statistically significant.</p>
-<table><tr><th>Predictor</th><th class='n'>Before (main)</th><th class='n'>After (validation)</th><th>Verdict</th></tr><tr><td>Social Vulnerability Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>1.00 (0.95–1.04)<br><span class='small'>P = 0.870, not significant</span></td><td class='n now'>1.00 (0.97–1.04)<br><span class='small'>P = 0.854, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Social Vulnerability Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.03 (0.99–1.06)<br><span class='small'>P = 0.127, not significant</span></td><td class='n now'>1.03 (1.01–1.06)<br><span class='small'>P = 0.008, significant</span></td><td><span class='chip chip-warn'>CONCLUSION CHANGED</span></td></tr><tr><td>Economic Deprivation Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>0.98 (0.94–1.03)<br><span class='small'>P = 0.434, not significant</span></td><td class='n now'>0.99 (0.96–1.03)<br><span class='small'>P = 0.699, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Economic Deprivation Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.01 (0.97–1.04)<br><span class='small'>P = 0.663, not significant</span></td><td class='n now'>1.02 (0.99–1.04)<br><span class='small'>P = 0.186, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac MR</span></td><td class='n was'>8.23 (4.65–14.56)</td><td class='n now'>8.33 (4.86–14.28)</td><td><span class='chip'>unchanged, still dominant</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac CT</span></td><td class='n was'>1.96 (1.56–2.47)</td><td class='n now'>2.13 (1.74–2.61)</td><td><span class='chip'>unchanged, still dominant</span></td></tr></table>
+<table><thead><tr><th>Predictor</th><th class='n'>Before (main)</th><th class='n'>After (validation)</th><th>Verdict</th></tr></thead><tr><td>Social Vulnerability Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>1.00 (0.95–1.04)<br><span class='small'>P = 0.870, not significant</span></td><td class='n now'>1.00 (0.97–1.04)<br><span class='small'>P = 0.854, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Social Vulnerability Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.03 (0.99–1.06)<br><span class='small'>P = 0.127, not significant</span></td><td class='n now'>1.03 (1.01–1.06)<br><span class='small'>P = 0.008, significant</span></td><td><span class='chip chip-warn'>CONCLUSION CHANGED</span></td></tr><tr><td>Economic Deprivation Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>0.98 (0.94–1.03)<br><span class='small'>P = 0.434, not significant</span></td><td class='n now'>0.99 (0.96–1.03)<br><span class='small'>P = 0.699, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Economic Deprivation Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.01 (0.97–1.04)<br><span class='small'>P = 0.663, not significant</span></td><td class='n now'>1.02 (0.99–1.04)<br><span class='small'>P = 0.186, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac MR</span></td><td class='n was'>8.23 (4.65–14.56)</td><td class='n now'>8.33 (4.86–14.28)</td><td><span class='chip'>unchanged, still dominant</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac CT</span></td><td class='n was'>1.96 (1.56–2.47)</td><td class='n now'>2.13 (1.74–2.61)</td><td><span class='chip'>unchanged, still dominant</span></td></tr></table>
 <div class="bad">
 <b>The one conclusion that changed.</b> Social vulnerability and cardiac CT
 capacity. Before, this looked like no relationship. Now it is a modest
@@ -214,7 +223,7 @@ explicitly rather than describing it as nothing.
 <h3>3.3 Capacity across deprivation groups</h3>
 <p>Counties were split into five equal groups from least to most deprived, and
 the average cardiac MR capacity of each group compared.</p>
-<table><tr><th>Deprivation group</th><th class='n'>Before (main)</th><th class='n'>After (validation)</th></tr><tr><td>Q1 — least deprived</td><td class='n was'>0.2715</td><td class='n now'>0.2619</td></tr><tr class='alt'><td>Q2</td><td class='n was'>0.1491</td><td class='n now'>0.1613</td></tr><tr><td>Q3</td><td class='n was'>0.1870</td><td class='n now'>0.1850</td></tr><tr class='alt'><td>Q4</td><td class='n was'>0.0806</td><td class='n now'>0.0812 ← lowest</td></tr><tr><td>Q5 — most deprived</td><td class='n was'>0.0622 ← lowest</td><td class='n now'>0.0902</td></tr><tr><td><b>Ratio, least vs most deprived</b></td><td class='n was'>4.37×</td><td class='n now'>2.90×</td></tr></table>
+<table><thead><tr><th>Deprivation group</th><th class='n'>Before (main)</th><th class='n'>After (validation)</th></tr></thead><tr><td>Q1 — least deprived</td><td class='n was'>0.2715</td><td class='n now'>0.2619</td></tr><tr class='alt'><td>Q2</td><td class='n was'>0.1491</td><td class='n now'>0.1613</td></tr><tr><td>Q3</td><td class='n was'>0.1870</td><td class='n now'>0.1850</td></tr><tr class='alt'><td>Q4</td><td class='n was'>0.0806</td><td class='n now'>0.0812 ← lowest</td></tr><tr><td>Q5 — most deprived</td><td class='n was'>0.0622 ← lowest</td><td class='n now'>0.0902</td></tr><tr><td><b>Ratio, least vs most deprived</b></td><td class='n was'>4.37×</td><td class='n now'>2.90×</td></tr></table>
 <div class="why">
 <b>Why this matters for the wording of the paper.</b> Before the fix, capacity
 fell steadily from group 1 to group 5, and the paper described a
@@ -238,8 +247,8 @@ changed it.
 
 <h3>4.1 Figures and maps</h3>
 <table>
-<tr><th style="width:20%">Figure</th><th style="width:26%">What it shows</th>
-<th style="width:28%">How to read it</th><th>Effect of the corrections</th></tr>
+<thead><tr><th style="width:20%">Figure</th><th style="width:26%">What it shows</th>
+<th style="width:28%">How to read it</th><th>Effect of the corrections</th></tr></thead>
 
 <tr><td><b>Figure 1A</b><br><span class="small">CMR choropleth map<br>
 <code>Figure1A_CMR_Choropleth</code></span></td>
@@ -317,8 +326,8 @@ manuscript now uses the panels separately.</td>
 
 <h3>4.2 Tables</h3>
 <table>
-<tr><th style="width:20%">Table</th><th style="width:26%">What it shows</th>
-<th style="width:28%">How to read it</th><th>Effect of the corrections</th></tr>
+<thead><tr><th style="width:20%">Table</th><th style="width:26%">What it shows</th>
+<th style="width:28%">How to read it</th><th>Effect of the corrections</th></tr></thead>
 
 <tr><td><b>Table 1</b><br><span class="small">Capacity by vulnerability and
 rurality</span></td>
@@ -379,7 +388,7 @@ anything, and so the figures and tables are drawn from the same numbers.</td>
 
 <h2>5. What changed in the code</h2>
 <table>
-<tr><th style="width:32%">File</th><th>What it does now</th><th style="width:14%">Status</th></tr>
+<thead><tr><th style="width:32%">File</th><th>What it does now</th><th style="width:14%">Status</th></tr></thead>
 <tr><td><code>code/facility_mapping.py</code></td><td><b>New.</b> Builds the
 facility cohort and maps each record to a county, guaranteeing that eligible =
 included + explicitly excluded. Writes a per-record audit trail.</td>
@@ -427,7 +436,7 @@ fabricated-data fallbacks.</td><td><span class="chip">new</span></td></tr>
 and every replacement value was taken from generated output rather than typed by
 hand.</p>
 <table>
-<tr><th style="width:30%">Where</th><th>Before</th><th>After</th></tr>
+<thead><tr><th style="width:30%">Where</th><th>Before</th><th>After</th></tr></thead>
 <tr><td>Counties with neither modality</td><td class="was">2,583 (82.2%)</td>
 <td class="now">2,570 (81.7%)</td></tr>
 <tr class="alt"><td>Facility totals</td><td class="was">687 CMR / 1,481 CCT</td>
@@ -458,7 +467,7 @@ but to make the same class of mistake impossible to repeat quietly. Four things
 now stand in the way.
 </div>
 <table>
-<tr><th style="width:30%">Safeguard</th><th>What it prevents</th></tr>
+<thead><tr><th style="width:30%">Safeguard</th><th>What it prevents</th></tr></thead>
 <tr><td><b>Full audit trail</b></td><td>Every source record is accounted for.
 A facility can no longer disappear without a written reason.</td></tr>
 <tr class="alt"><td><b>Two-sided self-check</b></td><td>The gate fails if an
@@ -488,7 +497,7 @@ external-index validation supports it.
 
 <h2>9. Glossary</h2>
 <table>
-<tr><th style="width:26%">Term</th><th>Plain meaning</th></tr>
+<thead><tr><th style="width:26%">Term</th><th>Plain meaning</th></tr></thead>
 <tr><td>Accredited facility</td><td>A site formally certified by the American
 College of Radiology to perform the scan to a defined quality standard.</td></tr>
 <tr class="alt"><td>CMR / CCT</td><td>Cardiac MRI and cardiac CT — two advanced
@@ -565,7 +574,7 @@ results stacked as dots with uncertainty ranges.</td></tr>
 <p>No claim here has to be taken on trust. From a checkout of the
 <code>validation</code> branch:</p>
 <table>
-<tr><th style="width:46%">Command</th><th>What it proves</th></tr>
+<thead><tr><th style="width:46%">Command</th><th>What it proves</th></tr></thead>
 <tr><td><code>python code/00_run_all.py --with-present</code></td>
 <td>Rebuilds every figure, table and number from the committed data.</td></tr>
 <tr class="alt"><td><code>python tests/test_pipeline.py</code></td>
@@ -587,8 +596,8 @@ were correct and have been fixed. One was correct in part. One described code
 that had already been corrected before the audit was written.
 </div>
 <table>
-<tr><th style="width:34%">Reviewer finding</th><th style="width:14%">Verdict</th>
-<th>What was done</th></tr>
+<thead><tr><th style="width:34%">Reviewer finding</th><th style="width:14%">Verdict</th>
+<th>What was done</th></tr></thead>
 <tr><td>Metropolitan and rural average rates in the Results were stale</td>
 <td><span class="chip chip-warn">correct</span></td>
 <td>Confirmed: the text said 0.35 and 0.73 where the data give 0.37 and 0.75.
@@ -631,8 +640,8 @@ nonetheless accurate, which is why it was removed.</td></tr>
 already been fixed in the intervening commit; six were new or still open and
 have now been addressed.</p>
 <table>
-<tr><th style="width:34%">Finding</th><th style="width:14%">Verdict</th>
-<th>What was done</th></tr>
+<thead><tr><th style="width:34%">Finding</th><th style="width:14%">Verdict</th>
+<th>What was done</th></tr></thead>
 <tr><td>"The two indices … gave the same result" is false</td>
 <td><span class="chip chip-warn">correct</span></td>
 <td>Confirmed: the EDI is null for both modalities after adjustment while the
@@ -681,8 +690,8 @@ which had been overtaken.
 </div>
 
 <h2>12. The commits in this branch</h2>
-<table><tr><th style="width:14%">Commit</th><th>Description</th></tr>
-<tr><td><code>8f80882</code></td><td>Correct facility-to-county mapping; evaluate count-model dispersion</td></tr><tr class='alt'><td><code>7721d11</code></td><td>Add HUD-USPS ZIP-county crosswalk fetcher</td></tr><tr><td><code>dcd216f</code></td><td>Use the HUD-USPS crosswalk; all 2,264 eligible records now map</td></tr><tr class='alt'><td><code>65c6938</code></td><td>Add post-HUD audit report</td></tr><tr><td><code>2a253b1</code></td><td>Adopt estimated-dispersion NB as primary; restore count-regression sample</td></tr><tr class='alt'><td><code>155214e</code></td><td>Add generated comparison report (HTML + PDF)</td></tr><tr><td><code>f9cdeb7</code></td><td>Route all regressions through model_spec; finalize submission manuscript</td></tr><tr class='alt'><td><code>83be76b</code></td><td>Add detailed main vs validation comparison (HTML + PDF)</td></tr><tr><td><code>af34d96</code></td><td>Act on independent reviewer audit; strengthen validator; expand docs</td></tr><tr class='alt'><td><code>cde5f21</code></td><td>Act on second audit: BIC, live gate tests, README and text corrections</td></tr><tr><td><code>c1a67c8</code></td><td>Act on final audit: length limits, blanket-null precision, report provenance</td></tr></table>
+<table><thead><tr><th style="width:14%">Commit</th><th>Description</th></tr></thead>
+<tr><td><code>8f80882</code></td><td>Correct facility-to-county mapping; evaluate count-model dispersion</td></tr><tr class='alt'><td><code>7721d11</code></td><td>Add HUD-USPS ZIP-county crosswalk fetcher</td></tr><tr><td><code>dcd216f</code></td><td>Use the HUD-USPS crosswalk; all 2,264 eligible records now map</td></tr><tr class='alt'><td><code>65c6938</code></td><td>Add post-HUD audit report</td></tr><tr><td><code>2a253b1</code></td><td>Adopt estimated-dispersion NB as primary; restore count-regression sample</td></tr><tr class='alt'><td><code>155214e</code></td><td>Add generated comparison report (HTML + PDF)</td></tr><tr><td><code>f9cdeb7</code></td><td>Route all regressions through model_spec; finalize submission manuscript</td></tr><tr class='alt'><td><code>83be76b</code></td><td>Add detailed main vs validation comparison (HTML + PDF)</td></tr><tr><td><code>af34d96</code></td><td>Act on independent reviewer audit; strengthen validator; expand docs</td></tr><tr class='alt'><td><code>cde5f21</code></td><td>Act on second audit: BIC, live gate tests, README and text corrections</td></tr><tr><td><code>c1a67c8</code></td><td>Act on final audit: length limits, blanket-null precision, report provenance</td></tr><tr class='alt'><td><code>b3133cd</code></td><td>Disclose the primary cohort; verify the AIC/BIC claim against output</td></tr></table>
 
 <p class="small" style="margin-top:6mm">Generated by
 <code>tools/build_branch_comparison.py</code>. The "before" column is read from
