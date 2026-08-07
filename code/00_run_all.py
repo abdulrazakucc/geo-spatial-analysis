@@ -39,13 +39,16 @@ ACQUIRE = [
     ("01b_fetch_census_population.py", "Fetch ACS population (needs a Census API key)"),
 ]
 BUILD = [
-    ("02_build_analytic_dataset.py", "Build county_analytic_dataset.csv"),
+    ("02_build_analytic_dataset.py",
+     "Build county_analytic_dataset.csv and the facility mapping audit"),
 ]
 ANALYSE = [
     ("03_descriptive_analysis.py", "Descriptive statistics, Table 1"),
     ("05_regression_analysis.py", "SVI negative binomial models"),
     ("06_edi_sensitivity_analysis.py", "Construct the EDI, fit adjusted models"),
     ("09_validated_index_sdi.py", "External validation with the Graham Center SDI"),
+    ("13_model_specification.py", "Poisson vs NB, estimated vs fixed dispersion"),
+    ("14_accredited_only_sensitivity.py", "Accredited-only cohort sensitivity"),
 ]
 VALIDATE = [
     ("12_manuscript_numbers.py", "Recompute every manuscript number and check the paper"),
@@ -123,6 +126,8 @@ def main():
     print("    output/validation/manuscript_numbers.txt     every number in the paper")
     print("    output/validation/manuscript_check.txt       paper vs data, cell by cell")
     print("    output/results/                              model results, machine-readable")
+    print("    data/processed/facility_mapping_audit.csv    every source record, mapped or excluded")
+    print("    output/validation/facility_reconciliation.txt facility counts reconciled to source")
     print("    output/tables/                               Word tables")
     if not do_present:
         print()

@@ -8,18 +8,18 @@ Rate-eligible counties have at least 1,000 adults aged 45 and older.
 DESCRIPTIVES
 ------------------------------------------------------------------------------
   Counties                                  3,144
-  Accredited CMR facilities                 687
-  Accredited CCT facilities                 1,481
-  Counties with >=1 CMR                     289 (9.2%)
-  Counties with >=1 CCT                     532 (16.9%)
-  Counties with neither modality            2,583 (82.2%)
+  Accredited CMR facilities                 701
+  Accredited CCT facilities                 1,499
+  Counties with >=1 CMR                     293 (9.3%)
+  Counties with >=1 CCT                     538 (17.1%)
+  Counties with neither modality            2,577 (82.0%)
   Metropolitan counties                     1,186 (37.7%)
   Share of CMR facilities in metro          98.1%
-  Share of CCT facilities in metro          92.4%
+  Share of CCT facilities in metro          92.5%
   Adults aged 45+                           141.6 million
   Rate-eligible counties                    3,038 (excluded 106)
-  Mean CMR rate, metro vs nonmetro          0.3480 vs 0.0236
-  Mean CCT rate, metro vs nonmetro          0.7323 vs 0.3540
+  Mean CMR rate, metro vs nonmetro          0.3521 vs 0.0236
+  Mean CCT rate, metro vs nonmetro          0.7387 vs 0.3540
   Mean EDI, no facility vs facility         52.9 vs 39.4
 
 ------------------------------------------------------------------------------
@@ -29,11 +29,11 @@ REGRESSION MODELS  (manuscript Tables 2 and 3)
 
   Model                                                 IRR (95% CI)         P
   ..........................................................................
-  SVI, CMR, unadjusted                              0.99 (0.95-1.03)     0.681
-  SVI, CMR, adjusted for metropolitan status        1.00 (0.95-1.04)     0.870
-  SVI, CMR, adjusted for ordinal RUCC               1.00 (0.96-1.04)     0.961
-  SVI, CMR, metropolitan status term               8.44 (4.80-14.83)    <0.001
-  SVI, CMR, ordinal RUCC term                       0.69 (0.63-0.76)    <0.001
+  SVI, CMR, unadjusted                              0.99 (0.95-1.03)     0.716
+  SVI, CMR, adjusted for metropolitan status        1.00 (0.96-1.04)     0.915
+  SVI, CMR, adjusted for ordinal RUCC               1.00 (0.96-1.04)     0.988
+  SVI, CMR, metropolitan status term               8.59 (4.89-15.10)    <0.001
+  SVI, CMR, ordinal RUCC term                       0.69 (0.63-0.75)    <0.001
 
   EDI, CMR, unadjusted                              0.94 (0.90-0.98)     0.002
   EDI, CMR, adjusted for metropolitan status        0.98 (0.94-1.03)     0.434
@@ -43,10 +43,10 @@ REGRESSION MODELS  (manuscript Tables 2 and 3)
   EDI, CMR, metro counties only                     0.99 (0.95-1.04)     0.805   n=1,173, 674 facilities
   EDI, CMR, nonmetro counties only                  0.73 (0.57-0.92)     0.009   n=1,856, 13 facilities
 
-  SVI, CCT, unadjusted                              1.02 (0.99-1.05)     0.213
-  SVI, CCT, adjusted for metropolitan status        1.03 (0.99-1.06)     0.127
-  SVI, CCT, adjusted for ordinal RUCC               1.03 (1.00-1.06)     0.095
-  SVI, CCT, metropolitan status term                1.94 (1.55-2.42)    <0.001
+  SVI, CCT, unadjusted                              1.02 (0.99-1.05)     0.188
+  SVI, CCT, adjusted for metropolitan status        1.03 (0.99-1.06)     0.108
+  SVI, CCT, adjusted for ordinal RUCC               1.03 (1.00-1.06)     0.080
+  SVI, CCT, metropolitan status term                1.96 (1.57-2.45)    <0.001
   SVI, CCT, ordinal RUCC term                       0.86 (0.82-0.90)    <0.001
 
   EDI, CCT, unadjusted                              0.98 (0.95-1.01)     0.177
@@ -62,8 +62,8 @@ CORRELATIONS
 ------------------------------------------------------------------------------
   SVI vs EDI, Pearson r                     0.8209 (n = 3,134)
   SVI vs EDI, Spearman rho                  0.8210
-  SVI vs CMR rate, Spearman rho             0.0079 (P = 0.665)
-  SVI vs CCT rate, Spearman rho             0.0201 (P = 0.268)
+  SVI vs CMR rate, Spearman rho             0.0084 (P = 0.642)
+  SVI vs CCT rate, Spearman rho             0.0216 (P = 0.234)
 
 ------------------------------------------------------------------------------
 EDI QUINTILE GRADIENT
@@ -82,8 +82,8 @@ EDI CONSTRUCTION
 ------------------------------------------------------------------------------
 MODEL DIAGNOSTICS  (justification for the specification)
 ------------------------------------------------------------------------------
-  cmr_facility_count         mean 0.2261, variance 1.1062, ratio 4.89, 90.5% zero
-  cct_facility_count         mean 0.4875, variance 4.3527, ratio 8.93, 82.5% zero
+  cmr_facility_count         mean 0.2307, variance 1.1245, ratio 4.87, 90.4% zero
+  cct_facility_count         mean 0.4934, variance 4.3692, ratio 8.86, 82.3% zero
   Negative binomial beats Poisson on AIC in 6 of 8 models.
   Sensitivity to fixing alpha at 1.0, primary EDI-CMR models:
     EDI_CMR_unadjusted     alpha=1.0 IRR 0.9373 (P 0.0018)   alpha estimated IRR 0.9425 (P 0.0014, alpha 0.625)

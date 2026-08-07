@@ -1,0 +1,37 @@
+==============================================================================
+FACILITY MAPPING RECONCILIATION
+==============================================================================
+  Source extract, 2026-05-20             37,328 records
+  Protocol-eligible                          2,264
+  Included in the county dataset             2,200
+  Excluded, with a stated reason            35,128
+
+  Eligibility exclusions
+  --------------------------------------------------------------------------
+    modality not MRAP or CTAP                                       23,779
+    no cardiac module                                               11,276
+    outside 50 states and DC                                             8
+    accreditation expired before 2026-05-20                              1
+
+  Eligible but unmappable
+  --------------------------------------------------------------------------
+    ZIP not found in the census_zcta_arealand crosswalk                 64
+
+  Mapping method, included records
+  --------------------------------------------------------------------------
+    census_zcta_arealand                                             2,168
+    ct_town_manual                                                      32
+    flagged for manual review                                           32
+
+  Included by modality
+  --------------------------------------------------------------------------
+    CCT                                                              1,499
+    CMR                                                                701
+
+  Connecticut
+  --------------------------------------------------------------------------
+    eligible records                                                    32
+    included                                                            32
+      CCT                                                               18
+      CMR                                                               14
+    distinct planning regions                                            6

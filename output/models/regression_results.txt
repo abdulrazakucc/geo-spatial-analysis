@@ -13,14 +13,14 @@ Model: CMR — Primary (SVI continuous, per 10-percentile)
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              0.9915 (0.9521–1.0325)     0.6808
+svi_per10              0.9926 (0.9534–1.0334)     0.7162
 
-AIC: 1851.0
-Deviance: 783.7
-Pearson chi2: 1167.2
+AIC: 1867.8
+Deviance: 782.5
+Pearson chi2: 1150.3
 N: 3038
 
-Poisson AIC: 1932.6 vs NegBin AIC: 1851.0
+Poisson AIC: 1944.0 vs NegBin AIC: 1867.8
 → Negative Binomial preferred
 
 ──────────────────────────────────────────────────────────────────────
@@ -29,12 +29,12 @@ Model: CMR — Primary adjusted for metropolitan status
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              0.9964 (0.9549–1.0398)     0.8698
-metro_indicator        8.4357 (4.7992–14.8277)     0.0000
+svi_per10              0.9977 (0.9564–1.0408)     0.9151
+metro_indicator        8.5941 (4.8900–15.1041)     0.0000
 
-AIC: 1744.2
-Deviance: 674.9
-Pearson chi2: 1434.5
+AIC: 1758.2
+Deviance: 670.9
+Pearson chi2: 1422.0
 N: 3038
 
 ──────────────────────────────────────────────────────────────────────
@@ -43,15 +43,15 @@ Model: CMR — Primary adjusted for ordinal RUCC
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              0.9989 (0.9569–1.0428)     0.9611
-rucc_code              0.6885 (0.6275–0.7555)     0.0000
+svi_per10              1.0003 (0.9585–1.0440)     0.9877
+rucc_code              0.6873 (0.6267–0.7538)     0.0000
 
-AIC: 1753.8
-Deviance: 684.5
-Pearson chi2: 1371.0
+AIC: 1768.6
+Deviance: 681.2
+Pearson chi2: 1350.6
 N: 3038
 
-Metropolitan status effect: IRR = 8.4357 (95% CI 4.799-14.828, p = 1.26e-13)
+Metropolitan status effect: IRR = 8.5941 (95% CI 4.890-15.104, p = 7.62e-14)
 
 ──────────────────────────────────────────────────────────────────────
 Model: CMR — Sensitivity: SVI Quartile Dummies (ref=Q1)
@@ -59,13 +59,13 @@ Model: CMR — Sensitivity: SVI Quartile Dummies (ref=Q1)
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_q2                 0.9490 (0.6822–1.3202)     0.7562
-svi_q3                 1.0494 (0.7636–1.4421)     0.7664
+svi_q2                 0.9711 (0.6989–1.3493)     0.8611
+svi_q3                 1.0876 (0.7926–1.4923)     0.6031
 svi_q4                 0.9277 (0.6673–1.2897)     0.6551
 
-AIC: 1854.3
-Deviance: 783.0
-Pearson chi2: 1173.3
+AIC: 1870.6
+Deviance: 781.3
+Pearson chi2: 1157.7
 N: 3038
 
 ──────────────────────────────────────────────────────────────────────
@@ -74,11 +74,11 @@ Model: CMR — Stratified: Metropolitan only
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0050 (0.9621–1.0498)     0.8225
+svi_per10              1.0063 (0.9636–1.0509)     0.7770
 
-AIC: 1618.2
-Deviance: 586.9
-Pearson chi2: 738.4
+AIC: 1632.2
+Deviance: 582.9
+Pearson chi2: 724.2
 N: 1180
 
 ──────────────────────────────────────────────────────────────────────
@@ -105,14 +105,14 @@ Model: CCT — Primary (SVI continuous, per 10-percentile)
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0203 (0.9885–1.0530)     0.2130
+svi_per10              1.0214 (0.9897–1.0541)     0.1879
 
-AIC: 3071.3
-Deviance: 1082.8
-Pearson chi2: 1505.7
+AIC: 3085.1
+Deviance: 1070.8
+Pearson chi2: 1485.2
 N: 3038
 
-Poisson AIC: 3105.0 vs NegBin AIC: 3071.3
+Poisson AIC: 3093.7 vs NegBin AIC: 3085.1
 → Negative Binomial preferred
 
 ──────────────────────────────────────────────────────────────────────
@@ -121,12 +121,12 @@ Model: CCT — Primary adjusted for metropolitan status
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0257 (0.9929–1.0596)     0.1265
-metro_indicator        1.9371 (1.5528–2.4164)     0.0000
+svi_per10              1.0270 (0.9942–1.0608)     0.1082
+metro_indicator        1.9616 (1.5726–2.4467)     0.0000
 
-AIC: 3033.7
-Deviance: 1043.2
-Pearson chi2: 1845.4
+AIC: 3045.8
+Deviance: 1029.6
+Pearson chi2: 1832.1
 N: 3038
 
 ──────────────────────────────────────────────────────────────────────
@@ -135,15 +135,15 @@ Model: CCT — Primary adjusted for ordinal RUCC
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0283 (0.9951–1.0626)     0.0954
-rucc_code              0.8580 (0.8188–0.8990)     0.0000
+svi_per10              1.0297 (0.9965–1.0639)     0.0800
+rucc_code              0.8561 (0.8171–0.8970)     0.0000
 
-AIC: 3023.8
-Deviance: 1033.4
-Pearson chi2: 2006.7
+AIC: 3036.1
+Deviance: 1019.8
+Pearson chi2: 1992.1
 N: 3038
 
-Metropolitan status effect: IRR = 1.9371 (95% CI 1.553-2.416, p = 4.60e-09)
+Metropolitan status effect: IRR = 1.9616 (95% CI 1.573-2.447, p = 2.29e-09)
 
 ──────────────────────────────────────────────────────────────────────
 Model: CCT — Sensitivity: SVI Quartile Dummies (ref=Q1)
@@ -151,13 +151,13 @@ Model: CCT — Sensitivity: SVI Quartile Dummies (ref=Q1)
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_q2                 1.2035 (0.9259–1.5644)     0.1662
-svi_q3                 1.3096 (1.0147–1.6901)     0.0382
-svi_q4                 1.1739 (0.9020–1.5278)     0.2329
+svi_q2                 1.2146 (0.9347–1.5783)     0.1458
+svi_q3                 1.3309 (1.0317–1.7168)     0.0278
+svi_q4                 1.1846 (0.9105–1.5412)     0.2072
 
-AIC: 3072.1
-Deviance: 1079.7
-Pearson chi2: 1508.2
+AIC: 3085.6
+Deviance: 1067.3
+Pearson chi2: 1488.9
 N: 3038
 
 ──────────────────────────────────────────────────────────────────────
@@ -166,11 +166,11 @@ Model: CCT — Stratified: Metropolitan only
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0364 (0.9994–1.0748)     0.0540
+svi_per10              1.0380 (1.0010–1.0764)     0.0440
 
-AIC: 2311.0
-Deviance: 621.0
-Pearson chi2: 626.1
+AIC: 2323.0
+Deviance: 607.2
+Pearson chi2: 612.8
 N: 1180
 
 ──────────────────────────────────────────────────────────────────────

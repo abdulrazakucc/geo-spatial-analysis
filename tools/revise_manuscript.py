@@ -32,7 +32,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANUSCRIPT = os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx")
 
 AUTHOR = "Abdul Razak"
-DATE = "2026-08-06T12:00:00Z"
+DATE = "2026-08-07T12:00:00Z"
+
+# Values corrected by the geography rebuild. Every pair below was read from
+# output/validation/manuscript_check.txt after the rebuild, not typed by hand:
+# the left value is what the manuscript said, the right is what the pipeline
+# now generates. The cause in every case is the same — 32 Connecticut records
+# that previously failed to map are now included.
+GEOGRAPHY_REBUILD = "Connecticut records restored by the corrected ZIP-to-county mapping"
 
 # Each edit: (locator, old_text, new_text, rationale)
 # `locator` need only be long enough to identify the paragraph uniquely.
@@ -61,6 +68,39 @@ EDITS = [
         "The committed results were produced under SciPy 1.13.0 "
         "(Python 3.11.7, statsmodels 0.14.6, NumPy 1.26.4).",
     ),
+    # ---- Round of 2026-08-07: corrected ZIP-to-county mapping ----
+    (
+        "accessed 2024",
+        "accessed 2024",
+        "extracted May 20, 2026",
+        "The supplied registry extract carries 'Current as of date' = "
+        "05/20/2026 in every row. 'Accessed 2024' was wrong.",
+    ),
+    # Prose totals
+    ("687 accredited CMR", "687", "701", GEOGRAPHY_REBUILD),
+    ("1,481 accredited CCT", "1,481", "1,499", GEOGRAPHY_REBUILD),
+    ("2,583 counties (82.2%)", "2,583 counties (82.2%)",
+     "2,577 counties (82.0%)", GEOGRAPHY_REBUILD),
+    ("92.4% of CCT", "92.4%", "92.5%", GEOGRAPHY_REBUILD),
+    # Table 1 cells. "==" targets a cell whose entire text is the value.
+    ("==687", "687", "701", GEOGRAPHY_REBUILD),
+    ("==1,481", "1,481", "1,499", GEOGRAPHY_REBUILD),
+    ("==0.681", "0.681", "0.716", GEOGRAPHY_REBUILD),
+    ("==0.213", "0.213", "0.188", GEOGRAPHY_REBUILD),
+    ("289 (9.2)", "289 (9.2)", "293 (9.3)", GEOGRAPHY_REBUILD),
+    ("1,481", "1,481", "1,499", GEOGRAPHY_REBUILD),
+    ("532 (16.9)", "532 (16.9)", "538 (17.1)", GEOGRAPHY_REBUILD),
+    ("674", "674", "688", GEOGRAPHY_REBUILD),
+    ("276 (23.3)", "276 (23.3)", "280 (23.6)", GEOGRAPHY_REBUILD),
+    ("1,369", "1,369", "1,387", GEOGRAPHY_REBUILD),
+    ("427 (36.0)", "427 (36.0)", "433 (36.5)", GEOGRAPHY_REBUILD),
+    # Table 2 cells, SVI rows only; the EDI rows are unchanged because
+    # Connecticut has no EDI value.
+    ("0.681", "0.681", "0.716", GEOGRAPHY_REBUILD),
+    ("1.00 (0.95-1.04)", "1.00 (0.95-1.04)", "1.00 (0.96-1.04)", GEOGRAPHY_REBUILD),
+    ("0.870", "0.870", "0.915", GEOGRAPHY_REBUILD),
+    ("0.213", "0.213", "0.188", GEOGRAPHY_REBUILD),
+    ("0.127", "0.127", "0.108", GEOGRAPHY_REBUILD),
 ]
 
 
@@ -88,8 +128,16 @@ def main():
     applied = skipped = 0
     for locator, old, new, why in EDITS:
         try:
-            para = doc.find_paragraph(locator)
-        except AnchorNotFound:
+            if locator.startswith("=="):
+                # Exact-cell locator. A bare value such as "687" occurs both in
+                # prose and as a table cell; this targets the cell, whose whole
+                # accepted text is the value.
+                want = locator[2:]
+                para = next(p for p in doc.paragraphs()
+                            if doc.accepted_text(p).strip() == want)
+            else:
+                para = doc.find_paragraph(locator)
+        except (AnchorNotFound, StopIteration):
             print(f"  SKIP  already applied, or text absent: {locator!r}")
             skipped += 1
             continue

@@ -8,11 +8,11 @@ Checks:   124     Mismatches: 0
 
 ALL CHECKS
 ------------------------------------------------------------------------------
-  ok    CMR facilities                     687
-  ok    CCT facilities                     1,481
-  ok    counties with neither              2,583 counties (82.2%)
+  ok    CMR facilities                     701
+  ok    CCT facilities                     1,499
+  ok    counties with neither              2,577 counties (82.0%)
   ok    share CMR in metro                 98.1%
-  ok    share CCT in metro                 92.4%
+  ok    share CCT in metro                 92.5%
   ok    mean EDI contrast                  52.9 vs 39.4
   ok    SVI analytic n                     3,038
   ok    EDI analytic n                     3,029
@@ -24,16 +24,16 @@ ALL CHECKS
   ok    no unsupported monotonicity claim  absent
   ok    T1 All counties counties           3,144
   ok    T1 All counties adults             141.6
-  ok    T1 All counties CMR fac            687
-  ok    T1 All counties cty>=1 CMR         289 (9.2)
-  ok    T1 All counties CCT fac            1,481
-  ok    T1 All counties cty>=1 CCT         532 (16.9)
+  ok    T1 All counties CMR fac            701
+  ok    T1 All counties cty>=1 CMR         293 (9.3)
+  ok    T1 All counties CCT fac            1,499
+  ok    T1 All counties cty>=1 CCT         538 (17.1)
   ok    T1 Metropolitan (RUCC 1-3) counties 1,186
   ok    T1 Metropolitan (RUCC 1-3) adults  120.3
-  ok    T1 Metropolitan (RUCC 1-3) CMR fac 674
-  ok    T1 Metropolitan (RUCC 1-3) cty>=1 CMR 276 (23.3)
-  ok    T1 Metropolitan (RUCC 1-3) CCT fac 1,369
-  ok    T1 Metropolitan (RUCC 1-3) cty>=1 CCT 427 (36.0)
+  ok    T1 Metropolitan (RUCC 1-3) CMR fac 688
+  ok    T1 Metropolitan (RUCC 1-3) cty>=1 CMR 280 (23.6)
+  ok    T1 Metropolitan (RUCC 1-3) CCT fac 1,387
+  ok    T1 Metropolitan (RUCC 1-3) cty>=1 CCT 433 (36.5)
   ok    T1 Nonmetropolitan (RUCC 4-9) counties 1,958
   ok    T1 Nonmetropolitan (RUCC 4-9) adults 21.3
   ok    T1 Nonmetropolitan (RUCC 4-9) CMR fac 13
@@ -71,18 +71,18 @@ ALL CHECKS
   ok    T1 Q5 (most deprived) CCT fac      93
   ok    T1 Q5 (most deprived) cty>=1 CCT   44 (7.3)
   ok    T2 Cardiac MR SVI unadj            0.99 (0.95-1.03)
-  ok    T2 Cardiac MR SVI unadj P          0.681
-  ok    T2 Cardiac MR SVI adj              1.00 (0.95-1.04)
-  ok    T2 Cardiac MR SVI adj P            0.870
+  ok    T2 Cardiac MR SVI unadj P          0.716
+  ok    T2 Cardiac MR SVI adj              1.00 (0.96-1.04)
+  ok    T2 Cardiac MR SVI adj P            0.915
   ok    T2 Cardiac MR EDI unadj            0.94 (0.90-0.98)
   ok    T2 Cardiac MR EDI unadj P          0.002
   ok    T2 Cardiac MR EDI adj              0.98 (0.94-1.03)
   ok    T2 Cardiac MR EDI adj P            0.434
   ok    T2 Cardiac MR metro term           8.23 (4.65-14.56)
   ok    T2 Cardiac CT SVI unadj            1.02 (0.99-1.05)
-  ok    T2 Cardiac CT SVI unadj P          0.213
+  ok    T2 Cardiac CT SVI unadj P          0.188
   ok    T2 Cardiac CT SVI adj              1.03 (0.99-1.06)
-  ok    T2 Cardiac CT SVI adj P            0.127
+  ok    T2 Cardiac CT SVI adj P            0.108
   ok    T2 Cardiac CT EDI unadj            0.98 (0.95-1.01)
   ok    T2 Cardiac CT EDI unadj P          0.177
   ok    T2 Cardiac CT EDI adj              1.01 (0.97-1.04)

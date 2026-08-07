@@ -13,12 +13,12 @@ CDC/ATSDR SVI (primary predictor)   (n = 3038)
 ------------------------------------------------------------------------------
 Model                           Outcome     IRR            95% CI          P
 ..............................................................................
-  index, unadjusted             CMR      0.9915       0.952-1.033     0.6808
-  index, adjusted               CMR      0.9964       0.955-1.040     0.8698
-  metropolitan status (adj)     CMR      8.4357        4.80-14.83   1.26e-13
-  index, unadjusted             CCT      1.0203       0.989-1.053     0.2130
-  index, adjusted               CCT      1.0257       0.993-1.060     0.1265
-  metropolitan status (adj)     CCT      1.9371         1.55-2.42   4.60e-09
+  index, unadjusted             CMR      0.9926       0.953-1.033     0.7162
+  index, adjusted               CMR      0.9977       0.956-1.041     0.9151
+  metropolitan status (adj)     CMR      8.5941        4.89-15.10   7.62e-14
+  index, unadjusted             CCT      1.0214       0.990-1.054     0.1879
+  index, adjusted               CCT      1.0270       0.994-1.061     0.1082
+  metropolitan status (adj)     CCT      1.9616         1.57-2.45   2.29e-09
 
 ------------------------------------------------------------------------------
 Our EDI (self-built PCA)   (n = 3029)

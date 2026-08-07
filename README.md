@@ -18,7 +18,7 @@ there are no hand-maintained artifacts.
 ## The finding in one paragraph
 
 Accredited cardiac MR (CMR) and cardiac CT (CCT) capacity is overwhelmingly
-concentrated in metropolitan counties. **2,583 of 3,144 US counties (82.2%) have
+concentrated in metropolitan counties. **2,577 of 3,144 US counties (82.0%) have
 neither modality.** Two measures of area disadvantage were tested, the CDC Social
 Vulnerability Index (SVI) and a purpose-built Economic Deprivation Index (EDI).
 The EDI showed an association with CMR capacity **before** adjustment for
@@ -39,7 +39,7 @@ percentile points, from negative binomial models with a log-population offset.
 
 | Exposure | Unadjusted IRR (95% CI) | P | Adjusted for metro, IRR (95% CI) | P |
 |---|---|---|---|---|
-| SVI | 0.99 (0.95-1.03) | 0.681 | 1.00 (0.95-1.04) | 0.870 |
+| SVI | 0.99 (0.95-1.03) | 0.716 | 1.00 (0.96-1.04) | 0.915 |
 | EDI | **0.94 (0.90-0.98)** | **0.002** | 0.98 (0.94-1.03) | 0.434 |
 | Metropolitan status | — | — | **8.23 (4.65-14.56)** | **<0.001** |
 
@@ -47,7 +47,7 @@ percentile points, from negative binomial models with a log-population offset.
 
 | Exposure | Unadjusted IRR (95% CI) | P | Adjusted for metro, IRR (95% CI) | P |
 |---|---|---|---|---|
-| SVI | 1.02 (0.99-1.05) | 0.213 | 1.03 (0.99-1.06) | 0.127 |
+| SVI | 1.02 (0.99-1.05) | 0.188 | 1.03 (0.99-1.06) | 0.108 |
 | EDI | 0.98 (0.95-1.01) | 0.177 | 1.01 (0.97-1.04) | 0.663 |
 | Metropolitan status | — | — | **1.96 (1.56-2.47)** | **<0.001** |
 
@@ -98,7 +98,7 @@ python code/00_run_all.py --all            # everything
 descriptive statistic, every regression coefficient, every correlation, and
 every table cell in the paper directly from the committed data, then compares
 them against the manuscript file and reports any disagreement. The current run
-reports **123 checks, 0 mismatches**.
+reports **124 checks, 0 mismatches**.
 
 Full details of what is checked and how, including the model specification and
 each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md)**.
@@ -137,13 +137,17 @@ code/                     numbered pipeline, run in order
   05_regression_analysis.py     C  SVI models
   06_edi_sensitivity_analysis.py C  build the EDI, fit adjusted models
   09_validated_index_sdi.py     C  external validation with the Graham SDI
+  13_model_specification.py     C  Poisson vs NB, estimated vs fixed dispersion
+  14_accredited_only_sensitivity.py C  Accredited-only cohort sensitivity
   12_manuscript_numbers.py      D  recompute and check every manuscript number
+  facility_mapping.py           helper: cohort, ZIP-to-county, audit trail
   04_choropleth_map.py          E  Figure 1A
   08_svi_edi_comparison_maps.py E  Figures 2 and 3
   10_forest_plots.py            E  Figure 1B and Figure S
   11_edi_tables_and_stats.py    E  Word tables, supplementary statistics
   07_publication_outputs.py     E  publication Figure 1 and Table 1
 
+tests/                    pipeline integrity tests (python tests/test_pipeline.py)
 tools/                    supporting utilities, not part of the pipeline
   docx_tracked.py         library for tracked-change edits to a .docx
   revise_manuscript.py    applies a dated revision round to the manuscript
@@ -186,14 +190,64 @@ preserve leading zeros.
 
 ---
 
+## Facility cohort and county mapping
+
+Every row of the supplied registry extract is accounted for. The build writes
+`data/processed/facility_mapping_audit.csv`, one row per source record, with the
+assigned county, the mapping method, and — for anything excluded — the reason.
+`output/validation/facility_reconciliation.txt` summarises it.
+
+The cohort follows the project briefing: 50 states and DC, modality MRAP or
+CTAP with a cardiac module, status **Accredited or Under Review**, not expired
+as of the extraction date (2026-05-20). Under Review records are part of the
+primary cohort by design; `14_accredited_only_sensitivity.py` reruns everything
+without them and finds the same conclusions.
+
+ZIP-to-county mapping uses whichever of two methods is available, recorded per
+record:
+
+| Method | When used |
+|---|---|
+| `hud_res_ratio` | Whenever `data/raw/hud_zip_county.csv` is present. Assigns each ZIP to the county with the largest residential-address share. This is the specified method. |
+| `census_zcta_arealand` | Fallback. Census 2020 ZCTA relationship file, largest land-area overlap. |
+| `ct_town_manual` | Connecticut only, under the fallback. See below. |
+
+Connecticut replaced its counties with nine planning regions in 2022. The 2020
+ZCTA file still emits retired FIPS (09001-09015), which match nothing in the
+current county universe (09110-09190), so all 32 eligible Connecticut records
+used to vanish silently and the state showed zero capacity. They are now
+resolved through a documented town-to-planning-region table and flagged for
+manual review. Supplying the HUD crosswalk removes the need for that table.
+
+**Known gap.** 64 eligible records sit in ZIPs that have no ZCTA at all — PO-box
+and unique ZIPs — so the Census fallback cannot place them. They are excluded
+with a stated reason rather than dropped silently. The HUD crosswalk covers
+these ZIPs and would recover them.
+
+## Count-model specification
+
+`13_model_specification.py` fits Poisson, NB2 with dispersion estimated, and
+NB2 with dispersion fixed at 1.0 for every index and outcome, and reports alpha,
+AIC, IRR, CI, P, and convergence to
+`output/results/model_specification_comparison.*`.
+
+This matters: the published models fix `alpha = 1.0`, but the data support
+alpha near 0.25, and NB2 with estimated dispersion fits better on AIC in every
+model. Under that better-fitting specification the SVI-CCT association becomes
+significant, which it is not at `alpha = 1.0`. **The choice of primary
+specification is an open investigator decision**; the tables above still report
+the `alpha = 1.0` models.
+
+---
+
 ## Data sources
 
 | Source | Used for | Vintage |
 |---|---|---|
-| ACR Accredited Facility Search | CMR and CCT facility locations | accessed 2024 |
+| ACR Accredited Facility Search | CMR and CCT facility locations | extracted 2026-05-20 |
 | CDC/ATSDR Social Vulnerability Index | SVI, and 4 of the 6 EDI inputs | 2022 |
 | County Health Rankings | median income, child poverty (EDI inputs) | 2024 |
-| American Community Survey (5-year) | population aged 45+ | 2018-2022 |
+| American Community Survey (5-year) | population aged 45+ | 2019-2023 |
 | USDA Rural-Urban Continuum Codes | metropolitan classification | 2023 |
 | Robert Graham Center SDI | external validation | 2015-2019 |
 | Census TIGER/Line | county geometry for maps | 2023 |

@@ -15,17 +15,17 @@ Model: CMR — Primary (SVI continuous, per 10-percentile increment)
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        0.4271 (0.0074–24.5962)     0.6808
+svi_per10                        0.4736 (0.0084–26.6239)     0.7162
 
   N = 3038
-  AIC = 1851.0
-  Deviance = 783.7
-  Pearson χ² = 1167.2
-  Dispersion (Pearson χ²/df) = 0.384
+  AIC = 1867.8
+  Deviance = 782.5
+  Pearson χ² = 1150.3
+  Dispersion (Pearson χ²/df) = 0.379
 
-  Poisson AIC = 1932.6
-  Negative Binomial AIC = 1851.0
-  → Negative Binomial preferred (ΔAIC = 81.6)
+  Poisson AIC = 1944.0
+  Negative Binomial AIC = 1867.8
+  → Negative Binomial preferred (ΔAIC = 76.2)
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CMR — Sensitivity A: Accredited-only (excluding Under Review)
@@ -34,13 +34,13 @@ Model: CMR — Sensitivity A: Accredited-only (excluding Under Review)
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        0.4271 (0.0074–24.5962)     0.6808
+svi_per10                        0.4736 (0.0084–26.6239)     0.7162
 
   N = 3038
-  AIC = 1851.0
-  Deviance = 783.7
-  Pearson χ² = 1167.2
-  Dispersion (Pearson χ²/df) = 0.384
+  AIC = 1867.8
+  Deviance = 782.5
+  Pearson χ² = 1150.3
+  Dispersion (Pearson χ²/df) = 0.379
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CMR — Sensitivity B: SVI Quartile Dummies (ref=Q1)
@@ -49,15 +49,15 @@ Model: CMR — Sensitivity B: SVI Quartile Dummies (ref=Q1)
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_q2                           0.9490 (0.6822–1.3202)     0.7562
-svi_q3                           1.0494 (0.7636–1.4421)     0.7664
+svi_q2                           0.9711 (0.6989–1.3493)     0.8611
+svi_q3                           1.0876 (0.7926–1.4923)     0.6031
 svi_q4                           0.9277 (0.6673–1.2897)     0.6551
 
   N = 3038
-  AIC = 1854.3
-  Deviance = 783.0
-  Pearson χ² = 1173.3
-  Dispersion (Pearson χ²/df) = 0.387
+  AIC = 1870.6
+  Deviance = 781.3
+  Pearson χ² = 1157.7
+  Dispersion (Pearson χ²/df) = 0.382
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CMR — Sensitivity C: Stratified — Metropolitan only
@@ -66,13 +66,13 @@ Model: CMR — Sensitivity C: Stratified — Metropolitan only
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        1.6468 (0.0211–128.7367)     0.8225
+svi_per10                        1.8713 (0.0245–142.9624)     0.7770
 
   N = 1180
-  AIC = 1618.2
-  Deviance = 586.9
-  Pearson χ² = 738.4
-  Dispersion (Pearson χ²/df) = 0.627
+  AIC = 1632.2
+  Deviance = 582.9
+  Pearson χ² = 724.2
+  Dispersion (Pearson χ²/df) = 0.615
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CMR — Sensitivity D: Stratified — Nonmetropolitan only
@@ -101,17 +101,17 @@ Model: CCT — Primary (SVI continuous, per 10-percentile increment)
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        7.4449 (0.3161–175.3660)     0.2130
+svi_per10                        8.2991 (0.3556–193.6769)     0.1879
 
   N = 3038
-  AIC = 3071.3
-  Deviance = 1082.8
-  Pearson χ² = 1505.7
-  Dispersion (Pearson χ²/df) = 0.496
+  AIC = 3085.1
+  Deviance = 1070.8
+  Pearson χ² = 1485.2
+  Dispersion (Pearson χ²/df) = 0.489
 
-  Poisson AIC = 3105.0
-  Negative Binomial AIC = 3071.3
-  → Negative Binomial preferred (ΔAIC = 33.7)
+  Poisson AIC = 3093.7
+  Negative Binomial AIC = 3085.1
+  → Negative Binomial preferred (ΔAIC = 8.6)
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CCT — Sensitivity A: Accredited-only (excluding Under Review)
@@ -120,13 +120,13 @@ Model: CCT — Sensitivity A: Accredited-only (excluding Under Review)
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        7.4449 (0.3161–175.3660)     0.2130
+svi_per10                        8.2991 (0.3556–193.6769)     0.1879
 
   N = 3038
-  AIC = 3071.3
-  Deviance = 1082.8
-  Pearson χ² = 1505.7
-  Dispersion (Pearson χ²/df) = 0.496
+  AIC = 3085.1
+  Deviance = 1070.8
+  Pearson χ² = 1485.2
+  Dispersion (Pearson χ²/df) = 0.489
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CCT — Sensitivity B: SVI Quartile Dummies (ref=Q1)
@@ -135,15 +135,15 @@ Model: CCT — Sensitivity B: SVI Quartile Dummies (ref=Q1)
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_q2                           1.2035 (0.9259–1.5644)     0.1662
-svi_q3                           1.3096 (1.0147–1.6901)     0.0382
-svi_q4                           1.1739 (0.9020–1.5278)     0.2329
+svi_q2                           1.2146 (0.9347–1.5783)     0.1458
+svi_q3                           1.3309 (1.0317–1.7168)     0.0278
+svi_q4                           1.1846 (0.9105–1.5412)     0.2072
 
   N = 3038
-  AIC = 3072.1
-  Deviance = 1079.7
-  Pearson χ² = 1508.2
-  Dispersion (Pearson χ²/df) = 0.497
+  AIC = 3085.6
+  Deviance = 1067.3
+  Pearson χ² = 1488.9
+  Dispersion (Pearson χ²/df) = 0.491
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CCT — Sensitivity C: Stratified — Metropolitan only
@@ -152,13 +152,13 @@ Model: CCT — Sensitivity C: Stratified — Metropolitan only
 Variable                            IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────────────────
 Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                       35.8050 (0.9401–1363.6841)     0.0540
+svi_per10                       41.6845 (1.1055–1571.8053)     0.0440
 
   N = 1180
-  AIC = 2311.0
-  Deviance = 621.0
-  Pearson χ² = 626.1
-  Dispersion (Pearson χ²/df) = 0.531
+  AIC = 2323.0
+  Deviance = 607.2
+  Pearson χ² = 612.8
+  Dispersion (Pearson χ²/df) = 0.520
 
 ────────────────────────────────────────────────────────────────────────────────
 Model: CCT — Sensitivity D: Stratified — Nonmetropolitan only

@@ -38,4 +38,3 @@ lxml>=5.0                  # reads tracked changes when validating the manuscrip
 
 # --- data acquisition (stage A, network required) ---
 requests>=2.31
-us>=3.0

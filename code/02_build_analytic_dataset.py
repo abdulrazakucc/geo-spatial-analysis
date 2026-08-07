@@ -22,6 +22,8 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 
+import facility_mapping
+
 warnings.filterwarnings('ignore')
 
 # ===========================================================================
@@ -35,6 +37,47 @@ os.makedirs(PROC_DIR, exist_ok=True)
 
 # US territories to exclude (FIPS prefixes)
 TERRITORY_FIPS = {'60', '66', '69', '72', '78'}
+
+
+# ===========================================================================
+# Production inputs must be real. See P1-7 in the implementation plan.
+# ===========================================================================
+#: FIPS code to USPS abbreviation, 50 states + DC.
+STATE_FIPS_TO_ABBR = {
+    "01": "AL", "02": "AK", "04": "AZ", "05": "AR", "06": "CA", "08": "CO",
+    "09": "CT", "10": "DE", "11": "DC", "12": "FL", "13": "GA", "15": "HI",
+    "16": "ID", "17": "IL", "18": "IN", "19": "IA", "20": "KS", "21": "KY",
+    "22": "LA", "23": "ME", "24": "MD", "25": "MA", "26": "MI", "27": "MN",
+    "28": "MS", "29": "MO", "30": "MT", "31": "NE", "32": "NV", "33": "NH",
+    "34": "NJ", "35": "NM", "36": "NY", "37": "NC", "38": "ND", "39": "OH",
+    "40": "OK", "41": "OR", "42": "PA", "44": "RI", "45": "SC", "46": "SD",
+    "47": "TN", "48": "TX", "49": "UT", "50": "VT", "51": "VA", "53": "WA",
+    "54": "WV", "55": "WI", "56": "WY",
+}
+
+DEMO_MODE = os.environ.get("PIPELINE_DEMO") == "1"
+
+
+def require_input(path, what, where):
+    """Fail loudly when a required production input is missing.
+
+    Random proxy values used to be substituted silently here, which meant a
+    missing SVI, RUCC, or ACS file produced a complete-looking dataset built on
+    fabricated numbers. Demo behaviour is now opt-in via PIPELINE_DEMO=1.
+    """
+    if os.path.exists(path):
+        return True
+    if DEMO_MODE:
+        print(f"  [DEMO] {what} missing; substituting synthetic values. "
+              f"NOT VALID FOR ANALYSIS.")
+        return False
+    raise FileNotFoundError(
+        f"Required input missing: {what}\n"
+        f"  expected at : {path}\n"
+        f"  obtain from : {where}\n"
+        f"  Run 'python code/01_download_datasets.py' to fetch it. To exercise "
+        f"the pipeline without real data, set PIPELINE_DEMO=1, which produces "
+        f"synthetic values that must never be reported.")
 
 
 # ===========================================================================
@@ -237,9 +280,8 @@ def load_svi_data(county_fips_list):
         # Handle -999 (missing values in SVI)
         svi.loc[svi['svi_percentile'] < 0, 'svi_percentile'] = np.nan
     else:
-        print(f"  ⚠ SVI file not found at: {svi_path}")
-        print(f"  → Generating realistic proxy SVI data for pipeline testing.")
-        print(f"  → REPLACE with real data from: https://www.atsdr.cdc.gov/place-health/php/svi/")
+        require_input(svi_path, "CDC/ATSDR SVI county file",
+                      "https://www.atsdr.cdc.gov/place-health/php/svi/")
         np.random.seed(42)
         svi = pd.DataFrame({
             'county_fips': county_fips_list,
@@ -274,9 +316,8 @@ def load_rucc_data(county_fips_list):
         rucc.columns = ['county_fips', 'rucc_code']
         rucc['rucc_code'] = pd.to_numeric(rucc['rucc_code'], errors='coerce')
     else:
-        print(f"  ⚠ RUCC file not found.")
-        print(f"  → Generating realistic proxy RUCC data for pipeline testing.")
-        print(f"  → REPLACE with real data from: https://www.ers.usda.gov/data-products/rural-urban-continuum-codes")
+        require_input(rucc_path2, "USDA Rural-Urban Continuum Codes",
+                      "https://www.ers.usda.gov/data-products/rural-urban-continuum-codes")
         np.random.seed(123)
         # Realistic distribution: ~37% metro (1-3), ~63% non-metro (4-9)
         rucc_codes = np.random.choice(
@@ -312,9 +353,8 @@ def load_population_data(gdf):
         print(f"  Loading real ACS population data from: {pop_path}")
         pop = pd.read_csv(pop_path, dtype={'county_fips': str})
     else:
-        print(f"  ⚠ ACS population file not found.")
-        print(f"  → Generating realistic proxy population data for pipeline testing.")
-        print(f"  → REPLACE with real data from Census API (ACS 5-year 2019-2023)")
+        require_input(pop_path, "ACS 2019-2023 5-year county population",
+                      "Census API; run code/01b_fetch_census_population.py")
         
         # Generate realistic population using land area as a rough proxy
         np.random.seed(456)
@@ -359,15 +399,10 @@ def build_analytic_dataset(gdf, facility_counts, svi, rucc, pop):
     if 'STUSPS' in gdf.columns:
         df = df.rename(columns={'STUSPS': 'state_abbr', 'NAME': 'county_name'})
     else:
-        # Map state FIPS to abbreviation
-        import us
-        fips_to_abbr = {}
-        for s in us.states.STATES:
-            fips_to_abbr[s.fips] = s.abbr
-        # Add DC
-        dc = us.states.DC
-        fips_to_abbr[dc.fips] = dc.abbr
-        df['state_abbr'] = df['state_fips'].map(fips_to_abbr)
+        # Static FIPS-to-abbreviation table. Inlined rather than imported from
+        # the `us` package: it is a fixed 51-entry constant, and a missing
+        # optional dependency should not be able to break the build.
+        df['state_abbr'] = df['state_fips'].map(STATE_FIPS_TO_ABBR)
         df = df.rename(columns={'NAME': 'county_name'})
     
     df = df[['county_fips', 'state_abbr', 'county_name']].copy()
@@ -424,19 +459,24 @@ def main():
     print("ACR CARDIAC IMAGING - BUILDING ANALYTIC DATASET")
     print("=" * 60)
     
-    # Step 1: Load ACR data
-    acr_df = load_acr_data()
-    
-    # Step 2: ZIP-County crosswalk
-    crosswalk = load_zip_county_crosswalk()
-    facility_df = assign_counties(acr_df, crosswalk)
-    
-    # Step 3: Aggregate to county
-    facility_counts = aggregate_to_county(facility_df)
-    
-    # Step 4: County master from TIGER
+    # Step 1: County master from TIGER. This comes first because the facility
+    # mapping needs the current county universe to validate every assignment
+    # against, which is how retired FIPS are caught instead of silently dropped.
     gdf = load_county_master()
     county_fips_list = gdf['county_fips'].tolist()
+
+    # Steps 2-3: Cohort, county assignment, and the facility-level audit trail.
+    # facility_mapping guarantees that eligible == included + explicitly
+    # excluded, and writes data/processed/facility_mapping_audit.csv.
+    county_names = dict(zip(gdf['county_fips'], gdf['NAME']))
+    audit, facility_counts = facility_mapping.build(
+        valid_fips=set(county_fips_list), county_names=county_names)
+    report = facility_mapping.reconciliation_report(audit)
+    print(report)
+    os.makedirs(os.path.join(BASE_DIR, "output", "validation"), exist_ok=True)
+    with open(os.path.join(BASE_DIR, "output", "validation",
+                           "facility_reconciliation.txt"), "w") as fh:
+        fh.write(report + "\n")
     
     # Step 5: SVI
     svi = load_svi_data(county_fips_list)
