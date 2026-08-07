@@ -50,6 +50,7 @@ ANALYSE = [
     ("09_validated_index_sdi.py", "External validation with the Graham Center SDI"),
     ("13_model_specification.py", "Poisson vs NB, estimated vs fixed dispersion"),
     ("14_accredited_only_sensitivity.py", "Accredited-only cohort sensitivity"),
+    ("15_svi_quartile_sensitivity.py", "SVI quartile indicator sensitivity"),
 ]
 VALIDATE = [
     ("12_manuscript_numbers.py", "Recompute every manuscript number and check the paper"),

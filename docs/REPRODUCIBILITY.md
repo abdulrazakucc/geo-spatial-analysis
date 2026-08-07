@@ -47,7 +47,7 @@ document was updated in some places and not others, and the manuscript inherited
 a stale count paired with an updated percentage.
 
 Specifically, the count of counties with neither modality was reported as 1,974
-(62.3%) when the data give **2,583 (82.2%)**, and the mean deprivation contrast
+(62.3%) when the data give **2,570 (81.7%)**, and the mean deprivation contrast
 was reported as 58.2 vs 41.7 when the data give **52.9 vs 39.4**.
 
 The remedy is structural rather than a one-off correction: **no number reaches
@@ -79,7 +79,7 @@ facility_count ~ index_per10 [+ rurality term] + offset(log(adult_pop_45plus))
 | Rurality, primary | Binary metropolitan indicator (RUCC 1-3) | Pre-specified primary adjustment |
 | Rurality, sensitivity | Ordinal RUCC 1-9; metro-stratified fits | Shows the result is not an artifact of coding |
 
-Software: Python 3.11, statsmodels 0.14, SciPy 1.11, scikit-learn.
+Software: Python 3.11.7, statsmodels 0.14.6, SciPy 1.13.0, NumPy 1.26.4, scikit-learn 1.4.2.
 
 ### Why negative binomial, stated precisely
 

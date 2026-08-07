@@ -39,20 +39,21 @@ percentile points, from negative binomial models with a log-population offset.
 
 | Exposure | Unadjusted IRR (95% CI) | P | Adjusted for metro, IRR (95% CI) | P |
 |---|---|---|---|---|
-| SVI | 1.00 (0.96-1.04) | 0.914 | 1.00 (0.96-1.05) | 0.852 |
-| EDI | **0.94 (0.91-0.98)** | **0.004** | 0.99 (0.95-1.03) | 0.637 |
-| Metropolitan status | — | — | **8.03 (4.63-13.93)** | **<0.001** |
+| SVI | 1.00 (0.96-1.04) | 0.980 | 1.00 (0.97-1.04) | 0.854 |
+| EDI | **0.95 (0.91-0.98)** | **0.003** | 0.99 (0.96-1.03) | 0.699 |
+| Metropolitan status | — | — | **8.33 (4.86-14.28)** | **<0.001** |
 
 ### Cardiac CT
 
 | Exposure | Unadjusted IRR (95% CI) | P | Adjusted for metro, IRR (95% CI) | P |
 |---|---|---|---|---|
-| SVI | 1.03 (0.99-1.06) | 0.114 | 1.03 (1.00-1.07) | 0.059 |
-| EDI | 0.98 (0.95-1.01) | 0.209 | 1.01 (0.98-1.04) | 0.567 |
-| Metropolitan status | — | — | **1.98 (1.58-2.49)** | **<0.001** |
+| SVI | **1.03 (1.01-1.06)** | **0.014** | **1.03 (1.01-1.06)** | **0.008** |
+| EDI | 0.99 (0.97-1.01) | 0.372 | 1.02 (0.99-1.04) | 0.186 |
+| Metropolitan status | — | — | **2.13 (1.74-2.61)** | **<0.001** |
 
-The EDI-CMR association is the only significant deprivation result, and it does
-not survive adjustment. Analytic samples: n = 3,038 (SVI), n = 3,029 (EDI).
+The EDI-CMR association does not survive adjustment for metropolitan status.
+The SVI-CCT association does, in the opposite direction to a deprivation
+gradient: more accredited CT capacity in more vulnerable counties. Analytic samples: n = 3,144 (SVI), n = 3,134 (EDI).
 
 ### External validation
 
@@ -98,7 +99,7 @@ python code/00_run_all.py --all            # everything
 descriptive statistic, every regression coefficient, every correlation, and
 every table cell in the paper directly from the committed data, then compares
 them against the manuscript file and reports any disagreement. The current run
-reports **124 checks, 0 mismatches**.
+reports **145 checks, 0 mismatches**.
 
 Full details of what is checked and how, including the model specification and
 each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md)**.
@@ -110,12 +111,13 @@ each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.
 Applied identically in every script:
 
 - **Outcome** — count of ACR-accredited facilities per county, CMR and CCT modelled separately.
-- **Model** — negative binomial GLM (`alpha = 1.0`); the data are overdispersed, so Poisson is not used.
+- **Model** — negative binomial (NB2) with the **dispersion parameter estimated from the data**; better supported by AIC and BIC than a fixed `alpha = 1.0`, which is retained as a labelled sensitivity.
 - **Offset** — `log(adults aged 45+)`, which turns the count model into a rate model.
 - **Rate** — facilities per 100,000 adults aged 45+.
-- **Exclusion** — counties with fewer than 1,000 adults aged 45+ are dropped from
-  rate and regression analyses (`rate_excluded` flag, 106 counties), because
-  their rates are unstable.
+- **Exclusion** — counties with fewer than 1,000 adults aged 45+ are excluded
+  from **rate** calculations (`rate_excluded` flag, 106 counties) because their
+  rates are unstable. They are **retained in the count regressions**, which
+  carry a population offset. Restricting the regressions too is a sensitivity.
 - **Scaling** — indices are expressed per 10 percentile points; effects reported as IRR with 95% CI.
 - **Rurality** — USDA Rural-Urban Continuum Codes; 1-3 = metropolitan (`metro_indicator = 1`), 4-9 = nonmetropolitan.
 - **Adjustment** — every deprivation model is fitted twice, unadjusted and
@@ -258,8 +260,8 @@ This matters: the published models fix `alpha = 1.0`, but the data support
 alpha near 0.25, and NB2 with estimated dispersion fits better on AIC in every
 model. Under that better-fitting specification the SVI-CCT association becomes
 significant, which it is not at `alpha = 1.0`. **The choice of primary
-specification is an open investigator decision**; the tables above still report
-the `alpha = 1.0` models.
+specification has been resolved**: the estimated-dispersion model is primary,
+and the `alpha = 1.0` results are retained as a labelled sensitivity.
 
 ---
 

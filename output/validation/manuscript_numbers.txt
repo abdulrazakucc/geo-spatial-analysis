@@ -25,37 +25,37 @@ DESCRIPTIVES
 ------------------------------------------------------------------------------
 REGRESSION MODELS  (manuscript Tables 2 and 3)
 ------------------------------------------------------------------------------
-  Analytic sample: SVI n = 3,038, EDI n = 3,029
+  Analytic sample: SVI n = 3,144, EDI n = 3,134
 
   Model                                                 IRR (95% CI)         P
   ..........................................................................
-  SVI, CMR, unadjusted                              1.00 (0.96-1.04)     0.914
-  SVI, CMR, adjusted for metropolitan status        1.00 (0.96-1.05)     0.852
-  SVI, CMR, adjusted for ordinal RUCC               1.01 (0.97-1.05)     0.748
-  SVI, CMR, metropolitan status term               8.28 (4.80-14.27)    <0.001
+  SVI, CMR, unadjusted                              1.00 (0.96-1.04)     0.980
+  SVI, CMR, adjusted for metropolitan status        1.00 (0.97-1.04)     0.854
+  SVI, CMR, adjusted for ordinal RUCC               1.01 (0.97-1.04)     0.712
+  SVI, CMR, metropolitan status term               8.56 (5.01-14.61)    <0.001
   SVI, CMR, ordinal RUCC term                       0.70 (0.64-0.76)    <0.001
 
-  EDI, CMR, unadjusted                              0.94 (0.91-0.98)     0.004
-  EDI, CMR, adjusted for metropolitan status        0.99 (0.95-1.03)     0.637
-  EDI, CMR, adjusted for ordinal RUCC               1.00 (0.96-1.05)     0.986
-  EDI, CMR, metropolitan status term               8.03 (4.63-13.93)    <0.001
-  EDI, CMR, ordinal RUCC term                       0.70 (0.64-0.77)    <0.001
-  EDI, CMR, metro counties only                     1.00 (0.96-1.05)     0.877   n=1,173, 694 facilities
-  EDI, CMR, nonmetro counties only                  0.70 (0.56-0.89)     0.004   n=1,856, 14 facilities
+  EDI, CMR, unadjusted                              0.95 (0.91-0.98)     0.003
+  EDI, CMR, adjusted for metropolitan status        0.99 (0.96-1.03)     0.699
+  EDI, CMR, adjusted for ordinal RUCC               1.00 (0.97-1.04)     0.801
+  EDI, CMR, metropolitan status term               8.33 (4.86-14.28)    <0.001
+  EDI, CMR, ordinal RUCC term                       0.70 (0.64-0.76)    <0.001
+  EDI, CMR, metro counties only                     1.00 (0.97-1.04)     0.863   n=1,178, 694 facilities
+  EDI, CMR, nonmetro counties only                    0.70 (nan-nan)       nan   n=1,956, 14 facilities
 
-  SVI, CCT, unadjusted                              1.03 (0.99-1.06)     0.114
-  SVI, CCT, adjusted for metropolitan status        1.03 (1.00-1.07)     0.059
-  SVI, CCT, adjusted for ordinal RUCC               1.03 (1.00-1.07)     0.040
-  SVI, CCT, metropolitan status term                1.97 (1.59-2.46)    <0.001
-  SVI, CCT, ordinal RUCC term                       0.85 (0.81-0.89)    <0.001
+  SVI, CCT, unadjusted                              1.03 (1.01-1.06)     0.014
+  SVI, CCT, adjusted for metropolitan status        1.03 (1.01-1.06)     0.008
+  SVI, CCT, adjusted for ordinal RUCC               1.03 (1.01-1.06)     0.005
+  SVI, CCT, metropolitan status term                2.08 (1.71-2.54)    <0.001
+  SVI, CCT, ordinal RUCC term                       0.85 (0.82-0.88)    <0.001
 
-  EDI, CCT, unadjusted                              0.98 (0.95-1.01)     0.209
-  EDI, CCT, adjusted for metropolitan status        1.01 (0.98-1.04)     0.567
-  EDI, CCT, adjusted for ordinal RUCC               1.02 (0.99-1.06)     0.216
-  EDI, CCT, metropolitan status term                1.98 (1.58-2.49)    <0.001
-  EDI, CCT, ordinal RUCC term                       0.85 (0.81-0.89)    <0.001
-  EDI, CCT, metro counties only                     1.02 (0.99-1.06)     0.248   n=1,173, 1409 facilities
-  EDI, CCT, nonmetro counties only                  0.96 (0.89-1.03)     0.274   n=1,856, 115 facilities
+  EDI, CCT, unadjusted                              0.99 (0.97-1.01)     0.372
+  EDI, CCT, adjusted for metropolitan status        1.02 (0.99-1.04)     0.186
+  EDI, CCT, adjusted for ordinal RUCC               1.03 (1.00-1.05)     0.033
+  EDI, CCT, metropolitan status term                2.13 (1.74-2.61)    <0.001
+  EDI, CCT, ordinal RUCC term                       0.84 (0.81-0.88)    <0.001
+  EDI, CCT, metro counties only                     1.02 (1.00-1.05)     0.071   n=1,178, 1409 facilities
+  EDI, CCT, nonmetro counties only                  0.96 (0.89-1.03)     0.232   n=1,956, 115 facilities
 
 ------------------------------------------------------------------------------
 CORRELATIONS

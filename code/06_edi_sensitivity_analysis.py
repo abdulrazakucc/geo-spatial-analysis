@@ -44,6 +44,7 @@ import json
 import pandas as pd
 import numpy as np
 import statsmodels.api as sm
+import statsmodels.discrete.discrete_model as dm
 from scipy import stats
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -122,7 +123,9 @@ def _fit(analysis, count_col, terms):
     y = analysis[count_col].values
     X = sm.add_constant(analysis[terms], has_constant='add')
     offset = analysis['log_pop'].values
-    res = sm.GLM(y, X, family=sm.families.NegativeBinomial(), offset=offset).fit(maxiter=100)
+    # Primary specification: NB2 with the dispersion estimated. See model_spec.py.
+    res = dm.NegativeBinomial(y, X, loglike_method="nb2",
+                              offset=offset).fit(disp=0, maxiter=300)
     out = {'n': int(len(analysis)), 'aic': float(res.aic),
            'events': int(y.sum()), 'counties_with_facility': int((y > 0).sum())}
     for t in terms:
@@ -155,7 +158,9 @@ def run_edi_regressions(edi_df):
     df = df.merge(edi_df, on='fips', how='left')
 
     # Filter
-    analysis = df[(df['rate_excluded'] == 0) & df['edi_national_percentile'].notna()].copy()
+    # Count regressions keep every county with an EDI value and a positive
+    # population; the <1,000-adult rule governs rate calculations only.
+    analysis = df[(df['adult_pop_45plus'] > 0) & df['edi_national_percentile'].notna()].copy()
     analysis['edi_per10'] = analysis['edi_national_percentile'] / 10.0
     analysis['log_pop'] = np.log(analysis['adult_pop_45plus'])
 

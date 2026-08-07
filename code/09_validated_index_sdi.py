@@ -33,6 +33,8 @@ import numpy as np
 import pandas as pd
 warnings.filterwarnings("ignore")
 import statsmodels.api as sm
+
+import model_spec
 from statsmodels.genmod.families import NegativeBinomial
 from scipy import stats
 
@@ -78,6 +80,7 @@ def load():
 
 
 def nb(d, outcome, cols):
+    """Retained for the fixed-alpha sensitivity only. See model_spec.py."""
     X = sm.add_constant(d[cols], has_constant="add")
     return sm.GLM(d[outcome], X, family=NegativeBinomial(alpha=1.0),
                   offset=np.log(d["adult_pop_45plus"])).fit()
@@ -91,15 +94,41 @@ def irr(mod, term):
 
 
 def run_index(d, index_col, label):
-    d = d[(d.rate_excluded == 0) & d[index_col].notna() & (d.adult_pop_45plus > 0)].copy()
-    d["idx10"] = d[index_col] / 10.0
-    out = {"label": label, "n": int(len(d)), "outcomes": {}}
+    """Primary estimates, plus the fixed-alpha and rate-eligible sensitivities.
+
+    Primary = NB2 with dispersion estimated, over every county with the index
+    and a positive population. The <1,000-adult restriction governs rate
+    calculations, not count regressions, so it is a sensitivity here.
+    """
+    prim = model_spec.analytic_sample(d, index_col)
+    sens = model_spec.analytic_sample(d, index_col, restrict_rate_eligible=True)
+    out = {"label": label, "n": int(len(prim)),
+           "n_rate_eligible_sensitivity": int(len(sens)),
+           "specification": model_spec.PRIMARY_LABEL, "outcomes": {},
+           "sensitivity_fixed_alpha": {}, "sensitivity_rate_eligible": {}}
     for oc in ["cmr_facility_count", "cct_facility_count"]:
-        un = nb(d, oc, ["idx10"])
-        ad = nb(d, oc, ["idx10", "metro_indicator"])
-        out["outcomes"][oc] = {"unadjusted": irr(un, "idx10"),
-                               "adjusted": irr(ad, "idx10"),
-                               "metro_in_adjusted": irr(ad, "metro_indicator")}
+        un = model_spec.fit_primary(prim, oc, adjusted=False)
+        ad = model_spec.fit_primary(prim, oc, adjusted=True)
+        out["outcomes"][oc] = {
+            "unadjusted": model_spec.estimates(un, "idx10"),
+            "adjusted": model_spec.estimates(ad, "idx10"),
+            "metro_in_adjusted": model_spec.estimates(ad, "metro_indicator"),
+            "alpha_unadjusted": model_spec.alpha_of(un),
+            "alpha_adjusted": model_spec.alpha_of(ad)}
+
+        fun = model_spec.fit_fixed_alpha(prim, oc, adjusted=False)
+        fad = model_spec.fit_fixed_alpha(prim, oc, adjusted=True)
+        out["sensitivity_fixed_alpha"][oc] = {
+            "unadjusted": model_spec.estimates(fun, "idx10"),
+            "adjusted": model_spec.estimates(fad, "idx10"),
+            "metro_in_adjusted": model_spec.estimates(fad, "metro_indicator")}
+
+        run = model_spec.fit_primary(sens, oc, adjusted=False)
+        rad = model_spec.fit_primary(sens, oc, adjusted=True)
+        out["sensitivity_rate_eligible"][oc] = {
+            "unadjusted": model_spec.estimates(run, "idx10"),
+            "adjusted": model_spec.estimates(rad, "idx10"),
+            "metro_in_adjusted": model_spec.estimates(rad, "metro_indicator")}
     return out
 
 
@@ -206,15 +235,36 @@ def main():
     a("-" * 78)
     ec = results["EDI_models"]["outcomes"]["cmr_facility_count"]["unadjusted"]
     sc = results["SDI_models"]["outcomes"]["cmr_facility_count"]["unadjusted"]
-    a(f"Our EDI shows a significant unadjusted CMR association (IRR {ec['IRR']:.3f}, P {ec['P']:.4f}).")
-    a(f"The validated external SDI does not (IRR {sc['IRR']:.3f}, P {sc['P']:.3f}).")
-    a("So the unadjusted result is specific to our index. After adjusting for")
-    a("metropolitan status, neither index is associated with capacity, and metro")
-    a("status carries a large effect with both indices (CMR metro IRR near 8).")
+    a(f"Our EDI unadjusted CMR association: IRR {ec['IRR']:.3f}, P {ec['P']:.4f} "
+      f"({'significant' if ec['P'] < 0.05 else 'not significant'}).")
+    a(f"External SDI, same model: IRR {sc['IRR']:.3f}, P {sc['P']:.3f} "
+      f"({'significant' if sc['P'] < 0.05 else 'not significant'}).")
+    a("So the unadjusted CMR result is specific to our index.")
+    # Derived, not asserted: which adjusted index terms remain significant
+    # depends on the specification and must not be hardcoded.
+    a("")
+    a("After adjusting for metropolitan status, the index terms that remain")
+    a("significant at P < 0.05 are:")
+    any_sig = False
+    for key, name in (("SVI_models", "SVI"), ("EDI_models", "EDI"),
+                      ("SDI_models", "SDI")):
+        for oc, lab in (("cmr_facility_count", "CMR"), ("cct_facility_count", "CCT")):
+            e = results[key]["outcomes"][oc]["adjusted"]
+            if e["P"] < 0.05:
+                any_sig = True
+                a(f"  {name} {lab}: IRR {e['IRR']:.3f} "
+                  f"({e['CI_low']:.3f}-{e['CI_high']:.3f}), P {e['P']:.4f}")
+    if not any_sig:
+        a("  none")
+    mets = [results[k]["outcomes"]["cmr_facility_count"]["metro_in_adjusted"]["IRR"]
+            for k in ("SVI_models", "EDI_models", "SDI_models")]
+    a("")
+    a(f"Metropolitan status carries a large effect with every index "
+      f"(CMR metro IRR {min(mets):.1f} to {max(mets):.1f}).")
     a("Our EDI tracks rurality more strongly than the SDI, which explains why our")
     a("index detects the rurality-driven signal while the more urban-balanced SDI")
     a("does not. The paper's central point about metropolitan concentration holds")
-    a("with both indices.")
+    a("with all three indices.")
 
     report = "\n".join(L)
     with open(os.path.join(OUT, "index_comparison_results.txt"), "w") as f:

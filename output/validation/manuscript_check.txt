@@ -2,20 +2,41 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_CLEAN.docx
-Checks:   124     Mismatches: 0
+Checks:   145     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
 ALL CHECKS
 ------------------------------------------------------------------------------
+  ok    absent: pre-HUD CMR facility total (now 722) absent
+  ok    absent: pre-HUD CCT facility total (now 1,542) absent
+  ok    absent: intermediate CMR facility total (now 722) absent
+  ok    absent: intermediate CCT facility total (now 1,542) absent
+  ok    absent: pre-HUD counties with >=1 CMR (now 300) absent
+  ok    absent: pre-HUD counties with >=1 CCT (now 552) absent
+  ok    absent: pre-HUD counties-with-neither (now 2,570) absent
+  ok    absent: intermediate counties-with-neither (now 2,570) absent
+  ok    absent: pre-HUD counties with >=1 CMR absent
+  ok    absent: pre-HUD counties with >=1 CCT absent
+  ok    absent: pre-HUD share with neither modality absent
+  ok    absent: pre-HUD share of CCT in metropolitan counties absent
+  ok    absent: pre-HUD Q1/Q5 ratio (now 2.9-fold) absent
+  ok    absent: the EDI quintile means are not monotonic absent
+  ok    absent: pre-HUD SVI-CMR unadjusted CI absent
+  ok    absent: pre-HUD Spearman CMR P value absent
+  ok    absent: pre-HUD Spearman CCT P value absent
+  ok    absent: categorical null claim; SVI-CCT is associated under the primary model absent
+  ok    absent: ACR registry was extracted 2026-05-20 absent
+  ok    absent: results were produced under SciPy 1.13 absent
+  ok    absent: the index was renamed EDI  absent
   ok    CMR facilities                     722
   ok    CCT facilities                     1,542
   ok    counties with neither              2,570 counties (81.7%)
   ok    share CMR in metro                 98.1%
   ok    share CCT in metro                 92.5%
   ok    mean EDI contrast                  52.8 vs 39.9
-  ok    SVI analytic n                     3,038
-  ok    EDI analytic n                     3,029
+  ok    SVI analytic n                     3,144
+  ok    EDI analytic n                     3,134
   ok    PCA variance                       58.7%
   ok    SVI-EDI Pearson r                  0.82
   ok    Q1/Q5 gradient                     2.9-fold
@@ -71,64 +92,64 @@ ALL CHECKS
   ok    T1 Q5 (most deprived) CCT fac      97
   ok    T1 Q5 (most deprived) cty>=1 CCT   47 (7.8)
   ok    T2 Cardiac MR SVI unadj            1.00 (0.96-1.04)
-  ok    T2 Cardiac MR SVI unadj P          0.914
-  ok    T2 Cardiac MR SVI adj              1.00 (0.96-1.05)
-  ok    T2 Cardiac MR SVI adj P            0.852
-  ok    T2 Cardiac MR EDI unadj            0.94 (0.91-0.98)
-  ok    T2 Cardiac MR EDI unadj P          0.004
-  ok    T2 Cardiac MR EDI adj              0.99 (0.95-1.03)
-  ok    T2 Cardiac MR EDI adj P            0.637
-  ok    T2 Cardiac MR metro term           8.03 (4.63-13.93)
-  ok    T2 Cardiac CT SVI unadj            1.03 (0.99-1.06)
-  ok    T2 Cardiac CT SVI unadj P          0.114
-  ok    T2 Cardiac CT SVI adj              1.03 (1.00-1.07)
-  ok    T2 Cardiac CT SVI adj P            0.059
-  ok    T2 Cardiac CT EDI unadj            0.98 (0.95-1.01)
-  ok    T2 Cardiac CT EDI unadj P          0.209
-  ok    T2 Cardiac CT EDI adj              1.01 (0.98-1.04)
-  ok    T2 Cardiac CT EDI adj P            0.567
-  ok    T2 Cardiac CT metro term           1.98 (1.58-2.49)
-  ok    T3 RUCC Cardiac MR n               3,029
-  ok    T3 RUCC Cardiac MR EDI             1.00 (0.96-1.05)
-  ok    T3 RUCC Cardiac MR P               0.986
-  ok    T3 RUCC Cardiac MR term            0.70 (0.64-0.77)
-  ok    T3 RUCC Cardiac CT n               3,029
-  ok    T3 RUCC Cardiac CT EDI             1.02 (0.99-1.06)
-  ok    T3 RUCC Cardiac CT P               0.216
-  ok    T3 RUCC Cardiac CT term            0.85 (0.81-0.89)
-  ok    T3 Cardiac MR, metropolitan n      1,173
-  ok    T3 Cardiac MR, metropolitan EDI    1.00 (0.96-1.05)
-  ok    T3 Cardiac MR, metropolitan P      0.877
-  ok    T3 Cardiac MR, nonmetropolitan n   1,856
-  ok    T3 Cardiac MR, nonmetropolitan EDI 0.70 (0.56-0.89)
-  ok    T3 Cardiac MR, nonmetropolitan P   0.004
-  ok    T3 Cardiac CT, metropolitan n      1,173
-  ok    T3 Cardiac CT, metropolitan EDI    1.02 (0.99-1.06)
-  ok    T3 Cardiac CT, metropolitan P      0.248
-  ok    T3 Cardiac CT, nonmetropolitan n   1,856
+  ok    T2 Cardiac MR SVI unadj P          0.980
+  ok    T2 Cardiac MR SVI adj              1.00 (0.97-1.04)
+  ok    T2 Cardiac MR SVI adj P            0.854
+  ok    T2 Cardiac MR EDI unadj            0.95 (0.91-0.98)
+  ok    T2 Cardiac MR EDI unadj P          0.003
+  ok    T2 Cardiac MR EDI adj              0.99 (0.96-1.03)
+  ok    T2 Cardiac MR EDI adj P            0.699
+  ok    T2 Cardiac MR metro term           8.33 (4.86-14.28)
+  ok    T2 Cardiac CT SVI unadj            1.03 (1.01-1.06)
+  ok    T2 Cardiac CT SVI unadj P          0.014
+  ok    T2 Cardiac CT SVI adj              1.03 (1.01-1.06)
+  ok    T2 Cardiac CT SVI adj P            0.008
+  ok    T2 Cardiac CT EDI unadj            0.99 (0.97-1.01)
+  ok    T2 Cardiac CT EDI unadj P          0.372
+  ok    T2 Cardiac CT EDI adj              1.02 (0.99-1.04)
+  ok    T2 Cardiac CT EDI adj P            0.186
+  ok    T2 Cardiac CT metro term           2.13 (1.74-2.61)
+  ok    T3 RUCC Cardiac MR n               3,134
+  ok    T3 RUCC Cardiac MR EDI             1.00 (0.97-1.04)
+  ok    T3 RUCC Cardiac MR P               0.801
+  ok    T3 RUCC Cardiac MR term            0.70 (0.64-0.76)
+  ok    T3 RUCC Cardiac CT n               3,134
+  ok    T3 RUCC Cardiac CT EDI             1.03 (1.00-1.05)
+  ok    T3 RUCC Cardiac CT P               0.033
+  ok    T3 RUCC Cardiac CT term            0.84 (0.81-0.88)
+  ok    T3 Cardiac MR, metropolitan n      1,178
+  ok    T3 Cardiac MR, metropolitan EDI    1.00 (0.97-1.04)
+  ok    T3 Cardiac MR, metropolitan P      0.863
+  ok    T3 Cardiac MR, nonmetropolitan n   1,956
+  ok    T3 Cardiac MR, nonmetropolitan EDI 0.70 (nan-nan)
+  ok    T3 Cardiac MR, nonmetropolitan P   nan
+  ok    T3 Cardiac CT, metropolitan n      1,178
+  ok    T3 Cardiac CT, metropolitan EDI    1.02 (1.00-1.05)
+  ok    T3 Cardiac CT, metropolitan P      0.071
+  ok    T3 Cardiac CT, nonmetropolitan n   1,956
   ok    T3 Cardiac CT, nonmetropolitan EDI 0.96 (0.89-1.03)
-  ok    T3 Cardiac CT, nonmetropolitan P   0.274
-  ok    T4 Cardiac MR Index, unadjusted EDI 0.94 (0.91-0.98)
-  ok    T4 Cardiac MR Index, unadjusted EDI P 0.004
-  ok    T4 Cardiac MR Index, unadjusted SDI 1.01 (0.98-1.05)
-  ok    T4 Cardiac MR Index, unadjusted SDI P 0.466
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI 0.99 (0.95-1.03)
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI P 0.637
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI 1.04 (0.99-1.08)
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI P 0.089
-  ok    T4 Cardiac MR Metropolitan status EDI 8.03 (4.63-13.93)
+  ok    T3 Cardiac CT, nonmetropolitan P   0.232
+  ok    T4 Cardiac MR Index, unadjusted EDI 0.95 (0.91-0.98)
+  ok    T4 Cardiac MR Index, unadjusted EDI P 0.003
+  ok    T4 Cardiac MR Index, unadjusted SDI 1.02 (0.98-1.05)
+  ok    T4 Cardiac MR Index, unadjusted SDI P 0.322
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI 0.99 (0.96-1.03)
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI P 0.699
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI 1.04 (1.00-1.07)
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI P 0.043
+  ok    T4 Cardiac MR Metropolitan status EDI 8.33 (4.86-14.28)
   ok    T4 Cardiac MR Metropolitan status EDI P <0.001
-  ok    T4 Cardiac MR Metropolitan status SDI 8.40 (4.87-14.50)
+  ok    T4 Cardiac MR Metropolitan status SDI 8.67 (5.08-14.80)
   ok    T4 Cardiac MR Metropolitan status SDI P <0.001
-  ok    T4 Cardiac CT Index, unadjusted EDI 0.98 (0.95-1.01)
-  ok    T4 Cardiac CT Index, unadjusted EDI P 0.209
-  ok    T4 Cardiac CT Index, unadjusted SDI 1.02 (0.99-1.05)
-  ok    T4 Cardiac CT Index, unadjusted SDI P 0.188
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI 1.01 (0.98-1.04)
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI P 0.567
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI 1.03 (1.00-1.07)
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI P 0.032
-  ok    T4 Cardiac CT Metropolitan status EDI 1.98 (1.58-2.49)
+  ok    T4 Cardiac CT Index, unadjusted EDI 0.99 (0.97-1.01)
+  ok    T4 Cardiac CT Index, unadjusted EDI P 0.372
+  ok    T4 Cardiac CT Index, unadjusted SDI 1.02 (1.00-1.05)
+  ok    T4 Cardiac CT Index, unadjusted SDI P 0.033
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI 1.02 (0.99-1.04)
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI P 0.186
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI 1.03 (1.01-1.06)
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI P 0.003
+  ok    T4 Cardiac CT Metropolitan status EDI 2.13 (1.74-2.61)
   ok    T4 Cardiac CT Metropolitan status EDI P <0.001
-  ok    T4 Cardiac CT Metropolitan status SDI 2.00 (1.60-2.49)
+  ok    T4 Cardiac CT Metropolitan status SDI 2.12 (1.74-2.58)
   ok    T4 Cardiac CT Metropolitan status SDI P <0.001

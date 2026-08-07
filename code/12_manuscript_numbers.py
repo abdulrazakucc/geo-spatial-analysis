@@ -23,8 +23,10 @@ WHAT IT PRODUCES
 
 MODEL SPECIFICATION (identical in every script in this repository)
     facility_count ~ index_per10 [+ rurality] + offset(log adults 45+)
-    Negative binomial GLM, alpha = 1.0
-    Rate-eligible counties only (>= 1,000 adults aged 45+)
+    Negative binomial (NB2), dispersion estimated from the data
+    Fixed alpha = 1.0 retained as a labelled sensitivity
+    Count regressions use every county with the index and population > 0;
+    the <1,000-adult rule governs rate calculations only
     Indices are scaled per 10 percentile points
 
 RUN
@@ -43,6 +45,8 @@ import pandas as pd
 
 warnings.filterwarnings("ignore")
 import statsmodels.api as sm
+
+import model_spec
 from statsmodels.genmod.families import NegativeBinomial
 from scipy import stats
 from sklearn.decomposition import PCA
@@ -145,29 +149,54 @@ def table1(m):
 
 
 def regressions(m):
-    el = m[m.rate_excluded == 0].copy()
-    el["svi_per10"] = el.svi_pct100 / 10.0
-    d_edi = el.dropna(subset=["edi_national_percentile"]).copy()
+    # Primary sample: every county with the index and a positive population.
+    # The <1,000-adult rule governs rate calculations, not count regressions.
+    svi = m[(m.adult_pop_45plus > 0)].copy()
+    svi["svi_per10"] = svi.svi_pct100 / 10.0
+    d_edi = svi.dropna(subset=["edi_national_percentile"]).copy()
     d_edi["edi_per10"] = d_edi.edi_national_percentile / 10.0
+    # Sensitivity sample: the previous rate-eligible restriction.
+    svi_re = svi[svi.rate_excluded == 0].copy()
+    edi_re = d_edi[d_edi.rate_excluded == 0].copy()
 
-    out = {"n_svi": int(len(el)), "n_edi": int(len(d_edi)), "models": {}}
-    for idx, d, term in [("SVI", el, "svi_per10"), ("EDI", d_edi, "edi_per10")]:
+    def prim(d, col, terms):
+        return model_spec.fit_primary_terms(d, col, terms)
+
+    out = {"n_svi": int(len(svi)), "n_edi": int(len(d_edi)),
+           "n_svi_rate_eligible": int(len(svi_re)),
+           "n_edi_rate_eligible": int(len(edi_re)),
+           "specification": model_spec.PRIMARY_LABEL,
+           "models": {}, "sensitivity_fixed_alpha": {},
+           "sensitivity_rate_eligible": {}}
+    for idx, d, dre, term in [("SVI", svi, svi_re, "svi_per10"),
+                              ("EDI", d_edi, edi_re, "edi_per10")]:
         for mod, col in [("CMR", "cmr_facility_count"), ("CCT", "cct_facility_count")]:
-            un = nb(d, col, [term])
-            ad = nb(d, col, [term, "metro_indicator"])
-            ru = nb(d, col, [term, "rucc_code"])
             key = f"{idx}_{mod}"
+            un = prim(d, col, [term])
+            ad = prim(d, col, [term, "metro_indicator"])
+            ru = prim(d, col, [term, "rucc_code"])
             out["models"][key] = {
                 "unadjusted": est(un, term),
                 "adjusted_metro": est(ad, term),
                 "metro_effect": est(ad, "metro_indicator"),
                 "adjusted_rucc": est(ru, term),
                 "rucc_effect": est(ru, "rucc_code"),
+                "alpha_adjusted": model_spec.alpha_of(ad),
+            }
+            out["sensitivity_fixed_alpha"][key] = {
+                "unadjusted": est(nb(d, col, [term]), term),
+                "adjusted_metro": est(nb(d, col, [term, "metro_indicator"]), term),
+                "metro_effect": est(nb(d, col, [term, "metro_indicator"]), "metro_indicator"),
+            }
+            out["sensitivity_rate_eligible"][key] = {
+                "unadjusted": est(prim(dre, col, [term]), term),
+                "adjusted_metro": est(prim(dre, col, [term, "metro_indicator"]), term),
+                "n": int(len(dre)),
             }
             if idx == "EDI":
                 for lab, flag in [("metro", 1), ("nonmetro", 0)]:
                     sub = d[d.metro_indicator == flag]
-                    out["models"][key][f"stratified_{lab}"] = est(nb(sub, col, [term]), term)
+                    out["models"][key][f"stratified_{lab}"] = est(prim(sub, col, [term]), term)
                     out["models"][key][f"stratified_{lab}_n"] = int(len(sub))
                     out["models"][key][f"stratified_{lab}_events"] = int(sub[col].sum())
     return out
@@ -519,6 +548,49 @@ def _parse_table(rows):
     return out
 
 
+# ---------------------------------------------------------------------------
+# Obsolete values and statements that must NOT appear in the manuscript.
+#
+# The gate previously checked only that each correct value appeared somewhere.
+# That is a one-sided test: a stale duplicate elsewhere in the document passed
+# unnoticed, and eight pre-HUD values survived a "0 mismatches" run. Each entry
+# below is a value or phrase that was correct at some earlier stage and is now
+# wrong, so its presence anywhere in the text is a failure.
+#
+# Add to this list whenever a published value changes.
+# ---------------------------------------------------------------------------
+FORBIDDEN = [
+    # Pre-HUD facility and county counts
+    (r"\b687\b", "pre-HUD CMR facility total (now 722)"),
+    (r"\b1,481\b", "pre-HUD CCT facility total (now 1,542)"),
+    (r"\b701\b", "intermediate CMR facility total (now 722)"),
+    (r"\b1,499\b", "intermediate CCT facility total (now 1,542)"),
+    (r"\b289 of|\b289 counties", "pre-HUD counties with >=1 CMR (now 300)"),
+    (r"\b532 \(16\.9|\b532 counties", "pre-HUD counties with >=1 CCT (now 552)"),
+    (r"\b2,583\b", "pre-HUD counties-with-neither (now 2,570)"),
+    (r"\b2,577\b", "intermediate counties-with-neither (now 2,570)"),
+    (r"\b289 \(9\.2", "pre-HUD counties with >=1 CMR"),
+    (r"\b532 \(16\.9", "pre-HUD counties with >=1 CCT"),
+    (r"82\.2%", "pre-HUD share with neither modality"),
+    (r"92\.4%", "pre-HUD share of CCT in metropolitan counties"),
+    # Pre-HUD EDI quintile results
+    (r"4\.4-fold", "pre-HUD Q1/Q5 ratio (now 2.9-fold)"),
+    (r"fell monotonically|monotonic (decline|decrease|gradient)",
+     "the EDI quintile means are not monotonic"),
+    # Superseded model values
+    (r"0\.95-1\.03", "pre-HUD SVI-CMR unadjusted CI"),
+    (r"P = 0\.665", "pre-HUD Spearman CMR P value"),
+    (r"P = 0\.268", "pre-HUD Spearman CCT P value"),
+    # Categorical null language the estimated-dispersion result does not support
+    (r"SVI was not associated with capacity for either modality",
+     "categorical null claim; SVI-CCT is associated under the primary model"),
+    # Superseded provenance
+    (r"accessed 2024", "ACR registry was extracted 2026-05-20"),
+    (r"SciPy 1\.11", "results were produced under SciPy 1.13"),
+    (r"\bADI\b", "the index was renamed EDI"),
+]
+
+
 def check_manuscript(R):
     """
     Compare the .docx against the recomputed values, cell by cell.
@@ -545,6 +617,13 @@ def check_manuscript(R):
         pat = pattern or re.escape(str(expected))
         checks.append((label, str(expected), "found in text" if re.search(pat, prose) else "NOT IN TEXT",
                        bool(re.search(pat, prose))))
+
+    # ---- obsolete values and statements that must be absent
+    for pattern, why in FORBIDDEN:
+        hit = re.search(pattern, prose, re.I)
+        checks.append((f"absent: {why}", "absent",
+                       f"FOUND {hit.group(0)!r}" if hit else "absent",
+                       not hit))
 
     # ---- prose values
     ck_prose("CMR facilities", d["cmr_facilities"], rf"\b{d['cmr_facilities']}\b")

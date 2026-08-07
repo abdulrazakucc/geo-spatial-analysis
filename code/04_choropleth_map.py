@@ -11,8 +11,9 @@ Input:
     - data/processed/county_analytic_geo.gpkg
 
 Output:
-    - output/figures/figure1_choropleth.pdf
-    - output/figures/figure1_choropleth.png
+    - output/figures/figure1_choropleth.pdf/.png   both panels
+    - output/figures/Figure1A_CMR_Choropleth.pdf/.png   manuscript Figure 1A
+    - output/figures/FigureS_CCT_Choropleth.pdf/.png    supplementary
 """
 
 import os
@@ -127,16 +128,28 @@ def create_choropleth(gdf):
         ha='center', fontsize=8, color='#666', style='italic'
     )
     
-    # Save
-    pdf_path = os.path.join(FIG_DIR, "figure1_choropleth.pdf")
-    png_path = os.path.join(FIG_DIR, "figure1_choropleth.png")
-    
-    fig.savefig(pdf_path, format='pdf', bbox_inches='tight', dpi=300)
-    fig.savefig(png_path, format='png', bbox_inches='tight', dpi=600)
+    # Save the combined two-panel figure, then each panel on its own.
+    #
+    # The manuscript uses the CMR panel as Figure 1A and a regression forest
+    # plot as Figure 1B, so the CCT choropleth is a supplementary figure. The
+    # filenames below state those roles rather than leaving a reader to infer
+    # them from a combined image.
+    for stem, ext, dpi in (("figure1_choropleth", "pdf", 300),
+                           ("figure1_choropleth", "png", 600)):
+        fig.savefig(os.path.join(FIG_DIR, f"{stem}.{ext}"), format=ext,
+                    bbox_inches='tight', dpi=dpi)
+    print(f"  ✓ Saved: {os.path.join(FIG_DIR, 'figure1_choropleth.pdf/.png')}")
+
+    panels = [(0, "Figure1A_CMR_Choropleth", "manuscript Figure 1A"),
+              (1, "FigureS_CCT_Choropleth", "supplementary CCT choropleth")]
+    for idx, stem, role in panels:
+        extent = axes[idx].get_tightbbox(fig.canvas.get_renderer()).transformed(
+            fig.dpi_scale_trans.inverted()).expanded(1.06, 1.10)
+        for ext, dpi in (("pdf", 300), ("png", 600)):
+            fig.savefig(os.path.join(FIG_DIR, f"{stem}.{ext}"), format=ext,
+                        bbox_inches=extent, dpi=dpi)
+        print(f"  ✓ Saved: {stem}.pdf/.png  ({role})")
     plt.close()
-    
-    print(f"  ✓ Saved: {pdf_path}")
-    print(f"  ✓ Saved: {png_path}")
 
 
 def main():
