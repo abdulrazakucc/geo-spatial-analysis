@@ -1,4 +1,11 @@
 # JACR Project — Mayo-Specification Implementation Fix Plan
+
+> **HISTORICAL DOCUMENT — NOT THE CURRENT STATE.**
+> This records a point-in-time audit. Values shown as "current" or
+> "before" describe the repository *at the date in the heading*, not
+> today. For current values see `output/validation/manuscript_numbers.txt`
+> and `README.md`. Every issue recorded here has since been resolved.
+
 ## LLM-ready engineering handoff
 
 **Purpose:** Use this document to correct the repository so that the implementation matches the Mayo Clinic project briefing and the supplied project datasets.

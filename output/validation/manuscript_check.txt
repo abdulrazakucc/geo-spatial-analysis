@@ -2,7 +2,10 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-Checks:   163     Mismatches: 0
+SHA256:   5a1fa4731b2680c9a40f0d3b321d72126ddf339d3cb4c4351c1100e3106c8944
+Checked:  2026-08-07T19:59:30Z
+Code:     cde5f21 (working tree modified)
+Checks:   166     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -40,9 +43,6 @@ ALL CHECKS
   ok    absent: pre-decision SVI metropolitan estimates absent
   ok    absent: pre-decision EDI metropolitan estimates absent
   ok    absent: the nonmetropolitan CMR stratum contains 14 facilities absent
-  ok    absent: adjusted SVI-CCT is positive and significant; qualify by modality absent
-  ok    absent: adjusted SVI-CCT is positive and significant; qualify by modality absent
-  ok    absent: adjusted SVI-CCT is positive and significant; qualify by modality absent
   ok    absent: the SVI and EDI differ after adjustment for cardiac CT absent
   ok    CMR facilities                     722
   ok    CCT facilities                     1,542
@@ -57,6 +57,12 @@ ALL CHECKS
   ok    mean CMR rate, metro vs nonmetro   0.37 versus 0.02
   ok    mean CCT rate, metro vs nonmetro   0.75 versus 0.33
   ok    Table 1 quintile denominator       3,029 counties
+  ok    no unqualified blanket-null claim  absent
+  ok    Summary Sentence word count        <= 35
+  ok    Summary Sentence character count   <= 250
+  ok    Abstract word count                <= 250
+  ok    Abstract note matches actual count 249
+  ok    Summary note matches actual counts 27 words; 224 characters
   ok    Q1/Q5 gradient                     2.9-fold
   ok    Q1 CMR rate                        0.26
   ok    Q5 CMR rate                        0.09

@@ -36,8 +36,11 @@ RUN
 """
 
 import argparse
+import datetime as _dt
+import hashlib
 import json
 import os
+import subprocess
 import sys
 import re
 import warnings
@@ -571,7 +574,10 @@ def read_manuscript(path):
                                  (_accepted_para(p) for p in tc.findall(_W("p"))))).strip())
                 rows.append(cells)
             tables.append(rows)
-    return re.sub(r"\s+", " ", " ".join(prose_parts)), tables
+    # The flattened prose supports substring checks; the paragraph list lets
+    # section-aware checks (Summary Sentence, Abstract) address one block.
+    return (re.sub(r"\s+", " ", " ".join(prose_parts)), tables,
+            [re.sub(r"\s+", " ", t).strip() for t in prose_parts])
 
 
 def _parse_table(rows):
@@ -662,17 +668,126 @@ FORBIDDEN = [
     # association is positive and significant under the primary model, so a
     # statement that deprivation indices were not associated with capacity
     # "either way" or "independently" contradicts Table 2 wherever it appears.
-    (r"(deprivation|SVI|EDI|indices?)[^.]{0,80}not independently associated",
-     "adjusted SVI-CCT is positive and significant; qualify by modality"),
-    (r"neither (index|the SVI nor)[^.]{0,60}associated with capacity",
-     "adjusted SVI-CCT is positive and significant; qualify by modality"),
-    (r"no (index|deprivation measure) was associated with capacity",
-     "adjusted SVI-CCT is positive and significant; qualify by modality"),
     # The two indices do NOT agree after adjustment: EDI is null for both
     # modalities, SVI is positive and significant for cardiac CT.
     (r"gave the same result|both indices gave the same|indices agreed after adjustment",
      "the SVI and EDI differ after adjustment for cardiac CT"),
 ]
+
+
+
+SUMMARY_WORD_LIMIT = 35
+SUMMARY_CHAR_LIMIT = 250
+ABSTRACT_WORD_LIMIT = 250
+
+
+#: A sentence claiming both indices were independently null is wrong unless it
+#: also names the cardiac CT exception. These words signal that qualification.
+_NULL_QUALIFIERS = ("while", "whereas", "although", "except", "however",
+                    "modestly", "higher cardiac CT", "positive")
+
+
+def _check_blanket_null(prose, checks):
+    """Flag unqualified claims that both indices were independently null.
+
+    The adjusted SVI-CCT association is positive and significant, so a blanket
+    statement contradicts Table 2. A sentence that states the null and then
+    names the exception is accurate, and must not be flagged: an earlier,
+    blunter regex fired on exactly those corrected sentences.
+    """
+    blanket = re.compile(
+        r"(neither[^.]{0,220}?(not )?independently associated"
+        r"|(deprivation ind\w+|SVI|EDI)[^.]{0,120}?(was|were) not independently "
+        r"associated"
+        r"|no (index|deprivation measure)[^.]{0,80}?associated with capacity)",
+        re.I)
+    offenders = []
+    for sentence in re.split(r"(?<=[.;])\s+", prose):
+        m = blanket.search(sentence)
+        if not m:
+            continue
+        if any(q.lower() in sentence.lower() for q in _NULL_QUALIFIERS):
+            continue          # qualified by modality/direction: accurate
+        offenders.append(sentence.strip()[:120])
+    checks.append(("no unqualified blanket-null claim", "absent",
+                   f"FOUND {offenders[0]!r}" if offenders else "absent",
+                   not offenders))
+
+
+def _check_lengths(paragraphs, checks):
+    """Summary Sentence and Abstract must meet the journal's stated limits.
+
+    Both are measured from the document rather than trusted from the bracketed
+    notes the manuscript carries, because those notes do not update themselves
+    when the text is revised.
+    """
+    def after(heading, count=1):
+        for i, t in enumerate(paragraphs):
+            if t.strip().lower() == heading.lower():
+                out = []
+                for nxt in paragraphs[i + 1:]:
+                    nxt = nxt.strip()
+                    if not nxt or nxt.startswith("["):
+                        continue
+                    out.append(nxt)
+                    if len(out) == count:
+                        break
+                return out
+        return []
+
+    summary = after("Summary Sentence")
+    if summary:
+        words, chars = len(summary[0].split()), len(summary[0])
+        checks.append(("Summary Sentence word count",
+                       f"<= {SUMMARY_WORD_LIMIT}", str(words),
+                       words <= SUMMARY_WORD_LIMIT))
+        checks.append(("Summary Sentence character count",
+                       f"<= {SUMMARY_CHAR_LIMIT}", str(chars),
+                       chars <= SUMMARY_CHAR_LIMIT))
+
+    abstract = after("Abstract", count=4)
+    if abstract:
+        words = sum(len(t.split()) for t in abstract)
+        checks.append(("Abstract word count", f"<= {ABSTRACT_WORD_LIMIT}",
+                       str(words), words <= ABSTRACT_WORD_LIMIT))
+        for t in paragraphs:
+            m = re.search(r"Abstract word count:\s*(\d+)", t)
+            if m:
+                stated = int(m.group(1))
+                checks.append(("Abstract note matches actual count",
+                               str(words), str(stated), stated == words))
+                break
+        for t in paragraphs:
+            m = re.search(r"(\d+)\s+words;\s*(\d+)\s+characters", t)
+            if m and summary:
+                ok = (int(m.group(1)) == len(summary[0].split())
+                      and int(m.group(2)) == len(summary[0]))
+                checks.append(("Summary note matches actual counts",
+                               f"{len(summary[0].split())} words; {len(summary[0])} characters",
+                               f"{m.group(1)} words; {m.group(2)} characters", ok))
+                break
+
+
+def _sha256(path):
+    """Hash of the exact file checked, so a report cannot be attributed to a
+    different document than the one that was validated."""
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 16), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _git_commit():
+    try:
+        r = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=BASE_DIR,
+                           capture_output=True, text=True, timeout=10)
+        sha = r.stdout.strip()
+        dirty = subprocess.run(["git", "status", "--porcelain"], cwd=BASE_DIR,
+                               capture_output=True, text=True, timeout=10).stdout.strip()
+        return f"{sha}{' (working tree modified)' if dirty else ''}" if sha else "unknown"
+    except Exception:
+        return "unknown"
 
 
 def check_manuscript(R):
@@ -687,7 +802,7 @@ def check_manuscript(R):
         return (f"Manuscript not found at {MANUSCRIPT}\n"
                 "(The manuscript/ folder is not tracked in git. Check skipped.)\n")
 
-    prose, doc_tables = read_manuscript(MANUSCRIPT)
+    prose, doc_tables, prose_paragraphs = read_manuscript(MANUSCRIPT)
 
     d, reg, c, g, pc = (R["descriptives"], R["regressions"], R["correlations"],
                         R["quintiles"], R["pca"])
@@ -737,6 +852,11 @@ def check_manuscript(R):
     q_denom = sum(R["table1"][f"edi_q{i}"]["counties"] for i in range(1, 6))
     ck_prose("Table 1 quintile denominator", f"{q_denom:,} counties",
              rf"{q_denom:,} counties with")
+
+    # Journal limits. These were previously asserted only by a bracketed note
+    # in the manuscript, which drifted out of date as the text was revised.
+    _check_blanket_null(prose, checks)
+    _check_lengths(prose_paragraphs, checks)
 
     ck_prose("Q1/Q5 gradient", f"{g['q1_over_q5_ratio']:.1f}-fold")
     ck_prose("Q1 CMR rate", f"{g['cmr_rate_by_edi_quintile'][0]:.2f}")
@@ -847,6 +967,9 @@ def check_manuscript(R):
     bad = [x for x in checks if not x[3]]
     L = ["=" * 78, "MANUSCRIPT vs DATA, CELL BY CELL", "=" * 78,
          f"Document: {os.path.relpath(MANUSCRIPT, BASE_DIR)}",
+         f"SHA256:   {_sha256(MANUSCRIPT)}",
+         f"Checked:  {_dt.datetime.now(_dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}",
+         f"Code:     {_git_commit()}",
          f"Checks:   {len(checks)}     Mismatches: {len(bad)}", ""]
     if bad:
         L.append("MISMATCHES")

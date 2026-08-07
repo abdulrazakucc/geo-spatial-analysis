@@ -1,5 +1,12 @@
 # Post-HUD Audit Report
 
+> **HISTORICAL DOCUMENT — NOT THE CURRENT STATE.**
+> This records a point-in-time audit. Values shown as "current" or
+> "before" describe the repository *at the date in the heading*, not
+> today. For current values see `output/validation/manuscript_numbers.txt`
+> and `README.md`. Every issue recorded here has since been resolved.
+
+
 **Date:** 2026-08-07 · **Commit audited:** `dcd216f` · **Branch:** `validation`
 
 Every number below was recomputed independently from `data/download.xlsx`, the
