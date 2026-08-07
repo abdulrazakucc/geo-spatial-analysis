@@ -24,6 +24,7 @@ Outputs:
     output/models/regression_results_full.txt
 """
 
+import json
 import os
 import sys
 import warnings
@@ -334,121 +335,102 @@ def create_table1(df):
 # REGRESSION MODELS (ALL PER BRIEFING)
 # ===========================================================================
 def run_regressions(df):
+    """Write the regression summary from the CANONICAL results.
+
+    This script previously refitted the models itself with a fixed dispersion
+    of alpha = 1.0, on the rate-eligible subset, and with the SVI predictor
+    divided by 10 when the percentile is already on a 0-1 scale, so its IRRs
+    were per 0.1 percentile points. It also reported a "Accredited-only"
+    sensitivity that reused the primary dataframe unchanged.
+
+    None of that is refitted here. Every estimate is read from the outputs the
+    rest of the pipeline generates, so this file cannot disagree with Table 2:
+
+        output/validation/manuscript_numbers.json   primary + sensitivities
+        output/results/accredited_only_sensitivity.csv
+        output/results/svi_quartile_regression.csv
+        output/results/model_specification_comparison.csv
     """
-    Run all regression models per briefing Section 3.3–3.4:
-    
-    Primary:
-      - Negative binomial: facility count ~ SVI (per 10-percentile) + offset(log pop ≥45)
-      - Separately for CMR and CCT
-    
-    Sensitivity:
-      1. Accredited-only (exclude 23 Under Review)
-      2. SVI quartile dummies instead of continuous
-      3. Stratified by metro/nonmetro
-    
-    Goodness of fit: dispersion, AIC comparison vs Poisson
-    """
-    print("\n" + "="*70)
-    print("REGRESSION MODELS")
-    print("="*70)
-    
-    df_model = df[df['rate_excluded'] == 0].copy()
-    df_model['svi_per10'] = df_model['svi_percentile'] / 10
-    df_model['log_pop'] = np.log(df_model['adult_pop_45plus'])
-    
-    # SVI quartile dummies
-    df_model['svi_q2'] = (df_model['svi_quartile'] == 2).astype(int)
-    df_model['svi_q3'] = (df_model['svi_quartile'] == 3).astype(int)
-    df_model['svi_q4'] = (df_model['svi_quartile'] == 4).astype(int)
-    
-    results_text = []
-    results_text.append("=" * 80)
-    results_text.append("REGRESSION RESULTS: ACR Cardiac Imaging Geographic Disparities")
-    results_text.append("Negative Binomial Models with log(adult ≥45 population) as offset")
-    results_text.append("=" * 80)
-    
-    all_models = {}
-    
-    for modality in ['CMR', 'CCT']:
-        col = f"{'cmr' if modality == 'CMR' else 'cct'}_facility_count"
-        results_text.append(f"\n\n{'═'*80}")
-        results_text.append(f"MODALITY: {modality}")
-        results_text.append(f"{'═'*80}")
-        
-        # ---- PRIMARY MODEL ----
-        models_to_run = [
-            ("Primary (SVI continuous, per 10-percentile increment)", ['svi_per10'], df_model, True),
-            ("Sensitivity A: Accredited-only (excluding Under Review)", ['svi_per10'], df_model, False),  # placeholder
-            ("Sensitivity B: SVI Quartile Dummies (ref=Q1)", ['svi_q2', 'svi_q3', 'svi_q4'], df_model, False),
-            ("Sensitivity C: Stratified — Metropolitan only", ['svi_per10'], df_model[df_model['metro_indicator']==1], False),
-            ("Sensitivity D: Stratified — Nonmetropolitan only", ['svi_per10'], df_model[df_model['metro_indicator']==0], False),
-        ]
-        
-        for model_name, predictors, data, compare_poisson in models_to_run:
-            results_text.append(f"\n{'─'*80}")
-            results_text.append(f"Model: {modality} — {model_name}")
-            results_text.append(f"{'─'*80}")
-            
-            y = data[col].values
-            X = sm.add_constant(data[predictors].values)
-            offset = data['log_pop'].values
-            
-            try:
-                # Negative Binomial
-                nb_model = sm.GLM(y, X, family=NegativeBinomial(alpha=1.0), offset=offset)
-                nb_result = nb_model.fit(maxiter=200, disp=False)
-                
-                # Extract results
-                results_text.append(f"\n{'Variable':<30} {'IRR':>8} {'95% CI':>20} {'p-value':>10}")
-                results_text.append("─" * 72)
-                
-                var_names = ['Intercept'] + predictors
-                for i, vname in enumerate(var_names):
-                    irr = np.exp(nb_result.params[i])
-                    ci_lo = np.exp(nb_result.conf_int()[i, 0])
-                    ci_hi = np.exp(nb_result.conf_int()[i, 1])
-                    pval = nb_result.pvalues[i]
-                    pstr = f"{pval:.4f}" if pval >= 0.0001 else "<0.0001"
-                    results_text.append(f"{vname:<30} {irr:>8.4f} ({ci_lo:.4f}–{ci_hi:.4f}) {pstr:>10}")
-                
-                results_text.append(f"\n  N = {int(nb_result.nobs)}")
-                results_text.append(f"  AIC = {nb_result.aic:.1f}")
-                results_text.append(f"  Deviance = {nb_result.deviance:.1f}")
-                results_text.append(f"  Pearson χ² = {nb_result.pearson_chi2:.1f}")
-                results_text.append(f"  Dispersion (Pearson χ²/df) = {nb_result.pearson_chi2/nb_result.df_resid:.3f}")
-                
-                # Poisson comparison
-                if compare_poisson:
-                    pois_model = sm.GLM(y, X, family=Poisson(), offset=offset)
-                    pois_result = pois_model.fit(maxiter=200, disp=False)
-                    results_text.append(f"\n  Poisson AIC = {pois_result.aic:.1f}")
-                    results_text.append(f"  Negative Binomial AIC = {nb_result.aic:.1f}")
-                    if nb_result.aic < pois_result.aic:
-                        results_text.append(f"  → Negative Binomial preferred (ΔAIC = {pois_result.aic - nb_result.aic:.1f})")
-                    else:
-                        results_text.append(f"  → Poisson preferred (ΔAIC = {nb_result.aic - pois_result.aic:.1f})")
-                
-                all_models[f"{modality}_{model_name[:20]}"] = nb_result
-                
-            except Exception as e:
-                results_text.append(f"  ERROR: {str(e)}")
-    
-    # Write results
-    full_text = "\n".join(results_text)
-    output_path = os.path.join(MDL_DIR, "regression_results_full.txt")
-    with open(output_path, 'w') as f:
-        f.write(full_text)
-    
-    print(full_text)
-    print(f"\n  ✓ {output_path}")
-    
-    # Save model objects
-    pkl_path = os.path.join(MDL_DIR, "model_objects.pkl")
-    with open(pkl_path, 'wb') as f:
-        pickle.dump(all_models, f)
-    print(f"  ✓ {pkl_path}")
-    
-    return all_models
+    print("\n" + "=" * 70)
+    print("REGRESSION SUMMARY (read from canonical results)")
+    print("=" * 70)
+
+    vpath = os.path.join(BASE_DIR, "output", "validation", "manuscript_numbers.json")
+    if not os.path.exists(vpath):
+        raise FileNotFoundError(
+            f"{vpath} not found. Run code/12_manuscript_numbers.py first; this "
+            "script no longer fits its own regressions.")
+    with open(vpath) as f:
+        R = json.load(f)["regressions"]
+
+    def line(label, e):
+        return (f"{label:<52} {e['irr']:>7.3f} "
+                f"({e['ci_low']:.3f}-{e['ci_high']:.3f}) "
+                f"{'<0.001' if e['p'] < 0.001 else format(e['p'], '.4f'):>8}")
+
+    L = ["=" * 92,
+         "REGRESSION RESULTS: ACR Cardiac Imaging Geographic Disparities",
+         "=" * 92,
+         f"Specification: {R.get('specification', 'see model_spec.py')}",
+         "Offset: log(adults aged 45 and older). IRR per 10-percentile increment.",
+         f"Analytic sample: SVI n = {R['n_svi']:,}; EDI n = {R['n_edi']:,}.",
+         "Counties with <1,000 adults aged 45+ are excluded from rate",
+         "calculations but retained in these count models.",
+         "",
+         f"{'Model':<52} {'IRR':>7} {'95% CI':>17} {'P':>8}",
+         "-" * 92]
+    for pred in ("SVI", "EDI"):
+        for mod in ("CMR", "CCT"):
+            m = R["models"][f"{pred}_{mod}"]
+            L.append(line(f"{pred} - {mod}, unadjusted", m["unadjusted"]))
+            L.append(line(f"{pred} - {mod}, adjusted for metropolitan status",
+                          m["adjusted_metro"]))
+            L.append(line(f"{pred} - {mod}, adjusted for ordinal RUCC",
+                          m["adjusted_rucc"]))
+            L.append(line(f"{pred} - {mod}, metropolitan status term",
+                          m["metro_effect"]))
+    L.append("")
+    L.append("SENSITIVITY: fixed dispersion, alpha = 1.0")
+    L.append("-" * 92)
+    for key, block in R.get("sensitivity_fixed_alpha", {}).items():
+        pred, mod = key.split("_")
+        L.append(line(f"{pred} - {mod}, adjusted (alpha = 1.0)", block["adjusted_metro"]))
+    L.append("")
+    L.append("SENSITIVITY: restricted to rate-eligible counties (>= 1,000 adults 45+)")
+    L.append("-" * 92)
+    for key, block in R.get("sensitivity_rate_eligible", {}).items():
+        pred, mod = key.split("_")
+        L.append(line(f"{pred} - {mod}, adjusted (n = {block.get('n', 0):,})",
+                      block["adjusted_metro"]))
+
+    for path, title in (
+            (os.path.join(BASE_DIR, "output", "results",
+                          "accredited_only_sensitivity.csv"),
+             "SENSITIVITY: Accredited-only cohort (real cohort, from 14_*)"),
+            (os.path.join(BASE_DIR, "output", "results",
+                          "svi_quartile_regression.csv"),
+             "SENSITIVITY: SVI quartile indicators (from 15_*)")):
+        L.append("")
+        L.append(title)
+        L.append("-" * 92)
+        if not os.path.exists(path):
+            L.append("  not generated; run the corresponding script")
+            continue
+        t = pd.read_csv(path)
+        for _, r in t.iterrows():
+            lbl = " ".join(str(r[c]) for c in t.columns
+                           if c in ("cohort", "outcome", "model", "term"))
+            L.append(f"{lbl[:52]:<52} {r['irr']:>7.3f} "
+                     f"({r['ci_low']:.3f}-{r['ci_high']:.3f}) "
+                     f"{r['p_value']:>8.4f}")
+
+    text = "\n".join(L)
+    out = os.path.join(MDL_DIR, "regression_results_full.txt")
+    with open(out, "w") as f:
+        f.write(text + "\n")
+    print(text)
+    print(f"\n  Wrote {out}")
+    return None
 
 
 # ===========================================================================

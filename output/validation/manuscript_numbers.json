@@ -216,7 +216,8 @@
           "irr": 1.003230646922428,
           "ci_low": 0.9670842931715014,
           "ci_high": 1.040728029636096,
-          "p": 0.863219099504453
+          "p": 0.863219099504453,
+          "estimable": true
         },
         "stratified_metro_n": 1178,
         "stratified_metro_events": 694,
@@ -224,7 +225,8 @@
           "irr": 0.7040607798073808,
           "ci_low": NaN,
           "ci_high": NaN,
-          "p": NaN
+          "p": NaN,
+          "estimable": false
         },
         "stratified_nonmetro_n": 1956,
         "stratified_nonmetro_events": 14
@@ -265,7 +267,8 @@
           "irr": 1.023763210058807,
           "ci_low": 0.9979800531607902,
           "ci_high": 1.0502124836567743,
-          "p": 0.07113802901862086
+          "p": 0.07113802901862086,
+          "estimable": true
         },
         "stratified_metro_n": 1178,
         "stratified_metro_events": 1409,
@@ -273,7 +276,8 @@
           "irr": 0.957798825583743,
           "ci_low": 0.8923802046170798,
           "ci_high": 1.0280131557638534,
-          "p": 0.23226418844373364
+          "p": 0.23226418844373364,
+          "estimable": true
         },
         "stratified_nonmetro_n": 1956,
         "stratified_nonmetro_events": 115
@@ -580,7 +584,7 @@
     "quintile_rate_definition": "unweighted mean of county-level rates"
   },
   "pca": {
-    "pca_variance_explained": 0.587291685158111,
+    "pca_variance_explained": 0.5872916851581103,
     "pca_n_counties": 3134,
     "pca_features": [
       "EP_POV150",

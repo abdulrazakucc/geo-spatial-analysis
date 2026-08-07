@@ -272,6 +272,53 @@ class TrackedDocument:
                 seen[key] = seen.get(key, 0) + 1
         return sorted(seen.items())
 
+    def accept_all(self):
+        """Resolve every tracked change into final text.
+
+        Insertions are unwrapped and kept, deletions are removed outright, and
+        formatting-only revision marks are dropped. Comment anchors, comment
+        ranges and the comment parts themselves are stripped, because a
+        submission file must not carry review apparatus.
+
+        Returns a dict describing what was resolved.
+        """
+        counts = {"insertions_accepted": 0, "deletions_removed": 0,
+                  "format_marks_cleared": 0, "comment_marks_removed": 0}
+
+        for el in list(self._root.iter(_w("del"))):
+            counts["deletions_removed"] += 1
+            el.getparent().remove(el)
+
+        for el in list(self._root.iter(_w("ins"))):
+            counts["insertions_accepted"] += 1
+            parent = el.getparent()
+            index = list(parent).index(el)
+            for child in list(el):
+                el.remove(child)
+                parent.insert(index, child)
+                index += 1
+            parent.remove(el)
+
+        # Paragraph-mark and run-property revisions, and numbering/section marks.
+        for tag in ("rPrChange", "pPrChange", "tblPrChange", "tcPrChange",
+                    "sectPrChange", "numberingChange", "cellIns", "cellDel",
+                    "cellMerge"):
+            for el in list(self._root.iter(_w(tag))):
+                counts["format_marks_cleared"] += 1
+                el.getparent().remove(el)
+
+        for tag in ("commentRangeStart", "commentRangeEnd", "commentReference"):
+            for el in list(self._root.iter(_w(tag))):
+                counts["comment_marks_removed"] += 1
+                el.getparent().remove(el)
+
+        # Drop the comment parts from the package entirely.
+        for name in [n for n in self._names
+                     if "comments" in n.lower() or "commentsExtended" in n]:
+            self._names.remove(name)
+            self._blobs.pop(name, None)
+        return counts
+
     def save(self, dest=None):
         """Write the document. Backs up in place when overwriting the source."""
         dest = str(dest or self.path)

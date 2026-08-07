@@ -99,7 +99,7 @@ python code/00_run_all.py --all            # everything
 descriptive statistic, every regression coefficient, every correlation, and
 every table cell in the paper directly from the committed data, then compares
 them against the manuscript file and reports any disagreement. The current run
-reports **145 checks, 0 mismatches**.
+reports **156 checks, 0 mismatches**.
 
 Full details of what is checked and how, including the model specification and
 each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md)**.

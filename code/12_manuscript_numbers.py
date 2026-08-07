@@ -57,7 +57,11 @@ PROC = os.path.join(BASE_DIR, "data", "processed")
 RAW = os.path.join(BASE_DIR, "data", "raw")
 OUT = os.path.join(BASE_DIR, "output", "validation")
 RESULTS = os.path.join(BASE_DIR, "output", "results")
-MANUSCRIPT = os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx")
+# MANUSCRIPT_OVERRIDE lets the gate run against the finalized submission file
+# without editing this script. See tools/finalize_manuscript.py --validate.
+MANUSCRIPT = os.environ.get(
+    "MANUSCRIPT_OVERRIDE",
+    os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx"))
 os.makedirs(OUT, exist_ok=True)
 
 ALPHA = 1.0
@@ -196,7 +200,11 @@ def regressions(m):
             if idx == "EDI":
                 for lab, flag in [("metro", 1), ("nonmetro", 0)]:
                     sub = d[d.metro_indicator == flag]
-                    out["models"][key][f"stratified_{lab}"] = est(prim(sub, col, [term]), term)
+                    strat = est(prim(sub, col, [term]), term)
+                    strat["estimable"] = bool(
+                        not (pd.isna(strat["ci_low"]) or pd.isna(strat["ci_high"])
+                             or pd.isna(strat["p"])))
+                    out["models"][key][f"stratified_{lab}"] = strat
                     out["models"][key][f"stratified_{lab}_n"] = int(len(sub))
                     out["models"][key][f"stratified_{lab}_events"] = int(sub[col].sum())
     return out
@@ -351,11 +359,28 @@ def pca_variance():
 
 
 # ------------------------------------------------------------------- reporting
+NOT_ESTIMABLE = "NE"
+
+
+def _estimable(e):
+    """A fit can return a point estimate with no usable CI when events are very
+    sparse. Report that honestly rather than printing nan or borrowing a CI
+    from a different specification."""
+    return not (pd.isna(e.get("ci_low")) or pd.isna(e.get("ci_high"))
+                or pd.isna(e.get("p")))
+
+
 def fmt_est(e, dp=2):
+    if pd.isna(e["irr"]):
+        return NOT_ESTIMABLE
+    if not _estimable(e):
+        return f"{e['irr']:.{dp}f} ({NOT_ESTIMABLE})"
     return f"{e['irr']:.{dp}f} ({e['ci_low']:.{dp}f}-{e['ci_high']:.{dp}f})"
 
 
 def fmt_p(p):
+    if pd.isna(p):
+        return NOT_ESTIMABLE
     return "<0.001" if p < 0.001 else f"{p:.3f}"
 
 
@@ -365,8 +390,13 @@ def write_report(R):
     a("=" * 78)
     a("MANUSCRIPT NUMBERS, RECOMPUTED FROM THE COMMITTED DATA")
     a("=" * 78)
-    a("Negative binomial GLM, alpha = 1.0, offset log(adults 45+), index per 10 percentiles.")
-    a("Rate-eligible counties have at least 1,000 adults aged 45 and older.")
+    a("Primary model: negative binomial (NB2), dispersion ESTIMATED from the data,")
+    a("offset log(adults 45+), index per 10 percentile points.")
+    a("Count regressions retain every county with the index and a positive")
+    a("population. The <1,000-adult rule governs per-capita RATE calculations only.")
+    a("Fixed alpha = 1.0 and the rate-eligible restriction are reported as")
+    a("sensitivities under regressions.sensitivity_* in the JSON.")
+    a("NE = not estimable (sparse events; point estimate shown without inference).")
     a("")
     d = R["descriptives"]
     a("-" * 78)
@@ -588,6 +618,26 @@ FORBIDDEN = [
     (r"accessed 2024", "ACR registry was extracted 2026-05-20"),
     (r"SciPy 1\.11", "results were produced under SciPy 1.13"),
     (r"\bADI\b", "the index was renamed EDI"),
+    # Superseded analytic sample and specification
+    (r"n = 3,038|3,038 counties", "pre-decision SVI sample (count models now n = 3,144)"),
+    (r"3,029 counties|n = 3,029", "pre-decision EDI sample (count models now n = 3,134)"),
+    (r"3,027 \(SDI\)|3,027 counties", "pre-decision SDI sample (now 3,133)"),
+    (r"≥48 years|>=48 years", "typo; the denominator is adults aged 45 and older"),
+    # Categorical null claims the primary model does not support
+    (r"neither index was associated with capacity",
+     "the adjusted SVI-CCT association is positive and significant"),
+    (r"SDI was not associated with (CMR|CCT) capacity either before adjustment",
+     "the adjusted SDI associations are significant; see Table 4"),
+    # Non-estimable inference must never be published as nan
+    (r"\bnan\b|nan-nan", "non-estimable inference must be reported as NE"),
+    # Superseded stratified and metropolitan estimates
+    (r"0\.57-0\.92", "fixed-alpha nonmetropolitan CI; that row is not estimable"),
+    (r"8\.44 \(95% CI 4\.80-14\.83\)|1\.94 \(95% CI 1\.55-2\.42\)",
+     "pre-decision SVI metropolitan estimates"),
+    (r"8\.23, 95% CI, 4\.65-14\.56|1\.96, 95% CI, 1\.56-2\.47",
+     "pre-decision EDI metropolitan estimates"),
+    (r"13 accredited CMR facilities|only 13 accredited",
+     "the nonmetropolitan CMR stratum contains 14 facilities"),
 ]
 
 

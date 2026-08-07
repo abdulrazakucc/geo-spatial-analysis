@@ -1,176 +1,71 @@
-================================================================================
+============================================================================================
 REGRESSION RESULTS: ACR Cardiac Imaging Geographic Disparities
-Negative Binomial Models with log(adult ≥45 population) as offset
-================================================================================
+============================================================================================
+Specification: negative binomial, dispersion estimated
+Offset: log(adults aged 45 and older). IRR per 10-percentile increment.
+Analytic sample: SVI n = 3,144; EDI n = 3,134.
+Counties with <1,000 adults aged 45+ are excluded from rate
+calculations but retained in these count models.
 
+Model                                                    IRR            95% CI        P
+--------------------------------------------------------------------------------------------
+SVI - CMR, unadjusted                                  1.000 (0.965-1.035)   0.9796
+SVI - CMR, adjusted for metropolitan status            1.003 (0.968-1.040)   0.8536
+SVI - CMR, adjusted for ordinal RUCC                   1.007 (0.971-1.044)   0.7120
+SVI - CMR, metropolitan status term                    8.561 (5.015-14.614)   <0.001
+SVI - CCT, unadjusted                                  1.030 (1.006-1.055)   0.0138
+SVI - CCT, adjusted for metropolitan status            1.033 (1.009-1.058)   0.0076
+SVI - CCT, adjusted for ordinal RUCC                   1.035 (1.010-1.060)   0.0049
+SVI - CCT, metropolitan status term                    2.083 (1.711-2.536)   <0.001
+EDI - CMR, unadjusted                                  0.948 (0.915-0.982)   0.0029
+EDI - CMR, adjusted for metropolitan status            0.993 (0.958-1.029)   0.6989
+EDI - CMR, adjusted for ordinal RUCC                   1.005 (0.968-1.043)   0.8014
+EDI - CMR, metropolitan status term                    8.330 (4.858-14.281)   <0.001
+EDI - CCT, unadjusted                                  0.989 (0.967-1.013)   0.3718
+EDI - CCT, adjusted for metropolitan status            1.016 (0.992-1.041)   0.1862
+EDI - CCT, adjusted for ordinal RUCC                   1.027 (1.002-1.052)   0.0331
+EDI - CCT, metropolitan status term                    2.127 (1.737-2.606)   <0.001
 
-════════════════════════════════════════════════════════════════════════════════
-MODALITY: CMR
-════════════════════════════════════════════════════════════════════════════════
+SENSITIVITY: fixed dispersion, alpha = 1.0
+--------------------------------------------------------------------------------------------
+SVI - CMR, adjusted (alpha = 1.0)                      1.004 (0.963-1.047)   0.8500
+SVI - CCT, adjusted (alpha = 1.0)                      1.032 (0.999-1.065)   0.0577
+EDI - CMR, adjusted (alpha = 1.0)                      0.990 (0.948-1.033)   0.6378
+EDI - CCT, adjusted (alpha = 1.0)                      1.010 (0.977-1.044)   0.5618
 
-────────────────────────────────────────────────────────────────────────────────
-Model: CMR — Primary (SVI continuous, per 10-percentile increment)
-────────────────────────────────────────────────────────────────────────────────
+SENSITIVITY: restricted to rate-eligible counties (>= 1,000 adults 45+)
+--------------------------------------------------------------------------------------------
+SVI - CMR, adjusted (n = 3,038)                        1.003 (0.968-1.040)   0.8556
+SVI - CCT, adjusted (n = 3,038)                        1.033 (1.009-1.058)   0.0078
+EDI - CMR, adjusted (n = 3,029)                        0.993 (0.958-1.029)   0.6981
+EDI - CCT, adjusted (n = 3,029)                        1.016 (0.992-1.041)   0.1879
 
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        0.8024 (0.0149–43.2078)     0.9138
+SENSITIVITY: Accredited-only cohort (real cohort, from 14_*)
+--------------------------------------------------------------------------------------------
+Primary (Accredited + Under Review) CMR unadjusted S   0.999 (0.965-1.035)   0.9698
+Primary (Accredited + Under Review) CMR adjusted SVI   1.003 (0.968-1.040)   0.8556
+Primary (Accredited + Under Review) CMR adjusted met   8.536 (5.000-14.572)   0.0000
+Primary (Accredited + Under Review) CCT unadjusted S   1.030 (1.006-1.055)   0.0145
+Primary (Accredited + Under Review) CCT adjusted SVI   1.033 (1.009-1.058)   0.0078
+Primary (Accredited + Under Review) CCT adjusted met   2.078 (1.707-2.529)   0.0000
+Sensitivity (Accredited only) CMR unadjusted SVI       0.999 (0.964-1.035)   0.9449
+Sensitivity (Accredited only) CMR adjusted SVI         1.003 (0.967-1.039)   0.8853
+Sensitivity (Accredited only) CMR adjusted metro       8.462 (4.956-14.447)   0.0000
+Sensitivity (Accredited only) CCT unadjusted SVI       1.030 (1.006-1.055)   0.0142
+Sensitivity (Accredited only) CCT adjusted SVI         1.033 (1.008-1.058)   0.0079
+Sensitivity (Accredited only) CCT adjusted metro       2.060 (1.692-2.508)   0.0000
 
-  N = 3038
-  AIC = 1909.0
-  Deviance = 792.9
-  Pearson χ² = 1188.9
-  Dispersion (Pearson χ²/df) = 0.392
-
-  Poisson AIC = 1980.6
-  Negative Binomial AIC = 1909.0
-  → Negative Binomial preferred (ΔAIC = 71.6)
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CMR — Sensitivity A: Accredited-only (excluding Under Review)
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        0.8024 (0.0149–43.2078)     0.9138
-
-  N = 3038
-  AIC = 1909.0
-  Deviance = 792.9
-  Pearson χ² = 1188.9
-  Dispersion (Pearson χ²/df) = 0.392
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CMR — Sensitivity B: SVI Quartile Dummies (ref=Q1)
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_q2                           0.9802 (0.7076–1.3579)     0.9044
-svi_q3                           1.0956 (0.8006–1.4993)     0.5683
-svi_q4                           0.9561 (0.6904–1.3241)     0.7870
-
-  N = 3038
-  AIC = 1911.9
-  Deviance = 791.8
-  Pearson χ² = 1198.3
-  Dispersion (Pearson χ²/df) = 0.395
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CMR — Sensitivity C: Stratified — Metropolitan only
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        4.0658 (0.0552–299.5151)     0.5226
-
-  N = 1180
-  AIC = 1664.1
-  Deviance = 586.8
-  Pearson χ² = 746.8
-  Dispersion (Pearson χ²/df) = 0.634
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CMR — Sensitivity D: Stratified — Nonmetropolitan only
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        0.0000 (0.0000–0.3820)     0.0404
-
-  N = 1858
-  AIC = 130.6
-  Deviance = 87.8
-  Pearson χ² = 581.0
-  Dispersion (Pearson χ²/df) = 0.313
-
-
-════════════════════════════════════════════════════════════════════════════════
-MODALITY: CCT
-════════════════════════════════════════════════════════════════════════════════
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CCT — Primary (SVI continuous, per 10-percentile increment)
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                       12.3903 (0.5445–281.9696)     0.1144
-
-  N = 3038
-  AIC = 3123.6
-  Deviance = 1055.2
-  Pearson χ² = 1374.1
-  Dispersion (Pearson χ²/df) = 0.453
-
-  Poisson AIC = 3110.5
-  Negative Binomial AIC = 3123.6
-  → Poisson preferred (ΔAIC = 13.1)
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CCT — Sensitivity A: Accredited-only (excluding Under Review)
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                       12.3903 (0.5445–281.9696)     0.1144
-
-  N = 3038
-  AIC = 3123.6
-  Deviance = 1055.2
-  Pearson χ² = 1374.1
-  Dispersion (Pearson χ²/df) = 0.453
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CCT — Sensitivity B: SVI Quartile Dummies (ref=Q1)
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_q2                           1.2163 (0.9374–1.5782)     0.1407
-svi_q3                           1.3648 (1.0601–1.7570)     0.0158
-svi_q4                           1.1987 (0.9230–1.5569)     0.1741
-
-  N = 3038
-  AIC = 3123.8
-  Deviance = 1051.4
-  Pearson χ² = 1377.6
-  Dispersion (Pearson χ²/df) = 0.454
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CCT — Sensitivity C: Stratified — Metropolitan only
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                       77.6161 (2.1032–2864.3802)     0.0181
-
-  N = 1180
-  AIC = 2351.5
-  Deviance = 589.8
-  Pearson χ² = 571.6
-  Dispersion (Pearson χ²/df) = 0.485
-
-────────────────────────────────────────────────────────────────────────────────
-Model: CCT — Sensitivity D: Stratified — Nonmetropolitan only
-────────────────────────────────────────────────────────────────────────────────
-
-Variable                            IRR               95% CI    p-value
-────────────────────────────────────────────────────────────────────────
-Intercept                        0.0000 (0.0000–0.0000)    <0.0001
-svi_per10                        0.1218 (0.0001–162.9624)     0.5665
-
-  N = 1858
-  AIC = 730.7
-  Deviance = 419.9
-  Pearson χ² = 1117.9
-  Dispersion (Pearson χ²/df) = 0.602
+SENSITIVITY: SVI quartile indicators (from 15_*)
+--------------------------------------------------------------------------------------------
+CMR unadjusted SVI Q2 vs Q1                            0.996 (0.745-1.330)   0.9774
+CMR unadjusted SVI Q3 vs Q1                            1.125 (0.853-1.485)   0.4045
+CMR unadjusted SVI Q4 vs Q1                            0.968 (0.726-1.291)   0.8245
+CMR adjusted for metropolitan status SVI Q2 vs Q1      1.008 (0.753-1.348)   0.9594
+CMR adjusted for metropolitan status SVI Q3 vs Q1      1.142 (0.864-1.509)   0.3517
+CMR adjusted for metropolitan status SVI Q4 vs Q1      0.982 (0.734-1.314)   0.9026
+CCT unadjusted SVI Q2 vs Q1                            1.207 (0.985-1.479)   0.0696
+CCT unadjusted SVI Q3 vs Q1                            1.381 (1.136-1.678)   0.0012
+CCT unadjusted SVI Q4 vs Q1                            1.254 (1.028-1.530)   0.0259
+CCT adjusted for metropolitan status SVI Q2 vs Q1      1.218 (0.994-1.492)   0.0566
+CCT adjusted for metropolitan status SVI Q3 vs Q1      1.393 (1.146-1.692)   0.0009
+CCT adjusted for metropolitan status SVI Q4 vs Q1      1.270 (1.041-1.550)   0.0184

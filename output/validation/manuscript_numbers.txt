@@ -1,8 +1,13 @@
 ==============================================================================
 MANUSCRIPT NUMBERS, RECOMPUTED FROM THE COMMITTED DATA
 ==============================================================================
-Negative binomial GLM, alpha = 1.0, offset log(adults 45+), index per 10 percentiles.
-Rate-eligible counties have at least 1,000 adults aged 45 and older.
+Primary model: negative binomial (NB2), dispersion ESTIMATED from the data,
+offset log(adults 45+), index per 10 percentile points.
+Count regressions retain every county with the index and a positive
+population. The <1,000-adult rule governs per-capita RATE calculations only.
+Fixed alpha = 1.0 and the rate-eligible restriction are reported as
+sensitivities under regressions.sensitivity_* in the JSON.
+NE = not estimable (sparse events; point estimate shown without inference).
 
 ------------------------------------------------------------------------------
 DESCRIPTIVES
@@ -41,7 +46,7 @@ REGRESSION MODELS  (manuscript Tables 2 and 3)
   EDI, CMR, metropolitan status term               8.33 (4.86-14.28)    <0.001
   EDI, CMR, ordinal RUCC term                       0.70 (0.64-0.76)    <0.001
   EDI, CMR, metro counties only                     1.00 (0.97-1.04)     0.863   n=1,178, 694 facilities
-  EDI, CMR, nonmetro counties only                    0.70 (nan-nan)       nan   n=1,956, 14 facilities
+  EDI, CMR, nonmetro counties only                         0.70 (NE)        NE   n=1,956, 14 facilities
 
   SVI, CCT, unadjusted                              1.03 (1.01-1.06)     0.014
   SVI, CCT, adjusted for metropolitan status        1.03 (1.01-1.06)     0.008

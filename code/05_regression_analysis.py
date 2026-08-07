@@ -3,13 +3,17 @@
 =========================
 Runs negative binomial regression models and sensitivity analyses.
 
-Primary model:
+Primary model (canonical definition lives in model_spec.py):
     Facility count ~ SVI percentile (per 10-percentile) + offset(log(adult_pop_45plus))
+    Negative binomial (NB2) with the dispersion parameter ESTIMATED from the data.
+    Every county with SVI and a positive population is retained; the
+    <1,000-adult rule governs per-capita rate calculations, not count models.
 
 Sensitivity:
-    1. Exclude "Under Review" facilities
-    2. SVI quartile dummies instead of continuous
-    3. Stratified by metro/non-metro
+    1. Fixed dispersion, alpha = 1.0
+    2. Restricted to rate-eligible counties (>= 1,000 adults aged 45+)
+    3. SVI quartile dummies instead of continuous
+    4. Stratified by metro/non-metro
 
 Input:
     - data/processed/county_analytic_dataset.csv
@@ -25,6 +29,7 @@ import warnings
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import statsmodels.discrete.discrete_model as dm
 from statsmodels.genmod.generalized_linear_model import GLM
 from statsmodels.genmod.families import Poisson, NegativeBinomial
 
@@ -42,9 +47,11 @@ def load_data():
         os.path.join(PROC_DIR, "county_analytic_dataset.csv"),
         dtype={'county_fips': str}
     )
-    # Exclude rate-excluded counties from regression
-    df = df[df['rate_excluded'] == 0].copy()
+    # Count regressions retain every county with SVI and a positive
+    # population. Restricting to rate-eligible counties is a sensitivity,
+    # fitted separately below, not the primary sample.
     df = df.dropna(subset=['svi_percentile', 'adult_pop_45plus']).copy()
+    df = df[df['adult_pop_45plus'] > 0].copy()
     
     # Create SVI per 10-percentile (0-10 scale)
     df['svi_per10'] = df['svi_percentile'] * 10
@@ -57,12 +64,24 @@ def load_data():
     df['svi_q3'] = (df['svi_quartile'] == 3).astype(int)
     df['svi_q4'] = (df['svi_quartile'] == 4).astype(int)
     
-    print(f"Regression sample: {len(df)} counties (after excluding rate-excluded and missing)")
+    print(f"Primary count-regression sample: {len(df)} counties "
+          f"({int((df['rate_excluded'] == 1).sum())} of them below the 1,000-adult "
+          f"threshold used for rate calculations)")
     return df
 
 
+def fit_negbin_primary(endog, exog, offset, label=""):
+    """Primary specification: NB2 with the dispersion estimated. See model_spec."""
+    try:
+        return dm.NegativeBinomial(endog, exog, loglike_method="nb2",
+                                   offset=offset).fit(disp=0, maxiter=300)
+    except Exception as exc:
+        print(f"  ! {label} failed to converge: {exc}")
+        return None
+
+
 def fit_negbin(endog, exog, offset, label=""):
-    """Fit a negative binomial regression model."""
+    """Fixed alpha = 1.0. SENSITIVITY ONLY; not the primary specification."""
     try:
         model = sm.GLM(
             endog, exog, family=sm.families.NegativeBinomial(alpha=1.0),
@@ -99,7 +118,12 @@ def report_model(result, model_name, output_lines):
     output_lines.append(f"{'Variable':<20} {'IRR':>8} {'95% CI':>20} {'p-value':>10}")
     output_lines.append(f"{'─' * 60}")
     
-    for i, name in enumerate(result.model.exog_names):
+    # The discrete NB2 fit appends an `alpha` row that is a dispersion
+    # estimate, not a rate ratio; report it separately rather than as an IRR.
+    names = list(result.model.exog_names)
+    for i, name in enumerate(names):
+        if name == "alpha":
+            continue
         irr = np.exp(params.iloc[i])
         ci_lo = np.exp(conf.iloc[i, 0])
         ci_hi = np.exp(conf.iloc[i, 1])
@@ -107,10 +131,14 @@ def report_model(result, model_name, output_lines):
         output_lines.append(
             f"{name:<20} {irr:>8.4f} ({ci_lo:.4f}–{ci_hi:.4f}) {p:>10.4f}"
         )
-    
+
     output_lines.append(f"\nAIC: {result.aic:.1f}")
-    output_lines.append(f"Deviance: {result.deviance:.1f}")
-    output_lines.append(f"Pearson chi2: {result.pearson_chi2:.1f}")
+    for label, attr in (("Deviance", "deviance"), ("Pearson chi2", "pearson_chi2")):
+        val = getattr(result, attr, None)
+        if val is not None:
+            output_lines.append(f"{label}: {val:.1f}")
+    if "alpha" in getattr(result.params, "index", []):
+        output_lines.append(f"Dispersion alpha (estimated): {result.params['alpha']:.4f}")
     output_lines.append(f"N: {result.nobs:.0f}")
     
     return output_lines
@@ -145,10 +173,10 @@ def main():
         model_objects[f'{modality}_poisson_continuous'] = pois_result
         
         # Negative Binomial
-        nb_result = fit_negbin(endog, X, offset, label=f"{modality} primary")
+        nb_result = fit_negbin_primary(endog, X, offset, label=f"{modality} primary")
         model_objects[f'{modality}_negbin_continuous'] = nb_result
         
-        output_lines = report_model(nb_result, f"{modality} — Primary (SVI continuous, per 10-percentile)", output_lines)
+        output_lines = report_model(nb_result, f"{modality} — Primary (SVI continuous, per 10-percentile, dispersion estimated)", output_lines)
         output_lines.append(f"\nPoisson AIC: {pois_result.aic:.1f} vs NegBin AIC: {nb_result.aic:.1f}")
         output_lines.append(f"→ {'Negative Binomial preferred' if nb_result.aic < pois_result.aic else 'Poisson preferred'}")
         
@@ -158,17 +186,17 @@ def main():
         # counties, and both indices track rurality. Any predictor reported from
         # this pipeline should be read from the adjusted model.
         X_adj = sm.add_constant(df[['svi_per10', 'metro_indicator']])
-        nb_adj = fit_negbin(endog, X_adj, offset, label=f"{modality} adjusted")
+        nb_adj = fit_negbin_primary(endog, X_adj, offset, label=f"{modality} adjusted")
         model_objects[f'{modality}_negbin_adjusted_metro'] = nb_adj
         output_lines = report_model(
-            nb_adj, f"{modality} — Primary adjusted for metropolitan status", output_lines)
+            nb_adj, f"{modality} — Primary adjusted for metropolitan status (dispersion estimated)", output_lines)
 
         # Same, with ordinal RUCC instead of the binary metro flag
         X_rucc = sm.add_constant(df[['svi_per10', 'rucc_code']])
-        nb_rucc = fit_negbin(endog, X_rucc, offset, label=f"{modality} adjusted RUCC")
+        nb_rucc = fit_negbin_primary(endog, X_rucc, offset, label=f"{modality} adjusted RUCC")
         model_objects[f'{modality}_negbin_adjusted_rucc'] = nb_rucc
         output_lines = report_model(
-            nb_rucc, f"{modality} — Primary adjusted for ordinal RUCC", output_lines)
+            nb_rucc, f"{modality} — Primary adjusted for ordinal RUCC (dispersion estimated)", output_lines)
 
         metro_irr = np.exp(nb_adj.params['metro_indicator'])
         metro_ci = np.exp(nb_adj.conf_int().loc['metro_indicator'])
@@ -179,7 +207,7 @@ def main():
 
         # --- Sensitivity 1: SVI Quartile Dummies ---
         X_q = sm.add_constant(df[['svi_q2', 'svi_q3', 'svi_q4']])
-        nb_q = fit_negbin(endog, X_q, offset, label=f"{modality} quartile")
+        nb_q = fit_negbin_primary(endog, X_q, offset, label=f"{modality} quartile")
         model_objects[f'{modality}_negbin_quartile'] = nb_q
         output_lines = report_model(nb_q, f"{modality} — Sensitivity: SVI Quartile Dummies (ref=Q1)", output_lines)
         
@@ -190,7 +218,7 @@ def main():
                 X_s = sm.add_constant(sub[['svi_per10']])
                 endog_s = sub[count_col].values
                 offset_s = sub['log_offset'].values
-                nb_s = fit_negbin(endog_s, X_s, offset_s, label=f"{modality} {metro_label}")
+                nb_s = fit_negbin_primary(endog_s, X_s, offset_s, label=f"{modality} {metro_label}")
                 model_objects[f'{modality}_negbin_{metro_label.lower()}'] = nb_s
                 output_lines = report_model(nb_s, f"{modality} — Stratified: {metro_label} only", output_lines)
     
@@ -198,6 +226,31 @@ def main():
     print("\n".join(output_lines))
     
     # Save
+    # ---- Sensitivity analyses, explicitly labelled ----
+    output_lines.append("\n\n" + "=" * 70)
+    output_lines.append("SENSITIVITY ANALYSES")
+    output_lines.append("=" * 70)
+    output_lines.append("Not the primary specification. The primary models above use NB2 with")
+    output_lines.append("the dispersion estimated and retain every county with SVI and a")
+    output_lines.append("positive population.")
+    df_re = df[df['rate_excluded'] == 0]
+    for modality, count_col in [('CMR', 'cmr_facility_count'), ('CCT', 'cct_facility_count')]:
+        Xa = sm.add_constant(df[['svi_per10', 'metro_indicator']])
+        fixed = fit_negbin(df[count_col].values, Xa, df['log_offset'].values,
+                           label=f"{modality} fixed alpha")
+        if fixed is not None:
+            output_lines = report_model(
+                fixed, f"{modality} — SENSITIVITY: fixed dispersion alpha = 1.0 "
+                       f"(n = {len(df)})", output_lines)
+        Xr = sm.add_constant(df_re[['svi_per10', 'metro_indicator']])
+        rest = fit_negbin_primary(df_re[count_col].values, Xr,
+                                  np.log(df_re['adult_pop_45plus']).values,
+                                  label=f"{modality} rate-eligible")
+        if rest is not None:
+            output_lines = report_model(
+                rest, f"{modality} — SENSITIVITY: rate-eligible counties only "
+                      f"(n = {len(df_re)})", output_lines)
+
     txt_path = os.path.join(MODEL_DIR, "regression_results.txt")
     with open(txt_path, 'w') as f:
         f.write("\n".join(output_lines))

@@ -8,50 +8,47 @@ MODALITY: CMR
 ══════════════════════════════════════════════════════════════════════
 
 ──────────────────────────────────────────────────────────────────────
-Model: CMR — Primary (SVI continuous, per 10-percentile)
+Model: CMR — Primary (SVI continuous, per 10-percentile, dispersion estimated)
 ──────────────────────────────────────────────────────────────────────
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              0.9978 (0.9588–1.0384)     0.9138
+svi_per10              0.9995 (0.9649–1.0355)     0.9796
 
-AIC: 1909.0
-Deviance: 792.9
-Pearson chi2: 1188.9
-N: 3038
+AIC: 1903.2
+Dispersion alpha (estimated): 0.5910
+N: 3144
 
-Poisson AIC: 1980.6 vs NegBin AIC: 1909.0
+Poisson AIC: 1981.3 vs NegBin AIC: 1903.2
 → Negative Binomial preferred
 
 ──────────────────────────────────────────────────────────────────────
-Model: CMR — Primary adjusted for metropolitan status
+Model: CMR — Primary adjusted for metropolitan status (dispersion estimated)
 ──────────────────────────────────────────────────────────────────────
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0040 (0.9628–1.0470)     0.8522
-metro_indicator        8.2808 (4.8038–14.2743)     0.0000
+svi_per10              1.0034 (0.9681–1.0400)     0.8536
+metro_indicator        8.5606 (5.0147–14.6141)     0.0000
 
-AIC: 1797.6
-Deviance: 679.5
-Pearson chi2: 1435.3
-N: 3038
+AIC: 1780.7
+Dispersion alpha (estimated): 0.4390
+N: 3144
 
 ──────────────────────────────────────────────────────────────────────
-Model: CMR — Primary adjusted for ordinal RUCC
+Model: CMR — Primary adjusted for ordinal RUCC (dispersion estimated)
 ──────────────────────────────────────────────────────────────────────
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0069 (0.9653–1.0504)     0.7482
-rucc_code              0.6963 (0.6370–0.7612)     0.0000
+svi_per10              1.0069 (0.9710–1.0441)     0.7120
+rucc_code              0.6998 (0.6446–0.7598)     0.0000
 
-AIC: 1811.4
-Deviance: 693.4
-Pearson chi2: 1381.0
-N: 3038
+AIC: 1794.2
+Dispersion alpha (estimated): 0.4288
+N: 3144
 
-Metropolitan status effect: IRR = 8.2808 (95% CI 4.804-14.274, p = 2.77e-14)
+Metropolitan status effect: IRR = 8.5606 (95% CI 5.015-14.614, p = 3.58e-15)
 
 ──────────────────────────────────────────────────────────────────────
 Model: CMR — Sensitivity: SVI Quartile Dummies (ref=Q1)
@@ -59,14 +56,13 @@ Model: CMR — Sensitivity: SVI Quartile Dummies (ref=Q1)
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_q2                 0.9802 (0.7076–1.3579)     0.9044
-svi_q3                 1.0956 (0.8006–1.4993)     0.5683
-svi_q4                 0.9561 (0.6904–1.3241)     0.7870
+svi_q2                 0.9958 (0.7455–1.3303)     0.9774
+svi_q3                 1.1252 (0.8527–1.4848)     0.4045
+svi_q4                 0.9679 (0.7255–1.2913)     0.8245
 
-AIC: 1911.9
-Deviance: 791.8
-Pearson chi2: 1198.3
-N: 3038
+AIC: 1905.6
+Dispersion alpha (estimated): 0.5774
+N: 3144
 
 ──────────────────────────────────────────────────────────────────────
 Model: CMR — Stratified: Metropolitan only
@@ -74,25 +70,23 @@ Model: CMR — Stratified: Metropolitan only
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0141 (0.9714–1.0587)     0.5226
+svi_per10              1.0110 (0.9746–1.0487)     0.5598
 
-AIC: 1664.1
-Deviance: 586.8
-Pearson chi2: 746.8
-N: 1180
+AIC: 1647.6
+Dispersion alpha (estimated): 0.4432
+N: 1186
 
 ──────────────────────────────────────────────────────────────────────
 Model: CMR — Stratified: Nonmetropolitan only
 ──────────────────────────────────────────────────────────────────────
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
-const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              0.8016 (0.6489–0.9904)     0.0404
+const                  0.0000 (nan–nan)        nan
+svi_per10              0.8036 (nan–nan)        nan
 
-AIC: 130.6
-Deviance: 87.8
-Pearson chi2: 581.0
-N: 1858
+AIC: 131.9
+Dispersion alpha (estimated): 0.0039
+N: 1958
 
 
 ══════════════════════════════════════════════════════════════════════
@@ -100,50 +94,47 @@ MODALITY: CCT
 ══════════════════════════════════════════════════════════════════════
 
 ──────────────────────────────────────────────────────────────────────
-Model: CCT — Primary (SVI continuous, per 10-percentile)
+Model: CCT — Primary (SVI continuous, per 10-percentile, dispersion estimated)
 ──────────────────────────────────────────────────────────────────────
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0255 (0.9939–1.0580)     0.1144
+svi_per10              1.0304 (1.0061–1.0552)     0.0138
 
-AIC: 3123.6
-Deviance: 1055.2
-Pearson chi2: 1374.1
-N: 3038
+AIC: 3027.9
+Dispersion alpha (estimated): 0.2219
+N: 3144
 
-Poisson AIC: 3110.5 vs NegBin AIC: 3123.6
-→ Poisson preferred
-
-──────────────────────────────────────────────────────────────────────
-Model: CCT — Primary adjusted for metropolitan status
-──────────────────────────────────────────────────────────────────────
-Variable                  IRR               95% CI    p-value
-────────────────────────────────────────────────────────────
-const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0315 (0.9988–1.0652)     0.0594
-metro_indicator        1.9736 (1.5859–2.4561)     0.0000
-
-AIC: 3082.6
-Deviance: 1012.2
-Pearson chi2: 1687.3
-N: 3038
+Poisson AIC: 3111.8 vs NegBin AIC: 3027.9
+→ Negative Binomial preferred
 
 ──────────────────────────────────────────────────────────────────────
-Model: CCT — Primary adjusted for ordinal RUCC
+Model: CCT — Primary adjusted for metropolitan status (dispersion estimated)
 ──────────────────────────────────────────────────────────────────────
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0346 (1.0015–1.0688)     0.0403
-rucc_code              0.8532 (0.8145–0.8937)     0.0000
+svi_per10              1.0330 (1.0087–1.0580)     0.0076
+metro_indicator        2.0834 (1.7114–2.5363)     0.0000
 
-AIC: 3071.6
-Deviance: 1001.2
-Pearson chi2: 1800.7
-N: 3038
+AIC: 2966.7
+Dispersion alpha (estimated): 0.1815
+N: 3144
 
-Metropolitan status effect: IRR = 1.9736 (95% CI 1.586-2.456, p = 1.11e-09)
+──────────────────────────────────────────────────────────────────────
+Model: CCT — Primary adjusted for ordinal RUCC (dispersion estimated)
+──────────────────────────────────────────────────────────────────────
+Variable                  IRR               95% CI    p-value
+────────────────────────────────────────────────────────────
+const                  0.0000 (0.0000–0.0000)     0.0000
+svi_per10              1.0350 (1.0105–1.0600)     0.0049
+rucc_code              0.8492 (0.8160–0.8837)     0.0000
+
+AIC: 2951.9
+Dispersion alpha (estimated): 0.1703
+N: 3144
+
+Metropolitan status effect: IRR = 2.0834 (95% CI 1.711-2.536, p = 2.60e-13)
 
 ──────────────────────────────────────────────────────────────────────
 Model: CCT — Sensitivity: SVI Quartile Dummies (ref=Q1)
@@ -151,14 +142,13 @@ Model: CCT — Sensitivity: SVI Quartile Dummies (ref=Q1)
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_q2                 1.2163 (0.9374–1.5782)     0.1407
-svi_q3                 1.3648 (1.0601–1.7570)     0.0158
-svi_q4                 1.1987 (0.9230–1.5569)     0.1741
+svi_q2                 1.2069 (0.9850–1.4788)     0.0696
+svi_q3                 1.3806 (1.1360–1.6779)     0.0012
+svi_q4                 1.2540 (1.0275–1.5304)     0.0259
 
-AIC: 3123.8
-Deviance: 1051.4
-Pearson chi2: 1377.6
-N: 3038
+AIC: 3027.0
+Dispersion alpha (estimated): 0.2199
+N: 3144
 
 ──────────────────────────────────────────────────────────────────────
 Model: CCT — Stratified: Metropolitan only
@@ -166,22 +156,82 @@ Model: CCT — Stratified: Metropolitan only
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
 const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              1.0445 (1.0075–1.0829)     0.0181
+svi_per10              1.0407 (1.0143–1.0677)     0.0023
 
-AIC: 2351.5
-Deviance: 589.8
-Pearson chi2: 571.6
-N: 1180
+AIC: 2243.4
+Dispersion alpha (estimated): 0.1882
+N: 1186
 
 ──────────────────────────────────────────────────────────────────────
 Model: CCT — Stratified: Nonmetropolitan only
 ──────────────────────────────────────────────────────────────────────
 Variable                  IRR               95% CI    p-value
 ────────────────────────────────────────────────────────────
-const                  0.0000 (0.0000–0.0000)     0.0000
-svi_per10              0.9792 (0.9112–1.0523)     0.5665
+const                  0.0000 (nan–nan)        nan
+svi_per10              0.9793 (nan–nan)        nan
 
-AIC: 730.7
-Deviance: 419.9
-Pearson chi2: 1117.9
-N: 1858
+AIC: 722.9
+Dispersion alpha (estimated): 0.0000
+N: 1958
+
+
+======================================================================
+SENSITIVITY ANALYSES
+======================================================================
+Not the primary specification. The primary models above use NB2 with
+the dispersion estimated and retain every county with SVI and a
+positive population.
+
+──────────────────────────────────────────────────────────────────────
+Model: CMR — SENSITIVITY: fixed dispersion alpha = 1.0 (n = 3144)
+──────────────────────────────────────────────────────────────────────
+Variable                  IRR               95% CI    p-value
+────────────────────────────────────────────────────────────
+const                  0.0000 (0.0000–0.0000)     0.0000
+svi_per10              1.0041 (0.9629–1.0470)     0.8500
+metro_indicator        8.3043 (4.8176–14.3145)     0.0000
+
+AIC: 1797.7
+Deviance: 679.7
+Pearson chi2: 1437.5
+N: 3144
+
+──────────────────────────────────────────────────────────────────────
+Model: CMR — SENSITIVITY: rate-eligible counties only (n = 3038)
+──────────────────────────────────────────────────────────────────────
+Variable                  IRR               95% CI    p-value
+────────────────────────────────────────────────────────────
+const                  0.0000 (0.0000–0.0000)     0.0000
+svi_per10              1.0033 (0.9680–1.0399)     0.8556
+metro_indicator        8.5361 (5.0002–14.5723)     0.0000
+
+AIC: 1780.6
+Dispersion alpha (estimated): 0.4389
+N: 3038
+
+──────────────────────────────────────────────────────────────────────
+Model: CCT — SENSITIVITY: fixed dispersion alpha = 1.0 (n = 3144)
+──────────────────────────────────────────────────────────────────────
+Variable                  IRR               95% CI    p-value
+────────────────────────────────────────────────────────────
+const                  0.0000 (0.0000–0.0000)     0.0000
+svi_per10              1.0317 (0.9990–1.0654)     0.0577
+metro_indicator        1.9794 (1.5906–2.4632)     0.0000
+
+AIC: 3083.3
+Deviance: 1012.9
+Pearson chi2: 1691.4
+N: 3144
+
+──────────────────────────────────────────────────────────────────────
+Model: CCT — SENSITIVITY: rate-eligible counties only (n = 3038)
+──────────────────────────────────────────────────────────────────────
+Variable                  IRR               95% CI    p-value
+────────────────────────────────────────────────────────────
+const                  0.0000 (0.0000–0.0000)     0.0000
+svi_per10              1.0329 (1.0086–1.0579)     0.0078
+metro_indicator        2.0777 (1.7067–2.5294)     0.0000
+
+AIC: 2965.9
+Dispersion alpha (estimated): 0.1815
+N: 3038

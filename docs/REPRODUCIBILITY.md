@@ -71,10 +71,10 @@ facility_count ~ index_per10 [+ rurality term] + offset(log(adult_pop_45plus))
 
 | Element | Choice | Reason |
 |---|---|---|
-| Family | Negative binomial, `alpha = 1.0` | Counts are overdispersed; see the note below |
+| Family | Negative binomial (NB2), **dispersion estimated** | Counts are overdispersed; better AIC and BIC than fixed `alpha = 1.0`, which is kept as a sensitivity |
 | Offset | `log(adults aged 45+)` | Converts the count model to a rate model |
 | Denominator | Adults aged 45+ | The population plausibly referred for cardiac imaging |
-| Exclusion | Counties with < 1,000 adults aged 45+ | 106 counties; their rates are unstable |
+| Rate exclusion | Counties with < 1,000 adults aged 45+ | 106 counties; their **rates** are unstable. They are **retained in the count regressions**, which carry a population offset |
 | Index scaling | Per 10 percentile points | Makes the IRR interpretable |
 | Rurality, primary | Binary metropolitan indicator (RUCC 1-3) | Pre-specified primary adjustment |
 | Rurality, sensitivity | Ordinal RUCC 1-9; metro-stratified fits | Shows the result is not an artifact of coding |
@@ -125,20 +125,36 @@ is, greater deprivation associated with *more* CCT capacity. They therefore
 provide no support for a deprivation-disadvantage interpretation under either
 family, and the paper's conclusions do not rest on them.
 
-### Robustness to the dispersion parameter
+### The dispersion parameter
 
-The models fix `alpha = 1.0` rather than estimating it. Re-fitting with alpha
-estimated by maximum likelihood gives alpha = 0.63 (unadjusted) and 0.46
-(adjusted) for the primary EDI-CMR models, and leaves every conclusion intact:
+The primary models estimate the dispersion rather than fixing it. The briefing
+asked for the dispersion parameter to be reported, and across every
+index/outcome combination the estimated-dispersion specification was better
+supported by both AIC and BIC than a specification with the dispersion fixed at
+1 (see `output/results/model_specification_comparison.csv`). Estimated alpha for
+the adjusted SVI models is CMR 0.44, CCT 0.18.
 
-| Estimate | alpha = 1.0 (reported) | alpha estimated |
+Fixing the dispersion at 1 is retained as a labelled sensitivity. It is not
+neutral: the two specifications disagree about SVI-CCT.
+
+| Estimate | dispersion estimated (primary) | alpha = 1.0 (sensitivity) |
 |---|---|---|
-| EDI-CMR, unadjusted | IRR 0.937, P = 0.0018 | IRR 0.943, P = 0.0014 |
-| EDI-CMR, adjusted | IRR 0.983, P = 0.434 | IRR 0.988, P = 0.507 |
-| Metropolitan status, CMR | IRR 8.23 | IRR 8.54 |
+| SVI-CMR, adjusted | IRR 1.003, P = 0.854 | IRR 1.004, P = 0.850 |
+| SVI-CCT, adjusted | IRR 1.033, P = 0.008 | IRR 1.032, P = 0.058 |
+| EDI-CMR, adjusted | IRR 0.993, P = 0.699 | IRR 0.990, P = 0.638 |
+| EDI-CCT, adjusted | IRR 1.016, P = 0.186 | IRR 1.010, P = 0.562 |
 
-The unadjusted association is significant either way, the adjusted association is
-null either way, and the metropolitan effect is large either way.
+The CMR conclusions are the same under both. The SVI-CCT association is
+significant under the primary specification and not under the fixed-alpha
+sensitivity; the manuscript reports the primary estimate and discloses the
+sensitivity.
+
+### Non-estimable inference
+
+The nonmetropolitan cardiac MR stratum contains 14 accredited facilities. At
+that event count the point estimate is obtainable but the confidence interval
+and P value are not. Those cells are reported as **NE**, never as `nan`, and
+never by substituting an interval from a different specification.
 
 ### Why adjustment matters here
 
