@@ -714,6 +714,59 @@ def _check_blanket_null(prose, checks):
                    not offenders))
 
 
+def _check_cohort_disclosure(prose, checks, audit_path):
+    """The primary cohort includes Under Review records; readers must be told.
+
+    The briefing defines the primary cohort as Accredited OR Under Review. The
+    manuscript otherwise calls every counted record "accredited", so without an
+    explicit sentence a reader would reasonably infer the stricter cohort.
+    """
+    checks.append(("Methods disclose the Under Review cohort", "present",
+                   "present" if re.search(r"Under Review", prose) else "ABSENT",
+                   bool(re.search(r"Under Review", prose))))
+    if not os.path.exists(audit_path):
+        return
+    a = pd.read_csv(audit_path, dtype=str)
+    inc = a[a.final_included == "True"]
+    counts = inc.status.value_counts()
+    for status in ("Accredited", "Under Review"):
+        n = int(counts.get(status, 0))
+        checks.append((f"cohort count, {status}", f"{n:,}",
+                       "found in text" if re.search(rf"\b{n:,}\b", prose) else "NOT IN TEXT",
+                       bool(re.search(rf"\b{n:,}\b", prose))))
+
+
+def _check_information_criteria(prose, checks, spec_csv):
+    """A claim about AIC and/or BIC must match the generated comparison.
+
+    The manuscript states the estimated-dispersion specification was better
+    supported by both criteria. That is only sayable if the comparison actually
+    generates BIC and the estimated fit wins on it everywhere.
+    """
+    claims_bic = bool(re.search(r"AIC and BIC|BIC and AIC", prose, re.I))
+    if not os.path.exists(spec_csv):
+        checks.append(("AIC/BIC claim is backed by generated output",
+                       "comparison present", "MISSING", not claims_bic))
+        return
+    t = pd.read_csv(spec_csv)
+    has_bic = "bic" in t.columns and t["bic"].notna().all()
+    combos = t.groupby(["index", "outcome"])
+    def sweep(criterion):
+        return all("estimated alpha" in g.loc[g[criterion].idxmin(), "specification"]
+                   for _, g in combos)
+    if claims_bic:
+        ok = has_bic and sweep("aic") and sweep("bic")
+        detail = ("supported" if ok else
+                  "BIC not generated" if not has_bic else
+                  "estimated dispersion does not win every comparison")
+        checks.append(("manuscript AIC+BIC claim matches generated comparison",
+                       "supported by AIC and BIC", detail, ok))
+    else:
+        checks.append(("manuscript AIC-only claim matches generated comparison",
+                       "supported by AIC", "supported" if sweep("aic") else "not supported",
+                       sweep("aic")))
+
+
 def _check_lengths(paragraphs, checks):
     """Summary Sentence and Abstract must meet the journal's stated limits.
 
@@ -856,6 +909,11 @@ def check_manuscript(R):
     # Journal limits. These were previously asserted only by a bracketed note
     # in the manuscript, which drifted out of date as the text was revised.
     _check_blanket_null(prose, checks)
+    _check_cohort_disclosure(prose, checks,
+                             os.path.join(PROC, "facility_mapping_audit.csv"))
+    _check_information_criteria(
+        prose, checks,
+        os.path.join(RESULTS, "model_specification_comparison.csv"))
     _check_lengths(prose_paragraphs, checks)
 
     ck_prose("Q1/Q5 gradient", f"{g['q1_over_q5_ratio']:.1f}-fold")
