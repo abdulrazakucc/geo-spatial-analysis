@@ -57,7 +57,7 @@ code { font-family: Menlo, Consolas, monospace; font-size: 8pt;
 <code>validation</code> branch of the ACR cardiac imaging analysis</p>
 <p class="meta">Geographic Disparities in ACR-Accredited Cardiac Imaging Across the
 United States &nbsp;·&nbsp; Generated 2026-08-07 &nbsp;·&nbsp;
-7 commits &nbsp;·&nbsp; Validation gate 124 &rarr; 156 checks</p>
+8 commits &nbsp;·&nbsp; Validation gate 124 &rarr; 162 checks</p>
 </div>
 
 <div class="plain">
@@ -182,7 +182,7 @@ bill of health.
 <p><b>Technical detail.</b> <code>ck_prose</code> used a substring search over
 the whole document, which is a one-sided test. The gate now also carries a
 <code>FORBIDDEN</code> list of obsolete values and phrases and fails if any
-appear. It grew from 124 checks to 156.</p>
+appear. It grew from 124 checks to 162.</p>
 
 <div class="divider"></div>
 
@@ -226,7 +226,158 @@ explicitly states the pattern is not monotonic. Describing it as a smooth
 gradient would have overstated the evidence.
 </div>
 
-<h2>4. What changed in the code</h2>
+
+<h2>4. Every figure, table and map</h2>
+<div class="plain">
+<b>In plain English.</b> The paper contains four figures, four tables and two
+supplementary items. Each one is produced by a named script from the shared
+dataset, so none of them can quietly disagree with another. This section says
+what each shows, what a reader should take from it, and whether the corrections
+changed it.
+</div>
+
+<h3>4.1 Figures and maps</h3>
+<table>
+<tr><th style="width:20%">Figure</th><th style="width:26%">What it shows</th>
+<th style="width:28%">How to read it</th><th>Effect of the corrections</th></tr>
+
+<tr><td><b>Figure 1A</b><br><span class="small">CMR choropleth map<br>
+<code>Figure1A_CMR_Choropleth</code></span></td>
+<td>A map of the United States, shaded county by county, showing accredited
+cardiac MR capacity per 100,000 adults aged 45 and over.</td>
+<td>A <i>choropleth</i> is a map where each area is coloured by a value. Darker
+means more capacity. Light grey means a county has no accredited facility at
+all — most of the map. White means the county was left out of rate calculations
+because it has fewer than 1,000 adults aged 45+, which would make a per-head
+rate meaningless.</td>
+<td><span class="chip chip-warn">changed</span> Connecticut was entirely blank
+before and now shows capacity. Counties containing recovered facilities changed
+shade.</td></tr>
+
+<tr class="alt"><td><b>Figure 1B</b><br><span class="small">Forest plot<br>
+<code>Figure1B_Unadjusted_vs_Adjusted</code></span></td>
+<td>Three stacked panels of statistical results: the SVI, the EDI, and
+metropolitan status, each as a dot with a horizontal line.</td>
+<td>A <i>forest plot</i> puts each result on its own row. The dot is the best
+estimate, the line is the range of uncertainty, and the vertical dashed line
+marks "no effect". If the horizontal line crosses the dashed line, the result is
+not statistically significant. Filled dots are significant, open dots are
+not.</td>
+<td><span class="chip chip-warn">changed</span> The cardiac CT rows for the SVI
+moved from open (not significant) to filled (significant), and the metropolitan
+panel shifted slightly.</td></tr>
+
+<tr><td><b>Figure 2</b><br><span class="small">Index comparison<br>
+<code>Figure2_SVI_vs_EDI_Comparison</code></span></td>
+<td>The two deprivation measures side by side across the same counties.</td>
+<td>Shows that the two indices broadly agree about which counties are
+disadvantaged, but not perfectly. This matters because the paper's argument
+depends on <i>how</i> each index relates to rural location.</td>
+<td><span class="chip">unchanged in shape</span> Redrawn from the corrected
+dataset; the relationship between the indices is the same.</td></tr>
+
+<tr class="alt"><td><b>Figure 3</b><br><span class="small">Quintile bar chart<br>
+<code>Figure3_EDI_Quintile_Rates</code></span></td>
+<td>Average cardiac imaging capacity across five equal groups of counties,
+ordered from least to most deprived.</td>
+<td>A <i>quintile</i> is one fifth of the data. Group 1 is the least deprived
+fifth, group 5 the most. If capacity fell steadily from group 1 to group 5 the
+bars would form a staircase.</td>
+<td><span class="chip chip-warn">changed materially</span> The staircase is gone.
+The bars no longer descend in order, and the lowest bar is now group 4, not
+group 5. This is why the paper's wording had to change.</td></tr>
+
+<tr><td><b>Supplementary figure</b><br><span class="small">CCT choropleth<br>
+<code>FigureS_CCT_Choropleth</code></span></td>
+<td>The same style of map as Figure 1A, but for cardiac CT.</td>
+<td>Cardiac CT is more widely available than cardiac MR, so this map has more
+shaded counties. The original project brief asked for both maps as one
+two-panel figure; the manuscript now uses the CMR map as Figure 1A and keeps
+this one as supplementary.</td>
+<td><span class="chip chip-warn">changed</span> Same cause as Figure 1A.</td></tr>
+
+<tr class="alt"><td><b>Supplementary figure</b><br><span class="small">External
+validation<br><code>FigureS_SDI_External_Validation</code></span></td>
+<td>A forest plot comparing the purpose-built EDI against an independent
+published index, the SDI.</td>
+<td>This is the paper's honesty check. If a finding only appears with the index
+the authors built themselves, that is a warning sign. This figure shows both
+indices side by side so a reader can judge.</td>
+<td><span class="chip chip-warn">changed</span> Under the corrected model
+several SDI estimates became statistically significant, and the manuscript text
+was rewritten to match.</td></tr>
+
+<tr><td><b>Combined map</b><br><span class="small"><code>figure1_choropleth</code></span></td>
+<td>Both choropleths in one two-panel image, as the original brief
+specified.</td>
+<td>Retained so the brief's original deliverable still exists, even though the
+manuscript now uses the panels separately.</td>
+<td><span class="chip chip-warn">changed</span> Same cause.</td></tr>
+</table>
+
+<h3>4.2 Tables</h3>
+<table>
+<tr><th style="width:20%">Table</th><th style="width:26%">What it shows</th>
+<th style="width:28%">How to read it</th><th>Effect of the corrections</th></tr>
+
+<tr><td><b>Table 1</b><br><span class="small">Capacity by vulnerability and
+rurality</span></td>
+<td>Counts and rates of facilities, broken down by social-vulnerability quartile
+and by metropolitan versus non-metropolitan status.</td>
+<td>A <i>quartile</i> is one quarter of the data. The rows let you compare the
+least vulnerable quarter of counties with the most vulnerable, and cities with
+rural areas. The rurality rows use all 3,144 counties; the deprivation quintile
+rows use the 3,029 counties large enough for a meaningful per-head rate.</td>
+<td><span class="chip chip-warn">changed</span> All facility counts rose, and
+the footnote denominator was corrected from 3,134 to 3,029.</td></tr>
+
+<tr class="alt"><td><b>Table 2</b><br><span class="small">Main regression
+results</span></td>
+<td>The central statistical table: how each deprivation index relates to
+capacity, before and after allowing for city-versus-rural location.</td>
+<td>Each cell is an <i>incidence rate ratio</i> with a range. 1.00 means no
+difference. The "adjusted" columns are the ones that matter, because they hold
+rurality constant.</td>
+<td><span class="chip chip-warn">changed</span> Every row was refitted under the
+corrected specification and sample. One conclusion flipped.</td></tr>
+
+<tr><td><b>Table 3</b><br><span class="small">Sensitivity analyses</span></td>
+<td>The same models re-run in different ways, to test whether the conclusion
+depends on an arbitrary choice.</td>
+<td>If a finding survives being analysed several different ways, it is more
+trustworthy. One row reports <b>NE</b>, meaning "not estimable": there were too
+few facilities in rural areas to calculate a reliable range, so the paper
+reports the estimate without pretending to precision it does not have.</td>
+<td><span class="chip chip-warn">changed</span> Refitted; the sparse rural row
+now reads NE instead of printing <code>nan</code>, and its facility count was
+corrected from 13 to 14.</td></tr>
+
+<tr class="alt"><td><b>Table 4</b><br><span class="small">External validation</span></td>
+<td>The purpose-built index compared against the independent published one.</td>
+<td>Supports the paper's central methodological claim: whether a deprivation
+signal appears at all depends on how strongly the chosen index reflects rural
+location.</td>
+<td><span class="chip chip-warn">changed</span> Refitted; the accompanying text
+was rewritten because several estimates are now significant.</td></tr>
+
+<tr><td><b>Supplementary table</b><br><span class="small">EDI regression
+detail</span></td>
+<td>The full set of economic-index models, including the rural and urban strata
+analysed separately.</td>
+<td>For readers who want to see every model rather than the summary.</td>
+<td><span class="chip chip-warn">changed</span> Refitted.</td></tr>
+
+<tr class="alt"><td><b>New result files</b><br><span class="small">
+<code>output/results/</code></span></td>
+<td>Four machine-readable outputs that did not exist before: the model
+comparison, the accredited-only cohort, the quartile sensitivity, and the index
+comparison.</td>
+<td>These exist so that a reviewer can check a claim without re-running
+anything, and so the figures and tables are drawn from the same numbers.</td>
+<td><span class="chip">new</span></td></tr>
+</table>
+
+<h2>5. What changed in the code</h2>
 <table>
 <tr><th style="width:32%">File</th><th>What it does now</th><th style="width:14%">Status</th></tr>
 <tr><td><code>code/facility_mapping.py</code></td><td><b>New.</b> Builds the
@@ -271,7 +422,7 @@ tests covering reconciliation, Connecticut, the mapping rule, and the removal of
 fabricated-data fallbacks.</td><td><span class="chip">new</span></td></tr>
 </table>
 
-<h2>5. What changed in the paper</h2>
+<h2>6. What changed in the paper</h2>
 <p>Every manuscript edit was applied as a tracked change, attributed and dated,
 and every replacement value was taken from generated output rather than typed by
 hand.</p>
@@ -300,7 +451,7 @@ estimable) with a footnote explaining why</td></tr>
 <td class="now">"adults aged ≥45 years"</td></tr>
 </table>
 
-<h2>6. New safeguards</h2>
+<h2>7. New safeguards</h2>
 <div class="plain">
 <b>In plain English.</b> The point of this work was not only to fix the numbers
 but to make the same class of mistake impossible to repeat quietly. Four things
@@ -321,7 +472,7 @@ specification lives in a single file. Scripts cannot quietly disagree about what
 "primary" means, which is exactly what had happened.</td></tr>
 </table>
 
-<h2>7. What did <i>not</i> change</h2>
+<h2>8. What did <i>not</i> change</h2>
 <div class="good">
 <b>The paper's central finding stands.</b> Accredited cardiac imaging is
 overwhelmingly concentrated in metropolitan counties —
@@ -335,7 +486,7 @@ proxies for imaging access without adjusting for rurality — also stands, and t
 external-index validation supports it.
 </div>
 
-<h2>8. Glossary</h2>
+<h2>9. Glossary</h2>
 <table>
 <tr><th style="width:26%">Term</th><th>Plain meaning</th></tr>
 <tr><td>Accredited facility</td><td>A site formally certified by the American
@@ -365,9 +516,52 @@ The deprivation pattern is <i>not</i> monotonic, which is why the wording
 changed.</td></tr>
 <tr><td>NE</td><td>Not estimable — a number that genuinely cannot be calculated
 from so few events, reported honestly instead of guessed.</td></tr>
+<tr class="alt"><td>ACR</td><td>American College of Radiology, the body that
+issues the accreditation counted here.</td></tr>
+<tr><td>ZIP code</td><td>US postal code. Facilities are recorded by ZIP, but the
+analysis needs counties, hence the translation table.</td></tr>
+<tr class="alt"><td>ZCTA</td><td>ZIP Code Tabulation Area — the Census Bureau's
+approximation of a ZIP code. Similar but not identical, and it does not exist
+for PO-box-only ZIP codes. This mismatch caused the lost facilities.</td></tr>
+<tr><td>HUD</td><td>US Department of Housing and Urban Development, publisher of
+the correct ZIP-to-county table.</td></tr>
+<tr class="alt"><td>RES_RATIO</td><td>The share of a ZIP code's <i>residential</i>
+addresses that fall in a given county. Where a ZIP straddles two counties, the
+county with the largest share wins.</td></tr>
+<tr><td>RUCC</td><td>Rural-Urban Continuum Code, a 1–9 scale from large city to
+remote rural. Codes 1–3 count as metropolitan.</td></tr>
+<tr class="alt"><td>ACS</td><td>American Community Survey, the Census Bureau
+survey supplying the population figures used as denominators.</td></tr>
+<tr><td>FIPS</td><td>Federal Information Processing Standards code — the
+five-digit number identifying each county.</td></tr>
+<tr class="alt"><td>Offset</td><td>A way of telling the model how many people
+each county has, so it compares <i>rates</i> rather than raw counts. Without it,
+big counties would dominate purely by size.</td></tr>
+<tr><td>NB2 / negative binomial</td><td>The type of counting model used. Suited
+to data where most counties have zero and a few have many.</td></tr>
+<tr class="alt"><td>Poisson</td><td>A simpler counting model that assumes less
+variability. Tested here and found to fit worse.</td></tr>
+<tr><td>Adjusted / unadjusted</td><td>"Adjusted" means the comparison holds
+something else constant — here, city-versus-rural status. Unadjusted comparisons
+can be misleading when two things travel together.</td></tr>
+<tr class="alt"><td>Quartile / quintile</td><td>Splitting the data into four
+equal groups, or five.</td></tr>
+<tr><td>Spearman rho (ρ)</td><td>A measure of whether two things rise and fall
+together, from −1 to +1. Near 0 means little relationship.</td></tr>
+<tr class="alt"><td>Kruskal-Wallis / Mann-Whitney</td><td>Tests for whether
+groups genuinely differ, which do not assume the data follow a bell curve.</td></tr>
+<tr><td>P value</td><td>How surprising the result would be if there were truly
+no relationship. Below 0.05 is the conventional threshold for calling something
+statistically significant. It is a convention, not a law of nature.</td></tr>
+<tr class="alt"><td>Sensitivity analysis</td><td>Re-running the analysis a
+different, defensible way to see whether the answer holds up.</td></tr>
+<tr><td>Choropleth</td><td>A map that colours each area according to a
+value.</td></tr>
+<tr class="alt"><td>Forest plot</td><td>A chart showing several statistical
+results stacked as dots with uncertainty ranges.</td></tr>
 </table>
 
-<h2>9. Verifying this yourself</h2>
+<h2>10. Verifying this yourself</h2>
 <p>No claim here has to be taken on trust. From a checkout of the
 <code>validation</code> branch:</p>
 <table>
@@ -384,9 +578,64 @@ from so few events, reported honestly instead of guessed.</td></tr>
 <td>Produces the clean submission file and validates that exact file.</td></tr>
 </table>
 
-<h2>10. The commits in this branch</h2>
+<h2>11. Independent reviewer audit, and what came of it</h2>
+<div class="plain">
+<b>In plain English.</b> An independent reviewer re-ran the statistics from the
+committed dataset without trusting the stored results, and reported seven
+issues. Every one was checked against the code before anything was changed. Five
+were correct and have been fixed. One was correct in part. One described code
+that had already been corrected before the audit was written.
+</div>
+<table>
+<tr><th style="width:34%">Reviewer finding</th><th style="width:14%">Verdict</th>
+<th>What was done</th></tr>
+<tr><td>Metropolitan and rural average rates in the Results were stale</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed: the text said 0.35 and 0.73 where the data give 0.37 and 0.75.
+Corrected, and the validator now checks these four values, which it never
+did.</td></tr>
+<tr class="alt"><td>Abstract deprivation and metropolitan figures were stale</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed against Table 2. Corrected from the generated results.</td></tr>
+<tr><td>Blanket "not independently associated" wording survives</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed in the Summary Sentence and the Conclusion. Both rewritten to
+qualify by modality and direction. The validator now forbids the whole family of
+such phrasings, not one exact sentence.</td></tr>
+<tr class="alt"><td>Table 1 footnote denominator should be 3,029, not 3,134</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed: the quintile rows sum to 3,029. The footnote conflated the
+count-regression sample with the rate-eligible sample. Corrected, and both
+denominators are now checked in their own roles.</td></tr>
+<tr><td>Submission DOCX has a dangling reference to a removed comments
+file</td><td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed, and it was a defect in our own tooling: the finalizer removed the
+comments part but left its relationship entry and content-type override. Fixed;
+both files now verify clean.</td></tr>
+<tr class="alt"><td>The validator hard-codes the working manuscript path</td>
+<td><span class="chip-neutral chip">partly correct</span></td>
+<td>An environment-variable override already existed, but the reviewer's
+substantive point stands: a report naming one file does not prove another
+passed. The validator now takes the path as an argument and has a strict mode
+that exits non-zero on failure. The submission file is validated by name.</td></tr>
+<tr><td>Publication script still refits regressions with the wrong dispersion,
+wrong scaling and a placeholder sensitivity</td>
+<td><span class="chip">already fixed</span></td>
+<td>Verified as no longer present. That code was removed earlier; the script now
+reads the canonical results and fits nothing. The reviewer was reading an
+earlier revision. Their diagnosis of what that code would have produced was
+nonetheless accurate, which is why it was removed.</td></tr>
+</table>
+<div class="good">
+<b>Why this section exists.</b> An audit that finds real problems is worth
+recording, including the part where our own tooling was at fault. Every finding
+above is now covered by an automated check, so the same issue cannot return
+unnoticed.
+</div>
+
+<h2>12. The commits in this branch</h2>
 <table><tr><th style="width:14%">Commit</th><th>Description</th></tr>
-<tr><td><code>8f80882</code></td><td>Correct facility-to-county mapping; evaluate count-model dispersion</td></tr><tr class='alt'><td><code>7721d11</code></td><td>Add HUD-USPS ZIP-county crosswalk fetcher</td></tr><tr><td><code>dcd216f</code></td><td>Use the HUD-USPS crosswalk; all 2,264 eligible records now map</td></tr><tr class='alt'><td><code>65c6938</code></td><td>Add post-HUD audit report</td></tr><tr><td><code>2a253b1</code></td><td>Adopt estimated-dispersion NB as primary; restore count-regression sample</td></tr><tr class='alt'><td><code>155214e</code></td><td>Add generated comparison report (HTML + PDF)</td></tr><tr><td><code>f9cdeb7</code></td><td>Route all regressions through model_spec; finalize submission manuscript</td></tr></table>
+<tr><td><code>8f80882</code></td><td>Correct facility-to-county mapping; evaluate count-model dispersion</td></tr><tr class='alt'><td><code>7721d11</code></td><td>Add HUD-USPS ZIP-county crosswalk fetcher</td></tr><tr><td><code>dcd216f</code></td><td>Use the HUD-USPS crosswalk; all 2,264 eligible records now map</td></tr><tr class='alt'><td><code>65c6938</code></td><td>Add post-HUD audit report</td></tr><tr><td><code>2a253b1</code></td><td>Adopt estimated-dispersion NB as primary; restore count-regression sample</td></tr><tr class='alt'><td><code>155214e</code></td><td>Add generated comparison report (HTML + PDF)</td></tr><tr><td><code>f9cdeb7</code></td><td>Route all regressions through model_spec; finalize submission manuscript</td></tr><tr class='alt'><td><code>83be76b</code></td><td>Add detailed main vs validation comparison (HTML + PDF)</td></tr></table>
 
 <p class="small" style="margin-top:6mm">Generated by
 <code>tools/build_branch_comparison.py</code>. The "before" column is read from

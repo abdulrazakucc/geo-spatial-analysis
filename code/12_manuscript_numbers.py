@@ -35,8 +35,10 @@ RUN
     python code/12_manuscript_numbers.py
 """
 
+import argparse
 import json
 import os
+import sys
 import re
 import warnings
 
@@ -620,7 +622,9 @@ FORBIDDEN = [
     (r"\bADI\b", "the index was renamed EDI"),
     # Superseded analytic sample and specification
     (r"n = 3,038|3,038 counties", "pre-decision SVI sample (count models now n = 3,144)"),
-    (r"3,029 counties|n = 3,029", "pre-decision EDI sample (count models now n = 3,134)"),
+    (r"n = 3,029|3,029 \(EDI\)|Analytic sample: 3,029",
+     "pre-decision EDI regression sample (count models now n = 3,134). "
+     "3,029 remains correct as the quintile/rate-eligible denominator"),
     (r"3,027 \(SDI\)|3,027 counties", "pre-decision SDI sample (now 3,133)"),
     (r"≥48 years|>=48 years", "typo; the denominator is adults aged 45 and older"),
     # Categorical null claims the primary model does not support
@@ -638,6 +642,16 @@ FORBIDDEN = [
      "pre-decision EDI metropolitan estimates"),
     (r"13 accredited CMR facilities|only 13 accredited",
      "the nonmetropolitan CMR stratum contains 14 facilities"),
+    # Blanket null claims anywhere in the paper. The adjusted SVI-CCT
+    # association is positive and significant under the primary model, so a
+    # statement that deprivation indices were not associated with capacity
+    # "either way" or "independently" contradicts Table 2 wherever it appears.
+    (r"(deprivation|SVI|EDI|indices?)[^.]{0,80}not independently associated",
+     "adjusted SVI-CCT is positive and significant; qualify by modality"),
+    (r"neither (index|the SVI nor)[^.]{0,60}associated with capacity",
+     "adjusted SVI-CCT is positive and significant; qualify by modality"),
+    (r"no (index|deprivation measure) was associated with capacity",
+     "adjusted SVI-CCT is positive and significant; qualify by modality"),
 ]
 
 
@@ -689,6 +703,21 @@ def check_manuscript(R):
     ck_prose("PCA variance", f"{pc['pca_variance_explained'] * 100:.1f}%")
     ck_prose("SVI-EDI Pearson r", f"{c['svi_edi_pearson_r']:.2f}",
              rf"Pearson r = {c['svi_edi_pearson_r']:.2f}")
+    # Mean rates by rurality are quoted in the Results but were never checked,
+    # so they silently went stale when the facility mapping was corrected.
+    ck_prose("mean CMR rate, metro vs nonmetro",
+             f"{d['metro_cmr_mean_rate']:.2f} versus {d['nonmetro_cmr_mean_rate']:.2f}",
+             rf"{d['metro_cmr_mean_rate']:.2f} versus {d['nonmetro_cmr_mean_rate']:.2f}")
+    ck_prose("mean CCT rate, metro vs nonmetro",
+             f"{d['metro_cct_mean_rate']:.2f} versus {d['nonmetro_cct_mean_rate']:.2f}",
+             rf"{d['metro_cct_mean_rate']:.2f} versus {d['nonmetro_cct_mean_rate']:.2f}")
+
+    # The Table 1 footnote must quote the quintile denominator, which is the
+    # rate-eligible EDI sample, not the larger count-regression sample.
+    q_denom = sum(R["table1"][f"edi_q{i}"]["counties"] for i in range(1, 6))
+    ck_prose("Table 1 quintile denominator", f"{q_denom:,} counties",
+             rf"{q_denom:,} counties with")
+
     ck_prose("Q1/Q5 gradient", f"{g['q1_over_q5_ratio']:.1f}-fold")
     ck_prose("Q1 CMR rate", f"{g['cmr_rate_by_edi_quintile'][0]:.2f}")
     ck_prose("Q5 CMR rate", f"{g['cmr_rate_by_edi_quintile'][4]:.2f}")
@@ -818,6 +847,19 @@ def check_manuscript(R):
 
 
 def main():
+    ap = argparse.ArgumentParser(
+        description="Recompute every manuscript number and check a manuscript "
+                    "against the data.")
+    ap.add_argument("manuscript", nargs="?", default=MANUSCRIPT,
+                    help="path to the .docx to check. Defaults to the working "
+                         "file, or MANUSCRIPT_OVERRIDE if set. Point this at "
+                         "manuscript_SUBMISSION.docx to prove the submitted "
+                         "file passes.")
+    ap.add_argument("--strict", action="store_true",
+                    help="exit non-zero if any check fails")
+    args = ap.parse_args()
+    globals()["MANUSCRIPT"] = args.manuscript
+
     m = load()
     R = {
         "descriptives": descriptives(m),
@@ -846,6 +888,14 @@ def main():
     print(check)
     print(f"Wrote {os.path.relpath(OUT, BASE_DIR)}/manuscript_numbers.json, .txt and manuscript_check.txt")
 
+    mismatches = int(re.search(r"Mismatches:\s+(\d+)", check).group(1)) \
+        if "Mismatches:" in check else 0
+    if args.strict and mismatches:
+        print(f"\nFAILED: {mismatches} mismatch(es) against "
+              f"{os.path.relpath(MANUSCRIPT, BASE_DIR)}")
+        return 1
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

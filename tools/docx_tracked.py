@@ -48,6 +48,7 @@ from __future__ import annotations
 
 import copy
 import datetime as _dt
+import os
 import re
 import shutil
 import zipfile
@@ -312,12 +313,46 @@ class TrackedDocument:
                 counts["comment_marks_removed"] += 1
                 el.getparent().remove(el)
 
-        # Drop the comment parts from the package entirely.
-        for name in [n for n in self._names
-                     if "comments" in n.lower() or "commentsExtended" in n]:
+        # Drop the comment parts from the package, and every reference to
+        # them. Removing the part alone leaves a dangling relationship in
+        # word/_rels/document.xml.rels and an orphan override in
+        # [Content_Types].xml, which some validators flag as a corrupt package.
+        removed = [n for n in self._names if "comments" in n.lower()]
+        for name in removed:
             self._names.remove(name)
             self._blobs.pop(name, None)
+        if removed:
+            self._prune_part_references(removed)
         return counts
+
+    def _prune_part_references(self, removed_parts):
+        """Drop relationship and content-type entries for deleted parts."""
+        basenames = {os.path.basename(n) for n in removed_parts}
+
+        for rels_name in [n for n in self._names if n.endswith(".rels")]:
+            root = etree.fromstring(self._blobs[rels_name])
+            changed = False
+            for rel in list(root):
+                target = (rel.get("Target") or "").lstrip("./")
+                if os.path.basename(target) in basenames:
+                    root.remove(rel)
+                    changed = True
+            if changed:
+                self._blobs[rels_name] = etree.tostring(
+                    root, xml_declaration=True, encoding="UTF-8", standalone=True)
+
+        ct = "[Content_Types].xml"
+        if ct in self._blobs:
+            root = etree.fromstring(self._blobs[ct])
+            changed = False
+            for node in list(root):
+                part = (node.get("PartName") or "").lstrip("/")
+                if part and os.path.basename(part) in basenames:
+                    root.remove(node)
+                    changed = True
+            if changed:
+                self._blobs[ct] = etree.tostring(
+                    root, xml_declaration=True, encoding="UTF-8", standalone=True)
 
     def save(self, dest=None):
         """Write the document. Backs up in place when overwriting the source."""
