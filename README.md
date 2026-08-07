@@ -193,13 +193,15 @@ the manuscript is unpublished.
 
 | Branch | Contents |
 |---|---|
-| `updated-results` | **This branch.** The current analysis, carrying the corrected facility-to-county mapping and the estimated-dispersion model specification. Intended for submission and for merge into `main` once agreed. |
-| `main` | The previous state of the analysis, retained for comparison until this branch is merged. |
+| `main` | **This branch.** The current analysis and everything needed to reproduce and review it. |
+| `old` | The state of the analysis before the facility-mapping correction and the change of primary model specification. Retained for reference only; its results are superseded. |
+| `validation` | Working branch. Carries the same analysis plus the audit reports and branch-comparison documents produced while the corrections were made. |
 | `webapp` | The read-only MapLibre dashboard, its Docker deployment, and ancillary material (slide deck, workflow PDF, collaborator deliverables). Kept off the analysis branches so a reviewer sees only the analysis. |
 
 Working notes, audit reports and branch-comparison documents are deliberately
 not carried here. This branch contains the analysis, the data needed to
 reproduce it, and the documentation required to review it — nothing else.
+Those working documents live on `validation` if you need them.
 
 Script numbers reflect the order in which the analyses were developed. Stage
 letters, not numbers, indicate execution order; `00_run_all.py` runs them
