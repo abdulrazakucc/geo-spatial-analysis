@@ -4,71 +4,83 @@ COUNT-MODEL SPECIFICATION COMPARISON
 Poisson vs negative binomial with alpha estimated vs alpha fixed at 1.0.
 IRR is per 10-point increase in the index. Lower AIC is better.
 
-Model                     OutcomeSpecification                   alpha       AIC     IRR            95% CI        P  
+Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
-SVI unadjusted            CMR    Poisson                           -      1981.3   1.004       0.976-1.032   0.7958
-SVI unadjusted            CMR    NB2, estimated alpha            0.591    1903.2   1.000       0.965-1.035   0.9796
-SVI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    1909.6   0.998       0.959-1.039   0.9234
-SVI unadjusted            CCT    Poisson                           -      3111.8   1.037       1.018-1.058   0.0002 *
-SVI unadjusted            CCT    NB2, estimated alpha            0.222    3027.9   1.030       1.006-1.055   0.0138 *
-SVI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000    3124.7   1.026       0.994-1.058   0.1102
-    best fit for CCT: NB2, estimated alpha (AIC 3027.9)
-    best fit for CMR: NB2, estimated alpha (AIC 1903.2)
+SVI unadjusted            CMR    Poisson                           -      -988.6    1981.3    1993.4   1.004       0.976-1.032   0.7958
+SVI unadjusted            CMR    NB2, estimated alpha            0.591    -948.6    1903.2    1921.4   1.000       0.965-1.035   0.9796
+SVI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -952.8    1909.6    1921.7   0.998       0.959-1.039   0.9234
+SVI unadjusted            CCT    Poisson                           -     -1553.9    3111.8    3123.9   1.037       1.018-1.058   0.0002 *
+SVI unadjusted            CCT    NB2, estimated alpha            0.222   -1510.9    3027.9    3046.0   1.030       1.006-1.055   0.0138 *
+SVI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1560.4    3124.7    3136.8   1.026       0.994-1.058   0.1102
+    best fit for CCT by AIC: NB2, estimated alpha (AIC 3027.9)
+    best fit for CMR by AIC: NB2, estimated alpha (AIC 1903.2)
+    best fit for CCT by BIC: NB2, estimated alpha (BIC 3046.0)
+    best fit for CMR by BIC: NB2, estimated alpha (BIC 1921.4)
 
-Model                     OutcomeSpecification                   alpha       AIC     IRR            95% CI        P  
+Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
-SVI adjusted              CMR    Poisson                           -      1838.0   0.999       0.971-1.027   0.9247
-SVI adjusted              CMR    NB2, estimated alpha            0.439    1780.7   1.003       0.968-1.040   0.8536
-SVI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    1797.7   1.004       0.963-1.047   0.8500
-SVI adjusted              CCT    Poisson                           -      3033.7   1.035       1.015-1.055   0.0006 *
-SVI adjusted              CCT    NB2, estimated alpha            0.182    2966.7   1.033       1.009-1.058   0.0076 *
-SVI adjusted              CCT    NB2, alpha = 1.0 (sensitivity)  1.000    3083.3   1.032       0.999-1.065   0.0577
-    best fit for CCT: NB2, estimated alpha (AIC 2966.7)
-    best fit for CMR: NB2, estimated alpha (AIC 1780.7)
+SVI adjusted              CMR    Poisson                           -      -916.0    1838.0    1856.1   0.999       0.971-1.027   0.9247
+SVI adjusted              CMR    NB2, estimated alpha            0.439    -886.4    1780.7    1805.0   1.003       0.968-1.040   0.8536
+SVI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -895.9    1797.7    1815.9   1.004       0.963-1.047   0.8500
+SVI adjusted              CCT    Poisson                           -     -1513.9    3033.7    3051.9   1.035       1.015-1.055   0.0006 *
+SVI adjusted              CCT    NB2, estimated alpha            0.182   -1479.3    2966.7    2990.9   1.033       1.009-1.058   0.0076 *
+SVI adjusted              CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1538.7    3083.3    3101.5   1.032       0.999-1.065   0.0577
+    best fit for CCT by AIC: NB2, estimated alpha (AIC 2966.7)
+    best fit for CMR by AIC: NB2, estimated alpha (AIC 1780.7)
+    best fit for CCT by BIC: NB2, estimated alpha (BIC 2990.9)
+    best fit for CMR by BIC: NB2, estimated alpha (BIC 1805.0)
 
-Model                     OutcomeSpecification                   alpha       AIC     IRR            95% CI        P  
+Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
-EDI unadjusted            CMR    Poisson                           -      1947.0   0.963       0.938-0.990   0.0074 *
-EDI unadjusted            CMR    NB2, estimated alpha            0.595    1868.4   0.948       0.915-0.982   0.0029 *
-EDI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    1874.5   0.943       0.906-0.982   0.0041 *
-EDI unadjusted            CCT    Poisson                           -      3102.4   1.002       0.984-1.021   0.8107
-EDI unadjusted            CCT    NB2, estimated alpha            0.242    3007.5   0.989       0.967-1.013   0.3718
-EDI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000    3096.1   0.981       0.951-1.011   0.2099
-    best fit for CCT: NB2, estimated alpha (AIC 3007.5)
-    best fit for CMR: NB2, estimated alpha (AIC 1868.4)
+EDI unadjusted            CMR    Poisson                           -      -971.5    1947.0    1959.1   0.963       0.938-0.990   0.0074 *
+EDI unadjusted            CMR    NB2, estimated alpha            0.595    -931.2    1868.4    1886.5   0.948       0.915-0.982   0.0029 *
+EDI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -935.2    1874.5    1886.6   0.943       0.906-0.982   0.0041 *
+EDI unadjusted            CCT    Poisson                           -     -1549.2    3102.4    3114.5   1.002       0.984-1.021   0.8107
+EDI unadjusted            CCT    NB2, estimated alpha            0.242   -1500.7    3007.5    3025.6   0.989       0.967-1.013   0.3718
+EDI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1546.1    3096.1    3108.2   0.981       0.951-1.011   0.2099
+    best fit for CCT by AIC: NB2, estimated alpha (AIC 3007.5)
+    best fit for CMR by AIC: NB2, estimated alpha (AIC 1868.4)
+    best fit for CCT by BIC: NB2, estimated alpha (BIC 3025.6)
+    best fit for CMR by BIC: NB2, estimated alpha (BIC 1886.5)
 
-Model                     OutcomeSpecification                   alpha       AIC     IRR            95% CI        P  
+Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
-EDI adjusted              CMR    Poisson                           -      1813.3   0.995       0.968-1.023   0.7274
-EDI adjusted              CMR    NB2, estimated alpha            0.440    1756.9   0.993       0.958-1.029   0.6989
-EDI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    1773.4   0.990       0.948-1.033   0.6378
-EDI adjusted              CCT    Poisson                           -      3018.3   1.022       1.003-1.041   0.0227 *
-EDI adjusted              CCT    NB2, estimated alpha            0.192    2947.9   1.016       0.992-1.041   0.1862
-EDI adjusted              CCT    NB2, alpha = 1.0 (sensitivity)  1.000    3057.9   1.010       0.977-1.044   0.5618
-    best fit for CCT: NB2, estimated alpha (AIC 2947.9)
-    best fit for CMR: NB2, estimated alpha (AIC 1756.9)
+EDI adjusted              CMR    Poisson                           -      -903.6    1813.3    1831.4   0.995       0.968-1.023   0.7274
+EDI adjusted              CMR    NB2, estimated alpha            0.440    -874.4    1756.9    1781.1   0.993       0.958-1.029   0.6989
+EDI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -883.7    1773.4    1791.5   0.990       0.948-1.033   0.6378
+EDI adjusted              CCT    Poisson                           -     -1506.2    3018.3    3036.5   1.022       1.003-1.041   0.0227 *
+EDI adjusted              CCT    NB2, estimated alpha            0.192   -1469.9    2947.9    2972.1   1.016       0.992-1.041   0.1862
+EDI adjusted              CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1525.9    3057.9    3076.0   1.010       0.977-1.044   0.5618
+    best fit for CCT by AIC: NB2, estimated alpha (AIC 2947.9)
+    best fit for CMR by AIC: NB2, estimated alpha (AIC 1756.9)
+    best fit for CCT by BIC: NB2, estimated alpha (BIC 2972.1)
+    best fit for CMR by BIC: NB2, estimated alpha (BIC 1781.1)
 
-Model                     OutcomeSpecification                   alpha       AIC     IRR            95% CI        P  
+Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
-SDI unadjusted            CMR    Poisson                           -      1951.0   1.024       0.998-1.050   0.0742
-SDI unadjusted            CMR    NB2, estimated alpha            0.581    1876.4   1.017       0.984-1.051   0.3222
-SDI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    1883.0   1.015       0.976-1.054   0.4614
-SDI unadjusted            CCT    Poisson                           -      3090.0   1.032       1.014-1.050   0.0004 *
-SDI unadjusted            CCT    NB2, estimated alpha            0.231    3003.7   1.025       1.002-1.048   0.0329 *
-SDI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000    3095.8   1.021       0.990-1.052   0.1835
-    best fit for CCT: NB2, estimated alpha (AIC 3003.7)
-    best fit for CMR: NB2, estimated alpha (AIC 1876.4)
+SDI unadjusted            CMR    Poisson                           -      -973.5    1951.0    1963.1   1.024       0.998-1.050   0.0742
+SDI unadjusted            CMR    NB2, estimated alpha            0.581    -935.2    1876.4    1894.6   1.017       0.984-1.051   0.3222
+SDI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -939.5    1883.0    1895.1   1.015       0.976-1.054   0.4614
+SDI unadjusted            CCT    Poisson                           -     -1543.0    3090.0    3102.1   1.032       1.014-1.050   0.0004 *
+SDI unadjusted            CCT    NB2, estimated alpha            0.231   -1498.8    3003.7    3021.8   1.025       1.002-1.048   0.0329 *
+SDI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1545.9    3095.8    3107.9   1.021       0.990-1.052   0.1835
+    best fit for CCT by AIC: NB2, estimated alpha (AIC 3003.7)
+    best fit for CMR by AIC: NB2, estimated alpha (AIC 1876.4)
+    best fit for CCT by BIC: NB2, estimated alpha (BIC 3021.8)
+    best fit for CMR by BIC: NB2, estimated alpha (BIC 1894.6)
 
-Model                     OutcomeSpecification                   alpha       AIC     IRR            95% CI        P  
+Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
-SDI adjusted              CMR    Poisson                           -      1808.4   1.030       1.004-1.056   0.0248 *
-SDI adjusted              CMR    NB2, estimated alpha            0.428    1752.9   1.035       1.001-1.070   0.0425 *
-SDI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    1770.5   1.035       0.995-1.078   0.0891
-SDI adjusted              CCT    Poisson                           -      3008.3   1.035       1.017-1.054   0.0001 *
-SDI adjusted              CCT    NB2, estimated alpha            0.186    2940.6   1.035       1.012-1.058   0.0027 *
-SDI adjusted              CCT    NB2, alpha = 1.0 (sensitivity)  1.000    3053.4   1.035       1.003-1.068   0.0313 *
-    best fit for CCT: NB2, estimated alpha (AIC 2940.6)
-    best fit for CMR: NB2, estimated alpha (AIC 1752.9)
+SDI adjusted              CMR    Poisson                           -      -901.2    1808.4    1826.5   1.030       1.004-1.056   0.0248 *
+SDI adjusted              CMR    NB2, estimated alpha            0.428    -872.5    1752.9    1777.1   1.035       1.001-1.070   0.0425 *
+SDI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -882.3    1770.5    1788.7   1.035       0.995-1.078   0.0891
+SDI adjusted              CCT    Poisson                           -     -1501.1    3008.3    3026.4   1.035       1.017-1.054   0.0001 *
+SDI adjusted              CCT    NB2, estimated alpha            0.186   -1466.3    2940.6    2964.8   1.035       1.012-1.058   0.0027 *
+SDI adjusted              CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1523.7    3053.4    3071.5   1.035       1.003-1.068   0.0313 *
+    best fit for CCT by AIC: NB2, estimated alpha (AIC 2940.6)
+    best fit for CMR by AIC: NB2, estimated alpha (AIC 1752.9)
+    best fit for CCT by BIC: NB2, estimated alpha (BIC 2964.8)
+    best fit for CMR by BIC: NB2, estimated alpha (BIC 1777.1)
 
 ====================================================================================================
 SPECIFICATION-DEPENDENT CONCLUSIONS
@@ -97,4 +109,12 @@ SPECIFICATION-DEPENDENT CONCLUSIONS
       Poisson                        P = 0.0002  significant
       NB2, estimated alpha           P = 0.0138  significant
       NB2, alpha = 1.0 (sensitivity) P = 0.1102  not significant
+
+====================================================================================================
+SPECIFICATION CHOSEN BY INFORMATION CRITERIA
+====================================================================================================
+  Estimated-dispersion NB2 has the lowest AIC in 12 of 12 model/outcome combinations,
+  and the lowest BIC in 12 of 12.
+  The estimated-dispersion specification is better supported by both
+  AIC and BIC in every comparison.
 

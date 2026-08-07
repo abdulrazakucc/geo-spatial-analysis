@@ -735,7 +735,7 @@ results stacked as dots with uncertainty ranges.</td></tr>
 <td>Produces the clean submission file and validates that exact file.</td></tr>
 </table>
 
-<h2>11. Independent reviewer audit, and what came of it</h2>
+<h2>11. Independent reviewer audits, and what came of them</h2>
 <div class="plain">
 <b>In plain English.</b> An independent reviewer re-ran the statistics from the
 committed dataset without trusting the stored results, and reported seven
@@ -783,11 +783,58 @@ reads the canonical results and fits nothing. The reviewer was reading an
 earlier revision. Their diagnosis of what that code would have produced was
 nonetheless accurate, which is why it was removed.</td></tr>
 </table>
+<h3>Second audit round</h3>
+<p>A follow-up audit re-checked the branch. Seven of its thirteen findings had
+already been fixed in the intervening commit; six were new or still open and
+have now been addressed.</p>
+<table>
+<tr><th style="width:34%">Finding</th><th style="width:14%">Verdict</th>
+<th>What was done</th></tr>
+<tr><td>"The two indices … gave the same result" is false</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed: the EDI is null for both modalities after adjustment while the
+SVI is positive and significant for cardiac CT. The sentence was rewritten to
+state what each index actually shows, and the gate now forbids the claim.</td></tr>
+<tr class="alt"><td>Methods claim AIC <i>and</i> BIC, but only AIC was
+generated</td><td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed. BIC is now computed for every model, recomputed from the
+log-likelihood and parameter count so the three specifications are comparable —
+statsmodels reports BIC differently for GLM and discrete models. The
+estimated-dispersion specification has the lowest AIC <b>and</b> the lowest BIC
+in 12 of 12 comparisons, so the Methods statement stands and is now backed by
+output.</td></tr>
+<tr><td>Stale diagnostic: "negative binomial beats Poisson in 5 of 8"</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed. That line compared the fixed-alpha <i>sensitivity</i> against
+Poisson, not the primary model. It is now labelled as such, and the primary
+verdict is read from the canonical comparison file.</td></tr>
+<tr class="alt"><td>The manuscript test could pass on a stale report</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed: it read an existing file rather than running anything. The tests
+now execute the validator live, in strict mode, and assert that the report names
+the file that was checked. A separate test proves the submission file passes by
+name, and another checks it for tracked changes, comments and dangling package
+references.</td></tr>
+<tr><td>Publication script remains a reproducibility risk in <code>--all</code></td>
+<td><span class="chip-neutral chip">partly</span></td>
+<td>It no longer fits any regression — that was fixed earlier. A new test now
+asserts it cannot regress: it fails if the script regains a fixed-dispersion
+fit, the mis-scaled predictor, or the placeholder sensitivity, and checks its
+output carries the canonical sample size and estimate.</td></tr>
+<tr class="alt"><td>README carries stale statements</td>
+<td><span class="chip chip-warn">correct</span></td>
+<td>Confirmed: a superseded SDI result, wording that read as though fixed alpha
+were still current, and an "applied identically in every script" claim that was
+too strong. All three corrected.</td></tr>
+</table>
+
 <div class="good">
-<b>Why this section exists.</b> An audit that finds real problems is worth
-recording, including the part where our own tooling was at fault. Every finding
-above is now covered by an automated check, so the same issue cannot return
-unnoticed.
+<b>Why this section exists.</b> Audits that find real problems are worth
+recording, including the parts where our own tooling was at fault. Every finding
+above is now covered by an automated check, so none of them can return
+unnoticed. Where an audit reported something already fixed, that is noted rather
+than quietly dropped — a reader deserves to know which claims were live and
+which had been overtaken.
 </div>
 
 <h2>12. The commits in this branch</h2>

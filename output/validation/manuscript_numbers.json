@@ -584,7 +584,7 @@
     "quintile_rate_definition": "unweighted mean of county-level rates"
   },
   "pca": {
-    "pca_variance_explained": 0.58729168515811,
+    "pca_variance_explained": 0.5872916851581094,
     "pca_n_counties": 3134,
     "pca_features": [
       "EP_POV150",

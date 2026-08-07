@@ -64,11 +64,25 @@ def load():
     return m
 
 
+def _bic(res):
+    """BIC computed the same way for every specification.
+
+    statsmodels reports BIC inconsistently across model classes: GLM exposes a
+    deviance-based `bic` while the discrete models expose a likelihood-based
+    one, so the two are not comparable as returned. Both are recomputed here
+    from the log-likelihood and the number of estimated parameters, counting
+    the dispersion parameter for the estimated-alpha fit.
+    """
+    k = len(res.params)          # includes alpha for the discrete NB2 fit
+    return float(-2.0 * res.llf + k * np.log(res.nobs))
+
+
 def _row(index, outcome, spec, alpha, res, term, converged):
     irr = float(np.exp(res.params[term]))
     lo, hi = np.exp(res.conf_int().loc[term])
     return {"index": index, "outcome": outcome, "specification": spec,
-            "alpha": alpha, "aic": float(res.aic), "irr": irr,
+            "alpha": alpha, "aic": float(res.aic), "bic": _bic(res),
+            "log_likelihood": float(res.llf), "irr": irr,
             "ci_low": float(lo), "ci_high": float(hi),
             "p_value": float(res.pvalues[term]), "converged": bool(converged),
             "n": int(res.nobs)}
@@ -125,7 +139,8 @@ def main():
          "IRR is per 10-point increase in the index. Lower AIC is better.",
          ""]
     hdr = (f"{'Model':<26}{'Outcome':<7}{'Specification':<30}"
-           f"{'alpha':>7}{'AIC':>10}{'IRR':>8}{'95% CI':>18}{'P':>9}  ")
+           f"{'alpha':>7}{'logLik':>10}{'AIC':>10}{'BIC':>10}"
+           f"{'IRR':>8}{'95% CI':>18}{'P':>9}  ")
     for label, grp in tab.groupby("index", sort=False):
         L.append(hdr)
         L.append("-" * 100)
@@ -134,10 +149,14 @@ def main():
             ci = f"{r.ci_low:.3f}-{r.ci_high:.3f}"
             star = " *" if r.p_value < 0.05 else ""
             L.append(f"{r['index']:<26}{r.outcome:<7}{r.specification:<30}"
-                     f"{a:>7}{r.aic:>10.1f}{r.irr:>8.3f}{ci:>18}{r.p_value:>9.4f}{star}")
-        best = grp.loc[grp.groupby("outcome")["aic"].idxmin()]
-        for _, b in best.iterrows():
-            L.append(f"    best fit for {b.outcome}: {b.specification} (AIC {b.aic:.1f})")
+                     f"{a:>7}{r.log_likelihood:>10.1f}{r.aic:>10.1f}{r.bic:>10.1f}"
+                     f"{r.irr:>8.3f}{ci:>18}{r.p_value:>9.4f}{star}")
+        for criterion in ("aic", "bic"):
+            best = grp.loc[grp.groupby("outcome")[criterion].idxmin()]
+            for _, b in best.iterrows():
+                L.append(f"    best fit for {b.outcome} by {criterion.upper()}: "
+                         f"{b.specification} ({criterion.upper()} "
+                         f"{b[criterion]:.1f})")
         L.append("")
 
     # The conclusion this script exists to surface.
@@ -159,6 +178,28 @@ def main():
                 verdict = "significant" if r.p_value < 0.05 else "not significant"
                 L.append(f"      {r.specification:<30} P = {r.p_value:.4f}  {verdict}")
             L.append("")
+    L.append("=" * 100)
+    L.append("SPECIFICATION CHOSEN BY INFORMATION CRITERIA")
+    L.append("=" * 100)
+    wins = {"aic": 0, "bic": 0}
+    total = 0
+    for (idx, oc), grp in tab.groupby(["index", "outcome"]):
+        total += 1
+        for criterion in ("aic", "bic"):
+            best = grp.loc[grp[criterion].idxmin(), "specification"]
+            if "estimated alpha" in best:
+                wins[criterion] += 1
+    L.append(f"  Estimated-dispersion NB2 has the lowest AIC in "
+             f"{wins['aic']} of {total} model/outcome combinations,")
+    L.append(f"  and the lowest BIC in {wins['bic']} of {total}.")
+    if wins["aic"] == total and wins["bic"] == total:
+        L.append("  The estimated-dispersion specification is better supported by both")
+        L.append("  AIC and BIC in every comparison.")
+    else:
+        L.append("  NOTE: the estimated-dispersion specification does NOT win every")
+        L.append("  comparison. Do not claim it is better supported by both criteria.")
+    L.append("")
+
     text = "\n".join(L)
     with open(os.path.join(OUT, "model_specification_comparison.txt"), "w") as f:
         f.write(text + "\n")

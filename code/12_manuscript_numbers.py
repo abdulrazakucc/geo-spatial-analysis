@@ -476,10 +476,26 @@ def write_report(R):
     for col, v in md["overdispersion"].items():
         a(f"  {col:<26} mean {v['mean']:.4f}, variance {v['variance']:.4f}, "
           f"ratio {v['variance_to_mean_ratio']:.2f}, {v['pct_zero']:.1f}% zero")
+    # The block above compares the FIXED-alpha sensitivity against Poisson,
+    # which is no longer the primary specification, so quoting its win count
+    # here would misdescribe the published models. The verdict comes from the
+    # canonical comparison instead, which fits all three specifications.
     nb_wins = sum(1 for v in md["aic_nb_vs_poisson"].values()
                   if v["aic_negative_binomial"] < v["aic_poisson"])
-    a(f"  Negative binomial beats Poisson on AIC in {nb_wins} of "
-      f"{len(md['aic_nb_vs_poisson'])} models.")
+    a(f"  Fixed-alpha sensitivity vs Poisson on AIC: negative binomial lower in "
+      f"{nb_wins} of {len(md['aic_nb_vs_poisson'])} models.")
+    spec_csv = os.path.join(RESULTS, "model_specification_comparison.csv")
+    if os.path.exists(spec_csv):
+        t = pd.read_csv(spec_csv)
+        combos = t.groupby(["index", "outcome"])
+        wins = {c: sum("estimated alpha" in g.loc[g[c].idxmin(), "specification"]
+                       for _, g in combos) for c in ("aic", "bic")}
+        a(f"  PRIMARY specification (dispersion estimated) has the lowest AIC in "
+          f"{wins['aic']} of {combos.ngroups} model/outcome combinations and the "
+          f"lowest BIC in {wins['bic']} of {combos.ngroups}.")
+        a(f"  Source: output/results/model_specification_comparison.csv")
+    else:
+        a("  Run code/13_model_specification.py for the AIC/BIC comparison.")
     a("  Sensitivity to fixing alpha at 1.0, primary EDI-CMR models:")
     for k, v in md["alpha_sensitivity"].items():
         a(f"    {k:<22} alpha=1.0 IRR {v['fixed_alpha_1']['irr']:.4f} "
@@ -652,6 +668,10 @@ FORBIDDEN = [
      "adjusted SVI-CCT is positive and significant; qualify by modality"),
     (r"no (index|deprivation measure) was associated with capacity",
      "adjusted SVI-CCT is positive and significant; qualify by modality"),
+    # The two indices do NOT agree after adjustment: EDI is null for both
+    # modalities, SVI is positive and significant for cardiac CT.
+    (r"gave the same result|both indices gave the same|indices agreed after adjustment",
+     "the SVI and EDI differ after adjustment for cardiac CT"),
 ]
 
 
