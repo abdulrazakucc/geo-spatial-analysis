@@ -2,10 +2,10 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   5a1fa4731b2680c9a40f0d3b321d72126ddf339d3cb4c4351c1100e3106c8944
-Checked:  2026-08-07T19:59:30Z
-Code:     cde5f21 (working tree modified)
-Checks:   166     Mismatches: 0
+SHA256:   3356a32f628efd661e18279aa0a1f6de192a052736c1b70c55e101f407df8921
+Checked:  2026-08-07T22:10:42Z
+Code:     c1a67c8 (working tree modified)
+Checks:   170     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -58,6 +58,10 @@ ALL CHECKS
   ok    mean CCT rate, metro vs nonmetro   0.75 versus 0.33
   ok    Table 1 quintile denominator       3,029 counties
   ok    no unqualified blanket-null claim  absent
+  ok    Methods disclose the Under Review cohort present
+  ok    cohort count, Accredited           2,242
+  ok    cohort count, Under Review         22
+  ok    manuscript AIC+BIC claim matches generated comparison supported by AIC and BIC
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
   ok    Abstract word count                <= 250
