@@ -131,6 +131,52 @@ def test_accredited_only_sensitivity_exists():
     assert len(pd.read_csv(path)) > 0
 
 
+def test_hud_crosswalk_selection():
+    """When a HUD crosswalk is present it wins, and it selects on RES_RATIO."""
+    import tempfile
+    import facility_mapping as fm
+
+    original = fm.HUD_CROSSWALK
+    tmp = tempfile.mkdtemp()
+    path = os.path.join(tmp, "hud_zip_county.csv")
+    pd.DataFrame({
+        "ZIP": ["06106", "06106"],
+        "COUNTY": ["09110", "09190"],
+        "RES_RATIO": [0.95, 0.05],
+        # Deliberately opposed to RES_RATIO: selecting on the wrong column
+        # would pick 09190 and this test would fail.
+        "BUS_RATIO": [0.05, 0.95],
+    }).to_csv(path, index=False)
+    try:
+        fm.HUD_CROSSWALK = path
+        crosswalk, method = fm.load_crosswalk()
+        assert method == "hud_res_ratio", method
+        chosen = crosswalk.loc[crosswalk.zip5 == "06106", "county_fips"].iloc[0]
+        assert chosen == "09110", f"expected largest RES_RATIO, got {chosen}"
+    finally:
+        fm.HUD_CROSSWALK = original
+
+
+def test_hud_fetcher_rejects_bad_vintage():
+    """The fetcher must not write a crosswalk with retired CT geography."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "hud_fetch", os.path.join(BASE_DIR, "code", "01c_fetch_hud_crosswalk.py"))
+    hud = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(hud)
+
+    retired = pd.DataFrame({"ZIP": [f"{i:05d}" for i in range(45_000)],
+                            "COUNTY": ["09003"] * 45_000,
+                            "RES_RATIO": [1.0] * 45_000})
+    for frame, what in ((retired, "retired CT FIPS"),
+                        (retired.head(10), "partial download")):
+        try:
+            hud.validate(frame)
+        except hud.HudApiError:
+            continue
+        raise AssertionError(f"validate() accepted a {what}")
+
+
 def test_no_random_production_fallback():
     """A missing required input must raise, not fabricate values."""
     import importlib.util

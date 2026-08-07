@@ -132,6 +132,7 @@ code/                     numbered pipeline, run in order
   00_run_all.py           master runner, stages A-E
   01_download_datasets.py       A  fetch SVI, RUCC, TIGER, ZIP crosswalk
   01b_fetch_census_population.py A  ACS population via the Census API
+  01c_fetch_hud_crosswalk.py    A  HUD ZIP-county crosswalk (needs a token)
   02_build_analytic_dataset.py  B  build the analytic dataset
   03_descriptive_analysis.py    C  Table 1
   05_regression_analysis.py     C  SVI models
@@ -208,7 +209,7 @@ record:
 
 | Method | When used |
 |---|---|
-| `hud_res_ratio` | Whenever `data/raw/hud_zip_county.csv` is present. Assigns each ZIP to the county with the largest residential-address share. This is the specified method. |
+| `hud_res_ratio` | Whenever `data/raw/hud_zip_county.csv` is present. Assigns each ZIP to the county with the largest residential-address share. This is the specified method. Fetch it with `python code/01c_fetch_hud_crosswalk.py`. |
 | `census_zcta_arealand` | Fallback. Census 2020 ZCTA relationship file, largest land-area overlap. |
 | `ct_town_manual` | Connecticut only, under the fallback. See below. |
 
@@ -219,10 +220,32 @@ used to vanish silently and the state showed zero capacity. They are now
 resolved through a documented town-to-planning-region table and flagged for
 manual review. Supplying the HUD crosswalk removes the need for that table.
 
-**Known gap.** 64 eligible records sit in ZIPs that have no ZCTA at all — PO-box
-and unique ZIPs — so the Census fallback cannot place them. They are excluded
-with a stated reason rather than dropped silently. The HUD crosswalk covers
-these ZIPs and would recover them.
+**Known gap under the fallback.** 64 eligible records sit in ZIPs that have no
+ZCTA at all — PO-box and unique ZIPs — so the Census fallback cannot place them.
+They are excluded with a stated reason rather than dropped silently. The HUD
+crosswalk covers these ZIPs and recovers them.
+
+### Fetching the HUD crosswalk
+
+Register at <https://www.huduser.gov/portal/dataset/uspszip-api.html>, then:
+
+```bash
+export HUD_API_TOKEN="your token"          # or: echo "..." > data/raw/.hud_api_token
+python code/01c_fetch_hud_crosswalk.py --dry-run   # verify the token
+python code/01c_fetch_hud_crosswalk.py             # 2026 Q1
+python code/02_build_analytic_dataset.py           # rebuild
+python code/00_run_all.py --with-present           # regenerate everything
+python tests/test_pipeline.py
+```
+
+The token is read from `HUD_API_TOKEN`, then `data/raw/.hud_api_token` (both
+gitignored), then a placeholder constant in the script. **Do not paste a token
+into the tracked file** unless you intend it to enter git history.
+
+The fetcher queries state by state, retries transient failures, and refuses to
+write anything unless the result is nationally complete and Connecticut
+resolves to planning regions rather than retired counties — so a stale vintage
+cannot quietly reintroduce the bug it exists to fix.
 
 ## Count-model specification
 

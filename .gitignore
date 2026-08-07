@@ -20,3 +20,7 @@ Figure1_Choropleth.pdf
  
 mdpdf.log
 code/__pycache__/
+
+# API credentials, never commit
+data/raw/.hud_api_token
+.env

@@ -37,6 +37,7 @@ CODE_DIR = os.path.join(BASE_DIR, "code")
 ACQUIRE = [
     ("01_download_datasets.py", "Download SVI, RUCC, TIGER, ZIP crosswalk"),
     ("01b_fetch_census_population.py", "Fetch ACS population (needs a Census API key)"),
+    ("01c_fetch_hud_crosswalk.py", "Fetch HUD ZIP-county crosswalk (needs a HUD token)"),
 ]
 BUILD = [
     ("02_build_analytic_dataset.py",
