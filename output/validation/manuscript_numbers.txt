@@ -89,7 +89,9 @@ MODEL DIAGNOSTICS  (justification for the specification)
 ------------------------------------------------------------------------------
   cmr_facility_count         mean 0.2377, variance 1.1473, ratio 4.83, 90.1% zero
   cct_facility_count         mean 0.5076, variance 4.5273, ratio 8.92, 81.8% zero
-  Negative binomial beats Poisson on AIC in 5 of 8 models.
+  Fixed-alpha sensitivity vs Poisson on AIC: negative binomial lower in 5 of 8 models.
+  PRIMARY specification (dispersion estimated) has the lowest AIC in 12 of 12 model/outcome combinations and the lowest BIC in 12 of 12.
+  Source: output/results/model_specification_comparison.csv
   Sensitivity to fixing alpha at 1.0, primary EDI-CMR models:
     EDI_CMR_unadjusted     alpha=1.0 IRR 0.9430 (P 0.0041)   alpha estimated IRR 0.9477 (P 0.0029, alpha 0.594)
     EDI_CMR_adjusted       alpha=1.0 IRR 0.9897 (P 0.6370)   alpha estimated IRR 0.9929 (P 0.6981, alpha 0.440)

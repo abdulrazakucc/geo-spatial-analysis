@@ -12,7 +12,9 @@ Run
     python tests/test_pipeline.py       # no pytest required
 """
 
+import json
 import os
+import re
 import subprocess
 import sys
 
@@ -192,15 +194,100 @@ def test_no_random_production_fallback():
     raise AssertionError("require_input did not raise on a missing input")
 
 
+def _run_gate(manuscript):
+    """Execute the validator against a named manuscript and return its report.
+
+    Reading a previously written manuscript_check.txt would pass on a stale
+    file, and would say nothing about which document was checked. This runs the
+    gate for real, in strict mode, against the path given.
+    """
+    proc = subprocess.run(
+        [sys.executable, os.path.join(BASE_DIR, "code", "12_manuscript_numbers.py"),
+         manuscript, "--strict"],
+        cwd=BASE_DIR, capture_output=True, text=True, timeout=900)
+    report = os.path.join(BASE_DIR, "output", "validation", "manuscript_check.txt")
+    text = open(report).read() if os.path.exists(report) else ""
+    return proc.returncode, text
+
+
+def _mismatches(text):
+    m = re.search(r"Mismatches:\s+(\d+)", text)
+    return int(m.group(1)) if m else -1
+
+
 def test_manuscript_numbers():
-    """The validation gate must run clean."""
-    check = os.path.join(BASE_DIR, "output", "validation", "manuscript_check.txt")
-    if not os.path.exists(check):
+    """The working manuscript must pass the gate, executed live."""
+    working = os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx")
+    if not os.path.exists(working):
         import pytest
-        pytest.skip("validation report not generated yet")
-    head = open(check).read()
-    assert "Mismatches: 0" in head, (
-        "manuscript does not match the generated outputs; see " + check)
+        pytest.skip("manuscript not present (it is not tracked in git)")
+    code, text = _run_gate(working)
+    assert os.path.relpath(working, BASE_DIR) in text, (
+        "the report does not name the manuscript that was checked")
+    assert _mismatches(text) == 0, f"{_mismatches(text)} mismatch(es); see the report"
+    assert code == 0, f"validator exited {code}"
+
+
+def test_submission_manuscript_passes_gate():
+    """The file that would actually be submitted must pass, by name."""
+    submission = os.path.join(BASE_DIR, "manuscript", "manuscript_SUBMISSION.docx")
+    if not os.path.exists(submission):
+        import pytest
+        pytest.skip("submission manuscript not built; run tools/finalize_manuscript.py")
+    code, text = _run_gate(submission)
+    assert "manuscript_SUBMISSION.docx" in text, (
+        "the report must record that the submission file was the one checked")
+    assert _mismatches(text) == 0, f"{_mismatches(text)} mismatch(es); see the report"
+    assert code == 0, f"validator exited {code}"
+
+
+def test_submission_manuscript_is_clean():
+    """No tracked changes, comments, or dangling package references."""
+    import zipfile
+    submission = os.path.join(BASE_DIR, "manuscript", "manuscript_SUBMISSION.docx")
+    if not os.path.exists(submission):
+        import pytest
+        pytest.skip("submission manuscript not built")
+    with zipfile.ZipFile(submission) as z:
+        names = z.namelist()
+        assert z.testzip() is None, "corrupt package"
+        xml = z.read("word/document.xml").decode("utf8")
+        assert not re.findall(r"<w:ins[ >]", xml), "tracked insertions remain"
+        assert not re.findall(r"<w:del[ >]", xml), "tracked deletions remain"
+        assert "commentReference" not in xml, "comment references remain"
+        rels = z.read("word/_rels/document.xml.rels").decode("utf8")
+        dangling = [t for t in re.findall(r'Target="([^"]+)"', rels)
+                    if not t.startswith("http")
+                    and "word/" + t.lstrip("./") not in names]
+        assert not dangling, f"dangling relationship targets: {dangling}"
+
+
+def test_publication_outputs_consume_canonical_results():
+    """07_publication_outputs.py must not fit its own regressions.
+
+    It previously refitted with a fixed dispersion, on the wrong sample, with a
+    mis-scaled predictor, and reported a placeholder sensitivity. Its output
+    must now agree with the canonical results file.
+    """
+    src = open(os.path.join(BASE_DIR, "code", "07_publication_outputs.py")).read()
+    for pattern, why in (
+            (r"NegativeBinomial\(alpha\s*=", "refits with a fixed dispersion"),
+            (r"svi_percentile\s*/\s*10", "mis-scales the SVI predictor"),
+            (r"Accredited-only \(excluding Under Review\)", "placeholder sensitivity")):
+        assert not re.search(pattern, src), f"07_publication_outputs.py {why}"
+
+    report = os.path.join(BASE_DIR, "output", "models", "regression_results_full.txt")
+    numbers = os.path.join(BASE_DIR, "output", "validation", "manuscript_numbers.json")
+    if not (os.path.exists(report) and os.path.exists(numbers)):
+        import pytest
+        pytest.skip("run the pipeline first")
+    text = open(report).read()
+    with open(numbers) as f:
+        R = json.load(f)["regressions"]
+    assert f"{R['n_svi']:,}" in text, "publication output disagrees on the SVI sample"
+    e = R["models"]["SVI_CCT"]["adjusted_metro"]
+    assert f"{e['irr']:.3f}" in text, (
+        "publication output does not carry the canonical SVI-CCT estimate")
 
 
 if __name__ == "__main__":

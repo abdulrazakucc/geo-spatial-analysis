@@ -59,10 +59,14 @@ gradient: more accredited CT capacity in more vulnerable counties. Analytic samp
 
 Because the EDI is built in-house, the whole analysis was repeated with the
 **Robert Graham Center Social Deprivation Index (SDI)**, a published county-level
-measure. The SDI shows **no** unadjusted CMR association (IRR 1.01, P = 0.746)
-while reproducing metropolitan status almost exactly (IRR 8.66). Whether an
-unadjusted deprivation signal appears at all depends on how strongly the chosen
-index encodes rurality; the metropolitan finding does not. See
+measure. The SDI shows **no inverse** unadjusted CMR association
+(IRR 1.02, 95% CI 0.98-1.05,
+P = 0.322) while reproducing metropolitan status almost exactly
+(IRR 8.67). After adjustment it is modestly positive
+(IRR 1.04, 95% CI 1.00-1.07,
+P = 0.043) — the opposite direction to a deprivation disadvantage.
+Whether an inverse deprivation signal appears at all depends on how strongly the
+chosen index encodes rurality; the metropolitan finding does not. See
 `output/results/index_comparison_results.txt`.
 
 ---
@@ -108,7 +112,7 @@ each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.
 
 ## Statistical specification
 
-Applied identically in every script:
+Defined once in `code/model_spec.py` and used by every script that fits a model. `07_publication_outputs.py` fits nothing; it reads the generated results.
 
 - **Outcome** — count of ACR-accredited facilities per county, CMR and CCT modelled separately.
 - **Model** — negative binomial (NB2) with the **dispersion parameter estimated from the data**; better supported by AIC and BIC than a fixed `alpha = 1.0`, which is retained as a labelled sensitivity.
@@ -280,12 +284,13 @@ NB2 with dispersion fixed at 1.0 for every index and outcome, and reports alpha,
 AIC, IRR, CI, P, and convergence to
 `output/results/model_specification_comparison.*`.
 
-This matters: the published models fix `alpha = 1.0`, but the data support
-alpha near 0.25, and NB2 with estimated dispersion fits better on AIC in every
-model. Under that better-fitting specification the SVI-CCT association becomes
-significant, which it is not at `alpha = 1.0`. **The choice of primary
-specification has been resolved**: the estimated-dispersion model is primary,
-and the `alpha = 1.0` results are retained as a labelled sensitivity.
+This matters. An earlier version of this analysis fixed `alpha = 1.0`, but the
+data support alpha near 0.2 to 0.6, and NB2 with estimated dispersion has the
+lowest AIC **and** the lowest BIC in all 12 model/outcome comparisons. Under
+that better-fitting specification the SVI-CCT association is significant, which
+it is not at `alpha = 1.0`. **The primary specification is the
+estimated-dispersion model**, defined once in `code/model_spec.py`; the
+`alpha = 1.0` results are retained as a labelled sensitivity.
 
 ---
 

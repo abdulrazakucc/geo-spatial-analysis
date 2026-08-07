@@ -1,8 +1,8 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_CLEAN.docx
-Checks:   162     Mismatches: 0
+Document: manuscript/manuscript_SUBMISSION.docx
+Checks:   163     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -43,6 +43,7 @@ ALL CHECKS
   ok    absent: adjusted SVI-CCT is positive and significant; qualify by modality absent
   ok    absent: adjusted SVI-CCT is positive and significant; qualify by modality absent
   ok    absent: adjusted SVI-CCT is positive and significant; qualify by modality absent
+  ok    absent: the SVI and EDI differ after adjustment for cardiac CT absent
   ok    CMR facilities                     722
   ok    CCT facilities                     1,542
   ok    counties with neither              2,570 counties (81.7%)
