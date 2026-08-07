@@ -96,6 +96,18 @@ CT_TOWN_TO_PLANNING_REGION = {
     "stamford": "09190",
 }
 
+#: ZIPs that no crosswalk vintage covers, resolved explicitly rather than
+#: dropped. Each entry needs a stated basis. Applied after the crosswalk and
+#: flagged `manual_review = True` so it is visible in the audit.
+#:
+#: 98415 is a unique ZIP assigned to Tacoma General Hospital and appears in no
+#: HUD or Census crosswalk. Every other Tacoma ZIP (98402, 98405, 98418, ...)
+#: maps to Pierce County with RES_RATIO 1.0, so the assignment is unambiguous.
+MANUAL_ZIP_OVERRIDES = {
+    "98415": ("53053", "unique hospital ZIP, Tacoma WA; all other Tacoma ZIPs "
+                       "map to Pierce County at RES_RATIO 1.0"),
+}
+
 AUDIT_COLUMNS = [
     "source_row_id", "facility_name", "modality", "modality_label", "status",
     "expiration_date", "state", "city", "zip_original", "zip5",
@@ -224,6 +236,21 @@ def assign_counties(eligible: pd.DataFrame, valid_fips: set[str]) -> pd.DataFram
         out.loc[needs_ct, "mapping_method"] = "ct_town_manual"
         out.loc[needs_ct, "manual_review"] = True
         out.loc[needs_ct, "share"] = pd.NA
+
+    # Explicit per-ZIP overrides for ZIPs no crosswalk covers.
+    unusable = out["county_fips"].isna() | ~out["county_fips"].isin(valid_fips)
+    for zip5, (fips, _basis) in MANUAL_ZIP_OVERRIDES.items():
+        hit = unusable & (out["zip5"] == zip5)
+        if not hit.any():
+            continue
+        if fips not in valid_fips:
+            raise ValueError(
+                f"MANUAL_ZIP_OVERRIDES maps {zip5} to {fips}, which is not a "
+                "current county FIPS.")
+        out.loc[hit, "county_fips"] = fips
+        out.loc[hit, "mapping_method"] = "manual_zip_override"
+        out.loc[hit, "manual_review"] = True
+        out.loc[hit, "share"] = pd.NA
 
     still_bad = out["county_fips"].isna() | ~out["county_fips"].isin(valid_fips)
     out["final_included"] = ~still_bad

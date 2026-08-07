@@ -3,8 +3,8 @@ FACILITY MAPPING RECONCILIATION
 ==============================================================================
   Source extract, 2026-05-20             37,328 records
   Protocol-eligible                          2,264
-  Included in the county dataset             2,200
-  Excluded, with a stated reason            35,128
+  Included in the county dataset             2,264
+  Excluded, with a stated reason            35,064
 
   Eligibility exclusions
   --------------------------------------------------------------------------
@@ -15,18 +15,18 @@ FACILITY MAPPING RECONCILIATION
 
   Eligible but unmappable
   --------------------------------------------------------------------------
-    ZIP not found in the census_zcta_arealand crosswalk                 64
+    none
 
   Mapping method, included records
   --------------------------------------------------------------------------
-    census_zcta_arealand                                             2,168
-    ct_town_manual                                                      32
-    flagged for manual review                                           32
+    hud_res_ratio                                                    2,262
+    manual_zip_override                                                  2
+    flagged for manual review                                            2
 
   Included by modality
   --------------------------------------------------------------------------
-    CCT                                                              1,499
-    CMR                                                                701
+    CCT                                                              1,542
+    CMR                                                                722
 
   Connecticut
   --------------------------------------------------------------------------

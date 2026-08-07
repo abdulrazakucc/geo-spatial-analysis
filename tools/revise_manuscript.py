@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANUSCRIPT = os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx")
 
 AUTHOR = "Abdul Razak"
-DATE = "2026-08-07T12:00:00Z"
+DATE = "2026-08-07T18:00:00Z"
 
 # Values corrected by the geography rebuild. Every pair below was read from
 # output/validation/manuscript_check.txt after the rebuild, not typed by hand:
@@ -104,12 +104,63 @@ EDITS = [
 ]
 
 
+CHECK_REPORT = os.path.join(BASE_DIR, "output", "validation", "manuscript_check.txt")
+
+
+def from_check_report():
+    """Build the edit list from the validation report.
+
+    The report states, for every mismatch, what the manuscript says and what the
+    pipeline generates. Deriving edits from it means no regenerated value is
+    ever retyped by hand, which is the failure mode that put two wrong numbers
+    into an earlier submission.
+
+    Entries the report cannot pair up (`NOT IN TEXT`, meaning the old wording no
+    longer matches anything) are skipped and listed, for handling explicitly.
+    """
+    import re
+    if not os.path.exists(CHECK_REPORT):
+        sys.exit(f"No check report at {CHECK_REPORT}. Run "
+                 "python code/12_manuscript_numbers.py first.")
+    text = open(CHECK_REPORT).read()
+    if "MISMATCHES" not in text:
+        return []
+    block = text.split("MISMATCHES")[1].split("ALL CHECKS")[0]
+    found = re.findall(
+        r"^  (\S.*?)\n\s+data says\s+: (.*?)\n\s+manuscript says : (.*?)$",
+        block, re.M)
+
+    edits, unpaired = [], []
+    for label, new, old in found:
+        old, new = old.strip(), new.strip()
+        if old == "NOT IN TEXT" or old == new:
+            unpaired.append((label.strip(), new))
+            continue
+        # Prefer an exact-cell match: table values such as "687" also occur in
+        # prose, and the cell is the occurrence the report is describing.
+        edits.append((f"=={old}", old, new,
+                      f"regenerated value for {label.strip()}"))
+        edits.append((old, old, new, f"regenerated value for {label.strip()}"))
+    if unpaired:
+        print("  These mismatches need explicit edits; the old wording no longer")
+        print("  matches anything in the document:")
+        for label, new in unpaired:
+            print(f"    {label:<36} should be {new}")
+        print()
+    return edits
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dry-run", action="store_true",
                     help="report what would change without writing")
+    ap.add_argument("--from-check", action="store_true",
+                    help="derive edits from output/validation/manuscript_check.txt "
+                         "instead of the EDITS list, so no value is retyped")
     args = ap.parse_args()
+
+    edits = from_check_report() if args.from_check else EDITS
 
     if not os.path.exists(MANUSCRIPT):
         sys.exit(f"Manuscript not found at {MANUSCRIPT}")
@@ -126,7 +177,7 @@ def main():
     print()
 
     applied = skipped = 0
-    for locator, old, new, why in EDITS:
+    for locator, old, new, why in edits:
         try:
             if locator.startswith("=="):
                 # Exact-cell locator. A bare value such as "687" occurs both in

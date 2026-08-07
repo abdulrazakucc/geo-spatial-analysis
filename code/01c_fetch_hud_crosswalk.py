@@ -71,14 +71,16 @@ MAX_RETRIES = 4
 RETRY_BACKOFF_SECONDS = 3
 THROTTLE_SECONDS = 0.34          # HUD permits well above this; stay polite.
 
-#: 50 states + DC. The API is queried state by state, which is far more
-#: reliable than a single "All" request and gives per-state diagnostics.
-STATE_FIPS = [
-    "01", "02", "04", "05", "06", "08", "09", "10", "11", "12", "13", "15",
-    "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
-    "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39",
-    "40", "41", "42", "44", "45", "46", "47", "48", "49", "50", "51", "53",
-    "54", "55", "56",
+#: The national crosswalk comes back in a single "All" request (~54,500 rows).
+#: If that ever fails, the fetch falls back to querying state by state.
+#: The API accepts USPS state abbreviations here; two-digit state FIPS codes
+#: are rejected with HTTP 400.
+STATE_ABBRS = [
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI",
+    "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN",
+    "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH",
+    "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA",
+    "WV", "WI", "WY",
 ]
 
 EXPECTED_MIN_ROWS = 40_000       # A full national crosswalk is ~54k rows.
@@ -138,11 +140,11 @@ def _get(session: requests.Session, params: dict) -> dict:
     raise HudApiError(f"Giving up after {MAX_RETRIES} attempts: {last}")
 
 
-def fetch_state(session: requests.Session, state_fips: str,
+def fetch_query(session: requests.Session, query: str,
                 year: int, quarter: int) -> pd.DataFrame:
-    """ZIP-to-county rows for one state."""
+    """ZIP-to-county rows for one query: "All", a state abbreviation, or a ZIP."""
     payload = _get(session, {"type": CROSSWALK_TYPE_ZIP_TO_COUNTY,
-                             "query": state_fips, "year": year,
+                             "query": query, "year": year,
                              "quarter": quarter})
     results = (payload.get("data") or {}).get("results") or []
     if not results:
@@ -162,21 +164,34 @@ def fetch_state(session: requests.Session, state_fips: str,
 
 
 def fetch_all(token: str, year: int, quarter: int,
-              states: Iterable[str] = STATE_FIPS) -> pd.DataFrame:
+              states: Iterable[str] = STATE_ABBRS) -> pd.DataFrame:
+    """The national crosswalk, in one request where possible."""
     session = requests.Session()
     session.headers.update({"Authorization": f"Bearer {token}",
                             "Accept": "application/json"})
+
+    try:
+        national = fetch_query(session, "All", year, quarter)
+    except HudApiError as exc:
+        print(f"  national request failed ({exc}); falling back to per-state")
+    else:
+        if len(national) >= EXPECTED_MIN_ROWS:
+            print(f"  national request returned {len(national):,} rows")
+            return national
+        print(f"  national request returned only {len(national):,} rows; "
+              f"falling back to per-state")
+
     frames, failures = [], []
     states = list(states)
-    for i, fips in enumerate(states, 1):
+    for i, abbr in enumerate(states, 1):
         try:
-            df = fetch_state(session, fips, year, quarter)
+            df = fetch_query(session, abbr, year, quarter)
         except HudApiError as exc:
-            failures.append((fips, str(exc)))
-            print(f"  [{i:>2}/{len(states)}] state {fips}  FAILED  {exc}")
+            failures.append((abbr, str(exc)))
+            print(f"  [{i:>2}/{len(states)}] {abbr}  FAILED  {exc}")
         else:
             frames.append(df)
-            print(f"  [{i:>2}/{len(states)}] state {fips}  {len(df):>6,} rows")
+            print(f"  [{i:>2}/{len(states)}] {abbr}  {len(df):>6,} rows")
         time.sleep(THROTTLE_SECONDS)
     if failures:
         raise HudApiError(
@@ -253,7 +268,7 @@ def main() -> int:
         if args.dry_run:
             session = requests.Session()
             session.headers.update({"Authorization": f"Bearer {token}"})
-            probe = fetch_state(session, "09", args.year, args.quarter)
+            probe = fetch_query(session, "CT", args.year, args.quarter)
             print(f"  Connecticut probe returned {len(probe):,} rows")
             if not probe.empty:
                 print("  sample:")

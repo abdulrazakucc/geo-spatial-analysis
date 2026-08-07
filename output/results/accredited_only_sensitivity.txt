@@ -6,24 +6,24 @@ briefing. This compares it with an Accredited-only cohort.
 
   Quantity                             Primary   Accredited only   Difference
   --------------------------------------------------------------------------
-  CMR facilities                           701               695           -6
-  CCT facilities                         1,499             1,484          -15
-  counties with >=1 CMR                    293               292           -1
-  counties with >=1 CCT                    538               538            0
-  counties with neither                  2,577             2,577            0
-  % CMR in metro                          98.1              98.1         -0.0
+  CMR facilities                           722               716           -6
+  CCT facilities                         1,542             1,526          -16
+  counties with >=1 CMR                    300               299           -1
+  counties with >=1 CCT                    552               552            0
+  counties with neither                  2,570             2,570            0
+  % CMR in metro                          98.1              98.0         -0.0
   % CCT in metro                          92.5              92.5         -0.1
 
   SVI models, negative binomial with alpha estimated
   --------------------------------------------------------------------------
   Cohort                            OutcomeModel           IRR          95% CI        P
-  Primary                           CMR   unadjusted    0.995     0.960-1.031   0.7824
-  Primary                           CMR   adjusted      0.999     0.963-1.036   0.9565
-  Primary                           CCT   unadjusted    1.027     1.002-1.053   0.0310 *
-  Primary                           CCT   adjusted      1.030     1.005-1.056   0.0172 *
-  Accredited only                   CMR   unadjusted    0.994     0.959-1.031   0.7588
-  Accredited only                   CMR   adjusted      0.998     0.963-1.035   0.9264
-  Accredited only                   CCT   unadjusted    1.028     1.003-1.053   0.0284 *
-  Accredited only                   CCT   adjusted      1.030     1.006-1.056   0.0161 *
+  Primary                           CMR   unadjusted    0.999     0.965-1.035   0.9698
+  Primary                           CMR   adjusted      1.003     0.968-1.040   0.8556
+  Primary                           CCT   unadjusted    1.030     1.006-1.055   0.0145 *
+  Primary                           CCT   adjusted      1.033     1.009-1.058   0.0078 *
+  Accredited only                   CMR   unadjusted    0.999     0.964-1.035   0.9449
+  Accredited only                   CMR   adjusted      1.003     0.967-1.039   0.8853
+  Accredited only                   CCT   unadjusted    1.030     1.006-1.055   0.0142 *
+  Accredited only                   CCT   adjusted      1.033     1.008-1.058   0.0079 *
 
   Conclusion: the two cohorts reach the same significance conclusions.

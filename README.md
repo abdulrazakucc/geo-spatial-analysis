@@ -18,7 +18,7 @@ there are no hand-maintained artifacts.
 ## The finding in one paragraph
 
 Accredited cardiac MR (CMR) and cardiac CT (CCT) capacity is overwhelmingly
-concentrated in metropolitan counties. **2,577 of 3,144 US counties (82.0%) have
+concentrated in metropolitan counties. **2,570 of 3,144 US counties (81.7%) have
 neither modality.** Two measures of area disadvantage were tested, the CDC Social
 Vulnerability Index (SVI) and a purpose-built Economic Deprivation Index (EDI).
 The EDI showed an association with CMR capacity **before** adjustment for
@@ -39,17 +39,17 @@ percentile points, from negative binomial models with a log-population offset.
 
 | Exposure | Unadjusted IRR (95% CI) | P | Adjusted for metro, IRR (95% CI) | P |
 |---|---|---|---|---|
-| SVI | 0.99 (0.95-1.03) | 0.716 | 1.00 (0.96-1.04) | 0.915 |
-| EDI | **0.94 (0.90-0.98)** | **0.002** | 0.98 (0.94-1.03) | 0.434 |
-| Metropolitan status | — | — | **8.23 (4.65-14.56)** | **<0.001** |
+| SVI | 1.00 (0.96-1.04) | 0.914 | 1.00 (0.96-1.05) | 0.852 |
+| EDI | **0.94 (0.91-0.98)** | **0.004** | 0.99 (0.95-1.03) | 0.637 |
+| Metropolitan status | — | — | **8.03 (4.63-13.93)** | **<0.001** |
 
 ### Cardiac CT
 
 | Exposure | Unadjusted IRR (95% CI) | P | Adjusted for metro, IRR (95% CI) | P |
 |---|---|---|---|---|
-| SVI | 1.02 (0.99-1.05) | 0.188 | 1.03 (0.99-1.06) | 0.108 |
-| EDI | 0.98 (0.95-1.01) | 0.177 | 1.01 (0.97-1.04) | 0.663 |
-| Metropolitan status | — | — | **1.96 (1.56-2.47)** | **<0.001** |
+| SVI | 1.03 (0.99-1.06) | 0.114 | 1.03 (1.00-1.07) | 0.059 |
+| EDI | 0.98 (0.95-1.01) | 0.209 | 1.01 (0.98-1.04) | 0.567 |
+| Metropolitan status | — | — | **1.98 (1.58-2.49)** | **<0.001** |
 
 The EDI-CMR association is the only significant deprivation result, and it does
 not survive adjustment. Analytic samples: n = 3,038 (SVI), n = 3,029 (EDI).
@@ -220,10 +220,10 @@ used to vanish silently and the state showed zero capacity. They are now
 resolved through a documented town-to-planning-region table and flagged for
 manual review. Supplying the HUD crosswalk removes the need for that table.
 
-**Known gap under the fallback.** 64 eligible records sit in ZIPs that have no
-ZCTA at all — PO-box and unique ZIPs — so the Census fallback cannot place them.
-They are excluded with a stated reason rather than dropped silently. The HUD
-crosswalk covers these ZIPs and recovers them.
+**Known gap under the fallback.** Under the Census fallback, 64 eligible records
+sit in ZIPs with no ZCTA (PO-box and unique ZIPs) and cannot be placed. With the
+HUD crosswalk in place all 2,264 eligible records map: 2,262 through
+`hud_res_ratio` and 2 through a documented per-ZIP override.
 
 ### Fetching the HUD crosswalk
 
