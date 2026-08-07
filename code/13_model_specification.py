@@ -5,11 +5,10 @@
 Chooses the count-model specification from the data instead of assuming it.
 
 The briefing asked for a negative binomial model, a dispersion parameter, and
-an AIC comparison against Poisson. The pipeline previously fixed the negative
-binomial dispersion at alpha = 1.0 without estimating it. That is a substantive
-choice: alpha = 1.0 is roughly four times the value the data support, it
-inflates standard errors, and for the SVI-CCT models it changes the significance
-conclusion.
+an AIC comparison against Poisson. This script supplies that comparison, and it
+is the evidence on which the primary specification was chosen: NB2 with the
+dispersion estimated (see model_spec.py). The previously used fixed alpha = 1.0
+is retained here and reported as a labelled sensitivity.
 
 This script fits three specifications for every index/outcome pair:
 
@@ -37,6 +36,8 @@ warnings.filterwarnings("ignore")
 import statsmodels.api as sm
 import statsmodels.discrete.discrete_model as dm
 from statsmodels.genmod.families import NegativeBinomial, Poisson
+
+import model_spec
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC = os.path.join(BASE_DIR, "data", "processed")
@@ -75,9 +76,9 @@ def _row(index, outcome, spec, alpha, res, term, converged):
 
 def compare(d, index_col, index_name, adjusted):
     terms = ["idx10"] + (["metro_indicator"] if adjusted else [])
-    sub = d[(d.rate_excluded == 0) & d[index_col].notna()
-            & (d.adult_pop_45plus > 0)].copy()
-    sub["idx10"] = sub[index_col] / 10.0
+    # Same analytic sample as the primary models, so the comparison describes
+    # the specification actually in use. See model_spec.analytic_sample.
+    sub = model_spec.analytic_sample(d, index_col)
     X = sm.add_constant(sub[terms], has_constant="add")
     offset = np.log(sub["adult_pop_45plus"])
     label = f"{index_name} {'adjusted' if adjusted else 'unadjusted'}"
@@ -99,7 +100,7 @@ def compare(d, index_col, index_name, adjusted):
                          getattr(mle.mle_retvals, "get", lambda *_: True)("converged", True)))
 
         fixed = sm.GLM(y, X, family=NegativeBinomial(alpha=1.0), offset=offset).fit()
-        rows.append(_row(label, oname, "NB2, alpha = 1.0 (previous)", 1.0,
+        rows.append(_row(label, oname, "NB2, alpha = 1.0 (sensitivity)", 1.0,
                          fixed, "idx10", fixed.converged))
     return rows
 

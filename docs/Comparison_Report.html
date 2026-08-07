@@ -1,0 +1,99 @@
+<html><head><meta charset="utf-8"><style>
+@page { size: A4; margin: 16mm 14mm; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+       font-size: 9.2pt; color: #1a1a1a; line-height: 1.42; }
+h1 { font-size: 17pt; margin: 0 0 2mm 0; color: #0f2b46; }
+h2 { font-size: 12pt; margin: 7mm 0 2mm 0; color: #0f2b46;
+     border-bottom: 1.2pt solid #0f2b46; padding-bottom: 1mm; }
+h3 { font-size: 10pt; margin: 4mm 0 1.5mm 0; color: #24486b; }
+p  { margin: 0 0 2.4mm 0; }
+.sub { color: #55616e; font-size: 8.6pt; margin-bottom: 5mm; }
+table { border-collapse: collapse; width: 100%; margin: 2mm 0 4mm 0;
+        font-size: 8.2pt; }
+th { background: #eef2f6; text-align: left; padding: 1.5mm 2mm;
+     border-bottom: 0.8pt solid #9fb0c0; font-weight: bold; }
+td { padding: 1.3mm 2mm; border-bottom: 0.4pt solid #dde4ea; }
+td.n, th.n { text-align: right; }
+tr.best td { background: #eaf5ee; font-weight: bold; }
+tr.sens td { color: #55616e; }
+.key { background: #fff8e6; border-left: 2.5pt solid #d79a2b;
+       padding: 2mm 3mm; margin: 3mm 0; }
+.note { color: #55616e; font-size: 8.2pt; margin-top: -1mm; }
+ul { margin: 0 0 3mm 5mm; padding: 0; }
+li { margin-bottom: 1.2mm; }
+code { font-family: Menlo, Consolas, monospace; font-size: 8pt; }
+</style></head><body>
+<h1>Model Specification and Geographic Linkage — Comparison Report</h1>
+<div class="sub">Geographic Disparities in ACR-Accredited Cardiac Imaging ·
+Generated 2026-08-07 from the current pipeline outputs ·
+Validation gate: 145 checks, 0 mismatches</div>
+
+<div class="key">
+<b>Primary specification.</b> Negative binomial (NB2) with the dispersion
+parameter <b>estimated from the data</b>, a log(adults aged 45+) offset, and the
+index scaled per 10 points. Chosen because the project briefing asked for the
+dispersion parameter to be reported, and because the estimated-dispersion
+specification was better supported by AIC and BIC than the fixed α = 1.0
+specification in every model. Fixed α = 1.0 is retained as a labelled
+sensitivity.<br><br>
+<b>Analytic sample.</b> Count regressions use every county with the index and a
+positive population (SVI n = 3,144; EDI n = 3,134). The
+&lt;1,000-adult rule governs per-capita rate calculations only, as the briefing
+specifies; restricting the regressions as well is reported as a sensitivity.
+</div>
+
+<h2>1. Facility reconciliation</h2>
+<p>All 2,264 protocol-eligible facility-modality records map to a valid current
+county FIPS: 2,264 included, none unresolved, no silent loss. Connecticut
+resolves to its nine planning regions through the ordinary HUD path.</p>
+<table>
+<tr><th>Quantity</th><th class="n">Value</th></tr>
+<tr><td>Counties (county equivalents)</td><td class="n">3,144</td></tr>
+<tr><td>Accredited cardiac MR facilities</td><td class="n">722</td></tr>
+<tr><td>Accredited cardiac CT facilities</td><td class="n">1,542</td></tr>
+<tr><td>Counties with ≥1 CMR</td><td class="n">300 (9.5%)</td></tr>
+<tr><td>Counties with ≥1 CCT</td><td class="n">552 (17.6%)</td></tr>
+<tr><td>Counties with neither modality</td><td class="n">2,570 (81.7%)</td></tr>
+<tr><td>Share of CMR capacity in metropolitan counties</td><td class="n">98.1%</td></tr>
+<tr><td>Share of CCT capacity in metropolitan counties</td><td class="n">92.5%</td></tr>
+</table>
+
+<h2>2. Primary model results</h2>
+<table><tr><th>Outcome</th><th>Predictor</th><th>Model</th><th class='n'>IRR</th><th class='n'>95% CI</th><th class='n'>P</th></tr><tr><td>CMR</td><td>SVI</td><td>unadjusted</td><td class='n'>1.00</td><td class='n'>0.96–1.04</td><td class='n'>0.980</td></tr><tr><td>CMR</td><td>SVI</td><td>adjusted for metropolitan status</td><td class='n'>1.00</td><td class='n'>0.97–1.04</td><td class='n'>0.854</td></tr><tr><td>CCT</td><td>SVI</td><td>unadjusted</td><td class='n'>1.03</td><td class='n'>1.01–1.06</td><td class='n'><b>0.014</b></td></tr><tr><td>CCT</td><td>SVI</td><td>adjusted for metropolitan status</td><td class='n'>1.03</td><td class='n'>1.01–1.06</td><td class='n'><b>0.008</b></td></tr><tr><td>CMR</td><td>EDI</td><td>unadjusted</td><td class='n'>0.95</td><td class='n'>0.91–0.98</td><td class='n'><b>0.003</b></td></tr><tr><td>CMR</td><td>EDI</td><td>adjusted for metropolitan status</td><td class='n'>0.99</td><td class='n'>0.96–1.03</td><td class='n'>0.699</td></tr><tr><td>CCT</td><td>EDI</td><td>unadjusted</td><td class='n'>0.99</td><td class='n'>0.97–1.01</td><td class='n'>0.372</td></tr><tr><td>CCT</td><td>EDI</td><td>adjusted for metropolitan status</td><td class='n'>1.02</td><td class='n'>0.99–1.04</td><td class='n'>0.186</td></tr><tr><td>CMR</td><td>metropolitan status</td><td>adjusted model</td><td class='n'>8.33</td><td class='n'>4.86–14.28</td><td class='n'><b>&lt;0.001</b></td></tr><tr><td>CCT</td><td>metropolitan status</td><td>adjusted model</td><td class='n'>2.13</td><td class='n'>1.74–2.61</td><td class='n'><b>&lt;0.001</b></td></tr></table>
+
+<h2>3. Specification comparison: Poisson vs NB2 estimated vs NB2 fixed α = 1.0</h2>
+<table><tr><th>Outcome</th><th>Predictor</th><th>Specification</th><th class='n'>α</th><th class='n'>N</th><th class='n'>AIC</th><th class='n'>IRR</th><th class='n'>95% CI</th><th class='n'>P</th></tr><tr class=''><td>CMR</td><td>SVI unadjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,144</td><td class='n'>1981.3</td><td class='n'>1.004</td><td class='n'>0.976–1.032</td><td class='n'>0.796</td></tr><tr class='best'><td>CMR</td><td>SVI unadjusted</td><td>NB2, estimated alpha</td><td class='n'>0.591</td><td class='n'>3,144</td><td class='n'>1903.2</td><td class='n'>1.000</td><td class='n'>0.965–1.035</td><td class='n'>0.980</td></tr><tr class='sens'><td>CMR</td><td>SVI unadjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,144</td><td class='n'>1909.6</td><td class='n'>0.998</td><td class='n'>0.959–1.039</td><td class='n'>0.923</td></tr><tr class=''><td>CCT</td><td>SVI unadjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,144</td><td class='n'>3111.8</td><td class='n'>1.037</td><td class='n'>1.018–1.058</td><td class='n'><b>&lt;0.001</b></td></tr><tr class='best'><td>CCT</td><td>SVI unadjusted</td><td>NB2, estimated alpha</td><td class='n'>0.222</td><td class='n'>3,144</td><td class='n'>3027.9</td><td class='n'>1.030</td><td class='n'>1.006–1.055</td><td class='n'><b>0.014</b></td></tr><tr class='sens'><td>CCT</td><td>SVI unadjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,144</td><td class='n'>3124.7</td><td class='n'>1.026</td><td class='n'>0.994–1.058</td><td class='n'>0.110</td></tr><tr class=''><td>CMR</td><td>SVI adjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,144</td><td class='n'>1838.0</td><td class='n'>0.999</td><td class='n'>0.971–1.027</td><td class='n'>0.925</td></tr><tr class='best'><td>CMR</td><td>SVI adjusted</td><td>NB2, estimated alpha</td><td class='n'>0.439</td><td class='n'>3,144</td><td class='n'>1780.7</td><td class='n'>1.003</td><td class='n'>0.968–1.040</td><td class='n'>0.854</td></tr><tr class='sens'><td>CMR</td><td>SVI adjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,144</td><td class='n'>1797.7</td><td class='n'>1.004</td><td class='n'>0.963–1.047</td><td class='n'>0.850</td></tr><tr class=''><td>CCT</td><td>SVI adjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,144</td><td class='n'>3033.7</td><td class='n'>1.035</td><td class='n'>1.015–1.055</td><td class='n'><b>&lt;0.001</b></td></tr><tr class='best'><td>CCT</td><td>SVI adjusted</td><td>NB2, estimated alpha</td><td class='n'>0.182</td><td class='n'>3,144</td><td class='n'>2966.7</td><td class='n'>1.033</td><td class='n'>1.009–1.058</td><td class='n'><b>0.008</b></td></tr><tr class='sens'><td>CCT</td><td>SVI adjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,144</td><td class='n'>3083.3</td><td class='n'>1.032</td><td class='n'>0.999–1.065</td><td class='n'>0.058</td></tr><tr class=''><td>CMR</td><td>EDI unadjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,134</td><td class='n'>1947.0</td><td class='n'>0.963</td><td class='n'>0.938–0.990</td><td class='n'><b>0.007</b></td></tr><tr class='best'><td>CMR</td><td>EDI unadjusted</td><td>NB2, estimated alpha</td><td class='n'>0.595</td><td class='n'>3,134</td><td class='n'>1868.4</td><td class='n'>0.948</td><td class='n'>0.915–0.982</td><td class='n'><b>0.003</b></td></tr><tr class='sens'><td>CMR</td><td>EDI unadjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,134</td><td class='n'>1874.5</td><td class='n'>0.943</td><td class='n'>0.906–0.982</td><td class='n'><b>0.004</b></td></tr><tr class=''><td>CCT</td><td>EDI unadjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,134</td><td class='n'>3102.4</td><td class='n'>1.002</td><td class='n'>0.984–1.021</td><td class='n'>0.811</td></tr><tr class='best'><td>CCT</td><td>EDI unadjusted</td><td>NB2, estimated alpha</td><td class='n'>0.242</td><td class='n'>3,134</td><td class='n'>3007.5</td><td class='n'>0.989</td><td class='n'>0.967–1.013</td><td class='n'>0.372</td></tr><tr class='sens'><td>CCT</td><td>EDI unadjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,134</td><td class='n'>3096.1</td><td class='n'>0.981</td><td class='n'>0.951–1.011</td><td class='n'>0.210</td></tr><tr class=''><td>CMR</td><td>EDI adjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,134</td><td class='n'>1813.3</td><td class='n'>0.995</td><td class='n'>0.968–1.023</td><td class='n'>0.727</td></tr><tr class='best'><td>CMR</td><td>EDI adjusted</td><td>NB2, estimated alpha</td><td class='n'>0.440</td><td class='n'>3,134</td><td class='n'>1756.9</td><td class='n'>0.993</td><td class='n'>0.958–1.029</td><td class='n'>0.699</td></tr><tr class='sens'><td>CMR</td><td>EDI adjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,134</td><td class='n'>1773.4</td><td class='n'>0.990</td><td class='n'>0.948–1.033</td><td class='n'>0.638</td></tr><tr class=''><td>CCT</td><td>EDI adjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,134</td><td class='n'>3018.3</td><td class='n'>1.022</td><td class='n'>1.003–1.041</td><td class='n'><b>0.023</b></td></tr><tr class='best'><td>CCT</td><td>EDI adjusted</td><td>NB2, estimated alpha</td><td class='n'>0.192</td><td class='n'>3,134</td><td class='n'>2947.9</td><td class='n'>1.016</td><td class='n'>0.992–1.041</td><td class='n'>0.186</td></tr><tr class='sens'><td>CCT</td><td>EDI adjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,134</td><td class='n'>3057.9</td><td class='n'>1.010</td><td class='n'>0.977–1.044</td><td class='n'>0.562</td></tr><tr class=''><td>CMR</td><td>SDI unadjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,133</td><td class='n'>1951.0</td><td class='n'>1.024</td><td class='n'>0.998–1.050</td><td class='n'>0.074</td></tr><tr class='best'><td>CMR</td><td>SDI unadjusted</td><td>NB2, estimated alpha</td><td class='n'>0.581</td><td class='n'>3,133</td><td class='n'>1876.4</td><td class='n'>1.017</td><td class='n'>0.984–1.051</td><td class='n'>0.322</td></tr><tr class='sens'><td>CMR</td><td>SDI unadjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,133</td><td class='n'>1883.0</td><td class='n'>1.015</td><td class='n'>0.976–1.054</td><td class='n'>0.461</td></tr><tr class=''><td>CCT</td><td>SDI unadjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,133</td><td class='n'>3090.0</td><td class='n'>1.032</td><td class='n'>1.014–1.050</td><td class='n'><b>&lt;0.001</b></td></tr><tr class='best'><td>CCT</td><td>SDI unadjusted</td><td>NB2, estimated alpha</td><td class='n'>0.231</td><td class='n'>3,133</td><td class='n'>3003.7</td><td class='n'>1.025</td><td class='n'>1.002–1.048</td><td class='n'><b>0.033</b></td></tr><tr class='sens'><td>CCT</td><td>SDI unadjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,133</td><td class='n'>3095.8</td><td class='n'>1.021</td><td class='n'>0.990–1.052</td><td class='n'>0.183</td></tr><tr class=''><td>CMR</td><td>SDI adjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,133</td><td class='n'>1808.4</td><td class='n'>1.030</td><td class='n'>1.004–1.056</td><td class='n'><b>0.025</b></td></tr><tr class='best'><td>CMR</td><td>SDI adjusted</td><td>NB2, estimated alpha</td><td class='n'>0.428</td><td class='n'>3,133</td><td class='n'>1752.9</td><td class='n'>1.035</td><td class='n'>1.001–1.070</td><td class='n'><b>0.043</b></td></tr><tr class='sens'><td>CMR</td><td>SDI adjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,133</td><td class='n'>1770.5</td><td class='n'>1.035</td><td class='n'>0.995–1.078</td><td class='n'>0.089</td></tr><tr class=''><td>CCT</td><td>SDI adjusted</td><td>Poisson</td><td class='n'>—</td><td class='n'>3,133</td><td class='n'>3008.3</td><td class='n'>1.035</td><td class='n'>1.017–1.054</td><td class='n'><b>&lt;0.001</b></td></tr><tr class='best'><td>CCT</td><td>SDI adjusted</td><td>NB2, estimated alpha</td><td class='n'>0.186</td><td class='n'>3,133</td><td class='n'>2940.6</td><td class='n'>1.035</td><td class='n'>1.012–1.058</td><td class='n'><b>0.003</b></td></tr><tr class='sens'><td>CCT</td><td>SDI adjusted</td><td>NB2, alpha = 1.0 (sensitivity)</td><td class='n'>1.000</td><td class='n'>3,133</td><td class='n'>3053.4</td><td class='n'>1.035</td><td class='n'>1.003–1.068</td><td class='n'><b>0.031</b></td></tr></table><p class='note'>Green = lowest AIC for that outcome and predictor. Grey = the fixed-dispersion sensitivity.</p>
+
+<h3>Where the significance conclusion depends on the specification</h3>
+<ul><li><b>EDI adjusted, CCT</b>: Poisson P = 0.0227, NB2 P = 0.1862, NB2 P = 0.5618</li><li><b>SDI adjusted, CMR</b>: Poisson P = 0.0248, NB2 P = 0.0425, NB2 P = 0.0891</li><li><b>SDI unadjusted, CCT</b>: Poisson P = 0.0004, NB2 P = 0.0329, NB2 P = 0.1835</li><li><b>SVI adjusted, CCT</b>: Poisson P = 0.0006, NB2 P = 0.0076, NB2 P = 0.0577</li><li><b>SVI unadjusted, CCT</b>: Poisson P = 0.0002, NB2 P = 0.0138, NB2 P = 0.1102</li></ul>
+
+<h2>4. Sensitivity analyses side by side</h2>
+<table><tr><th>Outcome</th><th>Predictor</th><th class='n'>Primary (α estimated, all counties)</th><th class='n'>Sensitivity: α = 1.0</th><th class='n'>Sensitivity: ≥1,000 adults only</th></tr><tr><td>CMR</td><td>SVI</td><td class='n'>1.00 (0.97–1.04), 0.854</td><td class='n'>1.00 (0.96–1.05), 0.850</td><td class='n'>1.00 (0.97–1.04), 0.856</td></tr><tr><td>CCT</td><td>SVI</td><td class='n'>1.03 (1.01–1.06), 0.008</td><td class='n'>1.03 (1.00–1.07), 0.058</td><td class='n'>1.03 (1.01–1.06), 0.008</td></tr><tr><td>CMR</td><td>EDI</td><td class='n'>0.99 (0.96–1.03), 0.699</td><td class='n'>0.99 (0.95–1.03), 0.638</td><td class='n'>0.99 (0.96–1.03), 0.698</td></tr><tr><td>CCT</td><td>EDI</td><td class='n'>1.02 (0.99–1.04), 0.186</td><td class='n'>1.01 (0.98–1.04), 0.562</td><td class='n'>1.02 (0.99–1.04), 0.188</td></tr></table>
+
+<h2>5. Accredited-only cohort sensitivity</h2>
+<p>The briefing defines the primary cohort as Accredited <i>or</i> Under Review.
+This restricts to Accredited only.</p>
+<table><tr><th>Outcome</th><th>Model</th><th class='n'>Primary (Accredited + Under Review)</th><th class='n'>Accredited only</th></tr><tr><td>CMR</td><td>unadjusted</td><td class='n'>0.999 (0.965–1.035), 0.970</td><td class='n'>0.999 (0.964–1.035), 0.945</td></tr><tr><td>CMR</td><td>adjusted</td><td class='n'>1.003 (0.968–1.040), 0.856</td><td class='n'>1.003 (0.967–1.039), 0.885</td></tr><tr><td>CCT</td><td>unadjusted</td><td class='n'>1.030 (1.006–1.055), 0.014</td><td class='n'>1.030 (1.006–1.055), 0.014</td></tr><tr><td>CCT</td><td>adjusted</td><td class='n'>1.033 (1.009–1.058), 0.008</td><td class='n'>1.033 (1.008–1.058), 0.008</td></tr></table>
+
+<h2>6. SVI quartile indicator sensitivity</h2>
+<p>Continuous SVI replaced by quartile indicators, Q1 (least vulnerable) as
+reference — requested in briefing section 3.4.</p>
+<table><tr><th>Outcome</th><th>Model</th><th>Contrast</th><th class='n'>IRR</th><th class='n'>95% CI</th><th class='n'>P</th></tr><tr><td>CMR</td><td>unadjusted</td><td>SVI Q2 vs Q1</td><td class='n'>0.996</td><td class='n'>0.745–1.330</td><td class='n'>0.977</td></tr><tr><td>CMR</td><td>unadjusted</td><td>SVI Q3 vs Q1</td><td class='n'>1.125</td><td class='n'>0.853–1.485</td><td class='n'>0.404</td></tr><tr><td>CMR</td><td>unadjusted</td><td>SVI Q4 vs Q1</td><td class='n'>0.968</td><td class='n'>0.726–1.291</td><td class='n'>0.824</td></tr><tr><td>CMR</td><td>adjusted for metropolitan status</td><td>SVI Q2 vs Q1</td><td class='n'>1.008</td><td class='n'>0.753–1.348</td><td class='n'>0.959</td></tr><tr><td>CMR</td><td>adjusted for metropolitan status</td><td>SVI Q3 vs Q1</td><td class='n'>1.142</td><td class='n'>0.864–1.509</td><td class='n'>0.352</td></tr><tr><td>CMR</td><td>adjusted for metropolitan status</td><td>SVI Q4 vs Q1</td><td class='n'>0.982</td><td class='n'>0.734–1.314</td><td class='n'>0.903</td></tr><tr><td>CCT</td><td>unadjusted</td><td>SVI Q2 vs Q1</td><td class='n'>1.207</td><td class='n'>0.985–1.479</td><td class='n'>0.070</td></tr><tr><td>CCT</td><td>unadjusted</td><td>SVI Q3 vs Q1</td><td class='n'>1.381</td><td class='n'>1.136–1.678</td><td class='n'><b>0.001</b></td></tr><tr><td>CCT</td><td>unadjusted</td><td>SVI Q4 vs Q1</td><td class='n'>1.254</td><td class='n'>1.028–1.530</td><td class='n'><b>0.026</b></td></tr><tr><td>CCT</td><td>adjusted for metropolitan status</td><td>SVI Q2 vs Q1</td><td class='n'>1.218</td><td class='n'>0.994–1.492</td><td class='n'>0.057</td></tr><tr><td>CCT</td><td>adjusted for metropolitan status</td><td>SVI Q3 vs Q1</td><td class='n'>1.393</td><td class='n'>1.146–1.692</td><td class='n'><b>&lt;0.001</b></td></tr><tr><td>CCT</td><td>adjusted for metropolitan status</td><td>SVI Q4 vs Q1</td><td class='n'>1.270</td><td class='n'>1.041–1.550</td><td class='n'><b>0.018</b></td></tr></table>
+
+<h2>7. EDI quintile capacity</h2>
+<table><tr><th>EDI quintile</th><th class='n'>Mean CMR rate</th><th class='n'>Mean CCT rate</th></tr><tr><td>Q1 (least deprived)</td><td class='n'>0.2619</td><td class='n'>0.6030</td></tr><tr><td>Q2</td><td class='n'>0.1613</td><td class='n'>0.4129</td></tr><tr><td>Q3</td><td class='n'>0.1850</td><td class='n'>0.5393</td></tr><tr><td>Q4 ← minimum</td><td class='n'>0.0812</td><td class='n'>0.6174</td></tr><tr><td>Q5 (most deprived)</td><td class='n'>0.0902</td><td class='n'>0.2996</td></tr></table><p class='note'>Strictly decreasing Q1&gt;Q2&gt;Q3&gt;Q4&gt;Q5: <b>False</b>. Q1/Q5 = 2.90 (unweighted county means); 1.42 population-weighted.</p>
+
+<h2>8. Reading notes</h2>
+<ul>
+<li>IRR is per 10-point increase in the index; metropolitan status is a binary
+contrast against nonmetropolitan.</li>
+<li>The Poisson Pearson/df statistic is below 1 in these models and is
+misleading because the counts are sparse and zero-inflated. Overdispersion is
+evidenced by the likelihood-ratio test against NB2 and by the marginal
+variance-to-mean ratio of the outcome.</li>
+<li>Every value in this document is read from
+<code>output/results/</code> and <code>output/validation/</code> at build time.
+Rebuild with <code>python tools/build_comparison_pdf.py</code> after any
+pipeline rerun.</li>
+</ul>
+</body></html>
