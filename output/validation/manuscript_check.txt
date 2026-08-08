@@ -1,10 +1,10 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   58c082bb5408a0479a0b5ac1f34a1624a12bb7aabe1d903a82c145a07bff20f9
-Checked:  2026-08-08T04:26:10Z
-Code:     3084f6b (working tree modified)
+Document: manuscript/manuscript_CLEAN.docx
+SHA256:   110f262f10c5c11593498ff5f4e6022afdde4c0ff8616b9434f893c225f44bd2
+Checked:  2026-08-08T14:35:02Z
+Code:     037837e (working tree modified)
 Checks:   171     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
