@@ -2,10 +2,10 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   22ba333aaab823ed532c9c0e08c3d14eb9264dd5e6264873692935728058afa9
-Checked:  2026-08-08T15:26:29Z
-Code:     689e7cb (working tree modified)
-Checks:   171     Mismatches: 0
+SHA256:   be16d775952acd0766399b337bfd37adf661ddb8ce0a3cc1ef698869793ca341
+Checked:  2026-08-08T15:55:01Z
+Code:     dd94442 (working tree modified)
+Checks:   172     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -65,6 +65,7 @@ ALL CHECKS
   ok    manuscript AIC+BIC claim matches generated comparison supported by AIC and BIC
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
+  ok    body word count note matches the text 2,510
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
   ok    Summary note matches actual counts 27 words; 224 characters

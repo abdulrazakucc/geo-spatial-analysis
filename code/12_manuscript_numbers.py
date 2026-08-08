@@ -804,6 +804,32 @@ def _check_lengths(paragraphs, checks):
                        f"<= {SUMMARY_CHAR_LIMIT}", str(chars),
                        chars <= SUMMARY_CHAR_LIMIT))
 
+    # Body word count, under the definition the manuscript states for itself.
+    # This drifted once already: the note said 2,646 after edits had reduced the
+    # text, and no plausible definition produced that figure.
+    HEADINGS = {"INTRODUCTION", "METHODS", "RESULTS", "DISCUSSION",
+                "STUDY LIMITATIONS", "CONCLUSION", "DATA AVAILABILITY",
+                "REFERENCES"}
+    try:
+        lo = next(i for i, t in enumerate(paragraphs)
+                  if t.strip().upper() == "INTRODUCTION")
+        hi = next(i for i, t in enumerate(paragraphs)
+                  if t.strip().upper() == "REFERENCES")
+    except StopIteration:
+        lo = hi = None
+    if lo is not None:
+        body = [t for t in paragraphs[lo:hi]
+                if t.strip() and t.strip().upper() not in HEADINGS
+                and not t.strip().startswith("[")]
+        words = sum(len(t.split()) for t in body)
+        for t in paragraphs:
+            m = re.search(r"Word count[^:]*:\s*([\d,]+)", t)
+            if m:
+                stated = int(m.group(1).replace(",", ""))
+                checks.append(("body word count note matches the text",
+                               f"{words:,}", f"{stated:,}", stated == words))
+                break
+
     abstract = after("Abstract", count=4)
     if abstract:
         words = sum(len(t.split()) for t in abstract)
