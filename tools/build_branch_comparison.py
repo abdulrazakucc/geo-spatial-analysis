@@ -115,20 +115,43 @@ def _wrap_theads(html):
     return re.sub(r"<table.*?</table>", fix, html, flags=re.S)
 
 
+#: The last commit before the facility-mapping correction. Pinned to a commit
+#: rather than to a branch name: this document originally read "before" from
+#: `main`, and when the corrected work was promoted to `main` that ref moved,
+#: so both columns silently became the same numbers. A commit cannot move.
+BEFORE_REF = "b774584"
+
+
 def load():
-    """Before = outputs committed on main. After = current working tree."""
-    before = json.loads(subprocess.run(
-        ["git", "show", "main:output/validation/manuscript_numbers.json"],
-        cwd=BASE_DIR, capture_output=True, text=True, check=True).stdout)
+    """Before = the pre-correction commit. After = current working tree."""
+    def at(ref, path):
+        r = subprocess.run(["git", "show", f"{ref}:{path}"], cwd=BASE_DIR,
+                           capture_output=True, text=True)
+        if r.returncode:
+            raise SystemExit(
+                f"Cannot read {path} at {ref}. The baseline commit must remain "
+                f"reachable; if history was rewritten, update BEFORE_REF.")
+        return r.stdout
+
+    before = json.loads(at(BEFORE_REF, "output/validation/manuscript_numbers.json"))
     with open(os.path.join(VALIDATION, "manuscript_numbers.json")) as f:
         after = json.load(f)
-    before_check = subprocess.run(
-        ["git", "show", "main:output/validation/manuscript_check.txt"],
-        cwd=BASE_DIR, capture_output=True, text=True).stdout
+    before_check = at(BEFORE_REF, "output/validation/manuscript_check.txt")
     after_check = open(os.path.join(VALIDATION, "manuscript_check.txt")).read()
     commits = subprocess.run(
-        ["git", "log", "--oneline", "main..validation"],
+        ["git", "log", "--oneline", f"{BEFORE_REF}..HEAD"],
         cwd=BASE_DIR, capture_output=True, text=True).stdout.strip().splitlines()
+
+    # A comparison document whose two columns agree is worthless and, worse,
+    # looks authoritative. Refuse to build one.
+    bd, ad = before["descriptives"], after["descriptives"]
+    same = [k for k in ("cmr_facilities", "cct_facilities", "counties_neither")
+            if bd[k] == ad[k]]
+    if len(same) == 3:
+        raise SystemExit(
+            f"Refusing to build: the 'before' data at {BEFORE_REF} is identical "
+            "to the current outputs, so there is nothing to compare. BEFORE_REF "
+            "is probably pointing at post-correction history.")
     return before, after, before_check, after_check, commits
 
 
@@ -148,8 +171,8 @@ def rows(pairs):
 def headline_table(b, a):
     bd, ad = b["descriptives"], a["descriptives"]
     return f"""<table>
-<tr><th>What is being counted</th><th class="n">Before (main)</th>
-<th class="n">After (validation)</th><th>Why it changed</th></tr>
+<tr><th>What is being counted</th><th class="n">Before the correction</th>
+<th class="n">Current</th><th>Why it changed</th></tr>
 {rows([
  ("Accredited cardiac MR facilities", f"{bd['cmr_facilities']:,}", f"{ad['cmr_facilities']:,}",
   "35 facilities were being lost by the old ZIP-to-county lookup"),
@@ -199,8 +222,8 @@ def model_table(b, a):
             f"<td class='n was'>{bm['irr']:.2f} ({bm['ci_low']:.2f}–{bm['ci_high']:.2f})</td>"
             f"<td class='n now'>{am['irr']:.2f} ({am['ci_low']:.2f}–{am['ci_high']:.2f})</td>"
             f"<td><span class='chip'>unchanged, still dominant</span></td></tr>")
-    return ("<table><tr><th>Predictor</th><th class='n'>Before (main)</th>"
-            "<th class='n'>After (validation)</th><th>Verdict</th></tr>"
+    return ("<table><tr><th>Predictor</th><th class='n'>Before the correction</th>"
+            "<th class='n'>Current</th><th>Verdict</th></tr>"
             + "".join(out) + "</table>")
 
 
@@ -216,7 +239,7 @@ def quintile_table(b, a):
                    f"<td class='n was'>{bq[i]:.4f}{' ← lowest' if i == lo_b else ''}</td>"
                    f"<td class='n now'>{aq[i]:.4f}{' ← lowest' if i == lo_a else ''}</td></tr>")
     return ("<table><tr><th>Deprivation group</th>"
-            "<th class='n'>Before (main)</th><th class='n'>After (validation)</th></tr>"
+            "<th class='n'>Before the correction</th><th class='n'>Current</th></tr>"
             + "".join(out) +
             f"<tr><td><b>Ratio, least vs most deprived</b></td>"
             f"<td class='n was'>{b['quintiles']['q1_over_q5_ratio']:.2f}×</td>"
@@ -238,8 +261,8 @@ def build(b, a, bcheck, acheck, commits):
 <table class="topbar"><tr><td>&nbsp;</td></tr></table>
 <div class="cover">
 <h1>What Changed, and Why It Matters</h1>
-<p class="tagline">A detailed comparison of the <code>main</code> branch and the
-<code>validation</code> branch of the ACR cardiac imaging analysis</p>
+<p class="tagline">What changed in the ACR cardiac imaging analysis when the
+facility-to-county mapping and the count-model specification were corrected</p>
 <p class="meta">Geographic Disparities in ACR-Accredited Cardiac Imaging Across the
 United States &nbsp;·&nbsp; Generated {date.today().isoformat()} &nbsp;·&nbsp;
 {len(commits)} commits &nbsp;·&nbsp; Validation gate {_n(bcheck)} &rarr; {_n(acheck)} checks</p>
@@ -278,10 +301,11 @@ full for reviewers and statisticians.</td></tr>
 <h3>A note on two words used throughout</h3>
 <table>
 <tr><th style="width:22%">Term</th><th>What it means here</th></tr>
-<tr><td><b>Branch</b></td><td>A parallel copy of the project. <code>main</code>
-is the version as it stood before this work; <code>validation</code> contains the
-corrections. Keeping them separate means the old version is never lost and every
-change can be inspected.</td></tr>
+<tr><td><b>"Before the correction"</b></td><td>The analysis as it stood at
+commit <code>{BEFORE_REF}</code>, the last state before the facility-to-county
+mapping was corrected. That commit remains in the project's history, so every
+figure in the left-hand column can be re-derived rather than taken on
+trust.</td></tr>
 <tr class="alt"><td><b>The pipeline</b></td><td>The chain of scripts that turns
 raw data into the figures, tables and numbers in the paper. Running it end to end
 reproduces every published value.</td></tr>
@@ -861,7 +885,7 @@ than quietly dropped — a reader deserves to know which claims were live and
 which had been overtaken.
 </div>
 
-<h2>12. The commits in this branch</h2>
+<h2>12. The commits that made these changes</h2>
 <table><tr><th style="width:14%">Commit</th><th>Description</th></tr>
 {commit_rows}</table>
 

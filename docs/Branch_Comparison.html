@@ -62,11 +62,11 @@ code { font-family: Menlo, Consolas, monospace; font-size: 8pt;
 <table class="topbar"><tr><td>&nbsp;</td></tr></table>
 <div class="cover">
 <h1>What Changed, and Why It Matters</h1>
-<p class="tagline">A detailed comparison of the <code>main</code> branch and the
-<code>validation</code> branch of the ACR cardiac imaging analysis</p>
+<p class="tagline">What changed in the ACR cardiac imaging analysis when the
+facility-to-county mapping and the count-model specification were corrected</p>
 <p class="meta">Geographic Disparities in ACR-Accredited Cardiac Imaging Across the
 United States &nbsp;·&nbsp; Generated 2026-08-08 &nbsp;·&nbsp;
-2 commits &nbsp;·&nbsp; Validation gate 171 &rarr; 171 checks</p>
+31 commits &nbsp;·&nbsp; Validation gate 124 &rarr; 171 checks</p>
 </div>
 
 <div class="plain">
@@ -102,10 +102,11 @@ full for reviewers and statisticians.</td></tr>
 <h3>A note on two words used throughout</h3>
 <table>
 <thead><tr><th style="width:22%">Term</th><th>What it means here</th></tr></thead>
-<tr><td><b>Branch</b></td><td>A parallel copy of the project. <code>main</code>
-is the version as it stood before this work; <code>validation</code> contains the
-corrections. Keeping them separate means the old version is never lost and every
-change can be inspected.</td></tr>
+<tr><td><b>"Before the correction"</b></td><td>The analysis as it stood at
+commit <code>b774584</code>, the last state before the facility-to-county
+mapping was corrected. That commit remains in the project's history, so every
+figure in the left-hand column can be re-derived rather than taken on
+trust.</td></tr>
 <tr class="alt"><td><b>The pipeline</b></td><td>The chain of scripts that turns
 raw data into the figures, tables and numbers in the paper. Running it end to end
 reproduces every published value.</td></tr>
@@ -191,16 +192,16 @@ bill of health.
 <p><b>Technical detail.</b> <code>ck_prose</code> used a substring search over
 the whole document, which is a one-sided test. The gate now also carries a
 <code>FORBIDDEN</code> list of obsolete values and phrases and fails if any
-appear. It grew from 171 checks to 171.</p>
+appear. It grew from 124 checks to 171.</p>
 
 <div class="divider"></div>
 
 <h2>3. The numbers, before and after</h2>
 <h3>3.1 What was counted</h3>
 <table>
-<thead><tr><th>What is being counted</th><th class="n">Before (main)</th>
-<th class="n">After (validation)</th><th>Why it changed</th></tr></thead>
-<tr><td>Accredited cardiac MR facilities</td><td class='n was'>722</td><td class='n now'>722</td><td class='small'>35 facilities were being lost by the old ZIP-to-county lookup</td></tr><tr class='alt'><td>Accredited cardiac CT facilities</td><td class='n was'>1,542</td><td class='n now'>1,542</td><td class='small'>61 facilities recovered, same cause</td></tr><tr><td>Counties with at least one CMR</td><td class='n was'>300</td><td class='n now'>300</td><td class='small'></td></tr><tr class='alt'><td>Counties with at least one CCT</td><td class='n was'>552</td><td class='n now'>552</td><td class='small'></td></tr><tr><td>Counties with neither modality</td><td class='n was'>2,570 (81.7%)</td><td class='n now'>2,570 (81.7%)</td><td class='small'>Fewer blank counties once facilities were found</td></tr><tr class='alt'><td>Share of CMR capacity in metro counties</td><td class='n was'>98.1%</td><td class='n now'>98.1%</td><td class='small'>Unchanged — the headline finding is robust</td></tr><tr><td>Share of CCT capacity in metro counties</td><td class='n was'>92.5%</td><td class='n now'>92.5%</td><td class='small'></td></tr><tr class='alt'><td>Counties in the SVI regression</td><td class='n was'>3,144</td><td class='n now'>3,144</td><td class='small'>Small counties restored to count models, per the project brief</td></tr><tr><td>Counties in the EDI regression</td><td class='n was'>3,134</td><td class='n now'>3,134</td><td class='small'></td></tr>
+<thead><tr><th>What is being counted</th><th class="n">Before the correction</th>
+<th class="n">Current</th><th>Why it changed</th></tr></thead>
+<tr><td>Accredited cardiac MR facilities</td><td class='n was'>687</td><td class='n now'>722</td><td class='small'>35 facilities were being lost by the old ZIP-to-county lookup</td></tr><tr class='alt'><td>Accredited cardiac CT facilities</td><td class='n was'>1,481</td><td class='n now'>1,542</td><td class='small'>61 facilities recovered, same cause</td></tr><tr><td>Counties with at least one CMR</td><td class='n was'>289</td><td class='n now'>300</td><td class='small'></td></tr><tr class='alt'><td>Counties with at least one CCT</td><td class='n was'>532</td><td class='n now'>552</td><td class='small'></td></tr><tr><td>Counties with neither modality</td><td class='n was'>2,583 (82.2%)</td><td class='n now'>2,570 (81.7%)</td><td class='small'>Fewer blank counties once facilities were found</td></tr><tr class='alt'><td>Share of CMR capacity in metro counties</td><td class='n was'>98.1%</td><td class='n now'>98.1%</td><td class='small'>Unchanged — the headline finding is robust</td></tr><tr><td>Share of CCT capacity in metro counties</td><td class='n was'>92.4%</td><td class='n now'>92.5%</td><td class='small'></td></tr><tr class='alt'><td>Counties in the SVI regression</td><td class='n was'>3,038</td><td class='n now'>3,144</td><td class='small'>Small counties restored to count models, per the project brief</td></tr><tr><td>Counties in the EDI regression</td><td class='n was'>3,029</td><td class='n now'>3,134</td><td class='small'></td></tr>
 </table>
 
 <h3>3.2 The statistical results</h3>
@@ -209,7 +210,7 @@ city-versus-rural status constant. "IRR" is an incidence rate ratio: 1.00 means
 no difference, above 1.00 means more capacity, below means less. The range in
 brackets is the 95% confidence interval; if it does not cross 1.00, the result
 is conventionally called statistically significant.</p>
-<table><thead><tr><th>Predictor</th><th class='n'>Before (main)</th><th class='n'>After (validation)</th><th>Verdict</th></tr></thead><tr><td>Social Vulnerability Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>1.00 (0.97–1.04)<br><span class='small'>P = 0.854, not significant</span></td><td class='n now'>1.00 (0.97–1.04)<br><span class='small'>P = 0.854, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Social Vulnerability Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.03 (1.01–1.06)<br><span class='small'>P = 0.008, significant</span></td><td class='n now'>1.03 (1.01–1.06)<br><span class='small'>P = 0.008, significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr><td>Economic Deprivation Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>0.99 (0.96–1.03)<br><span class='small'>P = 0.699, not significant</span></td><td class='n now'>0.99 (0.96–1.03)<br><span class='small'>P = 0.699, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Economic Deprivation Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.02 (0.99–1.04)<br><span class='small'>P = 0.186, not significant</span></td><td class='n now'>1.02 (0.99–1.04)<br><span class='small'>P = 0.186, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac MR</span></td><td class='n was'>8.33 (4.86–14.28)</td><td class='n now'>8.33 (4.86–14.28)</td><td><span class='chip'>unchanged, still dominant</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac CT</span></td><td class='n was'>2.13 (1.74–2.61)</td><td class='n now'>2.13 (1.74–2.61)</td><td><span class='chip'>unchanged, still dominant</span></td></tr></table>
+<table><thead><tr><th>Predictor</th><th class='n'>Before the correction</th><th class='n'>Current</th><th>Verdict</th></tr></thead><tr><td>Social Vulnerability Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>1.00 (0.95–1.04)<br><span class='small'>P = 0.870, not significant</span></td><td class='n now'>1.00 (0.97–1.04)<br><span class='small'>P = 0.854, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Social Vulnerability Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.03 (0.99–1.06)<br><span class='small'>P = 0.127, not significant</span></td><td class='n now'>1.03 (1.01–1.06)<br><span class='small'>P = 0.008, significant</span></td><td><span class='chip chip-warn'>CONCLUSION CHANGED</span></td></tr><tr><td>Economic Deprivation Index<br><span class='small'>Cardiac MR</span></td><td class='n was'>0.98 (0.94–1.03)<br><span class='small'>P = 0.434, not significant</span></td><td class='n now'>0.99 (0.96–1.03)<br><span class='small'>P = 0.699, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr class='alt'><td>Economic Deprivation Index<br><span class='small'>Cardiac CT</span></td><td class='n was'>1.01 (0.97–1.04)<br><span class='small'>P = 0.663, not significant</span></td><td class='n now'>1.02 (0.99–1.04)<br><span class='small'>P = 0.186, not significant</span></td><td><span class='chip-neutral chip'>same conclusion</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac MR</span></td><td class='n was'>8.23 (4.65–14.56)</td><td class='n now'>8.33 (4.86–14.28)</td><td><span class='chip'>unchanged, still dominant</span></td></tr><tr><td><b>Metropolitan status</b><br><span class='small'>Cardiac CT</span></td><td class='n was'>1.96 (1.56–2.47)</td><td class='n now'>2.13 (1.74–2.61)</td><td><span class='chip'>unchanged, still dominant</span></td></tr></table>
 <div class="bad">
 <b>The one conclusion that changed.</b> Social vulnerability and cardiac CT
 capacity. Before, this looked like no relationship. Now it is a modest
@@ -223,11 +224,11 @@ explicitly rather than describing it as nothing.
 <h3>3.3 Capacity across deprivation groups</h3>
 <p>Counties were split into five equal groups from least to most deprived, and
 the average cardiac MR capacity of each group compared.</p>
-<table><thead><tr><th>Deprivation group</th><th class='n'>Before (main)</th><th class='n'>After (validation)</th></tr></thead><tr><td>Q1 — least deprived</td><td class='n was'>0.2619</td><td class='n now'>0.2619</td></tr><tr class='alt'><td>Q2</td><td class='n was'>0.1613</td><td class='n now'>0.1613</td></tr><tr><td>Q3</td><td class='n was'>0.1850</td><td class='n now'>0.1850</td></tr><tr class='alt'><td>Q4</td><td class='n was'>0.0812 ← lowest</td><td class='n now'>0.0812 ← lowest</td></tr><tr><td>Q5 — most deprived</td><td class='n was'>0.0902</td><td class='n now'>0.0902</td></tr><tr><td><b>Ratio, least vs most deprived</b></td><td class='n was'>2.90×</td><td class='n now'>2.90×</td></tr></table>
+<table><thead><tr><th>Deprivation group</th><th class='n'>Before the correction</th><th class='n'>Current</th></tr></thead><tr><td>Q1 — least deprived</td><td class='n was'>0.2715</td><td class='n now'>0.2619</td></tr><tr class='alt'><td>Q2</td><td class='n was'>0.1491</td><td class='n now'>0.1613</td></tr><tr><td>Q3</td><td class='n was'>0.1870</td><td class='n now'>0.1850</td></tr><tr class='alt'><td>Q4</td><td class='n was'>0.0806</td><td class='n now'>0.0812 ← lowest</td></tr><tr><td>Q5 — most deprived</td><td class='n was'>0.0622 ← lowest</td><td class='n now'>0.0902</td></tr><tr><td><b>Ratio, least vs most deprived</b></td><td class='n was'>4.37×</td><td class='n now'>2.90×</td></tr></table>
 <div class="why">
 <b>Why this matters for the wording of the paper.</b> Before the fix, capacity
 fell steadily from group 1 to group 5, and the paper described a
-2.9-fold "gradient". After the fix the
+4.4-fold "gradient". After the fix the
 extreme groups still differ, but the middle no longer falls in order, and the
 <i>lowest</i> group is Q4, not Q5. The paper now reports a
 2.9-fold difference between the extremes and
@@ -689,9 +690,9 @@ than quietly dropped — a reader deserves to know which claims were live and
 which had been overtaken.
 </div>
 
-<h2>12. The commits in this branch</h2>
+<h2>12. The commits that made these changes</h2>
 <table><thead><tr><th style="width:14%">Commit</th><th>Description</th></tr></thead>
-<tr><td><code>4638d6b</code></td><td>Restore the working documents after merging main</td></tr><tr class='alt'><td><code>689e7cb</code></td><td>Merge branch 'main' into validation</td></tr></table>
+<tr><td><code>8f80882</code></td><td>Correct facility-to-county mapping; evaluate count-model dispersion</td></tr><tr class='alt'><td><code>7721d11</code></td><td>Add HUD-USPS ZIP-county crosswalk fetcher</td></tr><tr><td><code>dcd216f</code></td><td>Use the HUD-USPS crosswalk; all 2,264 eligible records now map</td></tr><tr class='alt'><td><code>65c6938</code></td><td>Add post-HUD audit report</td></tr><tr><td><code>2a253b1</code></td><td>Adopt estimated-dispersion NB as primary; restore count-regression sample</td></tr><tr class='alt'><td><code>155214e</code></td><td>Add generated comparison report (HTML + PDF)</td></tr><tr><td><code>f9cdeb7</code></td><td>Route all regressions through model_spec; finalize submission manuscript</td></tr><tr class='alt'><td><code>83be76b</code></td><td>Add detailed main vs validation comparison (HTML + PDF)</td></tr><tr><td><code>af0cb31</code></td><td>Prepare updated-results as the reviewer-facing submission branch</td></tr><tr class='alt'><td><code>af34d96</code></td><td>Act on independent reviewer audit; strengthen validator; expand docs</td></tr><tr><td><code>f652ab0</code></td><td>Merge validation: reviewer-audit fixes and validator hardening</td></tr><tr class='alt'><td><code>4f2ca3f</code></td><td>Refresh generated outputs after merge</td></tr><tr><td><code>cde5f21</code></td><td>Act on second audit: BIC, live gate tests, README and text corrections</td></tr><tr class='alt'><td><code>db9dd3b</code></td><td>Merge branch 'validation' into updated-results</td></tr><tr><td><code>44efc42</code></td><td>Refresh generated outputs after merge</td></tr><tr class='alt'><td><code>c1a67c8</code></td><td>Act on final audit: length limits, blanket-null precision, report provenance</td></tr><tr><td><code>3b83feb</code></td><td>Merge branch 'validation' into updated-results</td></tr><tr class='alt'><td><code>3bfd7b9</code></td><td>Refresh generated outputs after merge</td></tr><tr><td><code>b3133cd</code></td><td>Disclose the primary cohort; verify the AIC/BIC claim against output</td></tr><tr class='alt'><td><code>45e4ae8</code></td><td>Merge branch 'validation' into updated-results</td></tr><tr><td><code>3796ed1</code></td><td>Refresh generated outputs after merge</td></tr><tr class='alt'><td><code>863a188</code></td><td>Fix PDF page-break defects in the generated documents</td></tr><tr><td><code>7935756</code></td><td>Merge branch 'validation' into updated-results</td></tr><tr class='alt'><td><code>c569004</code></td><td>Refresh generated outputs after merge</td></tr><tr><td><code>3084f6b</code></td><td>Describe the branch layout after promoting this work to main</td></tr><tr class='alt'><td><code>037837e</code></td><td>Add a pinned virtual environment; fix NaN Spearman correlations</td></tr><tr><td><code>4638d6b</code></td><td>Restore the working documents after merging main</td></tr><tr class='alt'><td><code>15b6f4f</code></td><td>Updated the pipeline and re-ran everything</td></tr><tr><td><code>907356b</code></td><td>Re-ran to check everything works fine</td></tr><tr class='alt'><td><code>689e7cb</code></td><td>Merge branch 'main' into validation</td></tr><tr><td><code>9bf889e</code></td><td>Bring validation up to date with main</td></tr></table>
 
 <p class="small" style="margin-top:6mm">Generated by
 <code>tools/build_branch_comparison.py</code>. The "before" column is read from
