@@ -73,12 +73,37 @@ chosen index encodes rurality; the metropolitan finding does not. See
 
 ## Reproducing the results
 
-Requires Python 3.11.
+Requires Python 3.11. Create an isolated environment first, so the pinned
+versions cannot collide with anything else installed on your machine:
 
 ```bash
-pip install -r requirements.txt
+python3.11 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python code/00_run_all.py
+```
+
+Then either prefix every command with `.venv/bin/python`, or activate the
+environment once per shell:
+
+```bash
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
 python code/00_run_all.py
 ```
+
+`requirements.txt` pins the direct dependencies to the versions that produced
+every committed output. `requirements-lock.txt` additionally pins the
+transitive ones; install from it if you want a byte-identical environment:
+
+```bash
+.venv/bin/python -m pip install -r requirements-lock.txt
+```
+
+The versions matter. Reproduction was verified on Python 3.11.7 with
+NumPy 1.26.4, SciPy 1.13.0, statsmodels 0.14.6 and scikit-learn 1.4.2: all 666
+values in `manuscript_numbers.json` were bit-identical to the committed run.
+NumPy is held below 2.0 because several compiled wheels in this stack are built
+against the 1.x ABI.
 
 That runs the analysis and validation stages and needs **no network access** —
 the analytic dataset is committed. It finishes in under ten seconds and writes:

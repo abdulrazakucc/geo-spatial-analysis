@@ -116,6 +116,26 @@ def test_all_states_present():
 
 
 # ------------------------------------------------------------------- outputs
+def test_no_unexpected_nan_in_results():
+    """Correlations and descriptives must all be computable.
+
+    scipy propagates NaN when an input contains missing values, which produced
+    silently NaN EDI Spearman correlations. The only NaN the pipeline may emit
+    is a non-estimable model term, which is reported as NE and flagged with an
+    `estimable` key.
+    """
+    path = os.path.join(BASE_DIR, "output", "validation", "manuscript_numbers.json")
+    if not os.path.exists(path):
+        import pytest
+        pytest.skip("run the pipeline first")
+    with open(path) as f:
+        R = json.load(f)
+    for block in ("correlations", "descriptives", "quintiles"):
+        bad = [k for k, v in R[block].items()
+               if isinstance(v, float) and v != v]
+        assert not bad, f"NaN in {block}: {bad}"
+
+
 def test_model_comparison_output():
     """Poisson and estimated-NB results must exist for every model."""
     path = os.path.join(RESULTS, "model_specification_comparison.csv")

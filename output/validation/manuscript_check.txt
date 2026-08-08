@@ -2,10 +2,10 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   170fee8a7aeb84f5dfcc3ab14b36709c478a9d93c6a44be73afa92a01f8dba4c
-Checked:  2026-08-07T23:10:19Z
-Code:     c569004 (working tree modified)
-Checks:   170     Mismatches: 0
+SHA256:   58c082bb5408a0479a0b5ac1f34a1624a12bb7aabe1d903a82c145a07bff20f9
+Checked:  2026-08-08T04:26:10Z
+Code:     3084f6b (working tree modified)
+Checks:   171     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -57,6 +57,7 @@ ALL CHECKS
   ok    mean CMR rate, metro vs nonmetro   0.37 versus 0.02
   ok    mean CCT rate, metro vs nonmetro   0.75 versus 0.33
   ok    Table 1 quintile denominator       3,029 counties
+  ok    all correlations are computable    no NaN
   ok    no unqualified blanket-null claim  absent
   ok    Methods disclose the Under Review cohort present
   ok    cohort count, Accredited           2,242

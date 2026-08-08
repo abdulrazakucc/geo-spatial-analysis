@@ -300,13 +300,19 @@ def correlations(m):
         "svi_edi_spearman_rho": float(sr), "svi_edi_spearman_p": float(sp),
         "svi_edi_n": int(len(v)),
     }
+    # scipy returns NaN if either input contains NaN. The rate-eligible set
+    # includes counties with no EDI value, so the EDI correlations must be
+    # computed on the subset that has one; otherwise they silently come out NaN.
+    el_edi = el.dropna(subset=["edi_national_percentile"])
     for lab, col in [("cmr", "cmr_rate_per_100k"), ("cct", "cct_rate_per_100k")]:
         r, p = stats.spearmanr(el[col], el.svi_percentile)
         out[f"svi_{lab}_spearman_rho"] = float(r)
         out[f"svi_{lab}_spearman_p"] = float(p)
-        r, p = stats.spearmanr(el[col], el.edi_national_percentile)
+        r, p = stats.spearmanr(el_edi[col], el_edi.edi_national_percentile)
         out[f"edi_{lab}_spearman_rho"] = float(r)
         out[f"edi_{lab}_spearman_p"] = float(p)
+    out["svi_spearman_n"] = int(len(el))
+    out["edi_spearman_n"] = int(len(el_edi))
     mw_cmr = stats.mannwhitneyu(el.loc[el.metro_indicator == 1, "cmr_rate_per_100k"],
                                 el.loc[el.metro_indicator == 0, "cmr_rate_per_100k"])
     mw_cct = stats.mannwhitneyu(el.loc[el.metro_indicator == 1, "cct_rate_per_100k"],
@@ -908,6 +914,14 @@ def check_manuscript(R):
 
     # Journal limits. These were previously asserted only by a bracketed note
     # in the manuscript, which drifted out of date as the text was revised.
+    # Every correlation must be computable. NaN here means an input carried
+    # missing values, which once produced silently NaN Spearman results that
+    # no other check would have caught.
+    nan_corr = [k for k, v in R["correlations"].items()
+                if isinstance(v, float) and pd.isna(v)]
+    checks.append(("all correlations are computable", "no NaN",
+                   f"NaN in {nan_corr}" if nan_corr else "no NaN", not nan_corr))
+
     _check_blanket_null(prose, checks)
     _check_cohort_disclosure(prose, checks,
                              os.path.join(PROC, "facility_mapping_audit.csv"))

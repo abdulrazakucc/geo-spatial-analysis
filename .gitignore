@@ -24,3 +24,7 @@ code/__pycache__/
 # API credentials, never commit
 data/raw/.hud_api_token
 .env
+
+# Virtual environment
+.venv/
+venv/
