@@ -17,10 +17,8 @@ Inputs:
     data/ACR_Cardiac_Imaging_Sites.xlsx
 
 Outputs:
-    output/figures/figure1_choropleth.pdf  (vector, journal-ready)
-    output/figures/figure1_choropleth.png  (600 DPI raster fallback)
-    output/tables/table1_publication.csv
-    output/tables/table1_publication.txt
+    output/tables/descriptives_by_svi_quartile.csv
+    output/tables/descriptives_by_svi_quartile.txt
     output/models/regression_results_full.txt
 """
 
@@ -305,11 +303,11 @@ def create_table1(df):
     print(f"  Spearman ρ (CCT rate vs SVI): {cct_rho:.4f}, p = {cct_p:.4f}")
     
     # Save CSV
-    table_df.to_csv(os.path.join(TBL_DIR, "table1_publication.csv"), index=False)
+    table_df.to_csv(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.csv"), index=False)
     
     # Save formatted text
-    with open(os.path.join(TBL_DIR, "table1_publication.txt"), 'w') as f:
-        f.write("Table 1. ACR-Accredited Cardiac Imaging Capacity by Social Vulnerability Quartile and Rurality\n")
+    with open(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.txt"), 'w') as f:
+        f.write("Accredited cardiac imaging capacity by social vulnerability quartile and rurality\n")
         f.write("=" * 120 + "\n\n")
         f.write(table_df.to_string(index=False))
         f.write("\n\n" + "─" * 120 + "\n")
@@ -325,8 +323,8 @@ def create_table1(df):
         f.write("  Rate = accredited facilities per 100,000 adults aged ≥45 years.\n")
         f.write("  IQR = interquartile range.\n")
     
-    print(f"\n  ✓ {os.path.join(TBL_DIR, 'table1_publication.csv')}")
-    print(f"  ✓ {os.path.join(TBL_DIR, 'table1_publication.txt')}")
+    print(f"\n  ✓ {os.path.join(TBL_DIR, 'descriptives_by_svi_quartile.csv')}")
+    print(f"  ✓ {os.path.join(TBL_DIR, 'descriptives_by_svi_quartile.txt')}")
     
     return {'cmr_rho': cmr_rho, 'cmr_p': cmr_p, 'cct_rho': cct_rho, 'cct_p': cct_p}
 
@@ -458,8 +456,8 @@ def main():
     print("  ALL PUBLICATION OUTPUTS COMPLETE")
     print("█"*70)
     print("\n  Outputs:")
-    print("  ├── output/tables/table1_publication.csv")
-    print("  ├── output/tables/table1_publication.txt")
+    print("  ├── output/tables/descriptives_by_svi_quartile.csv")
+    print("  ├── output/tables/descriptives_by_svi_quartile.txt")
     print("  ├── output/models/regression_results_full.txt")
     print("  └── output/models/model_objects.pkl")
 

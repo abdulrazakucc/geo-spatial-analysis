@@ -1,4 +1,4 @@
-Table 1. ACR-Accredited Cardiac Imaging Capacity by Social Vulnerability Quartile and Rurality
+Accredited cardiac imaging capacity by social vulnerability quartile and rurality
 ========================================================================================================================
 
                    Stratum  Counties (n) Adults ≥45 (millions)  CMR Sites CMR Counties (%) CMR Rate Median (IQR) CMR Rate Mean  CCT Sites CCT Counties (%) CCT Rate Median (IQR) CCT Rate Mean

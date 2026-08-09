@@ -310,6 +310,46 @@ def test_publication_outputs_consume_canonical_results():
         "publication output does not carry the canonical SVI-CCT estimate")
 
 
+def test_generated_table1_matches_manuscript():
+    """The Table 1 artifact and the Table 1 in the paper must be the same table.
+
+    Both derive from manuscript_numbers.json, but they format it independently,
+    so a divergence in rounding or row order would otherwise go unnoticed until
+    a reviewer compared them.
+    """
+    gen = os.path.join(BASE_DIR, "output", "tables",
+                       "Table1_Capacity_by_Rurality_and_EDI.docx")
+    doc = os.path.join(BASE_DIR, "manuscript", "manuscript_SUBMISSION.docx")
+    if not (os.path.exists(gen) and os.path.exists(doc)):
+        import pytest
+        pytest.skip("run the pipeline first")
+
+    sys.path.insert(0, os.path.join(BASE_DIR, "tools"))
+    from docx import Document
+    from docx_tracked import TrackedDocument
+    W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+
+    def cells(tbl):
+        return [["".join(n.text or "" for n in c.iter(f"{W}t")).strip()
+                 for c in row.findall(f"{W}tc")]
+                for row in tbl.findall(f".//{W}tr")]
+
+    paper = cells(TrackedDocument(doc, author="test").tables()[0])
+    built = cells(Document(gen).tables[0]._tbl)
+    assert paper == built, "generated Table 1 does not match the manuscript"
+
+
+def test_no_withdrawn_table4_artifacts():
+    """Table 4 was withdrawn and promoted to Figure 2; nothing may still ship
+    under that name, or a stale file could reach a submission."""
+    tables = os.path.join(BASE_DIR, "output", "tables")
+    if not os.path.isdir(tables):
+        import pytest
+        pytest.skip("run the pipeline first")
+    stale = [f for f in os.listdir(tables) if f.lower().startswith("table4")]
+    assert not stale, f"withdrawn Table 4 artifacts present: {stale}"
+
+
 if __name__ == "__main__":
     failures = 0
     for name, fn in sorted(globals().items()):
