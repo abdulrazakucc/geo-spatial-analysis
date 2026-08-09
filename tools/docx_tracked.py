@@ -273,6 +273,45 @@ class TrackedDocument:
                 seen[key] = seen.get(key, 0) + 1
         return sorted(seen.items())
 
+    def tables(self):
+        """Every w:tbl in the body, in document order."""
+        return list(self._body.iter(_w("tbl")))
+
+    def insert_table_column(self, table, after_index, values):
+        """Insert a column after `after_index`, one value per row.
+
+        `values` must have one entry per row including the header. The new
+        cell copies the formatting of the cell it follows, so the column
+        matches the table it joins. Marked as a tracked insertion when the
+        document is being edited with revision tracking.
+        """
+        rows = table.findall(_w("tr"))
+        if len(values) != len(rows):
+            raise ValueError(
+                f"{len(values)} values for {len(rows)} rows")
+        for row, value in zip(rows, values):
+            cells = row.findall(_w("tc"))
+            model = cells[min(after_index, len(cells) - 1)]
+            new = copy.deepcopy(model)
+            # Strip the copied text, keeping the cell and paragraph properties.
+            for para in new.findall(_w("p")):
+                for child in list(para):
+                    if child.tag != _w("pPr"):
+                        para.remove(child)
+            target = new.find(_w("p"))
+            if target is None:
+                target = etree.SubElement(new, _w("p"))
+            rpr = None
+            for m_para in model.findall(_w("p")):
+                m_run = m_para.find(_w("r"))
+                if m_run is not None:
+                    rpr = m_run.find(_w("rPr"))
+                    break
+            run = self._new_run(str(value), rpr)
+            target.append(self._ins([run]) if self.author else run)
+            model.addnext(new)
+        return len(rows)
+
     def accept_all(self):
         """Resolve every tracked change into final text.
 

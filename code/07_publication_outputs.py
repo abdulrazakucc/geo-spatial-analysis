@@ -446,10 +446,7 @@ def main():
     
     # Load data
     df = load_data()
-    gdf = load_geodata()
     
-    # Generate Figure 1
-    create_figure1(gdf)
     
     # Generate Table 1
     create_table1(df)
@@ -461,8 +458,6 @@ def main():
     print("  ALL PUBLICATION OUTPUTS COMPLETE")
     print("█"*70)
     print("\n  Outputs:")
-    print("  ├── output/figures/figure1_choropleth.pdf  (vector, journal-ready)")
-    print("  ├── output/figures/figure1_choropleth.png  (600 DPI)")
     print("  ├── output/tables/table1_publication.csv")
     print("  ├── output/tables/table1_publication.txt")
     print("  ├── output/models/regression_results_full.txt")

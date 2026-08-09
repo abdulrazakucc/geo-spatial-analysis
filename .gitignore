@@ -3,6 +3,7 @@ __pycache__/
 *.pyo
 .env
 *.egg-info/
+tools/
 dist/
 build/
 manuscript/

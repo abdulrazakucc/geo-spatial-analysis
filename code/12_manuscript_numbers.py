@@ -137,14 +137,21 @@ def table1(m):
     rows = {}
 
     def block(d):
+        # Counts use every county in the stratum. Mean rates use only the
+        # rate-eligible subset, because a per-head rate is not defined for a
+        # county with fewer than 1,000 adults aged 45+.
+        r = d[d.rate_excluded == 0]
         return {"counties": int(len(d)),
                 "adults_millions": float(d.adult_pop_45plus.sum() / 1e6),
                 "cmr_facilities": int(d.cmr_facility_count.sum()),
                 "counties_ge1_cmr": int((d.cmr_facility_count > 0).sum()),
                 "counties_ge1_cmr_pct": float(100 * (d.cmr_facility_count > 0).mean()),
+                "cmr_rate_mean": float(r.cmr_rate_per_100k.mean()),
                 "cct_facilities": int(d.cct_facility_count.sum()),
                 "counties_ge1_cct": int((d.cct_facility_count > 0).sum()),
-                "counties_ge1_cct_pct": float(100 * (d.cct_facility_count > 0).mean())}
+                "counties_ge1_cct_pct": float(100 * (d.cct_facility_count > 0).mean()),
+                "cct_rate_mean": float(r.cct_rate_per_100k.mean()),
+                "rate_eligible": int(len(r))}
 
     rows["all_counties"] = block(m)
     rows["metropolitan"] = block(m[m.metro_indicator == 1])
@@ -997,8 +1004,17 @@ def check_manuscript(R):
             ck(f"T1 {label} adults", f"{b['adults_millions']:.1f}", cells[2])
             ck(f"T1 {label} CMR fac", f"{b['cmr_facilities']:,}", cells[3])
             ck(f"T1 {label} cty>=1 CMR", f"{b['counties_ge1_cmr']:,} ({b['counties_ge1_cmr_pct']:.1f})", cells[4])
-            ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[5])
-            ck(f"T1 {label} cty>=1 CCT", f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[6])
+            if len(cells) < 9:
+                ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[5])
+            if len(cells) >= 9:
+                ck(f"T1 {label} CMR rate", f"{b['cmr_rate_mean']:.2f}", cells[5])
+                ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[6])
+                ck(f"T1 {label} cty>=1 CCT",
+                   f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[7])
+                ck(f"T1 {label} CCT rate", f"{b['cct_rate_mean']:.2f}", cells[8])
+            else:
+                ck(f"T1 {label} cty>=1 CCT",
+                   f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[6])
 
     # ---- Table 2
     if len(doc_tables) >= 2:
@@ -1042,25 +1058,12 @@ def check_manuscript(R):
                 ck(f"T3 {label} EDI", fmt_est(blk[f"stratified_{lay}"]), cells[2])
                 ck(f"T3 {label} P", fmt_p(blk[f"stratified_{lay}"]["p"]), cells[3])
 
-    # ---- Table 4
-    if len(doc_tables) >= 4 and R.get("sdi"):
-        t4 = _parse_table(doc_tables[3])
-        E = R["sdi"]["EDI_models"]["outcomes"]
-        S = R["sdi"]["SDI_models"]["outcomes"]
-        f2 = lambda e: f"{e['IRR']:.2f} ({e['CI_low']:.2f}-{e['CI_high']:.2f})"
-        p2 = lambda e: "<0.001" if e["P"] < 0.001 else f"{e['P']:.3f}"
-        for sect, oc in [("Cardiac MR", "cmr_facility_count"), ("Cardiac CT", "cct_facility_count")]:
-            for label, key in [("Index, unadjusted", "unadjusted"),
-                               ("Index, adjusted for metropolitan status", "adjusted"),
-                               ("Metropolitan status", "metro_in_adjusted")]:
-                cells = t4.get((sect, label))
-                if cells is None:
-                    ck(f"T4 {sect} {label}", "row present", "ROW NOT FOUND")
-                    continue
-                ck(f"T4 {sect} {label} EDI", f2(E[oc][key]), cells[1])
-                ck(f"T4 {sect} {label} EDI P", p2(E[oc][key]), cells[2])
-                ck(f"T4 {sect} {label} SDI", f2(S[oc][key]), cells[3])
-                ck(f"T4 {sect} {label} SDI P", p2(S[oc][key]), cells[4])
+    # Table 4 was withdrawn; the external-validation results now appear as
+    # Figure 2, and are checked against the generated comparison rather than a
+    # table in the document.
+    if len(doc_tables) >= 4:
+        checks.append(("Table 4 withdrawn", "3 tables",
+                       f"{len(doc_tables)} tables found", False))
 
     bad = [x for x in checks if not x[3]]
     L = ["=" * 78, "MANUSCRIPT vs DATA, CELL BY CELL", "=" * 78,
