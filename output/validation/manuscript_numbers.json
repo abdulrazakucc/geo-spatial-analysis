@@ -31,9 +31,12 @@
       "cmr_facilities": 722,
       "counties_ge1_cmr": 300,
       "counties_ge1_cmr_pct": 9.541984732824428,
+      "cmr_rate_mean": 0.1570230422838759,
       "cct_facilities": 1542,
       "counties_ge1_cct": 552,
-      "counties_ge1_cct_pct": 17.557251908396946
+      "counties_ge1_cct_pct": 17.557251908396946,
+      "cct_rate_mean": 0.4954609225111067,
+      "rate_eligible": 3038
     },
     "metropolitan": {
       "counties": 1186,
@@ -41,9 +44,12 @@
       "cmr_facilities": 708,
       "counties_ge1_cmr": 286,
       "counties_ge1_cmr_pct": 24.11467116357504,
+      "cmr_rate_mean": 0.36517634089778056,
       "cct_facilities": 1427,
       "counties_ge1_cct": 444,
-      "counties_ge1_cct_pct": 37.436762225969645
+      "counties_ge1_cct_pct": 37.436762225969645,
+      "cct_rate_mean": 0.7499741382197413,
+      "rate_eligible": 1180
     },
     "nonmetropolitan": {
       "counties": 1958,
@@ -51,9 +57,12 @@
       "cmr_facilities": 14,
       "counties_ge1_cmr": 14,
       "counties_ge1_cmr_pct": 0.7150153217568949,
+      "cmr_rate_mean": 0.024826652421439117,
       "cct_facilities": 115,
       "counties_ge1_cct": 108,
-      "counties_ge1_cct_pct": 5.515832482124617
+      "counties_ge1_cct_pct": 5.515832482124617,
+      "cct_rate_mean": 0.3338217435357628,
+      "rate_eligible": 1858
     },
     "edi_q1": {
       "counties": 606,
@@ -61,9 +70,12 @@
       "cmr_facilities": 240,
       "counties_ge1_cmr": 109,
       "counties_ge1_cmr_pct": 17.986798679867988,
+      "cmr_rate_mean": 0.261918073049076,
       "cct_facilities": 439,
       "counties_ge1_cct": 170,
-      "counties_ge1_cct_pct": 28.052805280528055
+      "counties_ge1_cct_pct": 28.052805280528055,
+      "cct_rate_mean": 0.6030027410397932,
+      "rate_eligible": 606
     },
     "edi_q2": {
       "counties": 606,
@@ -71,9 +83,12 @@
       "cmr_facilities": 131,
       "counties_ge1_cmr": 66,
       "counties_ge1_cmr_pct": 10.891089108910892,
+      "cmr_rate_mean": 0.16125572788563639,
       "cct_facilities": 297,
       "counties_ge1_cct": 117,
-      "counties_ge1_cct_pct": 19.306930693069308
+      "counties_ge1_cct_pct": 19.306930693069308,
+      "cct_rate_mean": 0.4128812292185462,
+      "rate_eligible": 606
     },
     "edi_q3": {
       "counties": 605,
@@ -81,9 +96,12 @@
       "cmr_facilities": 177,
       "counties_ge1_cmr": 65,
       "counties_ge1_cmr_pct": 10.743801652892563,
+      "cmr_rate_mean": 0.1850101161725059,
       "cct_facilities": 374,
       "counties_ge1_cct": 117,
-      "counties_ge1_cct_pct": 19.33884297520661
+      "counties_ge1_cct_pct": 19.33884297520661,
+      "cct_rate_mean": 0.5393288580006111,
+      "rate_eligible": 605
     },
     "edi_q4": {
       "counties": 606,
@@ -91,9 +109,12 @@
       "cmr_facilities": 112,
       "counties_ge1_cmr": 37,
       "counties_ge1_cmr_pct": 6.105610561056106,
+      "cmr_rate_mean": 0.08116405167263856,
       "cct_facilities": 317,
       "counties_ge1_cct": 95,
-      "counties_ge1_cct_pct": 15.676567656765677
+      "counties_ge1_cct_pct": 15.676567656765677,
+      "cct_rate_mean": 0.617426256979551,
+      "rate_eligible": 606
     },
     "edi_q5": {
       "counties": 606,
@@ -101,9 +122,12 @@
       "cmr_facilities": 48,
       "counties_ge1_cmr": 19,
       "counties_ge1_cmr_pct": 3.1353135313531353,
+      "cmr_rate_mean": 0.09019110995267056,
       "cct_facilities": 97,
       "counties_ge1_cct": 47,
-      "counties_ge1_cct_pct": 7.755775577557755
+      "counties_ge1_cct_pct": 7.755775577557755,
+      "cct_rate_mean": 0.29962096344342964,
+      "rate_eligible": 606
     },
     "_note": "Rurality strata use all counties. EDI quintiles are restricted to rate-eligible counties with an EDI value."
   },

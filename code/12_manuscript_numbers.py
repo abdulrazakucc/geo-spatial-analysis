@@ -137,14 +137,21 @@ def table1(m):
     rows = {}
 
     def block(d):
+        # Counts use every county in the stratum. Mean rates use only the
+        # rate-eligible subset, because a per-head rate is not defined for a
+        # county with fewer than 1,000 adults aged 45+.
+        r = d[d.rate_excluded == 0]
         return {"counties": int(len(d)),
                 "adults_millions": float(d.adult_pop_45plus.sum() / 1e6),
                 "cmr_facilities": int(d.cmr_facility_count.sum()),
                 "counties_ge1_cmr": int((d.cmr_facility_count > 0).sum()),
                 "counties_ge1_cmr_pct": float(100 * (d.cmr_facility_count > 0).mean()),
+                "cmr_rate_mean": float(r.cmr_rate_per_100k.mean()),
                 "cct_facilities": int(d.cct_facility_count.sum()),
                 "counties_ge1_cct": int((d.cct_facility_count > 0).sum()),
-                "counties_ge1_cct_pct": float(100 * (d.cct_facility_count > 0).mean())}
+                "counties_ge1_cct_pct": float(100 * (d.cct_facility_count > 0).mean()),
+                "cct_rate_mean": float(r.cct_rate_per_100k.mean()),
+                "rate_eligible": int(len(r))}
 
     rows["all_counties"] = block(m)
     rows["metropolitan"] = block(m[m.metro_indicator == 1])
@@ -997,8 +1004,17 @@ def check_manuscript(R):
             ck(f"T1 {label} adults", f"{b['adults_millions']:.1f}", cells[2])
             ck(f"T1 {label} CMR fac", f"{b['cmr_facilities']:,}", cells[3])
             ck(f"T1 {label} cty>=1 CMR", f"{b['counties_ge1_cmr']:,} ({b['counties_ge1_cmr_pct']:.1f})", cells[4])
-            ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[5])
-            ck(f"T1 {label} cty>=1 CCT", f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[6])
+            if len(cells) < 9:
+                ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[5])
+            if len(cells) >= 9:
+                ck(f"T1 {label} CMR rate", f"{b['cmr_rate_mean']:.2f}", cells[5])
+                ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[6])
+                ck(f"T1 {label} cty>=1 CCT",
+                   f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[7])
+                ck(f"T1 {label} CCT rate", f"{b['cct_rate_mean']:.2f}", cells[8])
+            else:
+                ck(f"T1 {label} cty>=1 CCT",
+                   f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[6])
 
     # ---- Table 2
     if len(doc_tables) >= 2:

@@ -1,11 +1,11 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   cd6f9f35aea3fb97e5c480d1647cb3232e6c9fdf3fd19cd6e79e784b8a06696f
-Checked:  2026-08-08T16:01:42Z
-Code:     b68d675 (working tree modified)
-Checks:   172     Mismatches: 0
+Document: manuscript/manuscript_CLEAN.docx
+SHA256:   688c918c2227eff8f2170603244fbcdef1802003afdb5f70140f4effee50c435
+Checked:  2026-08-09T04:52:14Z
+Code:     0611b78 (working tree modified)
+Checks:   188     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -77,50 +77,66 @@ ALL CHECKS
   ok    T1 All counties adults             141.6
   ok    T1 All counties CMR fac            722
   ok    T1 All counties cty>=1 CMR         300 (9.5)
+  ok    T1 All counties CMR rate           0.16
   ok    T1 All counties CCT fac            1,542
   ok    T1 All counties cty>=1 CCT         552 (17.6)
+  ok    T1 All counties CCT rate           0.50
   ok    T1 Metropolitan (RUCC 1-3) counties 1,186
   ok    T1 Metropolitan (RUCC 1-3) adults  120.3
   ok    T1 Metropolitan (RUCC 1-3) CMR fac 708
   ok    T1 Metropolitan (RUCC 1-3) cty>=1 CMR 286 (24.1)
+  ok    T1 Metropolitan (RUCC 1-3) CMR rate 0.37
   ok    T1 Metropolitan (RUCC 1-3) CCT fac 1,427
   ok    T1 Metropolitan (RUCC 1-3) cty>=1 CCT 444 (37.4)
+  ok    T1 Metropolitan (RUCC 1-3) CCT rate 0.75
   ok    T1 Nonmetropolitan (RUCC 4-9) counties 1,958
   ok    T1 Nonmetropolitan (RUCC 4-9) adults 21.3
   ok    T1 Nonmetropolitan (RUCC 4-9) CMR fac 14
   ok    T1 Nonmetropolitan (RUCC 4-9) cty>=1 CMR 14 (0.7)
+  ok    T1 Nonmetropolitan (RUCC 4-9) CMR rate 0.02
   ok    T1 Nonmetropolitan (RUCC 4-9) CCT fac 115
   ok    T1 Nonmetropolitan (RUCC 4-9) cty>=1 CCT 108 (5.5)
+  ok    T1 Nonmetropolitan (RUCC 4-9) CCT rate 0.33
   ok    T1 Q1 (least deprived) counties    606
   ok    T1 Q1 (least deprived) adults      43.0
   ok    T1 Q1 (least deprived) CMR fac     240
   ok    T1 Q1 (least deprived) cty>=1 CMR  109 (18.0)
+  ok    T1 Q1 (least deprived) CMR rate    0.26
   ok    T1 Q1 (least deprived) CCT fac     439
   ok    T1 Q1 (least deprived) cty>=1 CCT  170 (28.1)
+  ok    T1 Q1 (least deprived) CCT rate    0.60
   ok    T1 Q2 counties                     606
   ok    T1 Q2 adults                       28.9
   ok    T1 Q2 CMR fac                      131
   ok    T1 Q2 cty>=1 CMR                   66 (10.9)
+  ok    T1 Q2 CMR rate                     0.16
   ok    T1 Q2 CCT fac                      297
   ok    T1 Q2 cty>=1 CCT                   117 (19.3)
+  ok    T1 Q2 CCT rate                     0.41
   ok    T1 Q3 counties                     605
   ok    T1 Q3 adults                       29.6
   ok    T1 Q3 CMR fac                      177
   ok    T1 Q3 cty>=1 CMR                   65 (10.7)
+  ok    T1 Q3 CMR rate                     0.19
   ok    T1 Q3 CCT fac                      374
   ok    T1 Q3 cty>=1 CCT                   117 (19.3)
+  ok    T1 Q3 CCT rate                     0.54
   ok    T1 Q4 counties                     606
   ok    T1 Q4 adults                       26.3
   ok    T1 Q4 CMR fac                      112
   ok    T1 Q4 cty>=1 CMR                   37 (6.1)
+  ok    T1 Q4 CMR rate                     0.08
   ok    T1 Q4 CCT fac                      317
   ok    T1 Q4 cty>=1 CCT                   95 (15.7)
+  ok    T1 Q4 CCT rate                     0.62
   ok    T1 Q5 (most deprived) counties     606
   ok    T1 Q5 (most deprived) adults       12.2
   ok    T1 Q5 (most deprived) CMR fac      48
   ok    T1 Q5 (most deprived) cty>=1 CMR   19 (3.1)
+  ok    T1 Q5 (most deprived) CMR rate     0.09
   ok    T1 Q5 (most deprived) CCT fac      97
   ok    T1 Q5 (most deprived) cty>=1 CCT   47 (7.8)
+  ok    T1 Q5 (most deprived) CCT rate     0.30
   ok    T2 Cardiac MR SVI unadj            1.00 (0.96-1.04)
   ok    T2 Cardiac MR SVI unadj P          0.980
   ok    T2 Cardiac MR SVI adj              1.00 (0.97-1.04)
