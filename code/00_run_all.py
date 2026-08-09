@@ -58,7 +58,7 @@ VALIDATE = [
 PRESENT = [
     ("11_edi_tables_and_stats.py", "Word tables and supplementary statistics"),
     ("16_publication_figures.py", "Manuscript and supplementary figures, 600 dpi"),
-    ("07_publication_outputs.py", "Publication figure 1 and Table 1"),
+    ("07_publication_outputs.py", "Publication Table 1"),
 ]
 
 

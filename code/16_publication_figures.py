@@ -120,7 +120,7 @@ def _marker(irr, p):
     return dict(mfc=c, mec=c, color=c, lw=2.3, ms=9.5)
 
 
-def _rows(ax, rows, xmin, xmax, log=False, marker="o"):
+def _rows(ax, rows, xmin, xmax, log=False):
     ax.set_xlim(xmin, xmax)
     ax.set_ylim(len(rows) - 0.45, -0.55)
     ax.axvline(1, color=st.RULE, lw=1.1, ls=(0, (4, 3)), zorder=0)
@@ -128,7 +128,7 @@ def _rows(ax, rows, xmin, xmax, log=False, marker="o"):
         s = _marker(r["irr"], r["p"])
         ax.plot([r["lo"], r["hi"]], [i, i], color=s["color"], lw=s["lw"],
                 solid_capstyle="round", zorder=2)
-        ax.plot([r["irr"]], [i], marker, mfc=s["mfc"], mec=s["mec"],
+        ax.plot([r["irr"]], [i], "o", mfc=s["mfc"], mec=s["mec"],
                 ms=s["ms"], mew=1.9, zorder=3)
     ax.set_yticks(range(len(rows)))
     ax.set_yticklabels([r["label"] for r in rows], fontsize=11.2, color=st.INK)
@@ -213,7 +213,7 @@ def figure1b(numbers):
             ax.set_xticklabels([])
 
     axm = fig.add_axes([L, 0.115, W, 0.110])
-    _rows(axm, metro, 1.4, 22, log=True, marker="D")
+    _rows(axm, metro, 1.4, 22, log=True)
     _stat_text(axm, metro)
     axm.set_xticks([2, 4, 8, 16])
     axm.set_xticklabels(["2", "4", "8", "16"])
