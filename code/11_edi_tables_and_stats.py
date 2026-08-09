@@ -18,8 +18,8 @@ Every quantity produced here is computed at run time from:
 
 Outputs
     output/tables/Supplementary_Table_EDI_Regression.docx
-    output/tables/Table4_SVI_vs_EDI_Comparison.docx
-    output/tables/Table4_External_Validation_SDI.docx   (manuscript Table 4)
+    output/tables/Reference_SVI_vs_EDI_Comparison.docx
+    output/tables/Reference_External_Validation_SDI.docx  (underlies Figure 2)
     output/tables/additional_statistics.json
 
 Run
@@ -190,7 +190,7 @@ def supplementary_table(edi_res):
 def comparison_table(edi_res, svi_res, sdi_res, m):
     doc = Document()
     _style(doc)
-    doc.add_heading("Table 4. Social Vulnerability Index versus Economic Deprivation "
+    doc.add_heading("Reference. Social Vulnerability Index versus Economic Deprivation "
                     "Index, unadjusted and adjusted for rurality", level=1)
     doc.add_paragraph(
         "Negative binomial regression with an offset of log(adults aged 45 and older). "
@@ -229,20 +229,20 @@ def comparison_table(edi_res, svi_res, sdi_res, m):
             f"{sdi_res['sdi_matched_counties']} of {sdi_res['total_counties']} counties.")
 
     for d in (TABLES,):
-        doc.save(os.path.join(d, "Table4_SVI_vs_EDI_Comparison.docx"))
-    print("  wrote Table4_SVI_vs_EDI_Comparison.docx")
+        doc.save(os.path.join(d, "Reference_SVI_vs_EDI_Comparison.docx"))
+    print("  wrote Reference_SVI_vs_EDI_Comparison.docx")
 
 
 def external_validation_table(sdi_res):
     """Manuscript Table 4, our EDI head to head with the external Graham Center SDI."""
     if sdi_res is None:
-        print("  skipped Table4_External_Validation_SDI.docx (run 09 first)")
+        print("  skipped Reference_External_Validation_SDI.docx (run 09 first)")
         return
     E = sdi_res["EDI_models"]["outcomes"]
     S = sdi_res["SDI_models"]["outcomes"]
     doc = Document()
     _style(doc)
-    doc.add_heading("Table 4. External validation of the deprivation finding using a "
+    doc.add_heading("Reference. External validation of the deprivation finding using a "
                     "published county-level index", level=1)
     rows = []
     for modality, key in [("Cardiac MR", "cmr_facility_count"),
@@ -274,8 +274,8 @@ def external_validation_table(sdi_res):
         f"points, respectively. Metropolitan status rows are the metropolitan-status "
         f"coefficients from the corresponding adjusted models.")
     for d in (TABLES,):
-        doc.save(os.path.join(d, "Table4_External_Validation_SDI.docx"))
-    print("  wrote Table4_External_Validation_SDI.docx")
+        doc.save(os.path.join(d, "Reference_External_Validation_SDI.docx"))
+    print("  wrote Reference_External_Validation_SDI.docx")
 
 
 def additional_stats(m, edi_res, svi_res):
