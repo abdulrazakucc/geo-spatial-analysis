@@ -1058,25 +1058,12 @@ def check_manuscript(R):
                 ck(f"T3 {label} EDI", fmt_est(blk[f"stratified_{lay}"]), cells[2])
                 ck(f"T3 {label} P", fmt_p(blk[f"stratified_{lay}"]["p"]), cells[3])
 
-    # ---- Table 4
-    if len(doc_tables) >= 4 and R.get("sdi"):
-        t4 = _parse_table(doc_tables[3])
-        E = R["sdi"]["EDI_models"]["outcomes"]
-        S = R["sdi"]["SDI_models"]["outcomes"]
-        f2 = lambda e: f"{e['IRR']:.2f} ({e['CI_low']:.2f}-{e['CI_high']:.2f})"
-        p2 = lambda e: "<0.001" if e["P"] < 0.001 else f"{e['P']:.3f}"
-        for sect, oc in [("Cardiac MR", "cmr_facility_count"), ("Cardiac CT", "cct_facility_count")]:
-            for label, key in [("Index, unadjusted", "unadjusted"),
-                               ("Index, adjusted for metropolitan status", "adjusted"),
-                               ("Metropolitan status", "metro_in_adjusted")]:
-                cells = t4.get((sect, label))
-                if cells is None:
-                    ck(f"T4 {sect} {label}", "row present", "ROW NOT FOUND")
-                    continue
-                ck(f"T4 {sect} {label} EDI", f2(E[oc][key]), cells[1])
-                ck(f"T4 {sect} {label} EDI P", p2(E[oc][key]), cells[2])
-                ck(f"T4 {sect} {label} SDI", f2(S[oc][key]), cells[3])
-                ck(f"T4 {sect} {label} SDI P", p2(S[oc][key]), cells[4])
+    # Table 4 was withdrawn; the external-validation results now appear as
+    # Figure 2, and are checked against the generated comparison rather than a
+    # table in the document.
+    if len(doc_tables) >= 4:
+        checks.append(("Table 4 withdrawn", "3 tables",
+                       f"{len(doc_tables)} tables found", False))
 
     bad = [x for x in checks if not x[3]]
     L = ["=" * 78, "MANUSCRIPT vs DATA, CELL BY CELL", "=" * 78,

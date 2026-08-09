@@ -56,10 +56,8 @@ VALIDATE = [
     ("12_manuscript_numbers.py", "Recompute every manuscript number and check the paper"),
 ]
 PRESENT = [
-    ("04_choropleth_map.py", "Figure 1A choropleth"),
-    ("08_svi_edi_comparison_maps.py", "Figures 2 and 3"),
-    ("10_forest_plots.py", "Figure 1B and Figure S forest plots"),
     ("11_edi_tables_and_stats.py", "Word tables and supplementary statistics"),
+    ("16_publication_figures.py", "Manuscript and supplementary figures, 600 dpi"),
     ("07_publication_outputs.py", "Publication figure 1 and Table 1"),
 ]
 

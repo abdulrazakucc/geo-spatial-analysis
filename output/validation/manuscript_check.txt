@@ -1,11 +1,11 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_CLEAN.docx
-SHA256:   688c918c2227eff8f2170603244fbcdef1802003afdb5f70140f4effee50c435
-Checked:  2026-08-09T04:52:14Z
-Code:     0611b78 (working tree modified)
-Checks:   188     Mismatches: 0
+Document: manuscript/manuscript_SUBMISSION.docx
+SHA256:   aed7aab06801c0708039449e956fda29ad7ed6b91165e1ba6be93306397c7104
+Checked:  2026-08-09T05:27:36Z
+Code:     3cf8b77 (working tree modified)
+Checks:   164     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -65,7 +65,7 @@ ALL CHECKS
   ok    manuscript AIC+BIC claim matches generated comparison supported by AIC and BIC
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
-  ok    body word count note matches the text 2,510
+  ok    body word count note matches the text 2,524
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
   ok    Summary note matches actual counts 27 words; 224 characters
@@ -175,27 +175,3 @@ ALL CHECKS
   ok    T3 Cardiac CT, nonmetropolitan n   1,956
   ok    T3 Cardiac CT, nonmetropolitan EDI 0.96 (0.89-1.03)
   ok    T3 Cardiac CT, nonmetropolitan P   0.232
-  ok    T4 Cardiac MR Index, unadjusted EDI 0.95 (0.91-0.98)
-  ok    T4 Cardiac MR Index, unadjusted EDI P 0.003
-  ok    T4 Cardiac MR Index, unadjusted SDI 1.02 (0.98-1.05)
-  ok    T4 Cardiac MR Index, unadjusted SDI P 0.322
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI 0.99 (0.96-1.03)
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI P 0.699
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI 1.04 (1.00-1.07)
-  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI P 0.043
-  ok    T4 Cardiac MR Metropolitan status EDI 8.33 (4.86-14.28)
-  ok    T4 Cardiac MR Metropolitan status EDI P <0.001
-  ok    T4 Cardiac MR Metropolitan status SDI 8.67 (5.08-14.80)
-  ok    T4 Cardiac MR Metropolitan status SDI P <0.001
-  ok    T4 Cardiac CT Index, unadjusted EDI 0.99 (0.97-1.01)
-  ok    T4 Cardiac CT Index, unadjusted EDI P 0.372
-  ok    T4 Cardiac CT Index, unadjusted SDI 1.02 (1.00-1.05)
-  ok    T4 Cardiac CT Index, unadjusted SDI P 0.033
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI 1.02 (0.99-1.04)
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI P 0.186
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI 1.03 (1.01-1.06)
-  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI P 0.003
-  ok    T4 Cardiac CT Metropolitan status EDI 2.13 (1.74-2.61)
-  ok    T4 Cardiac CT Metropolitan status EDI P <0.001
-  ok    T4 Cardiac CT Metropolitan status SDI 2.12 (1.74-2.58)
-  ok    T4 Cardiac CT Metropolitan status SDI P <0.001
