@@ -1,11 +1,11 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_CLEAN.docx
-SHA256:   dde1b0999df9f5fb2fe07f61afa70a0d8788551fe5a339ddc7a5264bfa1068b8
-Checked:  2026-08-09T07:46:21Z
-Code:     b77413e (working tree modified)
-Checks:   164     Mismatches: 0
+Document: manuscript/manuscript_SUBMISSION.docx
+SHA256:   323fbcf37139846a5b619e88767dca7466be580a03e2cc3c5e706c97357bb756
+Checked:  2026-08-16T01:33:00Z
+Code:     56e9a21 (working tree modified)
+Checks:   167     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -36,6 +36,7 @@ ALL CHECKS
   ok    absent: pre-decision EDI regression sample (count models now n = 3,134). 3,029 remains correct as the quintile/rate-eligible denominator absent
   ok    absent: pre-decision SDI sample (now 3,133) absent
   ok    absent: typo; the denominator is adults aged 45 and older absent
+  ok    absent: the adjusted SVI-CCT association is positive and significant absent
   ok    absent: the adjusted SVI-CCT association is positive and significant absent
   ok    absent: the adjusted SDI associations are significant; see Table 4 absent
   ok    absent: non-estimable inference must be reported as NE absent
@@ -175,3 +176,5 @@ ALL CHECKS
   ok    T3 Cardiac CT, nonmetropolitan n   1,956
   ok    T3 Cardiac CT, nonmetropolitan EDI 0.96 (0.89-1.03)
   ok    T3 Cardiac CT, nonmetropolitan P   0.232
+  ok    Fig 1 caption states SVI-CCT       IRR 1.03; 95% CI, 1.01-1.06; P = 0.008
+  ok    Fig 1 caption names the gradient   present

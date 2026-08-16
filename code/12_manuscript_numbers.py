@@ -663,7 +663,9 @@ FORBIDDEN = [
     (r"3,027 \(SDI\)|3,027 counties", "pre-decision SDI sample (now 3,133)"),
     (r"≥48 years|>=48 years", "typo; the denominator is adults aged 45 and older"),
     # Categorical null claims the primary model does not support
-    (r"neither index was associated with capacity",
+    (r"neither index (was|is) associated with capacity",
+     "the adjusted SVI-CCT association is positive and significant"),
+    (r"no association with capacity once metropolitan",
      "the adjusted SVI-CCT association is positive and significant"),
     (r"SDI was not associated with (CMR|CCT) capacity either before adjustment",
      "the adjusted SDI associations are significant; see Table 4"),
@@ -1064,6 +1066,24 @@ def check_manuscript(R):
     if len(doc_tables) >= 4:
         checks.append(("Table 4 withdrawn", "3 tables",
                        f"{len(doc_tables)} tables found", False))
+
+    # The Figure 1 caption must state the finding, not just describe the panels.
+    # A caption that lists the null EDI rows without naming the positive
+    # SVI-CCT association reads as a blanket null, which is what a coauthor
+    # took it to mean. The estimate is rebuilt from the fitted model here, so
+    # the caption cannot keep a value the model no longer produces.
+    cap = next((p for p in prose_paragraphs if p.strip().startswith("FIGURE 1")), "")
+    svi_cct = M["SVI_CCT"]["adjusted_metro"]
+    want = (f"IRR {svi_cct['irr']:.2f}; 95% CI, "
+            f"{svi_cct['ci_low']:.2f}-{svi_cct['ci_high']:.2f}; "
+            f"P = {svi_cct['p']:.3f}")
+    checks.append(("Fig 1 caption states SVI-CCT", want,
+                   want if want in cap else
+                   ("NOT IN CAPTION" if cap else "CAPTION NOT FOUND"),
+                   want in cap))
+    checks.append(("Fig 1 caption names the gradient", "present",
+                   "present" if "inverse deprivation gradient" in cap else "ABSENT",
+                   "inverse deprivation gradient" in cap))
 
     bad = [x for x in checks if not x[3]]
     L = ["=" * 78, "MANUSCRIPT vs DATA, CELL BY CELL", "=" * 78,
