@@ -32,7 +32,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MANUSCRIPT = os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx")
 
 AUTHOR = "Abdul Razak"
-DATE = "2026-08-07T18:00:00Z"
+DATE = "2026-08-15T12:00:00Z"
 
 # Values corrected by the geography rebuild. Every pair below was read from
 # output/validation/manuscript_check.txt after the rebuild, not typed by hand:
@@ -101,6 +101,22 @@ EDITS = [
     ("0.870", "0.870", "0.915", GEOGRAPHY_REBUILD),
     ("0.213", "0.213", "0.188", GEOGRAPHY_REBUILD),
     ("0.127", "0.127", "0.108", GEOGRAPHY_REBUILD),
+    # ---- Round of 2026-08-15: Figure 1 caption states the finding ----
+    (
+        "FIGURE 1 Accredited Cardiac MRI Capacity",
+        "filled markers denote P < 0.05. CCT = cardiac computed tomography",
+        "filled markers denote P < 0.05. Neither index showed an inverse "
+        "deprivation gradient once metropolitan status was included in the "
+        "model; the adjusted SVI-CCT association was modestly positive "
+        "(IRR 1.03; 95% CI, 1.01-1.06; P = 0.008). "
+        "CCT = cardiac computed tomography",
+        "The caption described the panels but stated no result, so a reader "
+        "could take the null EDI rows as the whole finding. The added sentence "
+        "is the Discussion sentence verbatim, so the two cannot diverge. The "
+        "estimate is checked against "
+        "output/validation/manuscript_numbers.json -> regressions.models."
+        "SVI_CCT.adjusted_metro, not typed from memory.",
+    ),
 ]
 
 
