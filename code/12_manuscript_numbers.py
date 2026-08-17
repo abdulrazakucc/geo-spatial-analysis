@@ -782,6 +782,44 @@ def _check_information_criteria(prose, checks, spec_csv):
                        sweep("aic")))
 
 
+def _check_table_geometry(path, checks):
+    """Every table must fit the page, and its grid must describe its cells.
+
+    Inserting a column copies the width of the cell it follows and leaves
+    w:tblGrid untouched, so a table can end up with more cells than grid
+    columns and a total width past the right margin. Word renders that off the
+    page. The cell-by-cell value checks cannot see it, because every value is
+    still correct -- Table 1 overflowed by two inches while passing 167 checks.
+    """
+    import zipfile
+    from lxml import etree
+    root = etree.fromstring(zipfile.ZipFile(path).read("word/document.xml"))
+    sect = root.findall(".//" + _W("sectPr"))[-1]
+    pg, mar = sect.find(_W("pgSz")), sect.find(_W("pgMar"))
+    usable = (int(pg.get(_W("w"))) - int(mar.get(_W("left")))
+              - int(mar.get(_W("right"))))
+
+    for n, tbl in enumerate(root.find(_W("body")).iter(_W("tbl")), start=1):
+        rows = tbl.findall(_W("tr"))
+        grid = tbl.find(_W("tblGrid"))
+        if grid is None or not rows:
+            continue
+        ncols = max(len(r.findall(_W("tc"))) for r in rows)
+        ngrid = len(grid.findall(_W("gridCol")))
+        checks.append((f"Table {n} grid matches cells", f"{ncols} columns",
+                       f"{ngrid} gridCol", ngrid == ncols))
+        widest = max(rows, key=lambda r: len(r.findall(_W("tc"))))
+        total = 0
+        for tc in widest.findall(_W("tc")):
+            el = tc.find(_W("tcPr") + "/" + _W("tcW"))
+            if el is not None and el.get(_W("type")) == "dxa":
+                total += int(el.get(_W("w")))
+        if total:
+            checks.append((f"Table {n} fits the page",
+                           f"<= {usable} twips", f"{total} twips",
+                           total <= usable))
+
+
 def _check_lengths(paragraphs, checks):
     """Summary Sentence and Abstract must meet the journal's stated limits.
 
@@ -964,6 +1002,7 @@ def check_manuscript(R):
         prose, checks,
         os.path.join(RESULTS, "model_specification_comparison.csv"))
     _check_lengths(prose_paragraphs, checks)
+    _check_table_geometry(MANUSCRIPT, checks)
 
     ck_prose("Q1/Q5 gradient", f"{g['q1_over_q5_ratio']:.1f}-fold")
     ck_prose("Q1 CMR rate", f"{g['cmr_rate_by_edi_quintile'][0]:.2f}")
