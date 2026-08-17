@@ -310,7 +310,73 @@ class TrackedDocument:
             run = self._new_run(str(value), rpr)
             target.append(self._ins([run]) if self.author else run)
             model.addnext(new)
+        self.fit_table_width(table)
         return len(rows)
+
+    def fit_table_width(self, table, total=None):
+        """Rebuild w:tblGrid and rescale columns so the table fits its width.
+
+        A copied cell brings the width of the cell it followed, and w:tblGrid
+        is not touched by the copy, so inserting columns leaves a table whose
+        cells are wider than the page and whose grid no longer describes it.
+        Word lays such a table out past the right margin. Rescaling here keeps
+        the table inside the width it already had, in proportion to the columns
+        the author chose.
+
+        `total` defaults to the table's existing declared width.
+        """
+        rows = table.findall(_w("tr"))
+        if not rows:
+            return 0
+        grid = table.find(_w("tblGrid"))
+        if total is None:
+            if grid is not None and len(grid):
+                total = sum(int(g.get(_w("w"))) for g in grid.findall(_w("gridCol")))
+            else:
+                tbl_w = table.find(_w("tblPr") + "/" + _w("tblW"))
+                total = int(tbl_w.get(_w("w"))) if tbl_w is not None else 9360
+
+        def widths(row):
+            out = []
+            for tc in row.findall(_w("tc")):
+                el = tc.find(_w("tcPr") + "/" + _w("tcW"))
+                out.append(int(el.get(_w("w"))) if el is not None else 0)
+            return out
+
+        # The widest row defines the column count; header rows can be merged.
+        model_row = max(rows, key=lambda r: len(r.findall(_w("tc"))))
+        base = widths(model_row)
+        ncols = len(base)
+        if not ncols:
+            return 0
+        if sum(base) <= 0:
+            base = [total // ncols] * ncols
+
+        scaled = [max(1, round(w * total / sum(base))) for w in base]
+        scaled[-1] += total - sum(scaled)          # absorb rounding drift
+
+        for row in rows:
+            cells = row.findall(_w("tc"))
+            if len(cells) != ncols:
+                continue                            # merged row, leave alone
+            for tc, w in zip(cells, scaled):
+                pr = tc.find(_w("tcPr"))
+                if pr is None:
+                    pr = etree.SubElement(tc, _w("tcPr"))
+                el = pr.find(_w("tcW"))
+                if el is None:
+                    el = etree.SubElement(pr, _w("tcW"))
+                el.set(_w("w"), str(w))
+                el.set(_w("type"), "dxa")
+
+        if grid is not None:
+            table.remove(grid)
+        grid = etree.Element(_w("tblGrid"))
+        for w in scaled:
+            etree.SubElement(grid, _w("gridCol")).set(_w("w"), str(w))
+        pr = table.find(_w("tblPr"))
+        pr.addnext(grid) if pr is not None else table.insert(0, grid)
+        return ncols
 
     def accept_all(self):
         """Resolve every tracked change into final text.

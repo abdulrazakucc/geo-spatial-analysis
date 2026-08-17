@@ -1,11 +1,11 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_CLEAN.docx
-SHA256:   8b0939fff17e8e4ce8bd906c3bf9c1354d1b0fb25f0b085f9be8990c480475b5
-Checked:  2026-08-16T01:36:12Z
-Code:     1f931b3 (working tree modified)
-Checks:   167     Mismatches: 0
+Document: manuscript/manuscript_SUBMISSION.docx
+SHA256:   3cfb6dee916db6ce00caae2181c889dce77106cb64ce4f7ef193e7814f13e84f
+Checked:  2026-08-17T05:40:40Z
+Code:     973e12e (working tree modified)
+Checks:   173     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -70,6 +70,12 @@ ALL CHECKS
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
   ok    Summary note matches actual counts 27 words; 224 characters
+  ok    Table 1 grid matches cells         9 columns
+  ok    Table 1 fits the page              <= 9360 twips
+  ok    Table 2 grid matches cells         5 columns
+  ok    Table 2 fits the page              <= 9360 twips
+  ok    Table 3 grid matches cells         5 columns
+  ok    Table 3 fits the page              <= 9360 twips
   ok    Q1/Q5 gradient                     2.9-fold
   ok    Q1 CMR rate                        0.26
   ok    Q5 CMR rate                        0.09
