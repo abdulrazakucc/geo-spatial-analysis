@@ -69,6 +69,13 @@ def _draw(ax, frame, rate_col, state_lines=True):
     colours = [st.fill_for(r, bool(x)) for r, x in
                zip(frame[rate_col], frame["rate_excluded"])]
     frame.plot(ax=ax, color=colours, edgecolor="#ffffff", linewidth=0.13)
+
+    # Rate-excluded counties are hatched over the top. Left as plain white they
+    # were barely separable from the zero-capacity grey beneath them.
+    excl = frame[frame["rate_excluded"].astype(bool)]
+    if len(excl):
+        excl.plot(ax=ax, facecolor="none", hatch=st.EXCLUDED_HATCH,
+                  edgecolor=st.EXCLUDED_EDGE, linewidth=0.0)
     if state_lines and len(frame):
         frame.dissolve(by="state_abbr").boundary.plot(
             ax=ax, color="#95a3b0", linewidth=0.45)
@@ -104,10 +111,8 @@ def choropleth(parts, rate_col, modality, title, stem, numbers):
                    "Rate per 100,000 adults aged ≥45 years. "
                    "Alaska and Hawaii shown as insets, not to scale.",
                    right=f"{n_fac:,} facilities   ·   {n_cty:,} counties ({pct:.1f}%)")
-    st.bin_legend(fig, [0.44, 0.075, 0.36, 0.055])
-    fig.text(0.44, 0.028,
-             "White: county excluded from rate calculation (<1,000 adults aged ≥45 years)",
-             ha="left", va="bottom", fontsize=9, color=st.MUTE)
+    st.bin_legend(fig, [0.44, 0.082, 0.36, 0.055])
+    st.excluded_key(fig, 0.44, 0.036)
     save(fig, stem)
 
 
@@ -212,29 +217,35 @@ def figure1b(numbers):
         else:
             ax.set_xticklabels([])
 
-    axm = fig.add_axes([L, 0.115, W, 0.110])
+    axm = fig.add_axes([L, 0.152, W, 0.098])
     _rows(axm, metro, 1.4, 22, log=True)
     _stat_text(axm, metro)
     axm.set_xticks([2, 4, 8, 16])
     axm.set_xticklabels(["2", "4", "8", "16"])
     axm.set_xlabel("IRR, metropolitan versus nonmetropolitan (log scale)",
                    fontsize=11.2, color=st.INK, labelpad=9)
-    fig.text(0.008, 0.243, "Metropolitan status (RUCC 1–3)", fontsize=13.5,
+    fig.text(0.008, 0.268, "Metropolitan status (RUCC 1–3)", fontsize=13.5,
              fontweight="bold", color=st.INK)
+
+    _legend(fig, 0.062)
 
     # Requested by coauthor review: name the model the primary metropolitan
     # estimates come from and give the SVI-model values alongside. Both values
     # are read from the fitted models, and both also appear as labelled rows in
     # the panel above, so the note repeats them by design.
+    #
+    # It sits at the foot of the figure, under a hairline rule and centred on
+    # the same axis as the legend, which is where a reader looks for a note.
+    # Between the axis label and the legend it read as a stray caption.
     svi_mr = M["SVI_CMR"]["metro_effect"]["irr"]
     svi_ct = M["SVI_CCT"]["metro_effect"]["irr"]
-    fig.text(0.008, 0.055,
+    fig.add_artist(Line2D([0.30, 0.70], [0.038, 0.038], color=st.RULE,
+                          linewidth=0.8, transform=fig.transFigure))
+    fig.text(0.5, 0.030,
              f"Primary metropolitan estimates are those from the EDI models; "
              f"the SVI models give {svi_mr:.2f} for cardiac MR and "
              f"{svi_ct:.2f} for cardiac CT.",
-             fontsize=9.8, style="italic", color=st.MUTE, ha="left", va="top")
-
-    _legend(fig, 0.008)
+             fontsize=9.6, style="italic", color=st.MUTE, ha="center", va="top")
     save(fig, "Figure1B_Forest")
 
 
