@@ -222,7 +222,19 @@ def figure1b(numbers):
     fig.text(0.008, 0.243, "Metropolitan status (RUCC 1–3)", fontsize=13.5,
              fontweight="bold", color=st.INK)
 
-    _legend(fig, 0.012)
+    # Requested by coauthor review: name the model the primary metropolitan
+    # estimates come from and give the SVI-model values alongside. Both values
+    # are read from the fitted models, and both also appear as labelled rows in
+    # the panel above, so the note repeats them by design.
+    svi_mr = M["SVI_CMR"]["metro_effect"]["irr"]
+    svi_ct = M["SVI_CCT"]["metro_effect"]["irr"]
+    fig.text(0.008, 0.055,
+             f"Primary metropolitan estimates are those from the EDI models; "
+             f"the SVI models give {svi_mr:.2f} for cardiac MR and "
+             f"{svi_ct:.2f} for cardiac CT.",
+             fontsize=9.8, style="italic", color=st.MUTE, ha="left", va="top")
+
+    _legend(fig, 0.008)
     save(fig, "Figure1B_Forest")
 
 
