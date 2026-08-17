@@ -15,22 +15,48 @@ import matplotlib as mpl
 import numpy as np
 
 # --- palette -----------------------------------------------------------------
-# Teal marks a result below 1 (less capacity), rust a result above 1 (more).
-# Both are dark enough for print and distinguishable in greyscale.
-TEAL = "#16606b"
+# Teal marks a result below 1 (less capacity), rust a result above 1 (more),
+# with the open grey marker for "not significant" sitting between them: the pair
+# is read as a diverging scale, so both poles need enough chroma to register as
+# poles rather than as muted greys.
+#
+# These values are computed, not chosen by eye. Both clear the chroma floor
+# (>= 0.10 OKLCH), are separated by OKLab dE 16.5 under protanopia and 19.8
+# under deuteranopia against a floor of 8, by 24.9 in normal vision against a
+# floor of 15, and each holds better than 4:1 contrast on white. The previous
+# teal (#16606b) failed the chroma floor at 0.071.
+TEAL = "#00869e"
 RUST = "#c0562c"
 INK = "#16202b"
 MUTE = "#6b7885"
 RULE = "#c9d2da"
 FAINT = "#eef1f4"
 
-#: Sequential ramp for the choropleths, light to dark. Index 0 is the
-#: zero-capacity colour and is deliberately a neutral grey, not the palest
-#: teal, so "none" reads as categorically different from "a little".
-ZERO_FILL = "#e2e6e9"
-SEQ = ["#d3e8e7", "#a8d2d1", "#71b3b5", "#43919a", "#256e7c", "#0d4a5c"]
+#: Sequential ramp for the choropleths, single hue, light to dark. Zero capacity
+#: is a neutral grey so "none" reads as categorically different from "a little".
+#:
+#: The ramp starts well clear of white on purpose. In the previous version the
+#: zero-capacity grey and the palest data bin were OKLab dE 2.0 apart, which is
+#: indistinguishable, and both sat about 8 from white. On this map that is the
+#: worst place to lose a distinction: the great majority of counties have no
+#: accredited capacity at all, and that is the finding. The palest step is now
+#: dE 16.7 from the zero fill, above the floor of 15, holds 2.1:1 contrast on
+#: white, and every adjacent pair differs by at least 0.06 in OKLCH lightness.
+ZERO_FILL = "#e1e5e8"
+SEQ = ["#97b6bc", "#76a3ab", "#53909a", "#2a7d8a", "#006977", "#00535f"]
 BIN_EDGES = [0.5, 1, 2, 4, 8]
 BIN_LABELS = ["0", "≤0.5", "0.5–1", "1–2", "2–4", "4–8", ">8"]
+
+#: Counties with too few adults for a rate are hatched rather than left plain
+#: white. White alone is only dE 8.1 from the zero-capacity grey, so on a page
+#: that distinction was carried by almost nothing; a pattern does not depend on
+#: hue, print fidelity, or colour vision.
+# Kept deliberately quiet: only 106 counties are excluded and they are not the
+# point of the map, so the pattern has to be findable without competing with the
+# data it sits beside.
+EXCLUDED_FILL = "#ffffff"
+EXCLUDED_HATCH = "//"
+EXCLUDED_EDGE = "#ccd5dd"
 
 DPI = 600
 
@@ -112,6 +138,21 @@ def split_for_insets(gdf):
         hi = hi[hi.geometry.centroid.x > -161]
         hi = hi.to_crs(epsg=3563)
     return lower48, ak, hi
+
+
+def excluded_key(fig, x, y, w=0.021, h=0.019):
+    """Hatched swatch plus its label, matching the map's excluded counties."""
+    ax = fig.add_axes([x, y, w, h])
+    ax.set_axis_off()
+    ax.add_patch(mpl.patches.Rectangle((0, 0), 1, 1, transform=ax.transAxes,
+                                       facecolor=EXCLUDED_FILL,
+                                       hatch=EXCLUDED_HATCH,
+                                       edgecolor=EXCLUDED_EDGE, linewidth=0.6))
+    fig.text(x + w * 1.6, y + h * 0.5,
+             "County excluded from the rate calculation "
+             "(<1,000 adults aged ≥45 years)",
+             ha="left", va="center", fontsize=9, color=MUTE)
+    return ax
 
 
 def bin_legend(fig, ax_rect, title="Accredited facilities per 100,000 adults aged ≥45 years"):
