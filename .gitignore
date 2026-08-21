@@ -14,6 +14,9 @@ CLAUDE.md
 
 # Large files (exceed GitHub 100MB limit)
 data/processed/county_analytic_geo.gpkg
+# county_analytic_geo_display.gpkg is deliberately NOT ignored: it is the
+# small, committable geometry a clone needs to redraw the choropleths.
+!data/processed/county_analytic_geo_display.gpkg
 data/raw/tiger_county_2023/
 output/figures/figure1_choropleth.pdf
 Figure1_Choropleth.pdf

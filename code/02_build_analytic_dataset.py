@@ -502,8 +502,46 @@ def main():
     geo_gdf = gpd.GeoDataFrame(geo_df, geometry='geometry')
     geo_gdf.to_file(geo_path, driver='GPKG')
     print(f"  ✓ Saved geo-dataset to: {geo_path}")
-    
+
+    _save_display_geometry(geo_gdf)
+
     return analytic_df
+
+
+#: Columns the choropleths actually read. Everything else is already in the CSV.
+DISPLAY_COLS = ['county_fips', 'state_abbr', 'cmr_rate_per_100k',
+                'cct_rate_per_100k', 'rate_excluded', 'geometry']
+
+#: Simplification tolerance in metres, applied in EPSG:5070. One pixel spans
+#: roughly 570 m on the printed map, so this sits well inside a pixel.
+DISPLAY_TOLERANCE_M = 100
+
+
+def _save_display_geometry(geo_gdf):
+    """Write a small, committable copy of the geometry for redrawing the maps.
+
+    The full GeoPackage is 132 MB of TIGER geometry and is gitignored, and the
+    shapefiles behind it are gitignored too, so a fresh clone cannot redraw the
+    choropleths without re-downloading from the Census. This layer closes that
+    gap: 8.1 million vertices reduce to about 355,000, which fits in ordinary
+    git at roughly 7.6 MB.
+
+    Deliberately *not* in LFS. The reason it exists is to survive a clone by
+    someone who has not configured LFS, which is precisely how the published
+    figures became unreachable for a coauthor.
+
+    It is display resolution, not a bit-exact source: redrawing from it lands
+    about 96% pixel-identical, with the differences along county borders. The
+    published PNG and TIFF remain the citable artifacts.
+    """
+    cols = [c for c in DISPLAY_COLS if c in geo_gdf.columns]
+    slim = geo_gdf[cols].to_crs(epsg=5070)
+    slim['geometry'] = slim.geometry.simplify(DISPLAY_TOLERANCE_M)
+    slim = slim.to_crs(geo_gdf.crs)
+    path = os.path.join(PROC_DIR, "county_analytic_geo_display.gpkg")
+    slim.to_file(path, driver='GPKG')
+    size_mb = os.path.getsize(path) / 1e6
+    print(f"  ✓ Saved display geometry to: {path} ({size_mb:.1f} MB)")
 
 
 if __name__ == "__main__":
