@@ -60,8 +60,14 @@ def load():
 def save(fig, stem):
     for ext in ("png", "pdf"):
         fig.savefig(os.path.join(FIG, f"{stem}.{ext}"), dpi=st.DPI)
+    # TIFF as well, because that is what journals ask for. LZW is what makes it
+    # practical: Figure 1A is about 110 MB uncompressed at this size and 4.4 MB
+    # with it. The compression is lossless, so the TIFF and the PNG are the same
+    # pixels.
+    fig.savefig(os.path.join(FIG, f"{stem}.tif"), dpi=st.DPI,
+                pil_kwargs={"compression": "tiff_lzw"})
     plt.close(fig)
-    print(f"  wrote {stem}.png / .pdf")
+    print(f"  wrote {stem}.png / .pdf / .tif")
 
 
 # ----------------------------------------------------------------- choropleth
@@ -403,7 +409,20 @@ def figure_s2(numbers):
 def main():
     numbers, idx = load()
     import geopandas as gpd
-    gdf = gpd.read_file(os.path.join(PROC, "county_analytic_geo.gpkg"))
+    # Full TIGER geometry when it is present, otherwise the committed display
+    # layer, so the maps can still be drawn from a clone with no network.
+    full = os.path.join(PROC, "county_analytic_geo.gpkg")
+    display = os.path.join(PROC, "county_analytic_geo_display.gpkg")
+    if os.path.exists(full):
+        gdf = gpd.read_file(full)
+    elif os.path.exists(display):
+        gdf = gpd.read_file(display)
+        print("  note: drawing from the display geometry; county borders differ\n"
+              "        slightly from the published figures at full resolution")
+    else:
+        raise SystemExit(
+            f"No county geometry found. Expected {full} (built by stage B) or the\n"
+            f"committed {display}.")
     parts = st.split_for_insets(gdf)
 
     choropleth(parts, "cmr_rate_per_100k", "cmr",
