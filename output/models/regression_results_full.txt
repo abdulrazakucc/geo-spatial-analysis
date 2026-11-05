@@ -42,18 +42,30 @@ EDI - CCT, adjusted (n = 3,029)                        1.016 (0.992-1.041)   0.1
 
 SENSITIVITY: Accredited-only cohort (real cohort, from 14_*)
 --------------------------------------------------------------------------------------------
-Primary (Accredited + Under Review) CMR unadjusted S   0.999 (0.965-1.035)   0.9698
-Primary (Accredited + Under Review) CMR adjusted SVI   1.003 (0.968-1.040)   0.8556
-Primary (Accredited + Under Review) CMR adjusted met   8.536 (5.000-14.572)   0.0000
-Primary (Accredited + Under Review) CCT unadjusted S   1.030 (1.006-1.055)   0.0145
-Primary (Accredited + Under Review) CCT adjusted SVI   1.033 (1.009-1.058)   0.0078
-Primary (Accredited + Under Review) CCT adjusted met   2.078 (1.707-2.529)   0.0000
-Sensitivity (Accredited only) CMR unadjusted SVI       0.999 (0.964-1.035)   0.9449
-Sensitivity (Accredited only) CMR adjusted SVI         1.003 (0.967-1.039)   0.8853
-Sensitivity (Accredited only) CMR adjusted metro       8.462 (4.956-14.447)   0.0000
-Sensitivity (Accredited only) CCT unadjusted SVI       1.030 (1.006-1.055)   0.0142
-Sensitivity (Accredited only) CCT adjusted SVI         1.033 (1.008-1.058)   0.0079
-Sensitivity (Accredited only) CCT adjusted metro       2.060 (1.692-2.508)   0.0000
+Primary (Accredited + Under Review) CMR unadjusted S   1.000 (0.965-1.035)   0.9796
+Primary (Accredited + Under Review) CMR adjusted SVI   1.003 (0.968-1.040)   0.8536
+Primary (Accredited + Under Review) CMR adjusted met   8.561 (5.015-14.614)   0.0000
+Primary (Accredited + Under Review) CCT unadjusted S   1.030 (1.006-1.055)   0.0138
+Primary (Accredited + Under Review) CCT adjusted SVI   1.033 (1.009-1.058)   0.0076
+Primary (Accredited + Under Review) CCT adjusted met   2.083 (1.711-2.536)   0.0000
+Primary (Accredited + Under Review) CMR unadjusted E   0.948 (0.915-0.982)   0.0029
+Primary (Accredited + Under Review) CMR adjusted EDI   0.993 (0.958-1.029)   0.6989
+Primary (Accredited + Under Review) CMR adjusted met   8.330 (4.858-14.281)   0.0000
+Primary (Accredited + Under Review) CCT unadjusted E   0.989 (0.967-1.013)   0.3718
+Primary (Accredited + Under Review) CCT adjusted EDI   1.016 (0.992-1.041)   0.1862
+Primary (Accredited + Under Review) CCT adjusted met   2.127 (1.737-2.606)   0.0000
+Sensitivity (Accredited only) CMR unadjusted SVI       0.999 (0.964-1.035)   0.9547
+Sensitivity (Accredited only) CMR adjusted SVI         1.003 (0.967-1.039)   0.8833
+Sensitivity (Accredited only) CMR adjusted metro       8.486 (4.971-14.489)   0.0000
+Sensitivity (Accredited only) CCT unadjusted SVI       1.030 (1.006-1.055)   0.0135
+Sensitivity (Accredited only) CCT adjusted SVI         1.033 (1.009-1.058)   0.0077
+Sensitivity (Accredited only) CCT adjusted metro       2.066 (1.697-2.515)   0.0000
+Sensitivity (Accredited only) CMR unadjusted EDI       0.948 (0.915-0.982)   0.0029
+Sensitivity (Accredited only) CMR adjusted EDI         0.993 (0.957-1.029)   0.6862
+Sensitivity (Accredited only) CMR adjusted metro       8.248 (4.811-14.142)   0.0000
+Sensitivity (Accredited only) CCT unadjusted EDI       0.990 (0.967-1.014)   0.4126
+Sensitivity (Accredited only) CCT adjusted EDI         1.017 (0.993-1.041)   0.1711
+Sensitivity (Accredited only) CCT adjusted metro       2.112 (1.724-2.586)   0.0000
 
 SENSITIVITY: SVI quartile indicators (from 15_*)
 --------------------------------------------------------------------------------------------

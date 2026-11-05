@@ -1,0 +1,96 @@
+variable,label,source,stratum,n_available,n_missing,median,q1,q3,population_weighted_mean
+pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),all,3144,0,19.3,16.6,22.2,16.536913489320924
+pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),metropolitan,1186,0,17.5,15.0,19.8,15.986769760037165
+pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),nonmetropolitan,1958,0,20.4,18.0,23.475,19.991853132293873
+pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),any_facility,574,0,16.7,14.7,19.5,15.967047583629798
+pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),no_facility,2570,0,19.8,17.3,22.775,17.94972935898415
+pct_female,"Female, %",County Health Rankings 2024 (Census population estimates),all,3135,9,49.87107643,48.97276434,50.644534925,50.40070706245324
+pct_female,"Female, %",County Health Rankings 2024 (Census population estimates),metropolitan,1179,7,50.262461820000006,49.54207966,50.925184185,50.531557116612746
+pct_female,"Female, %",County Health Rankings 2024 (Census population estimates),nonmetropolitan,1956,2,49.62981764,48.6136401325,50.4185314975,49.58492387118343
+pct_female,"Female, %",County Health Rankings 2024 (Census population estimates),any_facility,568,6,50.508204885,49.891403797500004,51.20361187,50.616231533142596
+pct_female,"Female, %",County Health Rankings 2024 (Census population estimates),no_facility,2567,3,49.71740527,48.790129245,50.47151063,49.87148658966511
+pct_nh_white,"Non-Hispanic White, %",SVI 2022 (100 minus racial and ethnic minority %),all,3144,0,81.8,62.775,91.0,59.023513526025766
+pct_nh_white,"Non-Hispanic White, %",SVI 2022 (100 minus racial and ethnic minority %),metropolitan,1186,0,76.25,60.1,87.2,56.16990061563247
+pct_nh_white,"Non-Hispanic White, %",SVI 2022 (100 minus racial and ethnic minority %),nonmetropolitan,1958,0,85.25,65.025,92.3,76.94439464313476
+pct_nh_white,"Non-Hispanic White, %",SVI 2022 (100 minus racial and ethnic minority %),any_facility,574,0,72.5,56.925,83.775,54.17004466018523
+pct_nh_white,"Non-Hispanic White, %",SVI 2022 (100 minus racial and ethnic minority %),no_facility,2570,0,84.0,64.3,91.9,71.05627029932279
+pct_nh_black,"Non-Hispanic Black or African American, %",SVI 2022,all,3144,0,2.1,0.7,9.7,12.057137099859354
+pct_nh_black,"Non-Hispanic Black or African American, %",SVI 2022,metropolitan,1186,0,5.3,1.5,14.25,12.742730896060428
+pct_nh_black,"Non-Hispanic Black or African American, %",SVI 2022,nonmetropolitan,1958,0,1.2,0.5,5.2,7.751561921250608
+pct_nh_black,"Non-Hispanic Black or African American, %",SVI 2022,any_facility,574,0,6.65,2.2,15.575,13.341749370717276
+pct_nh_black,"Non-Hispanic Black or African American, %",SVI 2022,no_facility,2570,0,1.6,0.5,7.4,8.872316628048385
+pct_hispanic,"Hispanic or Latino, %",SVI 2022,all,3144,0,4.7,2.5,10.6,18.624594764589375
+pct_hispanic,"Hispanic or Latino, %",SVI 2022,metropolitan,1186,0,5.9,3.2,12.275,20.155479468562252
+pct_hispanic,"Hispanic or Latino, %",SVI 2022,nonmetropolitan,1958,0,4.0,2.2,9.275,9.01053579955712
+pct_hispanic,"Hispanic or Latino, %",SVI 2022,any_facility,574,0,7.1,3.6,14.674999999999999,20.82503939033877
+pct_hispanic,"Hispanic or Latino, %",SVI 2022,no_facility,2570,0,4.2,2.4,9.4,13.169235781841344
+pct_nh_asian,"Non-Hispanic Asian, %",SVI 2022,all,3144,0,0.6,0.3,1.3,5.64126113083146
+pct_nh_asian,"Non-Hispanic Asian, %",SVI 2022,metropolitan,1186,0,1.2,0.525,2.9,6.3827962059686385
+pct_nh_asian,"Non-Hispanic Asian, %",SVI 2022,nonmetropolitan,1958,0,0.5,0.2,0.8,0.9843709558188041
+pct_nh_asian,"Non-Hispanic Asian, %",SVI 2022,any_facility,574,0,2.1,1.1,4.475,7.154892672800097
+pct_nh_asian,"Non-Hispanic Asian, %",SVI 2022,no_facility,2570,0,0.5,0.2,0.9,1.8886543474468676
+pct_nh_aian,"Non-Hispanic American Indian or Alaska Native, %",SVI 2022,all,3144,0,0.2,0.1,0.5,0.5507801287846573
+pct_nh_aian,"Non-Hispanic American Indian or Alaska Native, %",SVI 2022,metropolitan,1186,0,0.1,0.1,0.3,0.3488817730064921
+pct_nh_aian,"Non-Hispanic American Indian or Alaska Native, %",SVI 2022,nonmetropolitan,1958,0,0.2,0.1,0.8,1.8187153902429438
+pct_nh_aian,"Non-Hispanic American Indian or Alaska Native, %",SVI 2022,any_facility,574,0,0.1,0.1,0.3,0.27904001047746874
+pct_nh_aian,"Non-Hispanic American Indian or Alaska Native, %",SVI 2022,no_facility,2570,0,0.2,0.1,0.6,1.2244802883036756
+pct_nh_nhpi,"Non-Hispanic Native Hawaiian or Other Pacific Islander, %",SVI 2022,all,3144,0,0.0,0.0,0.1,0.16115643259162898
+pct_nh_nhpi,"Non-Hispanic Native Hawaiian or Other Pacific Islander, %",SVI 2022,metropolitan,1186,0,0.0,0.0,0.1,0.16582985707543982
+pct_nh_nhpi,"Non-Hispanic Native Hawaiian or Other Pacific Islander, %",SVI 2022,nonmetropolitan,1958,0,0.0,0.0,0.0,0.13180701232543832
+pct_nh_nhpi,"Non-Hispanic Native Hawaiian or Other Pacific Islander, %",SVI 2022,any_facility,574,0,0.0,0.0,0.1,0.1754717223134907
+pct_nh_nhpi,"Non-Hispanic Native Hawaiian or Other Pacific Islander, %",SVI 2022,no_facility,2570,0,0.0,0.0,0.1,0.12566585788643622
+pct_nh_multi_other,"Non-Hispanic multiracial or other race, %",SVI 2022,all,3144,0,3.0,2.2,4.0,3.9387540813913335
+pct_nh_multi_other,"Non-Hispanic multiracial or other race, %",SVI 2022,metropolitan,1186,0,3.4000000000000004,2.7,4.3,4.032144257934914
+pct_nh_multi_other,"Non-Hispanic multiracial or other race, %",SVI 2022,nonmetropolitan,1958,0,2.7,1.9000000000000001,3.7,3.3522574878107227
+pct_nh_multi_other,"Non-Hispanic multiracial or other race, %",SVI 2022,any_facility,574,0,3.6,3.0,4.4,4.049699091438018
+pct_nh_multi_other,"Non-Hispanic multiracial or other race, %",SVI 2022,no_facility,2570,0,2.9,2.1,3.875,3.6636983721647853
+pct_pov150,"Below 150% of the federal poverty level, %",SVI 2022,all,3144,0,23.0,18.0,28.9,20.47084520173401
+pct_pov150,"Below 150% of the federal poverty level, %",SVI 2022,metropolitan,1186,0,19.95,15.5,25.4,19.65638251423078
+pct_pov150,"Below 150% of the federal poverty level, %",SVI 2022,nonmetropolitan,1958,0,24.9,19.8,31.2,25.585725690221423
+pct_pov150,"Below 150% of the federal poverty level, %",SVI 2022,any_facility,574,0,20.2,15.725,25.0,19.585718834876214
+pct_pov150,"Below 150% of the federal poverty level, %",SVI 2022,no_facility,2570,0,23.7,18.5,30.0,22.665257194564926
+pct_uninsured,"Without health insurance, %",SVI 2022,all,3144,0,8.4,5.8,12.0,8.72321581606575
+pct_uninsured,"Without health insurance, %",SVI 2022,metropolitan,1186,0,7.6,5.3,10.8,8.581830662058222
+pct_uninsured,"Without health insurance, %",SVI 2022,nonmetropolitan,1958,0,8.9,6.2,12.9,9.61112409804217
+pct_uninsured,"Without health insurance, %",SVI 2022,any_facility,574,0,7.0,5.1,10.1,8.472592906968051
+pct_uninsured,"Without health insurance, %",SVI 2022,no_facility,2570,0,8.6,6.0,12.5,9.344562030566797
+pct_disability,"With a disability, %",SVI 2022,all,3144,0,15.7,12.9,18.9,12.8717127083882
+pct_disability,"With a disability, %",SVI 2022,metropolitan,1186,0,14.0,11.8,16.6,12.233068532667208
+pct_disability,"With a disability, %",SVI 2022,nonmetropolitan,1958,0,16.8,14.1,19.975,16.882441110809303
+pct_disability,"With a disability, %",SVI 2022,any_facility,574,0,13.45,11.2,15.6,11.944427958588571
+pct_disability,"With a disability, %",SVI 2022,no_facility,2570,0,16.3,13.5,19.6,15.170644083524193
+density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,all,3144,0,44.75606035742342,15.965587876311695,121.24982787309602,2105.789830085898
+density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,metropolitan,1186,0,166.26455104873014,59.08123761368003,445.88120304570634,2430.005554854116
+density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,nonmetropolitan,1958,0,25.202315240450794,8.416858732872475,53.3914324212859,69.69325976733784
+density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,any_facility,574,0,334.880612655449,139.00670611475212,859.9868895479531,2862.7017895262693
+density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,no_facility,2570,0,33.51012190985854,12.319698734201747,72.98153034710268,229.24796724480433
+diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),all,3135,9,10.2,8.9,11.799999999999999,10.195897618299027
+diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),metropolitan,1179,7,10.0,8.799999999999999,11.3,10.112046493747787
+diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),nonmetropolitan,1956,2,10.4,9.0,12.1,10.718666511421432
+diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),any_facility,568,6,9.8,8.6,11.0,10.074588030561614
+diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),no_facility,2567,3,10.299999999999999,9.0,12.0,10.493773386979871
+obesity,"Obesity, adults, %",County Health Rankings 2024 (CDC model-based estimate),all,3135,9,37.7,35.099999999999994,40.300000000000004,33.434796160489114
+obesity,"Obesity, adults, %",County Health Rankings 2024 (CDC model-based estimate),metropolitan,1179,7,36.3,33.2,39.0,32.7222601760274
+obesity,"Obesity, adults, %",County Health Rankings 2024 (CDC model-based estimate),nonmetropolitan,1956,2,38.4,36.199999999999996,40.824999999999996,37.87709374326403
+obesity,"Obesity, adults, %",County Health Rankings 2024 (CDC model-based estimate),any_facility,568,6,35.199999999999996,31.275,38.2,32.037264359843434
+obesity,"Obesity, adults, %",County Health Rankings 2024 (CDC model-based estimate),no_facility,2567,3,38.1,35.9,40.6,36.866436372426556
+smoking,"Current smoking, adults, %",County Health Rankings 2024 (BRFSS model-based estimate),all,3135,9,18.7,16.400000000000002,21.5,15.456737298876483
+smoking,"Current smoking, adults, %",County Health Rankings 2024 (BRFSS model-based estimate),metropolitan,1179,7,17.2,14.799999999999999,19.8,14.744683670539585
+smoking,"Current smoking, adults, %",County Health Rankings 2024 (BRFSS model-based estimate),nonmetropolitan,1956,2,19.6,17.4,22.5,19.896027637815283
+smoking,"Current smoking, adults, %",County Health Rankings 2024 (BRFSS model-based estimate),any_facility,568,6,16.6,13.900000000000002,19.2,14.447560673500806
+smoking,"Current smoking, adults, %",County Health Rankings 2024 (BRFSS model-based estimate),no_facility,2567,3,19.2,16.900000000000002,22.0,17.934771134662174
+inactivity,"Physical inactivity, adults, %",County Health Rankings 2024 (CDC model-based estimate),all,3135,9,26.3,23.1,30.099999999999998,23.940913636655615
+inactivity,"Physical inactivity, adults, %",County Health Rankings 2024 (CDC model-based estimate),metropolitan,1179,7,24.8,21.45,28.199999999999996,23.405132920854566
+inactivity,"Physical inactivity, adults, %",County Health Rankings 2024 (CDC model-based estimate),nonmetropolitan,1956,2,27.3,24.2,31.2,27.281232484549964
+inactivity,"Physical inactivity, adults, %",County Health Rankings 2024 (CDC model-based estimate),any_facility,568,6,24.2,20.8,27.200000000000003,23.22004615179609
+inactivity,"Physical inactivity, adults, %",County Health Rankings 2024 (CDC model-based estimate),no_facility,2567,3,27.0,23.599999999999998,30.599999999999998,25.7110041972992
+premature_mortality,"Premature age-adjusted mortality, deaths per 100,000 aged <75 y",County Health Rankings 2024 (NCHS mortality files),all,3080,64,457.57322029,370.697738345,562.7638709575,392.50375304087044
+premature_mortality,"Premature age-adjusted mortality, deaths per 100,000 aged <75 y",County Health Rankings 2024 (NCHS mortality files),metropolitan,1178,8,421.02408349999996,337.81946724,519.0779898850001,376.3707062506034
+premature_mortality,"Premature age-adjusted mortality, deaths per 100,000 aged <75 y",County Health Rankings 2024 (NCHS mortality files),nonmetropolitan,1902,56,482.30454061,389.50236220749997,591.85825606,493.2159613228028
+premature_mortality,"Premature age-adjusted mortality, deaths per 100,000 aged <75 y",County Health Rankings 2024 (NCHS mortality files),any_facility,568,6,398.21279642,323.16292752,483.4230443925,368.34964459088303
+premature_mortality,"Premature age-adjusted mortality, deaths per 100,000 aged <75 y",County Health Rankings 2024 (NCHS mortality files),no_facility,2512,58,472.38943352499996,381.9422256125,581.5557169799999,451.85108589394355
+pcp,"Primary care physicians per 100,000",County Health Rankings 2024 (AMA Physician Masterfile),all,2978,166,46.60813,29.434279999999998,70.62147,74.92530497068735
+pcp,"Primary care physicians per 100,000",County Health Rankings 2024 (AMA Physician Masterfile),metropolitan,1153,33,54.229929999999996,33.431509999999996,80.15203,78.53727539550881
+pcp,"Primary care physicians per 100,000",County Health Rankings 2024 (AMA Physician Masterfile),nonmetropolitan,1825,133,43.06235,27.31121,62.78007,52.080993861480735
+pcp,"Primary care physicians per 100,000",County Health Rankings 2024 (AMA Physician Masterfile),any_facility,567,7,75.39516,52.40299,96.67772,83.16162635230027
+pcp,"Primary care physicians per 100,000",County Health Rankings 2024 (AMA Physician Masterfile),no_facility,2411,159,41.47958,26.100900000000003,61.06264,54.51544627798171

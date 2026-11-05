@@ -7,7 +7,7 @@ Sensitivity analysis restricting the cohort to Status == "Accredited".
 The primary cohort defined in the briefing is `Accredited` OR `Under Review`.
 That is deliberate and is not changed here. This script re-derives the county
 facility counts from the Accredited-only subset and refits the primary SVI
-models, so the effect of the 23 Under Review records can be seen directly.
+and EDI models on the primary analytic sample, so the effect of the 23 Under Review records can be seen directly.
 
 Outputs
     output/results/accredited_only_sensitivity.csv
@@ -30,6 +30,7 @@ import statsmodels.discrete.discrete_model as dm
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import facility_mapping  # noqa: E402
+import model_spec  # noqa: E402
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROC = os.path.join(BASE_DIR, "data", "processed")
@@ -47,20 +48,27 @@ def county_frame(counts):
     d = base.merge(counts, on="county_fips", how="left")
     for c in ("cmr_facility_count", "cct_facility_count"):
         d[c] = d[c].fillna(0).astype(int)
+    edi = pd.read_csv(os.path.join(PROC, "county_edi_constructed.csv"), dtype={"fips": str})
+    d = d.merge(edi[["fips", "edi_national_percentile"]], left_on="county_fips",
+                right_on="fips", how="left").drop(columns="fips")
+    d["svi_pct100"] = d["svi_percentile"] * 100.0
     return d
 
 
-def fit(d, outcome, adjusted):
-    """Primary SVI model. NB2 with alpha estimated, per 13_model_specification."""
-    sub = d[(d.rate_excluded == 0) & (d.adult_pop_45plus > 0)].copy()
-    sub["idx10"] = sub["svi_percentile"] * 100.0 / 10.0
+def fit(d, outcome, adjusted, index="SVI"):
+    """Primary model, NB2 with alpha estimated, on the PRIMARY analytic sample.
+
+    Earlier versions fitted this sensitivity on the rate-eligible subset
+    (n = 3,038), so it changed two things at once: the cohort and the sample.
+    It now differs from the primary analysis in the cohort only, as a
+    sensitivity analysis should (revision R2-05).
+    """
+    col = {"SVI": "svi_pct100", "EDI": "edi_national_percentile"}[index]
+    sub = model_spec.analytic_sample(d, col)
     terms = ["idx10"] + (["metro_indicator"] if adjusted else [])
-    X = sm.add_constant(sub[terms], has_constant="add")
-    res = dm.NegativeBinomial(sub[outcome], X, loglike_method="nb2",
-                              offset=np.log(sub["adult_pop_45plus"])
-                              ).fit(disp=0, maxiter=300)
+    res = model_spec.fit_primary_terms(sub, outcome, terms)
     out = {}
-    for term, name in [("idx10", "SVI")] + ([("metro_indicator", "metro")] if adjusted else []):
+    for term, name in [("idx10", index)] + ([("metro_indicator", "metro")] if adjusted else []):
         lo, hi = np.exp(res.conf_int().loc[term])
         out[name] = {"irr": float(np.exp(res.params[term])), "ci_low": float(lo),
                      "ci_high": float(hi), "p": float(res.pvalues[term])}
@@ -102,22 +110,24 @@ def main():
     desc_rows, model_rows = [], []
     for label, d in cohorts:
         desc_rows.append(descriptives(d, label))
-        for outcome, oname in OUTCOMES:
-            for adjusted in (False, True):
-                r = fit(d, outcome, adjusted)
-                spec = "adjusted" if adjusted else "unadjusted"
-                for term in ("SVI", "metro"):
-                    if term not in r:
-                        continue
-                    model_rows.append({
-                        "cohort": label, "outcome": oname, "model": spec,
-                        "term": term, "irr": r[term]["irr"],
-                        "ci_low": r[term]["ci_low"], "ci_high": r[term]["ci_high"],
-                        "p_value": r[term]["p"], "alpha": r["_alpha"], "n": r["_n"]})
+        for index in ("SVI", "EDI"):
+            for outcome, oname in OUTCOMES:
+                for adjusted in (False, True):
+                    r = fit(d, outcome, adjusted, index)
+                    spec = "adjusted" if adjusted else "unadjusted"
+                    for term in (index, "metro"):
+                        if term not in r:
+                            continue
+                        model_rows.append({
+                            "cohort": label, "index": index, "outcome": oname,
+                            "model": spec, "term": term, "irr": r[term]["irr"],
+                            "ci_low": r[term]["ci_low"], "ci_high": r[term]["ci_high"],
+                            "p_value": r[term]["p"], "alpha": r["_alpha"], "n": r["_n"]})
 
     desc = pd.DataFrame(desc_rows)
     models = pd.DataFrame(model_rows)
     models.to_csv(os.path.join(OUT, "accredited_only_sensitivity.csv"), index=False)
+    desc.to_csv(os.path.join(OUT, "accredited_only_descriptives.csv"), index=False)
 
     L = ["=" * 88, "ACCREDITED-ONLY SENSITIVITY ANALYSIS", "=" * 88,
          "Primary cohort keeps Accredited and Under Review, as specified in the",
@@ -137,19 +147,20 @@ def main():
         L.append(f"  {lbl:<28}{fmt.format(p[key]):>16}{fmt.format(a[key]):>18}"
                  f"{fmt.format(diff):>13}")
     L.append("")
-    L.append("  SVI models, negative binomial with alpha estimated")
+    L.append("  Index models, negative binomial with alpha estimated, primary sample")
     L.append("  " + "-" * 74)
-    L.append(f"  {'Cohort':<34}{'Outcome':<6}{'Model':<12}{'IRR':>7}{'95% CI':>16}{'P':>9}")
-    for _, r in models[models.term == "SVI"].iterrows():
+    L.append(f"  {'Cohort':<18}{'Index':<6}{'Outcome':<8}{'Model':<12}{'n':>6}{'IRR':>8}{'95% CI':>16}{'P':>9}")
+    idx_rows = models[models.term == models["index"]]
+    for _, r in idx_rows.iterrows():
         ci = f"{r.ci_low:.3f}-{r.ci_high:.3f}"
         star = " *" if r.p_value < 0.05 else ""
         short = "Primary" if r.cohort.startswith("Primary") else "Accredited only"
-        L.append(f"  {short:<34}{r.outcome:<6}{r.model:<12}{r.irr:>7.3f}{ci:>16}"
+        L.append(f"  {short:<18}{r['index']:<6}{r.outcome:<8}{r.model:<12}{r.n:>6,}{r.irr:>8.3f}{ci:>16}"
                  f"{r.p_value:>9.4f}{star}")
     L.append("")
     same = all(
-        (models[(models.cohort == cohorts[0][0]) & (models.term == "SVI")].p_value.values < 0.05)
-        == (models[(models.cohort == cohorts[1][0]) & (models.term == "SVI")].p_value.values < 0.05))
+        (models[(models.cohort == cohorts[0][0]) & (models.term == models["index"])].p_value.values < 0.05)
+        == (models[(models.cohort == cohorts[1][0]) & (models.term == models["index"])].p_value.values < 0.05))
     L.append("  Conclusion: the two cohorts reach the same significance conclusions."
              if same else
              "  Conclusion: significance differs between cohorts. Report both.")

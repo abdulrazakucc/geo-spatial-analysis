@@ -135,6 +135,10 @@ def descriptives(m):
 def table1(m):
     el = m[m.rate_excluded == 0].copy()
     rows = {}
+    # Facility percentages use the national total of each modality as the
+    # denominator (revision R2-04), so every row reads as a share of all
+    # accredited capacity. County percentages keep the row's own county count.
+    tot_cmr, tot_cct = int(m.cmr_facility_count.sum()), int(m.cct_facility_count.sum())
 
     def block(d):
         # Counts use every county in the stratum. Mean rates use only the
@@ -144,10 +148,12 @@ def table1(m):
         return {"counties": int(len(d)),
                 "adults_millions": float(d.adult_pop_45plus.sum() / 1e6),
                 "cmr_facilities": int(d.cmr_facility_count.sum()),
+                "cmr_facilities_pct": float(100 * d.cmr_facility_count.sum() / tot_cmr),
                 "counties_ge1_cmr": int((d.cmr_facility_count > 0).sum()),
                 "counties_ge1_cmr_pct": float(100 * (d.cmr_facility_count > 0).mean()),
                 "cmr_rate_mean": float(r.cmr_rate_per_100k.mean()),
                 "cct_facilities": int(d.cct_facility_count.sum()),
+                "cct_facilities_pct": float(100 * d.cct_facility_count.sum() / tot_cct),
                 "counties_ge1_cct": int((d.cct_facility_count > 0).sum()),
                 "counties_ge1_cct_pct": float(100 * (d.cct_facility_count > 0).mean()),
                 "cct_rate_mean": float(r.cct_rate_per_100k.mean()),
@@ -159,8 +165,13 @@ def table1(m):
     q = pd.qcut(el.edi_national_percentile, 5, labels=False)
     for i in range(5):
         rows[f"edi_q{i + 1}"] = block(el[q == i])
-    rows["_note"] = ("Rurality strata use all counties. EDI quintiles are restricted to "
-                     "rate-eligible counties with an EDI value.")
+    rows["_note"] = ("Metropolitan strata use all counties. EDI quintiles are restricted to "
+                     "rate-eligible counties with an EDI value. Facility percentages are of "
+                     "the national total for each modality.")
+    rows["_national_totals"] = {"cmr": tot_cmr, "cct": tot_cct}
+    exc = m[m.rate_excluded == 1]
+    rows["_rate_excluded_facilities"] = int(exc.cmr_facility_count.sum()
+                                            + exc.cct_facility_count.sum())
     return rows
 
 
@@ -212,10 +223,17 @@ def regressions(m):
             if idx == "EDI":
                 for lab, flag in [("metro", 1), ("nonmetro", 0)]:
                     sub = d[d.metro_indicator == flag]
-                    strat = est(prim(sub, col, [term]), term)
+                    # Diagnosed fit: a sparse stratum can put the dispersion on
+                    # its boundary, where NB2 reduces to Poisson. See
+                    # model_spec.fit_primary_checked and output/results/
+                    # nonmetro_cmr_diagnostics.txt.
+                    res, diag = model_spec.fit_primary_checked(sub, col, [term])
+                    strat = est(res, term)
                     strat["estimable"] = bool(
                         not (pd.isna(strat["ci_low"]) or pd.isna(strat["ci_high"])
                              or pd.isna(strat["p"])))
+                    strat["solution"] = diag["solution"]
+                    strat["alpha_nb2"] = diag["alpha"]
                     out["models"][key][f"stratified_{lab}"] = strat
                     out["models"][key][f"stratified_{lab}_n"] = int(len(sub))
                     out["models"][key][f"stratified_{lab}_events"] = int(sub[col].sum())
@@ -370,7 +388,7 @@ def pca_variance():
     dd = mg.dropna().copy()
     dd["neg_income"] = -dd.median_income
     feats = ["EP_POV150", "EP_UNEMP", "EP_NOHSDP", "EP_HBURD", "neg_income", "child_poverty"]
-    p = PCA(n_components=1).fit(StandardScaler().fit_transform(dd[feats]))
+    p = PCA(n_components=1, svd_solver="full").fit(StandardScaler().fit_transform(dd[feats]))
     return {"pca_variance_explained": float(p.explained_variance_ratio_[0]),
             "pca_n_counties": int(len(dd)),
             "pca_features": feats}
@@ -522,7 +540,7 @@ def write_report(R):
     if R.get("sdi"):
         s = R["sdi"]
         a("-" * 78)
-        a("EXTERNAL VALIDATION  (manuscript Table 4)")
+        a("EXTERNAL VALIDATION  (manuscript Figure 2)")
         a("-" * 78)
         a(f"  SDI matched {s['sdi_matched_counties']:,} of {s['total_counties']:,} counties")
         a(f"  SDI vs EDI agreement, Spearman rho        {s['agreement_with_EDI']['spearman_rho']:.4f}")
@@ -645,7 +663,9 @@ FORBIDDEN = [
     (r"fell monotonically|monotonic (decline|decrease|gradient)",
      "the EDI quintile means are not monotonic"),
     # Superseded model values
-    (r"0\.95-1\.03", "pre-HUD SVI-CMR unadjusted CI"),
+    # Scoped to the SVI-CMR estimate it replaced: 0.95-1.03 is also the correct
+    # CI of the population-weighted EDI-CMR estimate added in revision R1-02.
+    (r"1\.00 \(0\.95-1\.03\)|IRR 1\.00; 95% CI, 0\.95-1\.03", "pre-HUD SVI-CMR unadjusted CI"),
     (r"P = 0\.665", "pre-HUD Spearman CMR P value"),
     (r"P = 0\.268", "pre-HUD Spearman CCT P value"),
     # Categorical null language the estimated-dispersion result does not support
@@ -687,6 +707,26 @@ FORBIDDEN = [
     # modalities, SVI is positive and significant for cardiac CT.
     (r"gave the same result|both indices gave the same|indices agreed after adjustment",
      "the SVI and EDI differ after adjustment for cardiac CT"),
+    # ---- Revision round 1 (reviewer and editor items). Each entry is wording
+    # that the revision removed; its return would undo a correction.
+    (r"section 145\(a\)", "E-04: the MIPPA accreditation provision is section 135(a)"),
+    (r"human subjects[\u2019'] research", "E-04: 'human subjects research', no possessive"),
+    (r"Supplementary Figure S1\.for|\(Supplementary Figure S2\)a ",
+     "E-04: misplaced figure-citation insertions"),
+    (r"conclusions\.Accredited|\) ,", "E-04: spacing errors"),
+    (r"\bthen a Poisson", "E-04: 'than a Poisson'"),
+    (r"0\.70 \(NE\)|not estimable because the stratum",
+     "R2-03: the nonmetropolitan CMR estimate is estimable at the NB2 boundary"),
+    (r"rural-urban gradient|metropolitan-rural gradient|correlated with rural location"
+     r"|rural populations within them|high-deprivation and rural counties",
+     "R1-03: the binary RUCC classification is metropolitan/nonmetropolitan"),
+    (r"Cardiac MRI Capacity", "E-04: the paper uses 'cardiac MR'"),
+    (r"are strongly correlated, and a binary", "E-04: EDI-RUCC Spearman rho is 0.25"),
+    (r"declined across EDI quintiles", "the quintile means are not monotonic"),
+    (r"IRR \d+\.\d\d, 95% CI", "E-04: estimate punctuation is 'IRR x; 95% CI, a-b'"),
+    (r"\(95% CI \d", "E-04: CI punctuation is '(95% CI, a-b)'"),
+    (r"did not alter any estimate materially",
+     "R1-01: the sensitivity finding moved to Results with its verified size"),
 ]
 
 
@@ -900,6 +940,192 @@ def _check_lengths(paragraphs, checks):
                 break
 
 
+def _fe(e, p=True):
+    """Estimate in the manuscript's prose format."""
+    t = f"IRR {e['irr']:.2f}; 95% CI, {e['ci_low']:.2f}-{e['ci_high']:.2f}"
+    if p:
+        t += "; P < 0.001" if e["p"] < 0.001 else f"; P = {e['p']:.3f}"
+    return t
+
+
+def _check_revision_r1(prose, paragraphs, R, checks):
+    """Values and claims added in revision round 1, checked against
+    output/results/reviewer_analyses.json (18_reviewer_analyses.py).
+
+    Every number the revision added to the text is rebuilt here from the
+    generated results, and every qualitative claim it added ("no index was
+    associated", "confined to metropolitan counties", "attenuated") is tested
+    against the estimates that would contradict it.
+    """
+    rv = R.get("reviewer")
+    if rv is None:
+        checks.append(("reviewer analyses present", "present", "MISSING", False))
+        return
+
+    def has(label, expected, want=True):
+        found = expected in prose
+        checks.append((label, expected, "found in text" if found else "NOT IN TEXT",
+                       found == want))
+
+    def claim(label, phrase, holds):
+        present = phrase in prose
+        checks.append((f"claim: {label}", "supported" if present else "not claimed",
+                       ("supported" if holds else "CONTRADICTED BY DATA") if present
+                       else "not claimed", (not present) or holds))
+
+    W = rv["R1-02_weighting"]
+    rates = W["descriptive"]["rates"]
+    has("pooled CMR rate, metro vs nonmetro",
+        f"{rates['metropolitan']['CMR_pooled']:.2f} versus {rates['nonmetropolitan']['CMR_pooled']:.2f}")
+    has("pooled CCT rate, metro vs nonmetro",
+        f"{rates['metropolitan']['CCT_pooled']:.2f} versus {rates['nonmetropolitan']['CCT_pooled']:.2f}")
+    exc = W["descriptive"]["excluded"]
+    has("rate-excluded county count", f"{exc['n']} counties")
+    claim("no facility in the rate-excluded counties",
+          f"none of the {exc['n']} counties", exc["cmr_facilities"] + exc["cct_facilities"] == 0)
+    claim("rate-eligible restriction changed no IRR by more than 0.001",
+          "by more than 0.001", W["max_abs_irr_change_rate_eligible_adjusted"] < 0.001)
+    wm = W["models"]
+    has("weighted SVI-CCT adjusted", _fe(wm["SVI_CCT_adjusted"]["poisson_population_weighted_robust"]))
+    has("weighted EDI-CMR unadjusted", _fe(wm["EDI_CMR_unadjusted"]["poisson_population_weighted_robust"]))
+    has("weighted metro term, CMR (EDI model)",
+        _fe(wm["EDI_CMR_adjusted"]["metro_poisson_population_weighted_robust"], p=False))
+    has("weighted metro term, CCT (EDI model)",
+        _fe(wm["EDI_CCT_adjusted"]["metro_poisson_population_weighted_robust"], p=False))
+    all_null = all(v["poisson_population_weighted_robust"]["p"] >= 0.05 for v in wm.values())
+    claim("no index association significant in population-weighted models",
+          "none of the index associations was significant", all_null)
+
+    spec_csv = os.path.join(RESULTS, "model_specification_comparison.csv")
+    if os.path.exists(spec_csv):
+        t = pd.read_csv(spec_csv)
+        combos = t.groupby(["index", "outcome"])
+        wins = [sum("estimated alpha" in g.loc[g[c].idxmin(), "specification"]
+                    for _, g in combos) for c in ("aic", "bic")]
+        ok = wins[0] == wins[1] == combos.ngroups
+        claim(f"estimated dispersion wins AIC and BIC in all {combos.ngroups} models",
+              f"in all {combos.ngroups} index-outcome models", ok)
+
+    M = rv["R2-02_multiplicity"]
+    tests = {t["test"]: t for t in M["tests"]}
+    sc = tests["SVI-CCT, adjusted for metropolitan status (Table 2)"]
+    has("Holm-adjusted SVI-CCT, primary family", f"Holm adjustment (P = {sc['holm_primary']:.3f})")
+    has("BH-adjusted SVI-CCT, all tests", f"significant (P = {sc['bh_extended']:.3f})")
+    sd = tests["SDI-CMR, adjusted for metropolitan status (Figure 2)"]
+    has("BH-adjusted SDI-CMR, all tests", f"SDI-CMR association (P = {sd['bh_extended']:.3f})")
+    claim("SDI-CMR loses significance under FDR", "not the adjusted SDI-CMR association",
+          sd["bh_extended"] >= 0.05)
+    has("size of the extended family", f"all {M['families']['extended']['n_tests']} index associations")
+    for name, short in [("SVI-CMR", "SVI, cardiac MR"), ("SVI-CCT", "SVI, cardiac CT"),
+                        ("EDI-CMR", "EDI, cardiac MR"), ("EDI-CCT", "EDI, cardiac CT")]:
+        tt = tests[f"{name}, adjusted for metropolitan status (Table 2)"]
+        has(f"Table 2 note Holm {name}", f"{tt['holm_primary']:.3f} ({short})")
+
+    S = rv["R2-03_strata"]
+    nm = S["strata"]["EDI_CMR_nonmetro"]
+    det = S["detail"]["EDI_CMR_nonmetro"]
+    inter = S["interaction"]["EDI_CMR"]
+    has("nonmetro EDI-CMR estimate", _fe(nm["estimate"]))
+    has("nonmetro EDI-CMR interaction P", f"interaction P = {inter['interaction_ratio']['p']:.3f}")
+    has("nonmetro profile-likelihood CI",
+        f"{det['poisson_profile']['ci_low']:.2f}-{det['poisson_profile']['ci_high']:.2f}")
+    has("nonmetro RUCC-adjusted estimate", f"IRR {det['within_stratum_ordinal_rucc']['irr']:.2f}")
+    has("nonmetro facility count", f"{nm['events']} accredited CMR facilities")
+    claim("each nonmetro CMR facility in a different county", "each in a different county",
+          nm["events"] == nm["units_with_event"])
+    others = [S["strata"][f"{i}_CMR_nonmetro"]["estimate"] for i in ("SVI", "SDI")]
+    has("nonmetro SVI and SDI estimates",
+        f"SVI (IRR {others[0]['irr']:.2f}) and SDI (IRR {others[1]['irr']:.2f})")
+    claim("nonmetro CMR inverse for all three indices", "consistent across all three indices",
+          all(S["strata"][f"{i}_CMR_nonmetro"]["estimate"]["irr"] < 1
+              and S["strata"][f"{i}_CMR_nonmetro"]["estimate"]["p"] < 0.05
+              for i in ("SVI", "EDI", "SDI")))
+    cct_inter = S["interaction"]["EDI_CCT"]["interaction_ratio"]["p"]
+    has("Table 3 note, CCT interaction P", f"interaction P = {cct_inter:.3f}")
+
+    U = rv["R1-04_urban_core"]
+    um = U["models"]
+    prim = um["SVI_CCT: metropolitan status (primary)"]["estimate"]
+    has("SVI-CCT, metropolitan stratum", _fe(um["SVI_CCT: metropolitan counties only"]["estimate"], p=False))
+    has("SVI-CCT, nonmetropolitan stratum",
+        _fe(um["SVI_CCT: nonmetropolitan counties only"]["estimate"], p=False))
+    dens = um["SVI_CCT: metropolitan status + log population density"]["estimate"]
+    has("SVI-CCT, density-adjusted", _fe(dens))
+    claim("SVI-CCT attenuated by density", "no longer significant after adjustment for population density",
+          dens["p"] >= 0.05 and abs(dens["irr"] - 1) < abs(prim["irr"] - 1))
+    claim("SVI-CCT confined to metropolitan counties", "confined to metropolitan counties",
+          um["SVI_CCT: metropolitan counties only"]["estimate"]["p"] < 0.05
+          and um["SVI_CCT: nonmetropolitan counties only"]["estimate"]["p"] >= 0.05)
+    th = U["themes"]
+    has("SVI theme 4, CCT", _fe(th["SVI_CCT_theme4"]["adjusted_metro"], p=False))
+    has("SVI theme 3, CCT", _fe(th["SVI_CCT_theme3"]["adjusted_metro"], p=False))
+    has("SVI-CMR, density-adjusted", _fe(um["SVI_CMR: metropolitan status + log population density"]["estimate"]))
+    dsc = U["descriptive"]
+    has("theme 3 vs density, metro", f"ρ = {dsc['spearman_theme3_density_metro']['rho']:.2f}")
+    has("theme 4 vs density, metro", f"ρ = {dsc['spearman_theme4_density_metro']['rho']:.2f}")
+    r1 = dsc["by_metro_rucc"]["1"]["cct_facilities"]
+    has("CCT facilities in RUCC 1", f"{r1:,} of {R['descriptives']['cct_facilities']:,}")
+
+    P = rv["R2-01_pca"]
+    has("PC1 eigenvalue", f"eigenvalue {P['eigenvalues'][0]:.2f}")
+    lo, hi = min(P["pc1_loadings"].values()), max(P["pc1_loadings"].values())
+    has("PC1 loading range", f"loadings, {lo:.2f}-{hi:.2f}")
+    claim("all six indicators load positively on PC1", "all six indicators loaded positively",
+          lo > 0)
+    has("PC2 eigenvalue and variance",
+        f"eigenvalue {P['eigenvalues'][1]:.2f}; {100 * P['variance_explained'][1]:.1f}% of variance")
+    top2 = max(P["pc2_loadings"], key=lambda k: abs(P["pc2_loadings"][k]))
+    claim("PC2 reflects mainly housing cost burden", "reflected mainly housing cost burden",
+          top2 == "EP_HBURD")
+
+    g = R["quintiles"]
+    has("pooled Q1/Q5 ratio", f"{g['q1_over_q5_ratio_pooled']:.1f}-fold")
+
+
+def _check_references(paragraphs, checks):
+    """References are numbered in order of first citation, every reference is
+    cited, and the count in the front-matter note matches the list (E-04)."""
+    try:
+        lo = next(i for i, t in enumerate(paragraphs) if t.strip().upper() == "INTRODUCTION")
+        hi = next(i for i, t in enumerate(paragraphs) if t.strip().upper() == "REFERENCES")
+    except StopIteration:
+        return
+    refs = []
+    for t in paragraphs[hi + 1:]:
+        mm = re.match(r"^(\d+)\.\s", t.strip())
+        if not mm:
+            break
+        refs.append(int(mm.group(1)))
+    n = len(refs)
+    checks.append(("reference list numbered 1..N", f"1..{n}",
+                   "sequential" if refs == list(range(1, n + 1)) else f"{refs}",
+                   refs == list(range(1, n + 1))))
+    order = []
+    for t in paragraphs[lo:hi]:
+        for grp in re.findall(r"\((\d+(?:\s*[-–,]\s*\d+)*)\)", t):
+            nums = []
+            for part in re.split(r"\s*,\s*", grp):
+                if re.search(r"[-–]", part):
+                    a, b = (int(x) for x in re.split(r"\s*[-–]\s*", part))
+                    nums += list(range(a, b + 1))
+                else:
+                    nums.append(int(part))
+            if not nums or min(nums) < 1 or max(nums) > n:
+                continue
+            for x in nums:
+                if x not in order:
+                    order.append(x)
+    ok = order == list(range(1, n + 1))
+    checks.append(("references cited in order of first appearance", f"1..{n}",
+                   "in order" if ok else f"first-cited order {order}", ok))
+    for t in paragraphs:
+        mm = re.search(r"References:\s*(\d+)", t)
+        if mm:
+            checks.append(("front-matter reference count", str(n), mm.group(1),
+                           int(mm.group(1)) == n))
+            break
+
+
 def _sha256(path):
     """Hash of the exact file checked, so a report cannot be attributed to a
     different document than the one that was validated."""
@@ -1003,6 +1229,8 @@ def check_manuscript(R):
         os.path.join(RESULTS, "model_specification_comparison.csv"))
     _check_lengths(prose_paragraphs, checks)
     _check_table_geometry(MANUSCRIPT, checks)
+    _check_revision_r1(prose, prose_paragraphs, R, checks)
+    _check_references(prose_paragraphs, checks)
 
     ck_prose("Q1/Q5 gradient", f"{g['q1_over_q5_ratio']:.1f}-fold")
     ck_prose("Q1 CMR rate", f"{g['cmr_rate_by_edi_quintile'][0]:.2f}")
@@ -1025,16 +1253,25 @@ def check_manuscript(R):
                        not affirmative))
 
     # ---- Table 1
+    # Layout since revision R2-04: facility counts carry the share of the
+    # national total in parentheses, and the binary stratum is headed
+    # "Metropolitan status" (R1-03) rather than "Rurality".
     if len(doc_tables) >= 1:
         t1 = _parse_table(doc_tables[0])
+        strat_head = "Metropolitan status"
         spec = [("", "All counties", "all_counties"),
-                ("Rurality", "Metropolitan (RUCC 1-3)", "metropolitan"),
-                ("Rurality", "Nonmetropolitan (RUCC 4-9)", "nonmetropolitan"),
+                (strat_head, "Metropolitan (RUCC 1-3)", "metropolitan"),
+                (strat_head, "Nonmetropolitan (RUCC 4-9)", "nonmetropolitan"),
                 ("EDI quintile", "Q1 (least deprived)", "edi_q1"),
                 ("EDI quintile", "Q2", "edi_q2"),
                 ("EDI quintile", "Q3", "edi_q3"),
                 ("EDI quintile", "Q4", "edi_q4"),
                 ("EDI quintile", "Q5 (most deprived)", "edi_q5")]
+        header = [c.strip() for c in doc_tables[0][0]] if doc_tables[0] else []
+        ck("T1 header, CMR facilities", "CMR facilities, No. (%)",
+           header[3] if len(header) > 3 else "HEADER NOT FOUND")
+        ck("T1 header, CCT facilities", "CCT facilities, No. (%)",
+           header[6] if len(header) > 6 else "HEADER NOT FOUND")
         for sect, label, key in spec:
             cells = t1.get((sect, label))
             if cells is None:
@@ -1043,19 +1280,13 @@ def check_manuscript(R):
             b = T1[key]
             ck(f"T1 {label} counties", f"{b['counties']:,}", cells[1])
             ck(f"T1 {label} adults", f"{b['adults_millions']:.1f}", cells[2])
-            ck(f"T1 {label} CMR fac", f"{b['cmr_facilities']:,}", cells[3])
+            ck(f"T1 {label} CMR fac", f"{b['cmr_facilities']:,} ({b['cmr_facilities_pct']:.1f})", cells[3])
             ck(f"T1 {label} cty>=1 CMR", f"{b['counties_ge1_cmr']:,} ({b['counties_ge1_cmr_pct']:.1f})", cells[4])
-            if len(cells) < 9:
-                ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[5])
-            if len(cells) >= 9:
-                ck(f"T1 {label} CMR rate", f"{b['cmr_rate_mean']:.2f}", cells[5])
-                ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,}", cells[6])
-                ck(f"T1 {label} cty>=1 CCT",
-                   f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[7])
-                ck(f"T1 {label} CCT rate", f"{b['cct_rate_mean']:.2f}", cells[8])
-            else:
-                ck(f"T1 {label} cty>=1 CCT",
-                   f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[6])
+            ck(f"T1 {label} CMR rate", f"{b['cmr_rate_mean']:.2f}", cells[5])
+            ck(f"T1 {label} CCT fac", f"{b['cct_facilities']:,} ({b['cct_facilities_pct']:.1f})", cells[6])
+            ck(f"T1 {label} cty>=1 CCT",
+               f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})", cells[7])
+            ck(f"T1 {label} CCT rate", f"{b['cct_rate_mean']:.2f}", cells[8])
 
     # ---- Table 2
     if len(doc_tables) >= 2:
@@ -1088,6 +1319,21 @@ def check_manuscript(R):
                 ck(f"T3 RUCC {label} EDI", fmt_est(blk["adjusted_rucc"]), cells[2])
                 ck(f"T3 RUCC {label} P", fmt_p(blk["adjusted_rucc"]["p"]), cells[3])
                 ck(f"T3 RUCC {label} term", fmt_est(blk["rucc_effect"]), cells[4])
+        wsect = "Population-weighted, adjusted for metropolitan status"
+        rv = R.get("reviewer")
+        for label, mod in [("Cardiac MR", "CMR"), ("Cardiac CT", "CCT")]:
+            cells = t3.get((wsect, label))
+            if rv is None:
+                break
+            w = rv["R1-02_weighting"]["models"][f"EDI_{mod}_adjusted"]
+            if cells is None:
+                ck(f"T3 weighted {label}", "row present", "ROW NOT FOUND")
+                continue
+            ck(f"T3 weighted {label} n", f"{w['n']:,}", cells[1])
+            ck(f"T3 weighted {label} EDI", fmt_est(w["poisson_population_weighted_robust"]), cells[2])
+            ck(f"T3 weighted {label} P", fmt_p(w["poisson_population_weighted_robust"]["p"]), cells[3])
+            ck(f"T3 weighted {label} metro",
+               fmt_est(w["metro_poisson_population_weighted_robust"]), cells[4])
         for label, mod, lay in [("Cardiac MR, metropolitan", "CMR", "metro"),
                                 ("Cardiac MR, nonmetropolitan", "CMR", "nonmetro"),
                                 ("Cardiac CT, metropolitan", "CCT", "metro"),
@@ -1173,13 +1419,19 @@ def main():
         "quintiles": quintile_gradient(m),
         "pca": pca_variance(),
     }
+    rv_path = os.path.join(RESULTS, "reviewer_analyses.json")
+    if os.path.exists(rv_path):
+        with open(rv_path) as f:
+            R["reviewer"] = json.load(f)
     sdi_path = os.path.join(RESULTS, "index_comparison_results.json")
     if os.path.exists(sdi_path):
         with open(sdi_path) as f:
             R["sdi"] = json.load(f)
 
     with open(os.path.join(OUT, "manuscript_numbers.json"), "w") as f:
-        json.dump(R, f, indent=2)
+        # The reviewer analyses have their own file; keep this one to the
+        # values the gate itself computes.
+        json.dump({k: v for k, v in R.items() if k != "reviewer"}, f, indent=2)
     report = write_report(R)
     with open(os.path.join(OUT, "manuscript_numbers.txt"), "w") as f:
         f.write(report + "\n")

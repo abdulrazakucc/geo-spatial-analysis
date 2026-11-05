@@ -46,7 +46,7 @@ REGRESSION MODELS  (manuscript Tables 2 and 3)
   EDI, CMR, metropolitan status term               8.33 (4.86-14.28)    <0.001
   EDI, CMR, ordinal RUCC term                       0.70 (0.64-0.76)    <0.001
   EDI, CMR, metro counties only                     1.00 (0.97-1.04)     0.863   n=1,178, 694 facilities
-  EDI, CMR, nonmetro counties only                         0.70 (NE)        NE   n=1,956, 14 facilities
+  EDI, CMR, nonmetro counties only                  0.70 (0.56-0.89)     0.003   n=1,956, 14 facilities
 
   SVI, CCT, unadjusted                              1.03 (1.01-1.06)     0.014
   SVI, CCT, adjusted for metropolitan status        1.03 (1.01-1.06)     0.008
@@ -97,7 +97,7 @@ MODEL DIAGNOSTICS  (justification for the specification)
     EDI_CMR_adjusted       alpha=1.0 IRR 0.9897 (P 0.6370)   alpha estimated IRR 0.9929 (P 0.6981, alpha 0.440)
 
 ------------------------------------------------------------------------------
-EXTERNAL VALIDATION  (manuscript Table 4)
+EXTERNAL VALIDATION  (manuscript Figure 2)
 ------------------------------------------------------------------------------
   SDI matched 3,133 of 3,144 counties
   SDI vs EDI agreement, Spearman rho        0.8826

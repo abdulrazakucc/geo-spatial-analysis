@@ -1,0 +1,39 @@
+Outcome,Model,"Counties, No.",SVI IRR (95% CI),P
+Cardiac CT,,,,
+,Adjusted for Metropolitan status (primary),"3,144",1.03 (1.01-1.06),0.008
+,Adjusted for Ordinal RUCC,"3,144",1.03 (1.01-1.06),0.005
+,Adjusted for Categorical RUCC,"3,144",1.03 (1.01-1.06),0.007
+,Adjusted for Metropolitan status + log population density,"3,144",1.02 (0.99-1.04),0.152
+,Adjusted for Categorical RUCC + log population density,"3,144",1.01 (0.99-1.04),0.415
+,Metropolitan counties only,"1,186",1.04 (1.01-1.07),0.002
+,Nonmetropolitan counties only (boundary Poisson solution),"1,958",0.98 (0.92-1.05),0.543
+,"SVI theme 1 (socioeconomic status), adjusted for metropolitan status","3,144",1.03 (1.00-1.05),0.023
+,"SVI theme 1, adjusted for metropolitan status and log density","3,144",1.02 (1.00-1.04),0.122
+,"SVI theme 2 (household characteristics), adjusted for metropolitan status","3,144",0.97 (0.95-0.99),0.014
+,"SVI theme 2, adjusted for metropolitan status and log density","3,144",0.98 (0.96-1.00),0.113
+,"SVI theme 3 (racial and ethnic minority status), adjusted for metropolitan status","3,144",1.04 (1.01-1.07),0.010
+,"SVI theme 3, adjusted for metropolitan status and log density","3,144",0.98 (0.95-1.01),0.264
+,"SVI theme 4 (housing type and transportation), adjusted for metropolitan status","3,144",1.07 (1.05-1.10),<0.001
+,"SVI theme 4, adjusted for metropolitan status and log density","3,144",1.05 (1.02-1.08),<0.001
+Cardiac MR,,,,
+,Adjusted for Metropolitan status (primary),"3,144",1.00 (0.97-1.04),0.854
+,Adjusted for Ordinal RUCC,"3,144",1.01 (0.97-1.04),0.712
+,Adjusted for Categorical RUCC,"3,144",0.98 (NE),NE
+,Adjusted for Metropolitan status + log population density,"3,144",0.97 (0.93-1.00),0.065
+,Adjusted for Categorical RUCC + log population density,"3,144",0.95 (0.91-0.98),0.006
+,Metropolitan counties only,"1,186",1.01 (0.97-1.05),0.560
+,Nonmetropolitan counties only (boundary Poisson solution),"1,958",0.80 (0.65-0.99),0.039
+,"SVI theme 1 (socioeconomic status), adjusted for metropolitan status","3,144",0.99 (0.95-1.02),0.488
+,"SVI theme 1, adjusted for metropolitan status and log density","3,144",0.96 (0.93-1.00),0.037
+,"SVI theme 2 (household characteristics), adjusted for metropolitan status","3,144",0.91 (0.88-0.94),<0.001
+,"SVI theme 2, adjusted for metropolitan status and log density","3,144",0.91 (0.88-0.95),<0.001
+,"SVI theme 3 (racial and ethnic minority status), adjusted for metropolitan status","3,144",1.05 (1.00-1.10),0.040
+,"SVI theme 3, adjusted for metropolitan status and log density","3,144",0.92 (0.87-0.97),0.002
+,"SVI theme 4 (housing type and transportation), adjusted for metropolitan status","3,144",1.10 (1.06-1.14),<0.001
+,"SVI theme 4, adjusted for metropolitan status and log density","3,144",1.06 (1.02-1.10),0.007
+
+"Exploratory analyses prompted by the positive SVI-CCT association; not prespecified. All models are NB2 with dispersion estimated and a log(adults aged ≥45 years) offset; IRR per 10-percentile increase in the SVI or theme. Categorical RUCC uses indicator variables for codes 2-9 (reference, code 1). Log population density is residents per square mile of land area."
+For cardiac MR the categorical-RUCC model is not estimable because no county coded 8 or 9 has an accredited CMR facility (quasi-complete separation).
+"Metropolitan counties by RUCC code: RUCC 1: 443 counties, 987 CCT and 493 CMR facilities, mean SVI 41.3, median density 367 per sq mi; RUCC 2: 385 counties, 284 CCT and 146 CMR facilities, mean SVI 51.9, median density 156 per sq mi; RUCC 3: 358 counties, 156 CCT and 69 CMR facilities, mean SVI 49.9, median density 95 per sq mi."
+"Within metropolitan counties, Spearman correlation of log population density with the overall SVI ρ = 0.11 and with each theme: theme 1 ρ = -0.00; theme 2 ρ = -0.03; theme 3 ρ = 0.37; theme 4 ρ = 0.20."
+CCT = cardiac computed tomography; CI = confidence interval; CMR = cardiac magnetic resonance; EDI = economic deprivation index; IRR = incidence rate ratio; NB2 = negative binomial (quadratic variance); NE = not estimable; RUCC = Rural-Urban Continuum Code; SDI = Social Deprivation Index; SVI = Social Vulnerability Index.

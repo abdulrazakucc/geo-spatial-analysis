@@ -1,0 +1,83 @@
+Index,Outcome,Model,Specification,"Counties, No.","Facilities, No.",Index IRR (95% CI),P,Second term,Second term IRR (95% CI),Notes
+SVI,CMR,Unadjusted,"NB2, dispersion estimated","3,144",722,1.00 (0.96-1.04),0.980,,,
+SVI,CMR,Adjusted for metropolitan status,"NB2, dispersion estimated","3,144",722,1.00 (0.97-1.04),0.854,Metropolitan status,8.56 (5.01-14.61),Primary analysis
+SVI,CMR,Adjusted for ordinal RUCC (1-9),"NB2, dispersion estimated","3,144",722,1.01 (0.97-1.04),0.712,Ordinal RUCC,0.70 (0.64-0.76),Second term is per 1-code increase in RUCC
+SVI,CMR,Metropolitan counties only,"NB2, dispersion estimated","1,186",708,1.01 (0.97-1.05),0.560,,,708 facilities in 286 counties.
+SVI,CMR,Nonmetropolitan counties only,Poisson (boundary of NB2),"1,958",14,0.80 (0.65-0.99),0.039,,,"NB2 dispersion estimate on its boundary (alpha = 0.00394); the maximum-likelihood fit is the Poisson fit, shown here. Profile-likelihood 95% CI 0.64-0.98; likelihood-ratio P = 0.032. Index x metropolitan interaction P = 0.033. 14 facilities in 14 counties."
+SVI,CMR,Adjusted; dispersion fixed at alpha = 1.0,"NB2, alpha fixed at 1.0","3,144",722,1.00 (0.96-1.05),0.850,Metropolitan status,8.30 (4.82-14.31),Retained from the original specification
+SVI,CMR,"Adjusted; counties with ≥1,000 adults aged ≥45 y","NB2, dispersion estimated","3,038",722,1.00 (0.97-1.04),0.856,Metropolitan status,8.54 (5.00-14.57),Same restriction as the per-capita rates
+SVI,CMR,Adjusted; Accredited status only (Under Review excluded),"NB2, dispersion estimated","3,144",716,1.00 (0.97-1.04),0.883,Metropolitan status,8.49 (4.97-14.49),Cohort excludes the Under Review records
+SVI,CMR,"Adjusted; Poisson, robust SE","Poisson QMLE, HC0","3,144",722,1.00 (0.97-1.03),0.937,Metropolitan status,8.94 (5.32-15.02),Unweighted reference for the weighted Poisson fit
+SVI,CMR,"Adjusted; population-weighted Poisson, robust SE","Poisson QMLE, weights = adults aged ≥45 y, HC0","3,144",722,0.97 (0.92-1.01),0.117,Metropolitan status,4.37 (2.47-7.74),"Estimand: association for the average adult, not the average county"
+SVI,CMR,"Adjusted; population-weighted NB2, robust SE","NB2, alpha fixed at unweighted estimate, weights = adults aged ≥45 y, HC0","3,144",722,0.98 (0.94-1.02),0.289,Metropolitan status,4.43 (2.55-7.70),Estimand: association for the average adult
+SVI,CMR,Adjusted for metropolitan status and log population density,"NB2, dispersion estimated","3,144",722,0.97 (0.93-1.00),0.065,Log population density,1.41 (1.30-1.53),Second term is per 1-unit increase in log density (about 2.7-fold)
+SVI,CCT,Unadjusted,"NB2, dispersion estimated","3,144","1,542",1.03 (1.01-1.06),0.014,,,
+SVI,CCT,Adjusted for metropolitan status,"NB2, dispersion estimated","3,144","1,542",1.03 (1.01-1.06),0.008,Metropolitan status,2.08 (1.71-2.54),Primary analysis
+SVI,CCT,Adjusted for ordinal RUCC (1-9),"NB2, dispersion estimated","3,144","1,542",1.03 (1.01-1.06),0.005,Ordinal RUCC,0.85 (0.82-0.88),Second term is per 1-code increase in RUCC
+SVI,CCT,Metropolitan counties only,"NB2, dispersion estimated","1,186","1,427",1.04 (1.01-1.07),0.002,,,1427 facilities in 444 counties.
+SVI,CCT,Nonmetropolitan counties only,Poisson (boundary of NB2),"1,958",115,0.98 (0.92-1.05),0.543,,,"NB2 dispersion estimate on its boundary (alpha = 3.29e-05); the maximum-likelihood fit is the Poisson fit, shown here. Index x metropolitan interaction P = 0.104. 115 facilities in 108 counties."
+SVI,CCT,Adjusted; dispersion fixed at alpha = 1.0,"NB2, alpha fixed at 1.0","3,144","1,542",1.03 (1.00-1.07),0.058,Metropolitan status,1.98 (1.59-2.46),Retained from the original specification
+SVI,CCT,"Adjusted; counties with ≥1,000 adults aged ≥45 y","NB2, dispersion estimated","3,038","1,542",1.03 (1.01-1.06),0.008,Metropolitan status,2.08 (1.71-2.53),Same restriction as the per-capita rates
+SVI,CCT,Adjusted; Accredited status only (Under Review excluded),"NB2, dispersion estimated","3,144","1,526",1.03 (1.01-1.06),0.008,Metropolitan status,2.07 (1.70-2.51),Cohort excludes the Under Review records
+SVI,CCT,"Adjusted; Poisson, robust SE","Poisson QMLE, HC0","3,144","1,542",1.03 (1.01-1.06),0.010,Metropolitan status,2.17 (1.79-2.63),Unweighted reference for the weighted Poisson fit
+SVI,CCT,"Adjusted; population-weighted Poisson, robust SE","Poisson QMLE, weights = adults aged ≥45 y, HC0","3,144","1,542",1.02 (0.98-1.07),0.326,Metropolitan status,1.80 (1.43-2.27),"Estimand: association for the average adult, not the average county"
+SVI,CCT,"Adjusted; population-weighted NB2, robust SE","NB2, alpha fixed at unweighted estimate, weights = adults aged ≥45 y, HC0","3,144","1,542",1.02 (0.99-1.06),0.232,Metropolitan status,1.80 (1.46-2.22),Estimand: association for the average adult
+SVI,CCT,Adjusted for metropolitan status and log population density,"NB2, dispersion estimated","3,144","1,542",1.02 (0.99-1.04),0.152,Log population density,1.21 (1.16-1.28),Second term is per 1-unit increase in log density (about 2.7-fold)
+SVI,CMR,Adjusted; SVI Q2 vs Q1,"NB2, dispersion estimated","3,144",722,1.01 (0.75-1.35),0.959,,,IRR versus the least vulnerable quartile (Q1)
+SVI,CMR,Adjusted; SVI Q3 vs Q1,"NB2, dispersion estimated","3,144",722,1.14 (0.86-1.51),0.352,,,IRR versus the least vulnerable quartile (Q1)
+SVI,CMR,Adjusted; SVI Q4 vs Q1,"NB2, dispersion estimated","3,144",722,0.98 (0.73-1.31),0.903,,,IRR versus the least vulnerable quartile (Q1)
+SVI,CCT,Adjusted; SVI Q2 vs Q1,"NB2, dispersion estimated","3,144","1,542",1.22 (0.99-1.49),0.057,,,IRR versus the least vulnerable quartile (Q1)
+SVI,CCT,Adjusted; SVI Q3 vs Q1,"NB2, dispersion estimated","3,144","1,542",1.39 (1.15-1.69),<0.001,,,IRR versus the least vulnerable quartile (Q1)
+SVI,CCT,Adjusted; SVI Q4 vs Q1,"NB2, dispersion estimated","3,144","1,542",1.27 (1.04-1.55),0.018,,,IRR versus the least vulnerable quartile (Q1)
+EDI,CMR,Unadjusted,"NB2, dispersion estimated","3,134",708,0.95 (0.91-0.98),0.003,,,
+EDI,CMR,Adjusted for metropolitan status,"NB2, dispersion estimated","3,134",708,0.99 (0.96-1.03),0.699,Metropolitan status,8.33 (4.86-14.28),Primary analysis
+EDI,CMR,Adjusted for ordinal RUCC (1-9),"NB2, dispersion estimated","3,134",708,1.00 (0.97-1.04),0.801,Ordinal RUCC,0.70 (0.64-0.76),Second term is per 1-code increase in RUCC
+EDI,CMR,Metropolitan counties only,"NB2, dispersion estimated","1,178",694,1.00 (0.97-1.04),0.863,,,694 facilities in 282 counties.
+EDI,CMR,Nonmetropolitan counties only,Poisson (boundary of NB2),"1,956",14,0.70 (0.56-0.89),0.003,,,"NB2 dispersion estimate on its boundary (alpha = 0.00395); the maximum-likelihood fit is the Poisson fit, shown here. Profile-likelihood 95% CI 0.55-0.88; likelihood-ratio P = 0.001. Index x metropolitan interaction P = 0.004. 14 facilities in 14 counties."
+EDI,CMR,Adjusted; dispersion fixed at alpha = 1.0,"NB2, alpha fixed at 1.0","3,134",708,0.99 (0.95-1.03),0.638,Metropolitan status,8.05 (4.64-13.97),Retained from the original specification
+EDI,CMR,"Adjusted; counties with ≥1,000 adults aged ≥45 y","NB2, dispersion estimated","3,029",708,0.99 (0.96-1.03),0.698,Metropolitan status,8.31 (4.84-14.24),Same restriction as the per-capita rates
+EDI,CMR,Adjusted; Accredited status only (Under Review excluded),"NB2, dispersion estimated","3,134",,0.99 (0.96-1.03),0.686,Metropolitan status,8.25 (4.81-14.14),Cohort excludes the Under Review records
+EDI,CMR,"Adjusted; Poisson, robust SE","Poisson QMLE, HC0","3,134",708,1.00 (0.96-1.03),0.778,Metropolitan status,8.75 (5.16-14.85),Unweighted reference for the weighted Poisson fit
+EDI,CMR,"Adjusted; population-weighted Poisson, robust SE","Poisson QMLE, weights = adults aged ≥45 y, HC0","3,134",708,0.99 (0.95-1.03),0.531,Metropolitan status,4.01 (2.27-7.08),"Estimand: association for the average adult, not the average county"
+EDI,CMR,"Adjusted; population-weighted NB2, robust SE","NB2, alpha fixed at unweighted estimate, weights = adults aged ≥45 y, HC0","3,134",708,0.99 (0.96-1.03),0.755,Metropolitan status,4.23 (2.43-7.36),Estimand: association for the average adult
+EDI,CMR,Adjusted for metropolitan status and log population density,"NB2, dispersion estimated","3,134",708,0.99 (0.95-1.03),0.605,Log population density,1.39 (1.29-1.50),Second term is per 1-unit increase in log density (about 2.7-fold)
+EDI,CCT,Unadjusted,"NB2, dispersion estimated","3,134","1,524",0.99 (0.97-1.01),0.372,,,
+EDI,CCT,Adjusted for metropolitan status,"NB2, dispersion estimated","3,134","1,524",1.02 (0.99-1.04),0.186,Metropolitan status,2.13 (1.74-2.61),Primary analysis
+EDI,CCT,Adjusted for ordinal RUCC (1-9),"NB2, dispersion estimated","3,134","1,524",1.03 (1.00-1.05),0.033,Ordinal RUCC,0.84 (0.81-0.88),Second term is per 1-code increase in RUCC
+EDI,CCT,Metropolitan counties only,"NB2, dispersion estimated","1,178","1,409",1.02 (1.00-1.05),0.071,,,1409 facilities in 438 counties.
+EDI,CCT,Nonmetropolitan counties only,"NB2, dispersion estimated","1,956",115,0.96 (0.89-1.03),0.232,,,Index x metropolitan interaction P = 0.088. 115 facilities in 108 counties.
+EDI,CCT,Adjusted; dispersion fixed at alpha = 1.0,"NB2, alpha fixed at 1.0","3,134","1,524",1.01 (0.98-1.04),0.562,Metropolitan status,1.99 (1.58-2.50),Retained from the original specification
+EDI,CCT,"Adjusted; counties with ≥1,000 adults aged ≥45 y","NB2, dispersion estimated","3,029","1,524",1.02 (0.99-1.04),0.188,Metropolitan status,2.12 (1.73-2.60),Same restriction as the per-capita rates
+EDI,CCT,Adjusted; Accredited status only (Under Review excluded),"NB2, dispersion estimated","3,134",,1.02 (0.99-1.04),0.171,Metropolitan status,2.11 (1.72-2.59),Cohort excludes the Under Review records
+EDI,CCT,"Adjusted; Poisson, robust SE","Poisson QMLE, HC0","3,134","1,524",1.02 (1.00-1.05),0.092,Metropolitan status,2.27 (1.87-2.76),Unweighted reference for the weighted Poisson fit
+EDI,CCT,"Adjusted; population-weighted Poisson, robust SE","Poisson QMLE, weights = adults aged ≥45 y, HC0","3,134","1,524",1.03 (0.99-1.07),0.131,Metropolitan status,1.88 (1.52-2.34),"Estimand: association for the average adult, not the average county"
+EDI,CCT,"Adjusted; population-weighted NB2, robust SE","NB2, alpha fixed at unweighted estimate, weights = adults aged ≥45 y, HC0","3,134","1,524",1.03 (0.99-1.06),0.133,Metropolitan status,1.88 (1.53-2.31),Estimand: association for the average adult
+EDI,CCT,Adjusted for metropolitan status and log population density,"NB2, dispersion estimated","3,134","1,524",1.02 (1.00-1.05),0.102,Log population density,1.22 (1.16-1.29),Second term is per 1-unit increase in log density (about 2.7-fold)
+SDI,CMR,Unadjusted,"NB2, dispersion estimated","3,133",708,1.02 (0.98-1.05),0.322,,,
+SDI,CMR,Adjusted for metropolitan status,"NB2, dispersion estimated","3,133",708,1.04 (1.00-1.07),0.043,Metropolitan status,8.67 (5.08-14.80),External index (Figure 2)
+SDI,CMR,Adjusted for ordinal RUCC (1-9),"NB2, dispersion estimated","3,133",708,1.04 (1.01-1.08),0.017,Ordinal RUCC,0.69 (0.64-0.75),Second term is per 1-code increase in RUCC
+SDI,CMR,Metropolitan counties only,"NB2, dispersion estimated","1,179",694,1.04 (1.01-1.08),0.013,,,694 facilities in 282 counties.
+SDI,CMR,Nonmetropolitan counties only,Poisson (boundary of NB2),"1,954",14,0.76 (0.61-0.95),0.017,,,"NB2 dispersion estimate on its boundary (alpha = 0.00306); the maximum-likelihood fit is the Poisson fit, shown here. Profile-likelihood 95% CI 0.60-0.94; likelihood-ratio P = 0.011. Index x metropolitan interaction P = 0.007. 14 facilities in 14 counties."
+SDI,CMR,Adjusted; dispersion fixed at alpha = 1.0,"NB2, alpha fixed at 1.0","3,133",708,1.04 (0.99-1.08),0.089,Metropolitan status,8.43 (4.88-14.54),Retained from the original specification
+SDI,CMR,"Adjusted; counties with ≥1,000 adults aged ≥45 y","NB2, dispersion estimated","3,027",708,1.04 (1.00-1.07),0.043,Metropolitan status,8.65 (5.06-14.77),Same restriction as the per-capita rates
+SDI,CMR,"Adjusted; Poisson, robust SE","Poisson QMLE, HC0","3,133",708,1.03 (0.99-1.07),0.103,Metropolitan status,8.92 (5.29-15.04),Unweighted reference for the weighted Poisson fit
+SDI,CMR,"Adjusted; population-weighted Poisson, robust SE","Poisson QMLE, weights = adults aged ≥45 y, HC0","3,133",708,1.00 (0.95-1.04),0.878,Metropolitan status,4.06 (2.30-7.18),"Estimand: association for the average adult, not the average county"
+SDI,CMR,"Adjusted; population-weighted NB2, robust SE","NB2, alpha fixed at unweighted estimate, weights = adults aged ≥45 y, HC0","3,133",708,1.01 (0.97-1.05),0.521,Metropolitan status,4.24 (2.43-7.39),Estimand: association for the average adult
+SDI,CMR,Adjusted for metropolitan status and log population density,"NB2, dispersion estimated","3,133",708,1.01 (0.97-1.04),0.724,Log population density,1.39 (1.28-1.50),Second term is per 1-unit increase in log density (about 2.7-fold)
+SDI,CCT,Unadjusted,"NB2, dispersion estimated","3,133","1,524",1.02 (1.00-1.05),0.033,,,
+SDI,CCT,Adjusted for metropolitan status,"NB2, dispersion estimated","3,133","1,524",1.03 (1.01-1.06),0.003,Metropolitan status,2.12 (1.74-2.58),External index (Figure 2)
+SDI,CCT,Adjusted for ordinal RUCC (1-9),"NB2, dispersion estimated","3,133","1,524",1.04 (1.02-1.06),<0.001,Ordinal RUCC,0.84 (0.81-0.88),Second term is per 1-code increase in RUCC
+SDI,CCT,Metropolitan counties only,"NB2, dispersion estimated","1,179","1,409",1.04 (1.01-1.06),0.002,,,1409 facilities in 438 counties.
+SDI,CCT,Nonmetropolitan counties only,Poisson (boundary of NB2),"1,954",115,1.00 (0.94-1.07),0.935,,,"NB2 dispersion estimate on its boundary (alpha = 2.49e-05); the maximum-likelihood fit is the Poisson fit, shown here. Index x metropolitan interaction P = 0.361. 115 facilities in 108 counties."
+SDI,CCT,Adjusted; dispersion fixed at alpha = 1.0,"NB2, alpha fixed at 1.0","3,133","1,524",1.03 (1.00-1.07),0.031,Metropolitan status,2.01 (1.61-2.50),Retained from the original specification
+SDI,CCT,"Adjusted; counties with ≥1,000 adults aged ≥45 y","NB2, dispersion estimated","3,027","1,524",1.03 (1.01-1.06),0.003,Metropolitan status,2.11 (1.73-2.57),Same restriction as the per-capita rates
+SDI,CCT,"Adjusted; Poisson, robust SE","Poisson QMLE, HC0","3,133","1,524",1.04 (1.01-1.06),0.010,Metropolitan status,2.21 (1.82-2.68),Unweighted reference for the weighted Poisson fit
+SDI,CCT,"Adjusted; population-weighted Poisson, robust SE","Poisson QMLE, weights = adults aged ≥45 y, HC0","3,133","1,524",1.03 (0.99-1.07),0.174,Metropolitan status,1.78 (1.42-2.24),"Estimand: association for the average adult, not the average county"
+SDI,CCT,"Adjusted; population-weighted NB2, robust SE","NB2, alpha fixed at unweighted estimate, weights = adults aged ≥45 y, HC0","3,133","1,524",1.03 (0.99-1.06),0.147,Metropolitan status,1.80 (1.47-2.22),Estimand: association for the average adult
+SDI,CCT,Adjusted for metropolitan status and log population density,"NB2, dispersion estimated","3,133","1,524",1.02 (1.00-1.05),0.063,Log population density,1.21 (1.16-1.28),Second term is per 1-unit increase in log density (about 2.7-fold)
+
+"Panel A. IRRs are per 10-percentile increase in the index. Unless noted, models are negative binomial (NB2) with the dispersion (alpha) estimated by maximum likelihood and an offset of log(adults aged ≥45 years). The primary analysis is the SVI and EDI model adjusted for metropolitan status. Second term: metropolitan status (RUCC 1-3 vs 4-9), ordinal RUCC per 1-code increase, or log population density per 1-unit increase."
+"The offset makes each model a model for the facility rate but weights every county equally; primary estimates therefore describe the average county. Population-weighted models weight counties by adults aged ≥45 years (normalized to mean 1) and estimate the association for the average adult; robust (HC0) standard errors. Under these weights the Kish effective sample size is 314 of 3,144 counties, and the largest 1% of counties carry 22.3% of the weight."
+"Stratified rows marked Poisson: in these strata every county had zero or one facility, the NB2 dispersion estimate lay on its boundary (alpha = 0) and the information matrix could not be inverted at the optimizer's stopping point; the maximum-likelihood NB2 fit at alpha = 0 is the Poisson fit, shown here (see Supplementary Table S4). Facility totals differ by index because counties without an index value are excluded."
+Panel B compares specifications for the unadjusted and metropolitan-adjusted models.
+CCT = cardiac computed tomography; CI = confidence interval; CMR = cardiac magnetic resonance; EDI = economic deprivation index; IRR = incidence rate ratio; NB2 = negative binomial (quadratic variance); NE = not estimable; RUCC = Rural-Urban Continuum Code; SDI = Social Deprivation Index; SVI = Social Vulnerability Index.

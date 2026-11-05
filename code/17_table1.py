@@ -35,22 +35,22 @@ NUMBERS = os.path.join(BASE_DIR, "output", "validation", "manuscript_numbers.jso
 TABLES = os.path.join(BASE_DIR, "output", "tables")
 STEM = "Table1_Capacity_by_Rurality_and_EDI"
 
-TITLE = ("Table 1. Accredited cardiac imaging capacity by rurality and economic "
-         "deprivation, United States, 2026")
+TITLE = ("Table 1. Accredited cardiac imaging capacity by metropolitan status and "
+         "economic deprivation quintile")
 
 HEADERS = ["Stratum",
            "Counties, No.",
            "Adults ≥45 y, millions",
-           "CMR facilities, No.",
+           "CMR facilities, No. (%)",
            "Counties with ≥1 CMR, No. (%)",
            "CMR rate, mean per 100,000",
-           "CCT facilities, No.",
+           "CCT facilities, No. (%)",
            "Counties with ≥1 CCT, No. (%)",
            "CCT rate, mean per 100,000"]
 
 #: (json key, printed label). None marks a subheading row with no data.
 LAYOUT = [("all_counties", "All counties"),
-          (None, "Rurality"),
+          (None, "Metropolitan status"),
           ("metropolitan", "Metropolitan (RUCC 1-3)"),
           ("nonmetropolitan", "Nonmetropolitan (RUCC 4-9)"),
           (None, "EDI quintile"),
@@ -73,10 +73,10 @@ def build_rows(t1):
             label,
             f"{b['counties']:,}",
             f"{b['adults_millions']:.1f}",
-            f"{b['cmr_facilities']:,}",
+            f"{b['cmr_facilities']:,} ({b['cmr_facilities_pct']:.1f})",
             f"{b['counties_ge1_cmr']:,} ({b['counties_ge1_cmr_pct']:.1f})",
             f"{b['cmr_rate_mean']:.2f}",
-            f"{b['cct_facilities']:,}",
+            f"{b['cct_facilities']:,} ({b['cct_facilities_pct']:.1f})",
             f"{b['counties_ge1_cct']:,} ({b['counties_ge1_cct_pct']:.1f})",
             f"{b['cct_rate_mean']:.2f}",
         ])
@@ -92,16 +92,23 @@ def footnotes(t1):
         "Deprivation Index.",
         "Metropolitan is RUCC 1-3, nonmetropolitan RUCC 4-9.",
         "Rate = accredited facilities per 100,000 adults aged 45 years and older.",
+        # Revision R2-04: the denominators of the two kinds of percentage.
+        f"Facility percentages are of the national total for each modality "
+        f"({t1['_national_totals']['cmr']:,} CMR and {t1['_national_totals']['cct']:,} "
+        f"CCT facilities); percentages of counties with at least one facility use the "
+        f"counties in the row as the denominator. EDI quintile rows sum to less than "
+        f"100% of facilities because counties without an EDI value are not in a quintile.",
         # The counts and the rates use different denominators on purpose, and a
         # reader who assumes otherwise will not be able to reproduce the rates.
         f"Facility and county counts include every county in the stratum. Mean "
         f"rates are calculated over the rate-eligible counties only, because a "
         f"per-head rate is not defined for a county with fewer than 1,000 adults "
-        f"aged 45 and older ({excluded:,} counties excluded; "
+        f"aged 45 and older ({excluded:,} counties excluded"
+        f"{', none with an accredited facility' if t1['_rate_excluded_facilities'] == 0 else ''}; "
         f"{t1['all_counties']['rate_eligible']:,} of "
         f"{t1['all_counties']['counties']:,} retained).",
         "EDI quintiles are formed among rate-eligible counties with an EDI value, "
-        "so the rurality strata and the quintile strata do not sum to the same "
+        "so the metropolitan strata and the quintile strata do not sum to the same "
         "total.",
         "Population denominators are American Community Survey 5-year estimates, "
         "2019-2023.",

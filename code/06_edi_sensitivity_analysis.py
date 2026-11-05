@@ -49,6 +49,8 @@ from scipy import stats
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
+import model_spec
+
 # Paths
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
@@ -100,7 +102,9 @@ def construct_county_edi():
     features = ['EP_POV150', 'EP_UNEMP', 'EP_NOHSDP', 'EP_HBURD', 'neg_income', 'child_poverty']
     X = StandardScaler().fit_transform(edi_data[features])
 
-    pca = PCA(n_components=1)
+    # Full SVD: deterministic. The default "auto" picks the randomized solver
+    # for this shape, which made the scores vary run to run at ~1e-14.
+    pca = PCA(n_components=1, svd_solver="full")
     scores = pca.fit_transform(X)
 
     edi_data['edi_raw'] = scores.flatten()
@@ -134,6 +138,25 @@ def _fit(analysis, count_col, terms):
             'irr': float(np.exp(res.params[t])),
             'ci_low': float(ci.iloc[0]), 'ci_high': float(ci.iloc[1]),
             'p': float(res.pvalues[t]),
+        }
+    return out
+
+
+def _fit_checked(analysis, count_col, terms):
+    """As `_fit`, but diagnosed: a sparse stratum can put the NB2 dispersion on
+    its boundary (alpha = 0), where the maximum-likelihood fit is the Poisson
+    fit. See model_spec.fit_primary_checked."""
+    res, diag = model_spec.fit_primary_checked(analysis, count_col, terms)
+    y = analysis[count_col].values
+    out = {'n': int(len(analysis)), 'aic': float(res.aic),
+           'events': int(y.sum()), 'counties_with_facility': int((y > 0).sum()),
+           'solution': diag['solution'], 'alpha_nb2': diag['alpha']}
+    for t in terms:
+        ci = np.exp(res.conf_int().loc[t])
+        out[t] = {
+            'irr': float(np.exp(res.params[t])),
+            'ci_low': float(ci.iloc[0]), 'ci_high': float(ci.iloc[1]),
+            'p': float(res.pvalues[t]), 'solution': diag['solution'],
         }
     return out
 
@@ -181,7 +204,7 @@ def run_edi_regressions(edi_df):
         strat = {}
         for label, flag in [('metro', 1), ('nonmetro', 0)]:
             sub = analysis[analysis['metro_indicator'] == flag]
-            strat[label] = _fit(sub, col, ['edi_per10'])
+            strat[label] = _fit_checked(sub, col, ['edi_per10'])
 
         u, a = unadj['edi_per10'], adj_metro['edi_per10']
         m = adj_metro['metro_indicator']

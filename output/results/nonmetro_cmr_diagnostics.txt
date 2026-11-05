@@ -1,0 +1,66 @@
+==============================================================================
+R2-03  WHY THE NONMETROPOLITAN CMR ESTIMATE HAD NO CONFIDENCE INTERVAL
+==============================================================================
+
+Stratum: 1,956 nonmetropolitan counties, 14 accredited CMR facilities,
+each in a different county (counts: {'0': 1942, '1': 14}).
+
+Primary specification (NB2, dispersion estimated), as originally fitted:
+  optimiser reported converged = True
+  score at the stopping point: const 1.18e-02, idx10 -9.80e-03, alpha -5.76e-01
+  estimated alpha = 0.003951
+  eigenvalues of the negated Hessian = [-0.0755, 4.1151, 244.3423]
+  log-likelihood NB2 = -60.0503; Poisson (alpha = 0) = -60.0480
+
+Diagnosis:
+  The negated Hessian has a negative eigenvalue, so it is not positive
+  definite. statsmodels inverts it only when it is, and otherwise returns no
+  standard errors; the confidence interval and P value were therefore
+  missing. The cause is the dispersion parameter. With every county holding
+  zero or one facility there is no overdispersion to estimate, the likelihood
+  is maximised at the boundary alpha = 0, and the optimiser stopped just
+  inside it. The Poisson log-likelihood is higher than the NB2 value at that
+  point, which confirms the boundary maximum.
+
+  At alpha = 0 the NB2 model is the Poisson model, so the maximum-likelihood
+  NB2 fit is the Poisson fit, whose information matrix is well conditioned:
+
+  Poisson Wald          IRR 0.70 (0.56-0.89), P 0.003
+  Profile likelihood    95% CI 0.55-0.88, LR P 0.001
+  Robust (HC0)          IRR 0.70 (0.60-0.83), P <0.001
+  Pearson dispersion    0.251 (no overdispersion)
+
+  Holding alpha fixed instead of estimating it barely moves the estimate:
+    alpha = 1e-06  IRR 0.70 (0.56-0.89), P 0.003
+    alpha = 0.1    IRR 0.70 (0.56-0.89), P 0.003
+    alpha = 0.5    IRR 0.70 (0.56-0.89), P 0.003
+    alpha = 1.0    IRR 0.71 (0.56-0.89), P 0.004
+
+  Interaction model, all 3,134 counties, NB2 with alpha estimated from all
+  counties (does not depend on the sparse stratum's dispersion):
+    nonmetropolitan EDI slope 0.71 (0.56-0.89), P 0.003
+    metropolitan EDI slope    1.00 (0.97-1.04), P 0.864
+    ratio of slopes           1.42 (1.12-1.80), P 0.004
+
+  Within the stratum, adjusting for ordinal RUCC (4-9) or log population
+  density: 0.71 (0.56-0.90) and 0.71 (0.56-0.90).
+
+Counties holding the 14 facilities (sorted by EDI percentile):
+    Merrimack, NH              RUCC 4  EDI   7.1  adults 45+   74,112
+    Grafton, NH                RUCC 5  EDI  12.1  adults 45+   45,695
+    Montour, PA                RUCC 6  EDI  16.4  adults 45+    8,546
+    Flathead, MT               RUCC 5  EDI  22.8  adults 45+   52,329
+    Cerro Gordo, IA            RUCC 5  EDI  24.2  adults 45+   20,863
+    Steuben, IN                RUCC 7  EDI  25.1  adults 45+   17,080
+    Wood, WI                   RUCC 4  EDI  26.5  adults 45+   35,952
+    Sussex, DE                 RUCC 4  EDI  31.7  adults 45+  150,816
+    Bradford, PA               RUCC 6  EDI  43.2  adults 45+   29,081
+    Hawaii, HI                 RUCC 5  EDI  44.6  adults 45+  102,008
+    Clearfield, PA             RUCC 4  EDI  50.3  adults 45+   39,155
+    Muskingum, OH              RUCC 4  EDI  53.3  adults 45+   38,409
+    Lee, MS                    RUCC 5  EDI  55.4  adults 45+   33,716
+    Oconee, SC                 RUCC 4  EDI  64.0  adults 45+   42,683
+
+Interpretation: estimable, but resting on 14 single-facility counties; it is
+hypothesis-generating. Nothing here is imputed: each interval is a standard
+likelihood-based interval for a fitted model.

@@ -14,16 +14,24 @@ briefing. This compares it with an Accredited-only cohort.
   % CMR in metro                          98.1              98.0         -0.0
   % CCT in metro                          92.5              92.5         -0.1
 
-  SVI models, negative binomial with alpha estimated
+  Index models, negative binomial with alpha estimated, primary sample
   --------------------------------------------------------------------------
-  Cohort                            OutcomeModel           IRR          95% CI        P
-  Primary                           CMR   unadjusted    0.999     0.965-1.035   0.9698
-  Primary                           CMR   adjusted      1.003     0.968-1.040   0.8556
-  Primary                           CCT   unadjusted    1.030     1.006-1.055   0.0145 *
-  Primary                           CCT   adjusted      1.033     1.009-1.058   0.0078 *
-  Accredited only                   CMR   unadjusted    0.999     0.964-1.035   0.9449
-  Accredited only                   CMR   adjusted      1.003     0.967-1.039   0.8853
-  Accredited only                   CCT   unadjusted    1.030     1.006-1.055   0.0142 *
-  Accredited only                   CCT   adjusted      1.033     1.008-1.058   0.0079 *
+  Cohort            Index Outcome Model            n     IRR          95% CI        P
+  Primary           SVI   CMR     unadjusted   3,144   1.000     0.965-1.035   0.9796
+  Primary           SVI   CMR     adjusted     3,144   1.003     0.968-1.040   0.8536
+  Primary           SVI   CCT     unadjusted   3,144   1.030     1.006-1.055   0.0138 *
+  Primary           SVI   CCT     adjusted     3,144   1.033     1.009-1.058   0.0076 *
+  Primary           EDI   CMR     unadjusted   3,134   0.948     0.915-0.982   0.0029 *
+  Primary           EDI   CMR     adjusted     3,134   0.993     0.958-1.029   0.6989
+  Primary           EDI   CCT     unadjusted   3,134   0.989     0.967-1.013   0.3718
+  Primary           EDI   CCT     adjusted     3,134   1.016     0.992-1.041   0.1862
+  Accredited only   SVI   CMR     unadjusted   3,144   0.999     0.964-1.035   0.9547
+  Accredited only   SVI   CMR     adjusted     3,144   1.003     0.967-1.039   0.8833
+  Accredited only   SVI   CCT     unadjusted   3,144   1.030     1.006-1.055   0.0135 *
+  Accredited only   SVI   CCT     adjusted     3,144   1.033     1.009-1.058   0.0077 *
+  Accredited only   EDI   CMR     unadjusted   3,134   0.948     0.915-0.982   0.0029 *
+  Accredited only   EDI   CMR     adjusted     3,134   0.993     0.957-1.029   0.6862
+  Accredited only   EDI   CCT     unadjusted   3,134   0.990     0.967-1.014   0.4126
+  Accredited only   EDI   CCT     adjusted     3,134   1.017     0.993-1.041   0.1711
 
   Conclusion: the two cohorts reach the same significance conclusions.

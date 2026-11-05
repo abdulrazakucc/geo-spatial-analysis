@@ -19,6 +19,7 @@ Outputs
     output/figures/Figure2_External_Validation.{png,pdf}
     output/figures/FigureS1_CCT_Choropleth.{png,pdf}
     output/figures/FigureS2_EDI_Quintiles.{png,pdf}
+    output/figures/FigureS3_EDI_PCA.{png,pdf}         (scree plot and biplot)
 
 Run
     python code/16_publication_figures.py
@@ -406,6 +407,105 @@ def figure_s2(numbers):
     save(fig, "FigureS2_EDI_Quintiles")
 
 
+def figure_s3():
+    """EDI principal component analysis: scree plot and biplot (revision R2-01).
+
+    Reads the full decomposition written by 18_reviewer_analyses.py, which
+    refits the published standardised matrix with every component and confirms
+    that its first component reproduces the published index.
+    """
+    with open(os.path.join(RESULTS, "reviewer_analyses.json")) as f:
+        P = json.load(f)["R2-01_pca"]
+    sc = pd.read_csv(os.path.join(RESULTS, "edi_pca_scores.csv"), dtype={"fips": str})
+    ev, ve = P["eigenvalues"], P["variance_explained"]
+    cum = P["cumulative_variance"]
+    short = {"EP_POV150": "Below 150% FPL", "EP_UNEMP": "Unemployed",
+             "EP_NOHSDP": "No high-school diploma", "EP_HBURD": "Housing cost burden",
+             "neg_income": "Median income (reversed)", "child_poverty": "Children in poverty"}
+
+    fig = plt.figure(figsize=(13.4, 6.6))
+    st.title_block(
+        fig, "Construction of the economic deprivation index",
+        f"Principal component analysis of six standardized county indicators, "
+        f"{P['n_counties']:,} counties. The index is the first component, converted "
+        f"to national percentiles.")
+
+    # Scree
+    ax = fig.add_axes([0.065, 0.14, 0.36, 0.62])
+    k = len(ev)
+    xs = np.arange(1, k + 1)
+    ax.bar(xs, ev, color=[st.TEAL] + [st.RULE] * (k - 1), width=0.62)
+    for x, e, v in zip(xs, ev, ve):
+        ax.text(x, e + 0.07, f"{e:.2f}\n{100 * v:.1f}%", ha="center", va="bottom",
+                fontsize=9.6, color=st.INK)
+    ax.axhline(1.0, color=st.MUTE, lw=1.0, ls=(0, (4, 3)))
+    ax.text(k + 0.42, 1.0, "eigenvalue = 1", ha="right", va="bottom", fontsize=9.6,
+            color=st.MUTE)
+    ax2 = ax.twinx()
+    ax2.plot(xs, [100 * c for c in cum], color=st.INK, lw=1.4, marker="o", ms=4.5)
+    ax2.text(2.15, 100 * cum[1] - 6, "cumulative", fontsize=9.6, color=st.INK,
+             ha="left", va="top")
+    ax2.set_ylim(0, 115)
+    ax2.set_ylabel("Cumulative variance explained, %", fontsize=10.5, color=st.INK)
+    ax2.tick_params(labelsize=10)
+    ax.set_ylim(0, max(ev) * 1.32)
+    ax.set_xticks(xs)
+    ax.set_xticklabels([f"PC{i}" for i in xs], fontsize=10.5)
+    ax.set_ylabel("Eigenvalue", fontsize=10.5, color=st.INK)
+    ax.tick_params(axis="y", labelsize=10)
+    ax.set_title("A  Scree plot", fontsize=13, fontweight="bold", color=st.INK,
+                 loc="left", pad=10)
+    for a in (ax, ax2):
+        a.spines["top"].set_visible(False)
+
+    # Biplot
+    bx = fig.add_axes([0.555, 0.14, 0.40, 0.62])
+    for flag, colour, lab in ((0, st.RUST, "Nonmetropolitan"), (1, st.TEAL, "Metropolitan")):
+        d = sc[sc.metro_indicator == flag]
+        bx.scatter(d.pc1, d.pc2, s=3.2, color=colour, alpha=0.28, lw=0, label=lab,
+                   rasterized=True)
+    load1, load2 = P["pc1_loadings"], P["pc2_loadings"]
+    # Arrows are loadings (indicator-component correlations) on a common scale.
+    scale = 3.6
+    tips = {f_: (load1[f_] * scale, load2[f_] * scale) for f_ in P["features"]}
+    # Labels are placed in rank order of the tips' vertical position, spaced so
+    # that the four indicators loading almost purely on PC1 stay legible.
+    right = sorted([f_ for f_ in tips if abs(load2[f_]) < 0.5], key=lambda f_: -tips[f_][1])
+    label_at = {f_: (scale * 1.02, 0.55 - 0.62 * i) for i, f_ in enumerate(right)}
+    for f_ in tips:
+        if f_ not in label_at:
+            x, y = tips[f_]
+            label_at[f_] = (x + 0.15, y + 0.12)
+    for f_, (x, y) in tips.items():
+        bx.annotate("", xy=(x, y), xytext=(0, 0),
+                    arrowprops=dict(arrowstyle="-|>", color=st.INK, lw=1.3,
+                                    mutation_scale=11))
+        lx, ly = label_at[f_]
+        bx.annotate(short[f_], xy=(x, y), xytext=(lx, ly), fontsize=9.4, color=st.INK,
+                    ha="left", va="center",
+                    bbox=dict(boxstyle="round,pad=0.15", fc="white", ec="none", alpha=0.85),
+                    arrowprops=dict(arrowstyle="-", color=st.MUTE, lw=0.6,
+                                    shrinkA=0, shrinkB=2)
+                    if f_ in right else None)
+    bx.axhline(0, color=st.RULE, lw=0.8)
+    bx.axvline(0, color=st.RULE, lw=0.8)
+    bx.set_xlabel(f"PC1 ({100 * ve[0]:.1f}% of variance; the EDI)", fontsize=10.5)
+    bx.set_ylabel(f"PC2 ({100 * ve[1]:.1f}% of variance)", fontsize=10.5)
+    bx.tick_params(labelsize=10)
+    bx.set_title("B  Biplot: county scores and indicator loadings", fontsize=13,
+                 fontweight="bold", color=st.INK, loc="left", pad=10)
+    lims = np.nanpercentile(np.r_[sc.pc1, sc.pc2], [0.3, 99.7])
+    span = max(abs(lims[0]), abs(lims[1])) * 1.15
+    bx.set_xlim(-span, span * 1.25)
+    bx.set_ylim(-span * 0.8, span * 0.8)
+    for side in ("top", "right"):
+        bx.spines[side].set_visible(False)
+    leg = bx.legend(loc="lower right", frameon=False, fontsize=9.6, markerscale=4)
+    for h in leg.legend_handles:
+        h.set_alpha(0.8)
+    save(fig, "FigureS3_EDI_PCA")
+
+
 def main():
     numbers, idx = load()
     import geopandas as gpd
@@ -434,6 +534,7 @@ def main():
                "Accredited cardiac CT capacity, US counties",
                "FigureS1_CCT_Choropleth", numbers)
     figure_s2(numbers)
+    figure_s3()
     print("\n  All figures written at "
           f"{st.DPI} dpi to output/figures/")
 

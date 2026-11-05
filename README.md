@@ -71,6 +71,50 @@ chosen index encodes rurality; the metropolitan finding does not. See
 
 ---
 
+## Revision round 1 (peer review, November 2026)
+
+Analyses added in response to the first round of review are produced by
+`code/18_reviewer_analyses.py` (stage C) and assembled into the online
+supplement by `code/19_supplementary_material.py` (stage E). The gate checks
+every number they put in the manuscript.
+
+**Population weighting (R1-02).** The log-population offset models each county's
+rate but weights every county equally, so the primary estimand is the
+association in the average county. Weighting by adults aged 45+ (Poisson
+quasi-likelihood, robust SEs) estimates it for the average adult:
+
+| Adjusted model | County-weighted (primary) | Population-weighted |
+|---|---|---|
+| SVI, CCT | 1.03 (1.01-1.06), P 0.008 | 1.02 (0.98-1.07), P 0.326 |
+| EDI, CMR | 0.99 (0.96-1.03), P 0.699 | 0.99 (0.95-1.03), P 0.531 |
+| Metropolitan status, CMR (EDI model) | 8.33 (4.86-14.28) | 4.01 (2.27-7.08) |
+
+No index association is significant under weighting; the metropolitan effect
+persists. None of the 106 rate-excluded counties has an accredited facility.
+
+**Nonmetropolitan CMR stratum (R2-03).** Previously reported as not estimable.
+Each of its 14 facilities is in a different county, so the NB2 dispersion
+estimate lies on its boundary (alpha = 0) and the Hessian at the optimiser's
+stopping point is not positive definite. The maximum-likelihood fit is then the
+Poisson fit: EDI IRR 0.70 (0.56-0.89), P 0.003; EDI x metro interaction
+P 0.004. `model_spec.fit_primary_checked` applies this rule to every
+stratified fit and substitutes nothing when the Hessian is usable. Details:
+`output/results/nonmetro_cmr_diagnostics.txt`.
+
+**Multiplicity (R2-02).** Primary family = the four metropolitan-adjusted SVI and
+EDI associations. Holm-adjusted P for SVI-CCT = 0.030;
+Benjamini-Hochberg across all 18 index tests = 0.034.
+
+**Positive SVI-CCT association (R1-04, exploratory).** Confined to metropolitan
+counties and no longer significant after adjustment for log population density
+(1.02 (0.99-1.04), P 0.152).
+
+The manuscript revision is applied as tracked changes by
+`tools/revise_manuscript_r1.py` and the submission package is assembled by
+`tools/build_r1_package.py` into `manuscript/jacrad-reviews-2026/` (not in git).
+
+---
+
 ## Reproducing the results
 
 Requires Python 3.11. Create an isolated environment first, so the pinned
@@ -128,7 +172,7 @@ python code/00_run_all.py --all            # everything
 descriptive statistic, every regression coefficient, every correlation, and
 every table cell in the paper directly from the committed data, then compares
 them against the manuscript file and reports any disagreement. The current run
-reports **156 checks, 0 mismatches**.
+reports **245 checks, 0 mismatches**.
 
 Full details of what is checked and how, including the model specification and
 each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md)**.
@@ -171,19 +215,27 @@ code/                     numbered pipeline, run in order
   09_validated_index_sdi.py     C  external validation with the Graham SDI
   13_model_specification.py     C  Poisson vs NB, estimated vs fixed dispersion
   14_accredited_only_sensitivity.py C  Accredited-only cohort sensitivity
+  15_svi_quartile_sensitivity.py C  SVI quartile indicator sensitivity
+  18_reviewer_analyses.py       C  peer-review analyses: weighting, sparse strata,
+                                   multiplicity, urbanicity, full PCA, population table
   12_manuscript_numbers.py      D  recompute and check every manuscript number
   facility_mapping.py           helper: cohort, ZIP-to-county, audit trail
   04_choropleth_map.py          E  Figure 1A
   08_svi_edi_comparison_maps.py E  Figures 2 and 3
   10_forest_plots.py            E  Figure 1B and Figure S
   11_edi_tables_and_stats.py    E  Word tables, supplementary statistics
-  07_publication_outputs.py     E  publication Figure 1 and Table 1
+  16_publication_figures.py     E  Figures 1A, 1B, 2, S1, S2, S3
+  17_table1.py                  E  manuscript Table 1
+  19_supplementary_material.py  E  supplementary methods, Tables S1-S6
+  07_publication_outputs.py     E  descriptives by SVI quartile
 
 tests/                    pipeline integrity tests (python tests/test_pipeline.py)
 tools/                    manuscript utilities, not part of the pipeline
   docx_tracked.py         library for tracked-change edits to a .docx
   revise_manuscript.py    applies a dated revision round to the manuscript
   finalize_manuscript.py  produces the clean submission file from the working one
+  revise_manuscript_r1.py applies the first peer-review revision as tracked changes
+  build_r1_package.py     assembles the revision package (manuscript/jacrad-reviews-2026/)
 
 data/raw/                 source data as downloaded
 data/processed/           county_analytic_dataset.csv, the central artifact

@@ -350,6 +350,41 @@ def test_no_withdrawn_table4_artifacts():
     assert not stale, f"withdrawn Table 4 artifacts present: {stale}"
 
 
+def test_reviewer_analyses_outputs():
+    """Revision round 1: the sparse nonmetropolitan CMR stratum must be
+    reported from its boundary (Poisson) solution with a finite interval, every
+    primary row of the comprehensive table must be estimable, and the full PCA
+    must reproduce the published index."""
+    path = os.path.join(RESULTS, "reviewer_analyses.json")
+    if not os.path.exists(path):
+        import pytest
+        pytest.skip("run the pipeline first")
+    with open(path) as f:
+        R = json.load(f)
+    s = R["R2-03_strata"]["strata"]["EDI_CMR_nonmetro"]
+    assert s["solution"].startswith("Poisson"), s["solution"]
+    assert s["events"] == s["units_with_event"], "a county holds more than one facility"
+    e = s["estimate"]
+    assert all(v == v for v in (e["irr"], e["ci_low"], e["ci_high"], e["p"])), e
+    t = pd.read_csv(os.path.join(RESULTS, "comprehensive_model_table.csv"))
+    prim = t[t.model == "Adjusted for metropolitan status"]
+    assert len(prim) == 6 and prim.estimable.all(), "a primary model is not estimable"
+    assert R["R2-01_pca"]["pc1_vs_published_edi_pearson"] > 0.999999
+    assert R["R1-02_weighting"]["descriptive"]["excluded"]["n"] == 106
+
+
+def test_boundary_rule_leaves_regular_fits_alone():
+    """fit_primary_checked must return the ordinary NB2 fit whenever its
+    information matrix is usable; the Poisson substitution is for the boundary
+    case only."""
+    import model_spec
+    d = model_spec.analytic_sample(_county(), "svi_percentile")
+    res, diag = model_spec.fit_primary_checked(d, "cct_facility_count",
+                                               ["idx10", "metro_indicator"])
+    assert diag["solution"] == "NB2", diag["solution"]
+    assert diag["hessian_positive_definite"]
+
+
 if __name__ == "__main__":
     failures = 0
     for name, fn in sorted(globals().items()):

@@ -263,6 +263,95 @@ class TrackedDocument:
         self.insert(p, old, new, before=True)
         self.delete(p, old)
 
+    def insert_paragraph_after(self, p, text, model=None):
+        """Insert a new paragraph after `p`, recorded as a tracked insertion.
+
+        Paragraph and run formatting are copied from `model` (default `p`), so
+        the new paragraph matches its neighbours. Both the text and the new
+        paragraph mark are marked as inserted, which is how Word records a
+        paragraph typed in with Track Changes on.
+        """
+        model = p if model is None else model
+        new = etree.Element(_w("p"))
+        ppr = model.find(_w("pPr"))
+        ppr = copy.deepcopy(ppr) if ppr is not None else etree.Element(_w("pPr"))
+        mark_rpr = ppr.find(_w("rPr"))
+        if mark_rpr is None:
+            mark_rpr = etree.SubElement(ppr, _w("rPr"))
+        for child in list(mark_rpr):
+            if child.tag in (_w("ins"), _w("del")):
+                mark_rpr.remove(child)
+        mark_rpr.insert(0, self._stamp(etree.Element(_w("ins"))))
+        new.append(ppr)
+        segs = self._segments(model)
+        rpr = segs[0][0].find(_w("rPr")) if segs else None
+        new.append(self._ins([self._new_run(text, rpr)]))
+        p.addnext(new)
+        return new
+
+    @classmethod
+    def row_texts(cls, tr):
+        """Accepted text of each cell in a table row."""
+        return [" ".join(filter(None, (cls.accepted_text(q).strip()
+                                       for q in tc.findall(_w("p"))))).strip()
+                for tc in tr.findall(_w("tc"))]
+
+    def find_row(self, table, label, section=None):
+        """Row whose first cell reads `label`, optionally under a section row.
+
+        A section row is one whose only non-empty cell is the first, such as
+        "Cardiac MR"; row labels repeat under different sections.
+        """
+        current = None
+        for tr in table.findall(_w("tr")):
+            cells = self.row_texts(tr)
+            if not cells:
+                continue
+            if cells[0] and not any(cells[1:]):
+                current = cells[0]
+            if cells[0] == label and (section is None or current == section):
+                return tr
+        raise AnchorNotFound(f"row {label!r} under {section!r} not found")
+
+    def cell_paragraph(self, tr, col):
+        """First paragraph of cell `col` in row `tr`."""
+        return tr.findall(_w("tc"))[col].find(_w("p"))
+
+    def insert_table_row_after(self, tr, values, model=None):
+        """Insert a row after `tr`, copying the layout of `model` (default `tr`).
+
+        The row is marked as a tracked insertion (w:trPr/w:ins) and its text as
+        inserted runs, so accepting all changes keeps it and rejecting removes it.
+        """
+        model = tr if model is None else model
+        new = copy.deepcopy(model)
+        trpr = new.find(_w("trPr"))
+        if trpr is None:
+            trpr = etree.Element(_w("trPr"))
+            new.insert(0, trpr)
+        for child in list(trpr):
+            if child.tag in (_w("ins"), _w("del")):
+                trpr.remove(child)
+        trpr.append(self._stamp(etree.Element(_w("ins"))))
+        cells = new.findall(_w("tc"))
+        if len(values) != len(cells):
+            raise ValueError(f"{len(values)} values for {len(cells)} cells")
+        for tc, value in zip(cells, values):
+            paras = tc.findall(_w("p"))
+            first_run = next(tc.iter(_w("r")), None)
+            rpr = first_run.find(_w("rPr")) if first_run is not None else None
+            rpr = copy.deepcopy(rpr) if rpr is not None else None
+            for q in paras[1:]:
+                tc.remove(q)
+            target = paras[0]
+            for child in list(target):
+                if child.tag != _w("pPr"):
+                    target.remove(child)
+            if value:
+                target.append(self._ins([self._new_run(str(value), rpr)]))
+        tr.addnext(new)
+        return new
+
     # ------------------------------------------------------------------- misc
     def revision_summary(self):
         """(author, date) pairs for every tracked change in the document."""
