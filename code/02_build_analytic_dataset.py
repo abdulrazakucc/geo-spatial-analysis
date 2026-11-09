@@ -350,11 +350,11 @@ def load_population_data(gdf):
     pop_path = os.path.join(RAW_DIR, "acs_county_population.csv")
     
     if os.path.exists(pop_path):
-        print(f"  Loading real ACS population data from: {pop_path}")
+        print(f"  Loading Census Bureau population estimates (July 1, 2023) from: {pop_path}")
         pop = pd.read_csv(pop_path, dtype={'county_fips': str})
     else:
-        require_input(pop_path, "ACS 2019-2023 5-year county population",
-                      "Census API; run code/01b_fetch_census_population.py")
+        require_input(pop_path, "Census Bureau county population estimates, July 1, 2023",
+                      "run code/01b_fetch_census_population.py")
         
         # Generate realistic population using land area as a rough proxy
         np.random.seed(456)

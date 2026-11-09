@@ -71,14 +71,16 @@ All from `16_publication_figures.py`, at 600 dpi as TIFF, PDF and PNG.
 | File | Role | Generator |
 |---|---|---|
 | `Table1_Capacity_by_Rurality_and_EDI.*` | Manuscript Table 1 | `17_table1.py` |
+| `Table4_Population_Characteristics.*` | Manuscript Table 4, characteristics of county residents (the CSV is read by the revision script) | `20_table4_population.py` |
 | `Supplementary_Material.docx`, `Supplementary_Table_S*.csv` | Supplementary Methods S1-S8 and Tables S1-S6 | `19_supplementary_material.py` |
 | `Reference_*.docx`, `Supplementary_Table_EDI_Regression.docx`, `additional_statistics.json` | Reference tables, not manuscript exhibits | `11_edi_tables_and_stats.py` |
 | `descriptives_by_svi_quartile.*` | SVI-quartile descriptives (not the paper's Table 1) | `07_publication_outputs.py` |
 | `table1_descriptive.csv`, `table1_formatted.txt` | Descriptive table from stage B | `03_descriptive_analysis.py` |
 
-**Manuscript Tables 1, 2 and 3 live in the manuscript file itself**, where
-`12_manuscript_numbers.py` checks them cell by cell. Standalone `.docx` copies
-of them used to sit here; they were removed because no script generated them
+**Manuscript Tables 2 and 3 live in the manuscript file itself**, and Tables 1
+and 4 are also written here by their generators; the manuscript copies are what
+`12_manuscript_numbers.py` checks cell by cell. Hand-made `.docx` copies of the
+other tables used to sit here; they were removed because no script generated them
 and they had gone stale, still carrying the retired "ADI" label and
 pre-adjustment estimates.
 

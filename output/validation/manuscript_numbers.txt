@@ -60,7 +60,7 @@ REGRESSION MODELS  (manuscript Tables 2 and 3)
   EDI, CCT, metropolitan status term                2.13 (1.74-2.61)    <0.001
   EDI, CCT, ordinal RUCC term                       0.84 (0.81-0.88)    <0.001
   EDI, CCT, metro counties only                     1.02 (1.00-1.05)     0.071   n=1,178, 1409 facilities
-  EDI, CCT, nonmetro counties only                  0.96 (0.89-1.03)     0.232   n=1,956, 115 facilities
+  EDI, CCT, nonmetro counties only                  0.96 (0.89-1.03)     0.233   n=1,956, 115 facilities
 
 ------------------------------------------------------------------------------
 CORRELATIONS

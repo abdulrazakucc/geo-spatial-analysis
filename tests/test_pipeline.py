@@ -338,12 +338,15 @@ def test_generated_table1_matches_manuscript():
 
 
 def test_no_withdrawn_table4_artifacts():
-    """Table 4 was withdrawn and promoted to Figure 2; nothing may still ship
-    under that name, or a stale file could reach a submission."""
+    """The original Table 4 (index comparison) was withdrawn and promoted to
+    Figure 2; its files must not return, or a stale file could reach a submission."""
     tables = os.path.join(BASE_DIR, "output", "tables")
     if not os.path.isdir(tables):
         raise SkipTest("run the pipeline first")
-    stale = [f for f in os.listdir(tables) if f.lower().startswith("table4")]
+    # The current Table 4 is the population table (20_table4_population.py);
+    # only the withdrawn index-comparison names are stale.
+    withdrawn = ("table4_external_validation", "table4_svi_vs_edi")
+    stale = [f for f in os.listdir(tables) if f.lower().startswith(withdrawn)]
     assert not stale, f"withdrawn Table 4 artifacts present: {stale}"
 
 

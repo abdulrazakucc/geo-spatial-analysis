@@ -109,7 +109,7 @@ MANUAL_ZIP_OVERRIDES = {
 }
 
 AUDIT_COLUMNS = [
-    "source_row_id", "facility_name", "modality", "modality_label", "status",
+    "source_row_id", "modality", "modality_label", "status", "ct_calcium_score_only",
     "expiration_date", "state", "city", "zip_original", "zip5",
     "protocol_eligible", "protocol_exclusion_reason", "zip_crosswalk_match",
     "assigned_county_fips", "assigned_county_name", "mapping_share",
@@ -154,6 +154,10 @@ def classify_eligibility(df: pd.DataFrame, accredited_only: bool = False) -> pd.
     is_cardiac_modality = out["modality"].isin(MODALITY_LABEL)
     has_cardiac_module = (out["modules"].astype(str)
                           .str.contains("cardiac", case=False, na=False))
+    # CT accreditation with only a calcium-scoring module, and no cardiac module,
+    # is outside the cohort; flagged so the rule can be reported from the audit.
+    out["ct_calcium_score_only"] = ((out["modality"] == "CTAP") & ~has_cardiac_module
+                                    & out["modules"].astype(str).str.contains("calcium", case=False, na=False))
     allowed_status = ["Accredited"] if accredited_only else ["Accredited", "Under Review"]
     ok_status = out["Status"].isin(allowed_status)
     ok_state = out["state"].isin(STATES_50_DC)

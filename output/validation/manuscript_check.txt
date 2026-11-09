@@ -2,10 +2,10 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   9e5c04d81a55132dd660f5f99df5716cc4508ae1eb91b6b63455832b344ad384
-Checked:  2026-11-09T03:27:50Z
-Code:     6a9fa9b (working tree modified)
-Checks:   289     Mismatches: 0
+SHA256:   4ddcacffe041d42007de9b14a61864655d6160c4c3e29f662a3e11772f300e06
+Checked:  2026-11-09T17:48:51Z
+Code:     8fd6da5 (working tree modified)
+Checks:   308     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -59,12 +59,13 @@ ALL CHECKS
   ok    absent: E-04: estimate punctuation is 'IRR x; 95% CI, a-b' absent
   ok    absent: E-04: CI punctuation is '(95% CI, a-b)' absent
   ok    absent: R1-01: the sensitivity finding moved to Results with its verified size absent
+  ok    absent: population denominators are Census Bureau estimates for July 1, 2023, not ACS absent
   ok    CMR facilities                     722
   ok    CCT facilities                     1,542
   ok    counties with neither              2,570 counties (81.7%)
   ok    share CMR in metro                 98.1%
   ok    share CCT in metro                 92.5%
-  ok    mean EDI contrast                  52.8 vs 39.9
+  ok    mean EDI contrast                  52.8 vs 39.9; P < 0.001)
   ok    SVI analytic n                     3,144
   ok    EDI analytic n                     3,134
   ok    PCA variance                       58.7%
@@ -80,7 +81,7 @@ ALL CHECKS
   ok    manuscript AIC+BIC claim matches generated comparison supported by AIC and BIC
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
-  ok    body word count note matches the text 3,500
+  ok    body word count note matches the text 2,994
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
   ok    Summary note matches actual counts 27 words; 224 characters
@@ -90,16 +91,17 @@ ALL CHECKS
   ok    Table 2 fits the page              <= 9360 twips
   ok    Table 3 grid matches cells         5 columns
   ok    Table 3 fits the page              <= 9360 twips
+  ok    Table 4 grid matches cells         6 columns
+  ok    Table 4 fits the page              <= 9360 twips
   ok    pooled CMR rate, metro vs nonmetro 0.59 versus 0.07
   ok    pooled CCT rate, metro vs nonmetro 1.19 versus 0.54
   ok    rate-excluded county count         106 counties
   ok    claim: no facility in the rate-excluded counties supported
   ok    claim: rate-eligible restriction changed no IRR by more than 0.001 supported
   ok    weighted SVI-CCT adjusted          IRR 1.03; 95% CI, 1.01-1.06; P = 0.010
-  ok    weighted metro term, CMR (EDI model) IRR 8.75; 95% CI, 5.16-14.85
-  ok    weighted metro term, CCT (EDI model) IRR 2.27; 95% CI, 1.87-2.76
   ok    weighted EDI-CMR adjusted          IRR 1.00; 95% CI, 0.96-1.03; P = 0.778
-  ok    claim: weighted estimates described as agreeing with the primary estimates supported
+  ok    claim: weighted SVI and EDI estimates lead to the same conclusions as the primary ones supported
+  ok    claim: weighted estimates not said to agree for every index (SDI-CMR differs) not claimed
   ok    claim: no 'none significant under weighting' claim not claimed
   ok    SVI-CCT with dispersion fixed at 1 dispersion fixed at 1 (P = 0.058)
   ok    claim: rate-eligible bound stated for index IRRs supported
@@ -134,7 +136,7 @@ ALL CHECKS
   ok    claim: themes 3-4 strongest, not sole carriers not claimed
   ok    PC1 eigenvalue                     eigenvalue 3.52
   ok    PC1 loading range                  loadings, 0.33-0.94
-  ok    claim: all six indicators load positively on PC1 supported
+  ok    claim: all six indicators load positively on PC1 not claimed
   ok    PC2 eigenvalue and variance        eigenvalue 1.03; 17.1% of variance
   ok    claim: PC2 reflects mainly housing cost burden supported
   ok    claim: parallel analysis retained one component supported
@@ -163,8 +165,6 @@ ALL CHECKS
   ok    estimate in text: IRR 2.11; 95% CI, 1.74-2.58 computed by the pipeline
   ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.010 computed by the pipeline
   ok    estimate in text: IRR 1.00; 95% CI, 0.96-1.03; P = 0.778 computed by the pipeline
-  ok    estimate in text: IRR 8.75; 95% CI, 5.16-14.85 computed by the pipeline
-  ok    estimate in text: IRR 2.27; 95% CI, 1.87-2.76 computed by the pipeline
   ok    estimate in text: IRR 1.04; 95% CI, 1.01-1.07 computed by the pipeline
   ok    estimate in text: IRR 0.98; 95% CI, 0.92-1.05 computed by the pipeline
   ok    estimate in text: IRR 1.07; 95% CI, 1.05-1.10 computed by the pipeline
@@ -172,16 +172,14 @@ ALL CHECKS
   ok    estimate in text: IRR 1.02; 95% CI, 0.99-1.04; P = 0.152 computed by the pipeline
   ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98; P = 0.006 computed by the pipeline
   ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
-  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06 computed by the pipeline
-  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
   ok    estimate in text: 8.55 (95% CI, 5.01-14.59) computed by the pipeline
   ok    estimate in text: 2.08 (95% CI, 1.71-2.54) computed by the pipeline
   ok    IRR in text: IRR 0.71              computed by the pipeline
   ok    IRR in text: IRR 0.80              computed by the pipeline
   ok    IRR in text: IRR 0.76              computed by the pipeline
-  ok    reference list numbered 1..N       1..21
-  ok    references cited in order of first appearance 1..21
-  ok    front-matter reference count       21
+  ok    reference list numbered 1..N       1..22
+  ok    references cited in order of first appearance 1..22
+  ok    front-matter reference count       22
   ok    Q1/Q5 gradient                     2.9-fold
   ok    Q1 CMR rate                        0.26
   ok    Q5 CMR rate                        0.09
@@ -297,6 +295,27 @@ ALL CHECKS
   ok    T3 Cardiac CT, metropolitan P      0.071
   ok    T3 Cardiac CT, nonmetropolitan n   1,956
   ok    T3 Cardiac CT, nonmetropolitan EDI 0.96 (0.89-1.03)
-  ok    T3 Cardiac CT, nonmetropolitan P   0.232
+  ok    T3 Cardiac CT, nonmetropolitan P   0.233
+  ok    Table 4 title                      Table 4. Characteristics of county residents
+  ok    Table 4 cited in Methods           are summarized in Table 4
+  ok    T4 counties                        3,144 / 1,186 / 1,958 / 574 / 2,570
+  ok    T4 Aged ≥65 years, %               16.5 / 16.0 / 20.0 / 16.0 / 17.9
+  ok    T4 Female, %                       50.4 / 50.5 / 49.6 / 50.6 / 49.9
+  ok    T4 Non-Hispanic White, %           59.0 / 56.2 / 76.9 / 54.2 / 71.1
+  ok    T4 Non-Hispanic Black or African American, % 12.1 / 12.7 / 7.8 / 13.3 / 8.9
+  ok    T4 Hispanic or Latino, %           18.6 / 20.2 / 9.0 / 20.8 / 13.2
+  ok    T4 Non-Hispanic Asian, %           5.6 / 6.4 / 1.0 / 7.2 / 1.9
+  ok    T4 Non-Hispanic American Indian or Alaska Native, % 0.6 / 0.3 / 1.8 / 0.3 / 1.2
+  ok    T4 Non-Hispanic Native Hawaiian or Other Pacific Islander, % 0.2 / 0.2 / 0.1 / 0.2 / 0.1
+  ok    T4 Non-Hispanic multiracial or other race, % 3.9 / 4.0 / 3.4 / 4.0 / 3.7
+  ok    T4 Below 150% of the federal poverty level, % 20.5 / 19.7 / 25.6 / 19.6 / 22.7
+  ok    T4 Without health insurance, %     8.7 / 8.6 / 9.6 / 8.5 / 9.3
+  ok    T4 With a disability, %            12.9 / 12.2 / 16.9 / 11.9 / 15.2
+  ok    T4 Diagnosed diabetes, adults, %   10.2 / 10.1 / 10.7 / 10.1 / 10.5
+  ok    T4 Obesity, adults, %              33.4 / 32.7 / 37.9 / 32.0 / 36.9
+  ok    T4 Current smoking, adults, %      15.5 / 14.7 / 19.9 / 14.4 / 17.9
+  ok    T4 Physical inactivity, adults, %  23.9 / 23.4 / 27.3 / 23.2 / 25.7
+  ok    T4 Premature age-adjusted mortality, deaths per 100,000 aged <75 y 393 / 376 / 493 / 368 / 452
+  ok    T4 Primary care physicians per 100,000 74.9 / 78.5 / 52.1 / 83.2 / 54.5
   ok    Fig 1 caption states SVI-CCT       IRR 1.03; 95% CI, 1.01-1.06; P = 0.008
   ok    Fig 1 caption names the gradient   present

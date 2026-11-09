@@ -335,8 +335,8 @@ documented manual ZIP correction. The full audit trail is
 <p><b>Counties.</b> {D['total_counties']:,} county-equivalents (50 states plus DC). Connecticut uses
 its nine 2022 planning regions in place of its eight retired counties, matching the current Census
 geography.</p>
-<p><b>Population.</b> Adults aged 45 years or older, from the American Community Survey 2019-2023
-5-year estimates: {D['adults_45plus_total_millions']:.1f} million in total. This age group is
+<p><b>Population.</b> Adults aged 45 years or older, from the US Census Bureau county population
+estimates for July 1, 2023: {D['adults_45plus_total_millions']:.1f} million in total. This age group is
 used because it is the main population for cardiac imaging.</p>
 <p><b>Other sources.</b> CDC/ATSDR SVI 2022; County Health Rankings 2024; USDA RUCC 2023; Robert
 Graham Center SDI 2015-2019; US Census TIGER/Line 2023 boundaries for the maps.</p>''')}
@@ -665,14 +665,14 @@ behind inflation. The paragraph is also clear that county data can show <i>where
 not <i>why</i>, and can neither prove nor rule out bias.</p>''')}
 {tech('''<p>New Discussion paragraph: fixed costs (scanner, site preparation, technologists,
 subspecialty readers) recovered only at sufficient volume; density, referral networks and hospital
-infrastructure supply volume. References added: Baker 2001 (managed care and MRI adoption; ref 16),
-Rosenthal et al. 2005 (geographic distribution of physicians; ref 17), Rosenkrantz et al. 2016 (US
-radiologist workforce; ref 18), and the reviewer's three studies, verified against Europe PMC:
-Christensen et al., Radiology 2023;306(2):e221153 (ref 19: digital mammography gap between Black
+infrastructure supply volume. References added: Baker 2001 (managed care and MRI adoption; ref 17),
+Rosenthal et al. 2005 (geographic distribution of physicians; ref 18), Rosenkrantz et al. 2016 (US
+radiologist workforce; ref 19), and the reviewer's three studies, verified against Europe PMC:
+Christensen et al., Radiology 2023;306(2):e221153 (ref 20: digital mammography gap between Black
 and White women peaked at 3.8 percentage points in 2011 and fell to 1.2 in 2016); Christensen et al.,
-AJR 2024;222(1):e2329703 (ref 20: odds of screening CT colonography 5.73 times higher at per-capita
+AJR 2024;222(1):e2329703 (ref 21: odds of screening CT colonography 5.73 times higher at per-capita
 income ≥$100,000 than &lt;$25,000, against 1.36 for colonoscopy; attributed to non-coverage);
-Christensen et al., Inquiry 2026;63:00469580261473400 (ref 21: gaps in physician care by urbanicity,
+Christensen et al., Inquiry 2026;63:00469580261473400 (ref 22: gaps in physician care by urbanicity,
 income and area deprivation widened as the inflation-adjusted conversion factor fell 48.3%, 2005-2025).
 Alternative explanations named: payer mix, certificate-of-need regulation, health-system ownership,
 workforce supply and accreditation practice.</p>''')}
@@ -718,11 +718,11 @@ Under the stricter of two methods that one result would no longer be significant
 explains why that method is too strict here, because most of those tests re-estimate the same
 four associations in different ways.</p>''')}
 {tech(f'''<p><b>Primary family:</b> {fam['primary']['n_tests']} metropolitan-adjusted SVI and EDI
-associations; Holm step-down adjustment (reference 13). Adjusted SVI-CCT: unadjusted
+associations; Holm step-down adjustment (reference 14). Adjusted SVI-CCT: unadjusted
 {pv(sc['p'])}, Holm {pv(sc['holm_primary'])}. <b>Extended family:</b> all {fam['extended']['n_tests']}
 negative binomial index associations in Tables 2-3 and Figure 2 (the population-weighted Poisson
 rows of Table 3 are a separate sensitivity analysis and are excluded); Benjamini-Hochberg false discovery rate (reference
-14): {fam['extended']['significant_bh']} of {fam['extended']['significant_unadjusted']} nominally
+15): {fam['extended']['significant_bh']} of {fam['extended']['significant_unadjusted']} nominally
 significant results remain; SVI-CCT adjusted {pv(sc['bh_extended'])}. Holm across all
 {fam['extended']['n_tests']}: SVI-CCT adjusted {pv(sc['holm_extended'])}. Methods now also state that
 the sensitivity analyses were intended to assess the robustness of the primary findings, as the
@@ -834,8 +834,9 @@ deprivation fifths was qualified because the decline is not steady.</p>''')}
 {plain('''<p>Journals often require a table describing the patients in a study: their race and
 ethnicity, sex, and health conditions. This study has no patients. It counts facilities in
 counties. We cannot describe who was scanned, because those data do not exist here. We added the
-closest honest equivalent: a table describing the <i>residents</i> of the counties, overall, by
-metropolitan status, and by whether the county has a facility. Heart disease rates, disease
+closest honest equivalent to the main text as Table 4: a table describing the <i>residents</i> of
+the counties, overall, by metropolitan status, and by whether the county has a facility. The
+supplement (Table S1) adds the spread across counties and the missing counts. Heart disease rates, disease
 severity and gender identity are not available at county level in these sources.</p>''')}
 {tech(table(["Characteristic (population-weighted mean)", "All", "Metro", "Nonmetro", "Any facility", "No facility"], pop_rows(), "small")
       + f"<p class='small'>Supplementary Table S1 also gives county medians (IQR) and missing counts. Sources: SVI 2022 "
@@ -857,10 +858,14 @@ severity and gender identity are not available at county level in these sources.
     ["Small counties excluded from rates", "106, unexplained effect", "None has a facility; pooled rates added"],
     ["Economic interpretation", "Brief", "Full paragraph: fixed costs, market size, bias versus economics"],
     ["Terminology", "Rural / nonmetropolitan mixed", "RUCC definitions applied throughout"],
-    ["Three submitted values (fits stopped short of the maximum)", "8.56; 2.12; P = 0.801",
-     f"{RG['SVI_CMR']['metro_effect']['irr']:.2f}; {sdi_m['cct_facility_count']['metro_in_adjusted']['IRR']:.2f}; "
-     f"P = {RG['EDI_CMR']['adjusted_rucc']['p']:.3f}; no conclusion affected"],
-    ["Body length", "2,524 words", f"{X['body_words']} words"],
+    ["Four submitted results (fits stopped short of the maximum)", "8.56 (upper limit 14.61); 2.12; P = 0.801; P = 0.232",
+     f"{RG['SVI_CMR']['metro_effect']['irr']:.2f} (upper limit {RG['SVI_CMR']['metro_effect']['ci_high']:.2f}); "
+     f"{sdi_m['cct_facility_count']['metro_in_adjusted']['IRR']:.2f}; "
+     f"P = {RG['EDI_CMR']['adjusted_rucc']['p']:.3f}; P = {S['strata']['EDI_CCT_nonmetro']['estimate']['p']:.3f} "
+     f"(nonmetropolitan CCT, a boundary solution); no conclusion affected"],
+    ["Body length", "2,524 words", f"{X['body_words']} words, under the journal's 3,000-word limit; "
+     "restatements removed, and the Conclusion section removed because the Take-Home Points take "
+     "its place"],
 ])}
 """)
 
@@ -889,10 +894,12 @@ effective sample size, all multiplicity adjustments and the PCA were recomputed 
 with separately written code. All matched except where the original optimizer (BFGS) had stopped
 marginally short of the maximum likelihood. Every negative binomial fit now finishes with
 Newton-Raphson steps, which changed three submitted values in the last digit and the interaction P
-value from 0.004 to 0.003; the response letter discloses the three submitted values.</li>
+value from 0.004 to 0.003. A later full audit (November 9) found a fourth: in the nonmetropolitan
+cardiac CT stratum the likelihood is maximized at zero dispersion, where the correct fit is the
+Poisson fit, so its Table 3 P value is 0.233, not 0.232. The response letter discloses all four.</li>
 <li><b>Every quoted estimate checked:</b> the validation script now also checks that every estimate
 quoted in the text, wherever it appears, matches a computed result. That is the check that would
-have caught the three values above.</li>
+have caught the first three values above.</li>
 <li><b>Correct baseline:</b> the line numbers the reviewers cite match the repository's 16 August
 2026 submission file, not an alternative copy, so the tracked changes are measured against the
 version the journal received.</li>
@@ -910,9 +917,10 @@ version the journal received.</li>
     ["01_Revised_Manuscript_CLEAN (.docx, .pdf)", "Revised manuscript, changes accepted, line-numbered"],
     ["02_Revised_Manuscript_TRACKED (.docx, .pdf)", "Revised manuscript with round-1 changes tracked"],
     ["03_Response_to_Reviewers (.docx, .pdf)", "Point-by-point response, comments quoted verbatim"],
-    ["04_Supplementary_Material (.docx, .pdf)", "Supplementary Methods S1-S7, Tables S1-S6, Figures S1-S3"],
+    ["04_Supplementary_Material (.docx, .pdf)", "Supplementary Methods S1-S8, Tables S1-S6, Figures S1-S3"],
     ["05_Figures/, 06_Tables/, 07_Statistical_Outputs/", "Figures at 600 dpi; tables; all result files"],
     ["08 to 12", "Permissions log, proofreading report, change log, checklist, completion report"],
+    ["13_Title_Page, 14_Cover_Letter (.docx, .pdf)", "Unblinded title page and the cover letter to the editor"],
     ["00_Revision_Plan_and_Critical_Appraisal_INTERNAL.docx", "Authors only; do not submit"],
 ])}
 {tech(REBUILD)}

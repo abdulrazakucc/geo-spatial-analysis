@@ -73,8 +73,8 @@ R2-03  STRATIFIED FITS, DIAGNOSED
                          IRR 0.70 (0.56-0.89)  P 0.003
   EDI_CCT_metro          1409 facilities/ 438 counties  alpha 0.199  -H eig [266, 627, 1.82e+04]  -> NB2
                          IRR 1.02 (1.00-1.05)  P 0.071
-  EDI_CCT_nonmetro        115 facilities/ 108 counties  alpha 6.47e-05  -H eig [5.85, 21.6, 4.1e+03]  -> NB2
-                         IRR 0.96 (0.89-1.03)  P 0.232
+  EDI_CCT_nonmetro        115 facilities/ 108 counties  alpha 6.47e-05  -H eig [5.85, 21.6, 4.1e+03]  -> Poisson (NB2 dispersion on the boundary, alpha = 0)
+                         IRR 0.96 (0.89-1.03)  P 0.233
   SDI_CMR_metro           694 facilities/ 282 counties  alpha 0.433  -H eig [97.5, 123, 1.23e+04]  -> NB2
                          IRR 1.04 (1.01-1.08)  P 0.013
   SDI_CMR_nonmetro         14 facilities/  14 counties  alpha 0.00306  -H eig [-0.0559, 4.35, 251]  -> Poisson (NB2 dispersion on the boundary, alpha = 0)
@@ -129,7 +129,7 @@ R2-02  MULTIPLE COMPARISONS
   EDI-CCT, adjusted for metropolitan status (Table 2)            P 0.186  primary: Holm 0.559 BH 0.372; extended: Holm 1.000 BH 0.335
   EDI-CCT, adjusted for ordinal RUCC (Table 3)                   P 0.033  extended: Holm 0.428 BH 0.085
   EDI-CCT, metropolitan counties (Table 3)                       P 0.071  extended: Holm 0.711 BH 0.142
-  EDI-CCT, nonmetropolitan counties (Table 3)                    P 0.232  extended: Holm 1.000 BH 0.380
+  EDI-CCT, nonmetropolitan counties (Table 3)                    P 0.233  extended: Holm 1.000 BH 0.381
   SDI-CMR, unadjusted (Figure 2)                                 P 0.322  extended: Holm 1.000 BH 0.483
   SDI-CMR, adjusted for metropolitan status (Figure 2)           P 0.043  extended: Holm 0.468 BH 0.096
   SDI-CCT, unadjusted (Figure 2)                                 P 0.033  extended: Holm 0.428 BH 0.085

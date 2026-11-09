@@ -45,7 +45,7 @@ EDI,CCT,Unadjusted,"NB2, dispersion estimated","3,134","1,524",0.99 (0.97-1.01),
 EDI,CCT,Adjusted for metropolitan status,"NB2, dispersion estimated","3,134","1,524",1.02 (0.99-1.04),0.186,Metropolitan status,2.13 (1.74-2.61),0.192,Primary analysis
 EDI,CCT,Adjusted for ordinal RUCC (1-9),"NB2, dispersion estimated","3,134","1,524",1.03 (1.00-1.05),0.033,Ordinal RUCC,0.84 (0.81-0.88),0.176,Second term is per 1-code increase in RUCC
 EDI,CCT,Metropolitan counties only,"NB2, dispersion estimated","1,178","1,409",1.02 (1.00-1.05),0.071,,,0.199,1409 facilities in 438 counties.
-EDI,CCT,Nonmetropolitan counties only,"NB2, dispersion estimated","1,956",115,0.96 (0.89-1.03),0.232,,,6.47e-05,Index x metropolitan interaction P = 0.088. 115 facilities in 108 counties.
+EDI,CCT,Nonmetropolitan counties only,Poisson (boundary of NB2),"1,956",115,0.96 (0.89-1.03),0.233,,,0,"NB2 dispersion estimate on its boundary (alpha = 6.47e-05); the maximum-likelihood fit is the Poisson fit, shown here. Profile-likelihood 95% CI 0.89-1.03; likelihood-ratio P = 0.233. Index x metropolitan interaction P = 0.088. 115 facilities in 108 counties."
 EDI,CCT,Adjusted; dispersion fixed at alpha = 1.0,"NB2, alpha fixed at 1.0","3,134","1,524",1.01 (0.98-1.04),0.562,Metropolitan status,1.99 (1.58-2.50),1,Retained from the original specification
 EDI,CCT,"Adjusted; counties with ≥1,000 adults aged ≥45 y","NB2, dispersion estimated","3,029","1,524",1.02 (0.99-1.04),0.188,Metropolitan status,2.12 (1.73-2.60),0.192,Same restriction as the per-capita rates
 EDI,CCT,Adjusted; Accredited status only (Under Review excluded),"NB2, dispersion estimated","3,134","1,508",1.02 (0.99-1.04),0.171,Metropolitan status,2.11 (1.72-2.59),0.185,Cohort excludes the Under Review records

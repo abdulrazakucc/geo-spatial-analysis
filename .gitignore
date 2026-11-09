@@ -32,3 +32,14 @@ data/raw/.hud_api_token
 # Virtual environment
 .venv/
 venv/
+
+# Third-party data whose terms do not allow redistribution. The ACR facility
+# search states its list is not for research or marketing use and its legal
+# terms bar reproduction without permission; the AAFP terms covering the
+# Robert Graham Center SDI bar distribution without written permission. Obtain
+# them from the source (see docs/REPRODUCIBILITY.md); only county-level derived
+# data are shared here.
+data/download.xlsx
+data/ACR_Cardiac_Imaging_Sites.xlsx
+data/acr_dataset.xlsx
+data/raw/rgc_sdi_2015_2019_county.csv

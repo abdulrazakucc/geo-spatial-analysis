@@ -129,6 +129,11 @@ def descriptives(m):
         "nonmetro_cct_mean_rate": float(el.loc[el.metro_indicator == 0, "cct_rate_per_100k"].mean()),
         "mean_edi_no_facility": float(el.loc[neither_el, "edi_national_percentile"].mean()),
         "mean_edi_has_facility": float(el.loc[~neither_el, "edi_national_percentile"].mean()),
+        # The text reports this contrast with a P value; compute it rather than
+        # carry it by hand (Mann-Whitney U, as for the other two-group tests).
+        "mean_edi_contrast_mannwhitney_p": float(stats.mannwhitneyu(
+            el.loc[neither_el, "edi_national_percentile"].dropna(),
+            el.loc[~neither_el, "edi_national_percentile"].dropna()).pvalue),
     }
 
 
@@ -714,6 +719,12 @@ FORBIDDEN = [
     (r"\(95% CI \d", "E-04: CI punctuation is '(95% CI, a-b)'"),
     (r"did not alter any estimate materially",
      "R1-01: the sensitivity finding moved to Results with its verified size"),
+    # The denominators are Census Bureau estimates for July 1, 2023 (Vintage
+    # 2023; they match that file exactly), not American Community Survey
+    # estimates. The SVI's own ACS 2018-2022 attribution is correct and allowed.
+    (r"derived from (the )?American Community Survey|American Community Survey 2019-2023"
+     r"|American Community Survey 5-year estimates|ACS 2019-2023",
+     "population denominators are Census Bureau estimates for July 1, 2023, not ACS"),
 ]
 
 
@@ -1032,18 +1043,24 @@ def _check_revision_r1(prose, paragraphs, R, checks):
           "by more than 0.001", W["max_abs_irr_change_rate_eligible_adjusted"] < 0.001)
     wm = W["models"]
     has("weighted SVI-CCT adjusted", _fe(wm["SVI_CCT_adjusted"]["poisson_population_weighted_robust"]))
-    has("weighted metro term, CMR (EDI model)",
-        _fe(wm["EDI_CMR_adjusted"]["metro_poisson_population_weighted_robust"], p=False))
-    has("weighted metro term, CCT (EDI model)",
-        _fe(wm["EDI_CCT_adjusted"]["metro_poisson_population_weighted_robust"], p=False))
+    # The weighted metropolitan terms are Table 3 cells, checked there.
     has("weighted EDI-CMR adjusted", _fe(wm["EDI_CMR_adjusted"]["poisson_population_weighted_robust"]))
     # Population weighting is Poisson with the offset (rates weighted by N). The
     # earlier var_weights = N fit weighted rates by N squared; its "no index
     # association significant" claim must not return.
-    claim("weighted estimates described as agreeing with the primary estimates",
+    # "Same conclusions" must hold for every SVI and EDI model, unadjusted and
+    # adjusted: same direction and same side of P = 0.05. (It does not hold for
+    # the adjusted SDI-CMR model, so the text claims it for the SVI and EDI only.)
+    def _same(m):
+        a, b = m["primary_nb2"], m["poisson_population_weighted_robust"]
+        return ((a["p"] < 0.05) == (b["p"] < 0.05)
+                and (a["p"] >= 0.05 or (a["irr"] > 1) == (b["irr"] > 1)))
+    claim("weighted SVI and EDI estimates lead to the same conclusions as the primary ones",
+          "Population-weighted SVI and EDI estimates led to the same conclusions",
+          all(_same(m) for k, m in wm.items() if k.startswith(("SVI_", "EDI_"))))
+    claim("weighted estimates not said to agree for every index (SDI-CMR differs)",
           "Population-weighted estimates agreed with the primary estimates",
-          wm["SVI_CCT_adjusted"]["poisson_population_weighted_robust"]["p"] < 0.05
-          and wm["EDI_CMR_adjusted"]["poisson_population_weighted_robust"]["p"] >= 0.05)
+          all(_same(m) for m in wm.values()))
     claim("no 'none significant under weighting' claim", "none of the index associations was "
           "significant", False)
     fa = R["regressions"]["sensitivity_fixed_alpha"]["SVI_CCT"]["adjusted_metro"]["p"]
@@ -1256,7 +1273,8 @@ def check_manuscript(R):
              rf"{d['counties_neither']:,} counties \({d['counties_neither_pct']:.1f}%\)")
     ck_prose("share CMR in metro", f"{d['pct_cmr_in_metro']:.1f}%")
     ck_prose("share CCT in metro", f"{d['pct_cct_in_metro']:.1f}%")
-    ck_prose("mean EDI contrast", f"{d['mean_edi_no_facility']:.1f} vs {d['mean_edi_has_facility']:.1f}")
+    ck_prose("mean EDI contrast", f"{d['mean_edi_no_facility']:.1f} vs {d['mean_edi_has_facility']:.1f}"
+             f"; {'P < 0.001' if d['mean_edi_contrast_mannwhitney_p'] < 0.001 else 'P = ' + format(d['mean_edi_contrast_mannwhitney_p'], '.3f')})")
     ck_prose("SVI analytic n", f"{reg['n_svi']:,}")
     ck_prose("EDI analytic n", f"{reg['n_edi']:,}")
     ck_prose("PCA variance", f"{pc['pca_variance_explained'] * 100:.1f}%")
@@ -1412,12 +1430,30 @@ def check_manuscript(R):
                 ck(f"T3 {label} EDI", fmt_est(blk[f"stratified_{lay}"]), cells[2])
                 ck(f"T3 {label} P", fmt_p(blk[f"stratified_{lay}"]["p"]), cells[3])
 
-    # Table 4 was withdrawn; the external-validation results now appear as
-    # Figure 2, and are checked against the generated comparison rather than a
-    # table in the document.
-    if len(doc_tables) >= 4:
-        checks.append(("Table 4 withdrawn", "3 tables",
-                       f"{len(doc_tables)} tables found", False))
+    # ---- Table 4: characteristics of county residents (revision E-05). The
+    # original Table 4 (an index comparison) was withdrawn in August 2026 and is
+    # Figure 2; the current Table 4 is the population table and nothing else.
+    C = (R.get("reviewer") or {}).get("E-05_population")
+    if len(doc_tables) >= 5:
+        checks.append(("at most four tables", "4 tables", f"{len(doc_tables)} tables found", False))
+    if len(doc_tables) >= 4 and C:
+        ck_prose("Table 4 title", "Table 4. Characteristics of county residents")
+        ck_prose("Table 4 cited in Methods", "are summarized in Table 4")
+        t4 = _parse_table(doc_tables[3])
+        strata = ["all", "metropolitan", "nonmetropolitan", "any_facility", "no_facility"]
+        cells = t4.get(("", "Counties, No."))
+        ck("T4 counties", " / ".join(f"{C['strata'][k]['counties']:,}" for k in strata),
+           " / ".join(cells[1:6]) if cells else "ROW NOT FOUND")
+        for key, v in C["variables"].items():
+            if key == "density":
+                continue
+            row = next((c for (sec, lab), c in t4.items() if lab == v["label"]), None)
+            dp = 0 if key == "premature_mortality" else 1
+            want = " / ".join(f"{v['by_stratum'][k]['population_weighted_mean']:.{dp}f}" for k in strata)
+            ck(f"T4 {v['label']}", want, " / ".join(row[1:6]) if row else "ROW NOT FOUND")
+    elif len(doc_tables) >= 4:
+        checks.append(("Table 4 has population results to check against", "reviewer_analyses.json",
+                       "missing", False))
 
     # The Figure 1 caption must state the finding, not just describe the panels.
     # A caption that lists the null EDI rows without naming the positive

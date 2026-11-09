@@ -16,4 +16,4 @@ CMR = cardiac magnetic resonance; CCT = cardiac computed tomography; RUCC = Rura
 "Facility percentages are of the national total for each modality (722 CMR and 1,542 CCT facilities); percentages of counties with at least one facility use the counties in the row as the denominator. EDI quintile rows sum to less than 100% of facilities because counties without an EDI value are not in a quintile."
 "Facility and county counts include every county in the stratum. Mean rates are calculated over the rate-eligible counties only, because a per-head rate is not defined for a county with fewer than 1,000 adults aged 45 and older (106 counties excluded, none with an accredited facility; 3,038 of 3,144 retained)."
 "EDI quintiles are formed among rate-eligible counties with an EDI value, so the metropolitan strata and the quintile strata do not sum to the same total."
-"Population denominators are American Community Survey 5-year estimates, 2019-2023."
+"Population denominators are US Census Bureau county population estimates for July 1, 2023 (Vintage 2023)."

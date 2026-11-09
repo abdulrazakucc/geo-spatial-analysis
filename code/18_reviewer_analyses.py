@@ -635,7 +635,7 @@ CHARACTERISTICS = [
     ("pct_pov150", "Below 150% of the federal poverty level, %", "EP_POV150", 1, "SVI 2022"),
     ("pct_uninsured", "Without health insurance, %", "EP_UNINSUR", 1, "SVI 2022"),
     ("pct_disability", "With a disability, %", "EP_DISABL", 1, "SVI 2022"),
-    ("density", "Population density, persons per square mile", "density", 1, "ACS 2019-2023 population / SVI 2022 land area"),
+    ("density", "Population density, persons per square mile", "density", 1, "Census Bureau estimate, July 1, 2023 / SVI 2022 land area"),
     ("diabetes", "Diagnosed diabetes, adults, %", "chr_diabetes", 100, "County Health Rankings 2024 (CDC model-based estimate)"),
     ("obesity", "Obesity, adults, %", "chr_obesity", 100, "County Health Rankings 2024 (CDC model-based estimate)"),
     ("smoking", "Current smoking, adults, %", "chr_smoking", 100, "County Health Rankings 2024 (BRFSS model-based estimate)"),
@@ -677,7 +677,7 @@ def population_characteristics(m):
     out["notes"] = {
         "connecticut_planning_regions_missing_chr": int(ct.chr_diabetes.isna().sum()),
         "unit": "county; no patient-level data",
-        "weights": "population-weighted means use total county population (ACS 2019-2023)",
+        "weights": "population-weighted means use total county population (US Census Bureau estimate, July 1, 2023)",
         "not_available": ["cardiovascular disease prevalence or severity",
                           "characteristics of patients imaged at accredited facilities",
                           "gender identity"],

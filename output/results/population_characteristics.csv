@@ -59,11 +59,11 @@ pct_disability,"With a disability, %",SVI 2022,metropolitan,1186,0,14.0,11.8,16.
 pct_disability,"With a disability, %",SVI 2022,nonmetropolitan,1958,0,16.8,14.1,19.975,16.882441110809303
 pct_disability,"With a disability, %",SVI 2022,any_facility,574,0,13.45,11.2,15.6,11.944427958588571
 pct_disability,"With a disability, %",SVI 2022,no_facility,2570,0,16.3,13.5,19.6,15.170644083524193
-density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,all,3144,0,44.75606035742342,15.965587876311695,121.24982787309602,2105.789830085898
-density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,metropolitan,1186,0,166.26455104873014,59.08123761368003,445.88120304570634,2430.005554854116
-density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,nonmetropolitan,1958,0,25.202315240450794,8.416858732872475,53.3914324212859,69.69325976733784
-density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,any_facility,574,0,334.880612655449,139.00670611475212,859.9868895479531,2862.7017895262693
-density,"Population density, persons per square mile",ACS 2019-2023 population / SVI 2022 land area,no_facility,2570,0,33.51012190985854,12.319698734201747,72.98153034710268,229.24796724480433
+density,"Population density, persons per square mile","Census Bureau estimate, July 1, 2023 / SVI 2022 land area",all,3144,0,44.75606035742342,15.965587876311695,121.24982787309602,2105.789830085898
+density,"Population density, persons per square mile","Census Bureau estimate, July 1, 2023 / SVI 2022 land area",metropolitan,1186,0,166.26455104873014,59.08123761368003,445.88120304570634,2430.005554854116
+density,"Population density, persons per square mile","Census Bureau estimate, July 1, 2023 / SVI 2022 land area",nonmetropolitan,1958,0,25.202315240450794,8.416858732872475,53.3914324212859,69.69325976733784
+density,"Population density, persons per square mile","Census Bureau estimate, July 1, 2023 / SVI 2022 land area",any_facility,574,0,334.880612655449,139.00670611475212,859.9868895479531,2862.7017895262693
+density,"Population density, persons per square mile","Census Bureau estimate, July 1, 2023 / SVI 2022 land area",no_facility,2570,0,33.51012190985854,12.319698734201747,72.98153034710268,229.24796724480433
 diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),all,3135,9,10.2,8.9,11.799999999999999,10.195897618299027
 diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),metropolitan,1179,7,10.0,8.799999999999999,11.3,10.112046493747787
 diabetes,"Diagnosed diabetes, adults, %",County Health Rankings 2024 (CDC model-based estimate),nonmetropolitan,1956,2,10.4,9.0,12.1,10.718666511421432

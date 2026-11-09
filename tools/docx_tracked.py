@@ -256,6 +256,26 @@ class TrackedDocument:
                 (cont if cont is not None else p).remove(run)
             acc += len(txt)
 
+    def delete_paragraph(self, p):
+        """Delete a whole paragraph: every run of its text and its paragraph mark.
+
+        Marking the paragraph mark as deleted (w:pPr/w:rPr/w:del) is how Word
+        records a removed paragraph, so accepting the change removes the
+        paragraph itself rather than leaving an empty one behind.
+        """
+        for run, cont, txt in self._segments(p):
+            d = self._del([copy.deepcopy(run)])
+            run.addprevious(d)
+            (cont if cont is not None else p).remove(run)
+        ppr = p.find(_w("pPr"))
+        if ppr is None:
+            ppr = etree.Element(_w("pPr"))
+            p.insert(0, ppr)
+        rpr = ppr.find(_w("rPr"))
+        if rpr is None:
+            rpr = etree.SubElement(ppr, _w("rPr"))
+        rpr.insert(0, self._stamp(etree.Element(_w("del"))))
+
     def replace(self, p, old, new):
         """Replace `old` with `new`: one insertion followed by one deletion."""
         if old not in self.accepted_text(p):
@@ -351,6 +371,57 @@ class TrackedDocument:
                 target.append(self._ins([self._new_run(str(value), rpr)]))
         tr.addnext(new)
         return new
+
+    def insert_table_after(self, anchor, rows, model_table, widths, bold_rows=(0,)):
+        """Insert a new table after `anchor` (a paragraph or table), every row a
+        tracked insertion, so accepting all changes keeps it and rejecting removes it.
+
+        Table properties and cell paragraph and run formatting are copied from
+        `model_table`; `widths` gives each column in twips. The first row repeats
+        as a header on continuation pages.
+        """
+        tbl = etree.Element(_w("tbl"))
+        tblpr = model_table.find(_w("tblPr"))
+        tbl.append(copy.deepcopy(tblpr) if tblpr is not None else etree.Element(_w("tblPr")))
+        grid = etree.SubElement(tbl, _w("tblGrid"))
+        for wd in widths:
+            etree.SubElement(grid, _w("gridCol")).set(_w("w"), str(int(wd)))
+        mrows = model_table.findall(_w("tr"))
+        mtc = (mrows[1] if len(mrows) > 1 else mrows[0]).find(_w("tc"))
+        mp = mtc.find(_w("p"))
+        mppr = mp.find(_w("pPr")) if mp is not None else None
+        mrun = next(mtc.iter(_w("r")), None)
+        mrpr = mrun.find(_w("rPr")) if mrun is not None else None
+        for i, values in enumerate(rows):
+            if len(values) != len(widths):
+                raise ValueError(f"row {i}: {len(values)} values for {len(widths)} columns")
+            tr = etree.SubElement(tbl, _w("tr"))
+            trpr = etree.SubElement(tr, _w("trPr"))
+            if i == 0:
+                etree.SubElement(trpr, _w("tblHeader"))
+            trpr.append(self._stamp(etree.Element(_w("ins"))))
+            for j, value in enumerate(values):
+                tc = etree.SubElement(tr, _w("tc"))
+                tcw = etree.SubElement(etree.SubElement(tc, _w("tcPr")), _w("tcW"))
+                tcw.set(_w("w"), str(int(widths[j])))
+                tcw.set(_w("type"), "dxa")
+                p = etree.SubElement(tc, _w("p"))
+                if mppr is not None:
+                    ppr = copy.deepcopy(mppr)
+                    for child in list(ppr):
+                        if child.tag == _w("rPr"):
+                            ppr.remove(child)
+                    p.append(ppr)
+                if value:
+                    rpr = copy.deepcopy(mrpr) if mrpr is not None else etree.Element(_w("rPr"))
+                    for child in list(rpr):
+                        if child.tag in (_w("b"), _w("bCs")):
+                            rpr.remove(child)
+                    if i in bold_rows:
+                        rpr.insert(0, etree.Element(_w("b")))
+                    p.append(self._ins([self._new_run(str(value), rpr)]))
+        anchor.addnext(tbl)
+        return tbl
 
     # ------------------------------------------------------------------- misc
     def revision_summary(self):
@@ -478,7 +549,28 @@ class TrackedDocument:
         Returns a dict describing what was resolved.
         """
         counts = {"insertions_accepted": 0, "deletions_removed": 0,
-                  "format_marks_cleared": 0, "comment_marks_removed": 0}
+                  "format_marks_cleared": 0, "comment_marks_removed": 0,
+                  "paragraphs_removed": 0}
+
+        # A deleted paragraph mark joins the paragraph to the next one; a
+        # paragraph whose text is also wholly deleted disappears. Resolve these
+        # before the w:del elements (including the mark's own) are removed.
+        for p in list(self._root.iter(_w("p"))):
+            mark = p.find(f"{_w('pPr')}/{_w('rPr')}/{_w('del')}")
+            if mark is None:
+                continue
+            live = [r for r in p.iter(_w("r"))
+                    if not any(a.tag == _w("del") for a in r.iterancestors())
+                    and r.find(_w("t")) is not None]
+            nxt = p.getnext()
+            if live and nxt is not None and nxt.tag == _w("p"):
+                anchor = nxt.find(_w("pPr"))
+                pos = 0 if anchor is None else list(nxt).index(anchor) + 1
+                for child in [c for c in p if c.tag != _w("pPr")]:
+                    nxt.insert(pos, child)
+                    pos += 1
+            counts["paragraphs_removed"] += 1
+            p.getparent().remove(p)
 
         for el in list(self._root.iter(_w("del"))):
             counts["deletions_removed"] += 1

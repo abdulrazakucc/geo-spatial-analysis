@@ -11,7 +11,7 @@ Naming note
     is a different instrument that we do not use here. The construction is
     unchanged, only the label. See docs/PCA_Explanation.md.
 
-The EDI is built in-repo via PCA of 6 ACS-derived socioeconomic indicators,
+The EDI is built in-repo via PCA of 6 socioeconomic indicators (4 from SVI 2022, 2 from County Health Rankings 2024),
 because no county-level deprivation index of this construction exists off the
 shelf.
 
@@ -62,7 +62,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 def construct_county_edi():
     """
     Construct the county-level EDI using Singh (2003) style methodology.
-    Uses PCA on 6 ACS-derived socioeconomic indicators.
+    Uses PCA on 6 socioeconomic indicators (4 from SVI 2022, 2 from County Health Rankings 2024).
     """
     print("\n" + "=" * 70)
     print("  STEP 1: CONSTRUCTING COUNTY-LEVEL EDI")

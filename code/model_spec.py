@@ -176,14 +176,24 @@ def fit_primary_checked(d: pd.DataFrame, outcome: str, terms: list) -> tuple:
         "max_count": int(d[outcome].max()),
         "n": int(len(d)),
     }
+    pois = sm.GLM(d[outcome], X, family=sm.families.Poisson(), offset=offset).fit()
+    diag["llf_poisson"] = float(pois.llf)
     if diag["hessian_positive_definite"]:
-        # Regular interior fit: finish it at the maximum, as every primary fit is.
+        # Finish the fit at the maximum, as every primary fit is.
         res = fit_nb2(model)
         diag.update(alpha=float(res.params["alpha"]), llf_nb2=float(res.llf),
                     converged=bool(res.mle_retvals.get("converged", False)))
+        # A positive-definite Hessian at the stopping point does not prove an
+        # interior maximum. NB2 at alpha = 0 is the Poisson model, so if Poisson
+        # fits at least as well as the best NB2 point found, the likelihood is
+        # maximized on the boundary. This happened in the nonmetropolitan
+        # cardiac CT stratum: BFGS stopped at alpha = 6.5e-5 with an alpha
+        # gradient of -4.4, Newton could not improve it, and the stopped point
+        # (P = 0.232) was below the Poisson maximum (P = 0.233).
+        if diag["alpha"] < BOUNDARY_ALPHA and pois.llf >= res.llf - 1e-9:
+            diag["solution"] = "Poisson (NB2 dispersion on the boundary, alpha = 0)"
+            return pois, diag
         return res, diag
-    pois = sm.GLM(d[outcome], X, family=sm.families.Poisson(), offset=offset).fit()
-    diag["llf_poisson"] = float(pois.llf)
     # The boundary case: alpha near zero, and Poisson (alpha = 0 exactly) fits
     # at least as well as the point the optimiser stopped at.
     if diag["alpha"] < BOUNDARY_ALPHA and pois.llf >= res.llf - 1e-6:

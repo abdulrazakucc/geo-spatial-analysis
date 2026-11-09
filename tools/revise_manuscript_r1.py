@@ -34,7 +34,7 @@ from docx_tracked import AnchorNotFound, TrackedDocument  # noqa: E402
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 AUTHOR = "Abdul Razak"
-DATE = "2026-11-07T12:00:00Z"
+DATE = "2026-11-08T12:00:00Z"
 
 
 # ------------------------------------------------------------------ numbers
@@ -91,19 +91,29 @@ def build_edits(rv, mn):
 
     # ------------------------------------------------------------ Introduction
     ed += [
-        E("E-04", "replace", "The MIPPA accreditation requirement is section 135(a) "
-          "(CMS; reference 2 already cites section 135(a)).",
+        E("E-04", "replace", "The section number was wrong (145(a)) and is not stated by the cited "
+          "CMS page; the sentence now states the requirement as that page does.",
           loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
-          old="section 145(a)", new="section 135(a)"),
-        E("E-04", "replace", "References renumbered in order of first citation.",
+          old="section 145(a) of the Medicare", new="the Medicare"),
+        E("E-04", "replace", "The effective date is not stated by the cited CMS page; references "
+          "renumbered in order of first citation.",
           loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
-          old="January 1, 2012 (6)", new="January 1, 2012 (2)"),
+          old=", a requirement effective January 1, 2012 (6)", new=" (2)"),
+        E("E-04", "replace", "The cited source does not establish that the ACR is the largest "
+          "accrediting organization.",
+          loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
+          old="is the largest such organization, so accredited-facility registries provide",
+          new="is one such organization, and its accredited-facility registry provides"),
         E("E-04", "replace", "References renumbered.",
           loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
           old="(SVI) (2), but", new="(SVI) (3), but"),
-        E("E-04", "replace", "References renumbered.",
+        E("E-04", "replace", "References renumbered; the findings of references 4-6, previously "
+          "restated in the Discussion, are summarized here once (word limit).",
           loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
-          old="survey and claims data (7-9)", new="survey and claims data (4-6)"),
+          old="survey and claims data (7-9)",
+          new="survey and claims data, including regional variation in CMR access (4), lower "
+              "imaging receipt with greater distance (5), and limited CCT availability at "
+              "safety-net hospitals (6),"),
         E("E-04", "replace", "References renumbered.",
           loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
           old="facilities more broadly (4,10)", new="facilities more broadly (7,8)"),
@@ -145,7 +155,7 @@ def build_edits(rv, mn):
         E("E-05", "insert_after", "Points to the aggregate population-characteristics table.",
           loc=loc, anchor="n = 3,134 for EDI models).",
           text=" County population characteristics from the SVI 2022 and County Health Rankings "
-               "2024 are summarized in Supplementary Table S1; no patient-level data were used."),
+               "2024 are summarized in Table 4; no patient-level data were used."),
     ]
 
     # ------------------------------------------------------------- Methods 2
@@ -211,9 +221,9 @@ def build_edits(rv, mn):
         E("R2-02", "insert_after", "Declares the primary hypothesis family and the multiplicity "
           "procedures.", loc=loc, anchor="A two-sided P < 0.05 was considered significant.",
           text=f" The primary hypothesis family was the {words[n_prim]} metropolitan-adjusted "
-               f"SVI and EDI associations, with Holm-adjusted P values (13); Benjamini-Hochberg "
+               f"SVI and EDI associations, with Holm-adjusted P values (14); Benjamini-Hochberg "
                f"false discovery rate-adjusted values are given for the {n_ext} negative binomial index "
-               f"associations reported (14) (Supplementary Table S3). Sensitivity analyses were "
+               f"associations reported (15) (Supplementary Table S3). Sensitivity analyses were "
                f"intended to assess the robustness of the primary findings."),
         E("R2-01", "replace", "Software used for the PCA named (reproducibility).", loc=loc,
           old="statsmodels 0.14 and SciPy 1.13.", new="statsmodels 0.14, SciPy 1.13, and "
@@ -230,12 +240,10 @@ def build_edits(rv, mn):
           span=" The corresponding distribution of cardiac CT capacity is shown in Supplementary "
                "Figure S1."),
         E("E-04", "insert_after", "Figure S1 citation restored at sentence end.", loc=loc,
-          anchor="P < 0.001 for both; Table 1)",
-          text="; the corresponding distribution of cardiac CT capacity is shown in Supplementary "
-               "Figure S1"),
+          anchor="P < 0.001 for both; Table 1", text="; Supplementary Figure S1"),
         E("R1-02", "insert_after", "Pooled rates include every county; the excluded counties "
           "had no facilities, so the exclusion cannot create unstable rates.", loc=loc,
-          anchor="is shown in Supplementary Figure S1.",
+          anchor="Supplementary Figure S1).",
           text=f" Pooled rates, which include every county, were "
                f"{rates['metropolitan']['CMR_pooled']:.2f} versus "
                f"{rates['nonmetropolitan']['CMR_pooled']:.2f} per 100,000 adults for CMR and "
@@ -269,7 +277,7 @@ def build_edits(rv, mn):
               f"(IRR {det['within_stratum_ordinal_rucc']['irr']:.2f}), and with the SVI "
               f"(IRR {S['strata']['SVI_CMR_nonmetro']['estimate']['irr']:.2f}) and SDI "
               f"(IRR {S['strata']['SDI_CMR_nonmetro']['estimate']['irr']:.2f}) (Supplementary "
-              f"Table S4), but it rests on {nm['events']} facilities and is hypothesis-generating."),
+              f"Table S4), but it is hypothesis-generating."),
         E("E-04", "replace", "The quintile means are not monotonic (Q3 > Q2, Q5 > Q4).", loc=loc,
           old="Mean county-level CMR rates declined across EDI quintiles",
           new="Mean county-level CMR rates were lower in more-deprived EDI quintiles, although "
@@ -293,8 +301,8 @@ def build_edits(rv, mn):
           "biplot and loadings requested.", loc=loc, anchor="gap of 7.1 points (Figure 2).",
           text=f" The EDI's first principal component explained "
                f"{100 * P['variance_explained'][0]:.1f}% of the variance in its six indicators "
-               f"(eigenvalue {P['eigenvalues'][0]:.2f}), all six indicators loaded positively "
-               f"on it (loadings, {lo_l:.2f}-{hi_l:.2f}), and a second component (eigenvalue "
+               f"(eigenvalue {P['eigenvalues'][0]:.2f}), all six loaded positively "
+               f"(loadings, {lo_l:.2f}-{hi_l:.2f}), and a second component (eigenvalue "
                f"{P['eigenvalues'][1]:.2f}; {100 * P['variance_explained'][1]:.1f}% of variance) "
                f"reflected mainly housing cost burden; parallel analysis retained "
                f"{['no', 'one', 'two'][P['parallel_analysis']['n_retained']]} component "
@@ -314,7 +322,7 @@ def build_edits(rv, mn):
     assert w_sc["p"] < 0.05 and w_ea["p"] >= 0.05 and fa_sc >= 0.05
     assert W["max_abs_irr_change_rate_eligible_adjusted"] < 0.001
     assert sc["holm_primary"] < 0.05 and sc["bh_extended"] < 0.05
-    sens = (f"In every sensitivity analysis, metropolitan status remained strongly associated with "
+    sens = (f"In every sensitivity analysis, metropolitan status or rurality remained strongly associated with "
             f"capacity and no model adjusted for it showed an inverse deprivation gradient "
             f"(Supplementary Table S2); the SVI-CCT association was not significant with the "
             f"dispersion fixed at 1 (P = {fa_sc:.3f}). The "
@@ -322,10 +330,9 @@ def build_edits(rv, mn):
             f"models in all {spec_wins} index-outcome models. Restricting the cohort to Accredited "
             f"facilities changed no conclusion, and restricting the regressions to counties with at "
             f"least 1,000 eligible adults changed no adjusted index IRR by more than 0.001. "
-            f"Population-weighted estimates agreed with the primary estimates: SVI-CCT remained "
-            f"positive ({fe(w_sc)}), adjusted EDI-CMR null ({fe(w_ea)}), and metropolitan status "
-            f"strongly associated (CMR "
-            f"{fe(w_m1, p=False)}; CCT {fe(w_m2, p=False)}). The adjusted SVI-CCT association "
+            f"Population-weighted SVI and EDI estimates led to the same conclusions: SVI-CCT "
+            f"remained positive ({fe(w_sc)}) and adjusted EDI-CMR null ({fe(w_ea)}; Table 3). The "
+            f"adjusted SVI-CCT association "
             f"remained significant after Holm adjustment within the primary family "
             f"(P = {sc['holm_primary']:.3f}) and after false discovery rate adjustment across the "
             f"{n_ext} negative binomial index associations (P = {sc['bh_extended']:.3f}) "
@@ -355,7 +362,7 @@ def build_edits(rv, mn):
           "Methods), with population weighting (R1-02) and multiplicity (R2-02).",
           loc=loc, text=sens),
         E("R1-04", "new_para_after", "Exploratory analyses of the positive SVI-CCT association.",
-          loc="In every sensitivity analysis, metropolitan status remained", text=explore),
+          loc="In every sensitivity analysis, metropolitan status or rurality remained", text=explore),
     ]
 
     # -------------------------------------------------------------- Discussion
@@ -377,16 +384,14 @@ def build_edits(rv, mn):
           text=f" The exception was the {nm['events']} CMR facilities outside metropolitan areas, "
                f"which lay in less-deprived nonmetropolitan counties, a pattern consistent across "
                f"all three indices but too sparse for firm conclusions."),
+        E("E-04", "replace", "References renumbered; two sentences joined (word limit).", loc=loc,
+          old="Prior work has reported that neighborhood deprivation predicts access to accredited "
+              "breast imaging and advanced imaging facilities (4,10). For advanced cardiac imaging, "
+              "these results indicate that such gradients",
+          new="Neighborhood deprivation has been reported to predict access to accredited breast and "
+              "advanced imaging facilities (7,8); for advanced cardiac imaging, such gradients"),
         E("E-04", "replace", "References renumbered.", loc=loc,
-          old="Medicare claims data (7)", new="Medicare claims data (4)"),
-        E("E-04", "replace", "References renumbered.", loc=loc,
-          old="likelihood of receiving imaging (8)", new="likelihood of receiving imaging (5)"),
-        E("E-04", "replace", "References renumbered.", loc=loc,
-          old="at safety-net hospitals (9)", new="at safety-net hospitals (6)"),
-        E("E-04", "replace", "References renumbered.", loc=loc,
-          old="advanced imaging facilities (4,10)", new="advanced imaging facilities (7,8)"),
-        E("E-04", "replace", "References renumbered.", loc=loc,
-          old="cardiovascular mortality (1,5)", new="cardiovascular mortality (1,15)"),
+          old="cardiovascular mortality (1,5)", new="cardiovascular mortality (1,16)"),
         E("R1-04", "new_para_after", "Plausible, non-causal explanations of the positive SVI-CCT "
           "association: tertiary/academic centers and urban-core clustering.", loc=loc,
           text=f"The positive SVI-CCT association should not be read as evidence that social "
@@ -405,17 +410,17 @@ def build_edits(rv, mn):
           "three studies Reviewer 1 recommended (references 19-21), and alternative explanations and "
           "observational limits.",
           loc="The positive SVI-CCT association should not be read as evidence",
-          text="Metropolitan concentration is consistent with the economics of advanced imaging, "
-               "although our data cannot identify its causes. CMR and CCT require large fixed "
+          text="Metropolitan concentration is consistent with the economics of advanced imaging. "
+               "CMR and CCT require large fixed "
                "investments in scanners, site preparation, trained technologists, and subspecialty "
                "interpretation that are recovered only at sufficient volume, so services locate "
                "where population density, referral networks, and hospital infrastructure supply "
-               "it. MRI adoption has responded to market and payer conditions (16), and physicians "
-               "and radiologists concentrate in more populous areas (17,18). Among Medicare "
+               "it. MRI adoption has responded to market and payer conditions (17), and physicians "
+               "and radiologists concentrate in more populous areas (18,19). Among Medicare "
                "beneficiaries, racial gaps in access to digital mammography narrowed as the "
-               "technology diffused (19), use of screening CT colonography, which Medicare does not "
-               "cover, rose steeply with income (20), and gaps in physician care by urbanicity, "
-               "income, and area deprivation widened as inflation-adjusted payment declined (21). "
+               "technology diffused (20), use of screening CT colonography, which Medicare does not "
+               "cover, rose steeply with income (21), and gaps in physician care by urbanicity, "
+               "income, and area deprivation widened as inflation-adjusted payment declined (22). "
                "Disparities in capacity are often interpreted as evidence of bias, "
                "which these data can neither show nor exclude; the observed pattern is more "
                "consistent with market size. Payer mix, certificate-of-need regulation, health-system ownership, "
@@ -433,16 +438,12 @@ def build_edits(rv, mn):
           old="are strongly correlated, and a binary", new="are correlated, and a binary"),
         E("R2-03", "replace", "Limitation of the stratified estimate stated precisely.", loc=loc,
           old="stratified nonmetropolitan estimates are imprecise.",
-          new=f"stratified nonmetropolitan estimates are imprecise and rest on {nm['events']} "
-              f"facilities, and differently weighted estimates answer different questions."),
+          new="stratified nonmetropolitan estimates are imprecise, and differently weighted "
+              "estimates answer different questions."),
         E("E-04", "replace", "References renumbered.", loc=loc,
           old="Area Deprivation Index (11)", new="Area Deprivation Index (10)"),
         E("R1-03", "replace", "Terminology.", loc=loc,
           old="high-deprivation and rural counties", new="high-deprivation and nonmetropolitan counties"),
-        E("R2-03", "replace", "Precision: the null holds for covariate adjustment; the "
-          "nonmetropolitan stratum is the exception reported in Results.", loc=loc,
-          old="after adjustment for metropolitan status, area deprivation measures",
-          new="after covariate adjustment for metropolitan status, area deprivation measures"),
     ]
 
     # -------------------------------------------------------- Data availability
@@ -459,8 +460,8 @@ def build_edits(rv, mn):
     # --------------------------------------------------------------- References
     refs_new = {
         "2. Flanagan BE": "2. Centers for Medicare & Medicaid Services. Accreditation of advanced "
-            "diagnostic imaging suppliers. Section 135(a), Medicare Improvements for Patients and "
-            "Providers Act of 2008 (PL 110-275). Accessed July 18, 2026. https://www.cms.gov/"
+            "diagnostic imaging suppliers. Updated August 17, 2026. Accessed November 8, 2026. "
+            "https://www.cms.gov/"
             "medicare/health-safety-standards/quality-safety-oversight-general-information/"
             "accreditation-advanced-diagnostic-imaging-suppliers",
         "3. Singh GK": "3. Flanagan BE, Gregory EW, Hallisey EJ, Heitgerd JL, Lewis B. A social "
@@ -486,7 +487,7 @@ def build_edits(rv, mn):
         "10. Jose O": "10. Kind AJH, Buckingham WR. Making neighborhood-disadvantage metrics "
             "accessible: the Neighborhood Atlas. N Engl J Med. 2018;378(26):2456-2458.",
         "11. Kind AJH": "11. US Department of Agriculture Economic Research Service. Rural-Urban "
-            "Continuum Codes, 2023: documentation. Accessed November 4, 2026. "
+            "Continuum Codes, 2023: documentation. Updated January 7, 2025. Accessed November 8, 2026. "
             "https://www.ers.usda.gov/data-products/rural-urban-continuum-codes/documentation",
     }
     for prefix, text in refs_new.items():
@@ -496,29 +497,32 @@ def build_edits(rv, mn):
     appended = [
         "12. Solon G, Haider SJ, Wooldridge JM. What are we weighting for? J Hum Resour. "
         "2015;50(2):301-316.",
-        "13. Holm S. A simple sequentially rejective multiple test procedure. Scand J Stat. "
+        "13. Butler DC, Petterson S, Phillips RL, Bazemore AW. Measures of social deprivation that "
+        "predict health care access and need within a rational area of primary care service "
+        "delivery. Health Serv Res. 2013;48(2 Pt 1):539-559.",
+        "14. Holm S. A simple sequentially rejective multiple test procedure. Scand J Stat. "
         "1979;6(2):65-70.",
-        "14. Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and "
+        "15. Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and "
         "powerful approach to multiple testing. J R Stat Soc Series B Stat Methodol. "
         "1995;57(1):289-300.",
-        "15. Siddiqi AK, Ali KM, Maniya MT, et al. The hidden epidemic: hypertension-related "
+        "16. Siddiqi AK, Ali KM, Maniya MT, et al. The hidden epidemic: hypertension-related "
         "mortality surges amongst younger adults in the United States. Curr Probl Cardiol. "
         "2024;49(12):102842.",
-        "16. Baker LC. Managed care and technology adoption in health care: evidence from magnetic "
+        "17. Baker LC. Managed care and technology adoption in health care: evidence from magnetic "
         "resonance imaging. J Health Econ. 2001;20(3):395-421.",
-        "17. Rosenthal MB, Zaslavsky A, Newhouse JP. The geographic distribution of physicians "
+        "18. Rosenthal MB, Zaslavsky A, Newhouse JP. The geographic distribution of physicians "
         "revisited. Health Serv Res. 2005;40(6 Pt 1):1931-1952.",
-        "18. Rosenkrantz AB, Hughes DR, Duszak R Jr. The U.S. radiologist workforce: an analysis of "
+        "19. Rosenkrantz AB, Hughes DR, Duszak R Jr. The U.S. radiologist workforce: an analysis of "
         "temporal and geographic variation by using large national datasets. Radiology. "
         "2016;279(1):175-184.",
         # Recommended by Reviewer 1 (comment 5); details verified against Europe PMC.
-        "19. Christensen EW, Waid M, Scott J, et al. Relationship between race and access to newer "
+        "20. Christensen EW, Waid M, Scott J, et al. Relationship between race and access to newer "
         "mammographic technology in women with Medicare insurance. Radiology. "
         "2023;306(2):e221153.",
-        "20. Christensen EW, Sanelli PC, Rula EY, et al. Sociodemographic factors and screening CT "
+        "21. Christensen EW, Sanelli PC, Rula EY, et al. Sociodemographic factors and screening CT "
         "colonography use among Medicare beneficiaries. AJR Am J Roentgenol. "
         "2024;222(1):e2329703.",
-        "21. Christensen EW, Drake AR, Nicola GN, et al. Association between the declining "
+        "22. Christensen EW, Drake AR, Nicola GN, et al. Association between the declining "
         "conversion factor and access to care for Medicare beneficiaries. Inquiry. "
         "2026;63:00469580261473400.",
     ]
@@ -590,11 +594,6 @@ def build_edits(rv, mn):
                 loc="Metropolitan estimates shown are from the EDI models",
                 old="(95% CI ", new="(95% CI, "))
 
-    ed.append(E("E-04", "replace", "Precision: the absence of an inverse gradient holds for covariate "
-                "adjustment; within nonmetropolitan counties the CMR stratum shows one (Reviewer 2, "
-                "comment 3).", loc="More than four of every five US counties have no ACR-accredited",
-                old="after accounting for metropolitan location",
-                new="after covariate adjustment for metropolitan status"))
 
     # ------------------------------------------- values corrected at full convergence
     # Three values in the submitted text came from NB2 fits that BFGS had stopped
@@ -620,6 +619,19 @@ def build_edits(rv, mn):
     if rucc_p != "0.801":
         ed.append(E("E-04", "cell_replace", why, table=2, section="Rurality as ordinal RUCC (1-9)",
                     row="Cardiac MR", col=3, old="0.801", new=rucc_p))
+    # The nonmetropolitan cardiac CT stratum is a boundary solution too: its NB2
+    # likelihood is maximized at alpha = 0, so the maximum-likelihood fit is the
+    # Poisson fit. The submitted P came from a point BFGS stopped at short of it.
+    nct = S["strata"]["EDI_CCT_nonmetro"]
+    assert nct["solution"].startswith("Poisson")
+    assert cell_est(nct["estimate"]) == "0.96 (0.89-1.03)"
+    if cell_p(nct["estimate"]["p"]) != "0.232":
+        ed.append(E("E-04", "cell_replace", "Value corrected: this stratum's NB2 likelihood is "
+                    "maximized on the boundary alpha = 0, where the maximum-likelihood fit is the "
+                    "Poisson fit; the submitted P was from an optimizer point short of that maximum.",
+                    table=2, section="Stratified by metropolitan status",
+                    row="Cardiac CT, nonmetropolitan", col=3, old="0.232",
+                    new=cell_p(nct["estimate"]["p"])))
 
     # ------------------------------------------------------------------ Table 3
     ed.append(E("R2-03", "cell_replace", "Boundary (Poisson) solution: CI now estimable.",
@@ -664,12 +676,39 @@ def build_edits(rv, mn):
               f"boundary of zero, where the negative binomial model reduces to Poisson regression, "
               f"and the estimate shown is from that fit (profile-likelihood 95% CI, "
               f"{det['poisson_profile']['ci_low']:.2f}-{det['poisson_profile']['ci_high']:.2f}; "
-              f"Supplementary Table S4). It is imprecise and hypothesis-generating. The EDI "
+              f"Supplementary Table S4). It is imprecise and hypothesis-generating. The "
+              f"nonmetropolitan cardiac CT estimate is also from the Poisson fit, because its "
+              f"dispersion estimate lay on the same boundary. The EDI "
               f"association differed between metropolitan and nonmetropolitan counties for "
               f"cardiac MR (interaction P = {inter['interaction_ratio']['p']:.3f}) but not for "
               f"cardiac CT (interaction P = {cct_int:.3f}). Population-weighted models are Poisson "
               f"regressions with the same offset, which weight each county's rate by its adults "
               f"aged ≥45 years, with robust standard errors."),
+    ]
+
+    # -------------------------------------------- Table 4: population characteristics (E-05)
+    # The editor calls a table of population characteristics mandatory, so it is
+    # in the main text; Supplementary Table S1 keeps medians, IQRs and missing counts.
+    t4_path = os.path.join(BASE_DIR, "output", "tables", "Table4_Population_Characteristics.csv")
+    with open(t4_path, encoding="utf-8-sig") as f:
+        t4 = list(csv.reader(f))
+    blank = next(i for i, r in enumerate(t4) if not any(r))
+    ed += [
+        E("E-05", "table_after", "Population characteristics table moved into the main text "
+          "(Table 4), as the editor requires.", loc="The rurality term is the ordinal RUCC value",
+          title_model="Table 3. Sensitivity analyses", model_table=2,
+          title="Table 4. Characteristics of county residents, overall, by metropolitan status, "
+                "and by presence of an accredited cardiac imaging facility",
+          rows=t4[:blank], note=t4[blank + 1][0],
+          # Column shares of the table width, set so that no header word breaks:
+          # the widest words in 10-pt bold Times are "Nonmetropolitan" (1,468 twips)
+          # and "Metropolitan" (1,135), plus 216 twips of cell margins.
+          widths=(2870, 1000, 1420, 1750, 1160, 1160)),
+        E("E-04", "insert_after", "The SDI is cited, as the Robert Graham Center requests.",
+          loc="As a further sensitivity analysis, the unadjusted and adjusted models",
+          anchor="a published county-level measure", text=" (13)"),
+        E("E-05", "replace", "Exhibit count after Table 4 was added.", loc="Article type: Original Article.",
+          old="5 of 7 permitted (3 tables, 2 figures)", new="6 of 7 permitted (4 tables, 2 figures)"),
     ]
 
     # -------------------------------------------- Figure 2 is a comparison, not validation
@@ -691,6 +730,209 @@ def build_edits(rv, mn):
           loc="Analytic sample: 3,134 counties (EDI) and 3,133 (SDI)",
           span=" Metropolitan status rows are the metropolitan-status coefficients from the "
                "corresponding adjusted models."),
+    ]
+
+    # ------------------------------------------- word limit (JACR: < 3,000 words)
+    # JACR limits Original Articles to fewer than 3,000 words, not counting
+    # references. These edits condense the submitted text without removing any
+    # result, analysis or reference: each cut restates something given elsewhere
+    # in the paper (Methods, Results, a table, or the Take-Home Points). They run
+    # last, so every earlier edit has already found its anchor, and they touch
+    # only submitted text; text this round inserts is shortened in its own edit.
+    why = "Condensed to meet the journal's 3,000-word limit; "
+    m1 = "We conducted a cross-sectional ecologic analysis of all 3,144 US counties"
+    m2 = "Area disadvantage was measured with two complementary indices"
+    m3 = "Facility counts were modeled with negative binomial (NB2) regression"
+    r3 = "In unadjusted models, greater economic deprivation was associated with lower CMR"
+    r4 = "matched 3,133 of 3,144 counties"
+    dis = "Accredited advanced cardiac imaging in the United States is concentrated"
+    lim = "The ecologic, cross-sectional design precludes inferences"
+    dav = "The analytic dataset, the county-level economic deprivation index"
+    ed += [
+        E("E-04", "replace", "Reference 1 reports cardiovascular mortality by rural-urban residence "
+          "(and age, sex, race, ethnicity), not by economic status.",
+          loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
+          old="with rural and economically disadvantaged populations bearing higher rates (1)",
+          new="with rural populations bearing higher rates (1)"),
+        E("E-04", "insert_after", "Completeness: with ordinal RUCC adjustment the EDI-CCT association "
+          "is modestly positive (Table 3); the sentence reported only cardiac MR.",
+          loc="In unadjusted models, greater economic deprivation was associated with lower CMR",
+          anchor=f"P = {rucc_p})",
+          text=f", and the EDI-CCT association was modestly positive "
+               f"(P = {Mx['EDI_CCT']['adjusted_rucc']['p']:.3f})"),
+        E("E-04", "replace", "Grammar: the registry is singular.",
+          loc="Medicare Improvements for Patients and Providers Act of 2008, nonhospital",
+          old="although they do not enumerate every site", new="although it does not list every site"),
+        E("E-04", "delete", why + "Limitations states that the counts understate total capacity.",
+          loc=m1, span=" This analysis therefore quantifies ACR-accredited capacity rather than the "
+                       "total number of sites performing these studies."),
+        E("E-04", "replace", why + "same statement.", loc=m1,
+          old="aggregated to the county level using", new="aggregated by county using"),
+        E("E-04", "replace", "Source corrected: the population denominators are the US Census "
+          "Bureau's Vintage 2023 county population estimates for July 1, 2023 (total and aged 45+ "
+          "match that file exactly for all 3,144 counties), not American Community Survey 5-year "
+          "estimates.", loc=m1,
+          old="derived from the American Community Survey (ACS) 5-year estimates",
+          new="from US Census Bureau population estimates for July 1, 2023"),
+        E("E-04", "replace", why + "same definition.", loc=m1,
+          old="ACR accreditation is granted for cardiac CT as a modality, covering coronary CT "
+              "angiography and coronary artery calcium scoring; CCT denotes the accredited modality "
+              "rather than a single examination type.",
+          new="CCT denotes the ACR-accredited cardiac CT modality, which covers coronary CT "
+              "angiography and coronary artery calcium scoring, rather than a single examination "
+              "type."),
+        E("E-04", "replace", why + "the SVI themes are listed in the preceding sentence.", loc=m2,
+          old="Unlike existing composite county measures such as the CDC/ATSDR SVI and the Robert "
+              "Graham Center Social Deprivation Index, each of which blends economic with "
+              "non-economic domains (e.g., racial composition, transportation, household "
+              "structure), this index",
+          new="Unlike the SVI and the Robert Graham Center Social Deprivation Index, which blend "
+              "economic with non-economic domains, this index"),
+        E("E-04", "replace", why + "the SVI is defined in the Introduction.", loc=m2,
+          old="The primary predictor was the 2022 CDC/ATSDR Social Vulnerability Index,",
+          new="The primary predictor was the 2022 SVI,"),
+        E("E-04", "replace", why + "same statement.", loc=m2,
+          old="of six county-level socioeconomic indicators", new="of six socioeconomic indicators"),
+        E("E-04", "replace", why + "same source.", loc=m2,
+          old="all from the CDC/ATSDR SVI 2022 component files", new="all from the SVI 2022 component files"),
+        E("E-04", "replace", why + "the abbreviation is defined in the same paragraph.", loc=m2,
+          old="It is designated the EDI throughout and is distinct from", new="It is distinct from"),
+        E("E-04", "replace", why + "same statement.", loc=m3,
+          old="incorporating a log-population offset to account for county size",
+          new="with a log-population offset for county size"),
+        E("E-04", "replace", why + "same statement.", loc=m3,
+          old="approval was therefore not required", new="approval was not required"),
+        E("E-04", "replace", why + "same framework, stated once.", loc=m3,
+          old="The 3,144 counties are a complete enumeration rather than a probability sample. "
+              "Confidence intervals and P values are therefore interpreted within a superpopulation "
+              "framework, treating the observed distribution of facilities as one realization of a "
+              "stochastic siting process, and quantify uncertainty about that process rather than "
+              "sampling error.",
+          new="Because the 3,144 counties are a complete enumeration, confidence intervals and P "
+              "values are interpreted within a superpopulation framework, as uncertainty about the "
+              "stochastic process that sites facilities rather than sampling error."),
+        E("E-04", "replace", why + "the SDI analysis is described by its purpose.", loc=m3,
+          old="As a further sensitivity analysis, the unadjusted and adjusted models",
+          new="The unadjusted and adjusted models"),
+        E("E-04", "replace", "These are the unadjusted estimates (Table 2); the sentence now says so.",
+          loc="the SVI was not associated with cardiac MR capacity",
+          old="In negative binomial regression, the SVI", new="In unadjusted models, the SVI"),
+        E("E-04", "replace", why + "the IRR gives the size of the association.", loc=r3,
+          old=", a 5.2% lower facility rate for each 10-percentile increase in deprivation; the "
+              "association for the more widely available CCT did not reach significance",
+          new="; the association for CCT was not significant"),
+        E("E-04", "replace", why + "the adjusted EDI estimates are given earlier in the paragraph.",
+          loc=r3,
+          old="after adjustment for metropolitan status they did not behave identically: neither "
+              "showed an inverse deprivation gradient, and while the EDI was unassociated with "
+              "capacity for both modalities, the SVI was associated",
+          new="they differed after adjustment for metropolitan status: the SVI, unlike the EDI, was "
+              "associated"),
+        E("E-04", "replace", why + "Methods states the purpose of the SDI analysis.",
+          loc="To establish whether these findings depended on the purpose-built index",
+          old="To establish whether these findings depended on the purpose-built index, we repeated "
+              "the analysis with the Robert Graham Center Social Deprivation Index (SDI), which "
+              "matched",
+          new="The SDI matched"),
+        E("E-04", "delete", why + "the direction is given by the estimates.", loc=r4,
+          span=" These associations are in the direction of greater accredited capacity in more "
+               "deprived counties, not less."),
+        E("E-04", "replace", why + "the unadjusted SVI results are in Results.", loc=dis,
+          old="In unadjusted models the SVI showed no association with CMR capacity and a modest "
+              "positive association with CCT capacity, whereas an economically focused deprivation "
+              "index showed an inverse association for CMR. That association did not persist",
+          new="The EDI's unadjusted inverse association with CMR capacity did not persist"),
+        E("E-04", "delete", why + "the next sentence states that every index reproduced the "
+          "metropolitan concentration.", loc=dis,
+          span=", while reproducing the metropolitan effect almost exactly"),
+        E("E-04", "replace", why + "same statement.", loc=dis,
+          old="is detected at all therefore depends", new="is detected therefore depends"),
+        E("E-04", "replace", why + "same statement.", loc=dis,
+          old="whereas the concentration of capacity in metropolitan counties was reproduced",
+          new="whereas metropolitan concentration was reproduced"),
+        E("E-04", "delete", why + "Methods states that the SVI blends economic with non-economic "
+          "domains and was built for disaster preparedness.", loc=dis,
+          span=" Because the SVI folds economic disadvantage together with non-economic domains "
+               "(minority status, household composition, housing, and transportation) and was "
+               "designed for disaster preparedness rather than health-care access, its breadth may "
+               "dilute any economic signal."),
+        E("E-04", "delete", why + "the estimate is reported in Results.", loc=dis,
+          span=" (IRR 1.03; 95% CI, 1.01-1.06; P = 0.008)"),
+        E("E-04", "delete", why + "the opening sentence and the closing interpretation state it.",
+          loc=dis, span=" Accredited capacity tracked metropolitan location rather than area "
+                        "deprivation."),
+        E("E-04", "delete", why + "these findings of references 4-6 are now summarized in the "
+          "Introduction.", loc=dis,
+          span=" Prior studies have mapped CMR adoption using survey and Medicare claims data (7), "
+               "shown that greater distance to a cardiovascular imaging center reduces the "
+               "likelihood of receiving imaging (8), and described limited CCT availability at "
+               "safety-net hospitals (9)."),
+        E("E-04", "replace", why + "the cost components are listed in the next paragraph.", loc=dis,
+          old="The deprivation association was present for CMR but not for the more widely "
+              "distributed CCT, consistent with the higher cost of establishing CMR, including "
+              "dedicated equipment, specialized technologists, and interpreting physicians.",
+          new="The unadjusted deprivation association was present for CMR but not for the more "
+              "widely distributed CCT, consistent with the higher cost of establishing CMR."),
+        E("E-04", "replace", "Precision: the eightfold and twofold figures are the adjusted "
+          "metropolitan IRRs (8.33 and 2.13); mean county rates differ far more.", loc=dis,
+          old="Metropolitan counties had approximately eightfold higher CMR capacity",
+          new="Metropolitan status was associated with approximately eightfold higher CMR capacity"),
+        E("E-04", "replace", why + "same statement.", loc=dis,
+          old="different levers by modality:", new="different levers:"),
+        E("E-04", "replace", "The Mann-Whitney U test is also used for the facility versus "
+          "no-facility deprivation contrast in Results.", loc=m3,
+          old="Mann-Whitney U tests comparing metropolitan and nonmetropolitan counties",
+          new="Mann-Whitney U tests for two-group comparisons"),
+        E("E-04", "replace", why + "same statement.", loc=dis,
+          old="training applied to scanners already in place, which makes accreditation itself a "
+              "plausible", new="training on existing scanners, making accreditation a plausible"),
+        E("E-04", "replace", why + "same statement.", loc=dis,
+          old="and that deprivation indices should not", new="and deprivation indices should not"),
+        E("E-04", "replace", why + "Limitations states that the design precludes causal inference.",
+          loc=dis,
+          old="although we did not link imaging supply to patient outcomes and the design does not "
+              "support causal inference.",
+          new="although imaging supply was not linked to patient outcomes."),
+        E("E-04", "replace", why + "Methods names the other accrediting organizations and the "
+          "exemption.", loc=lim,
+          old="Only ACR-accredited facilities were counted. Three other CMS-designated accrediting "
+              "organizations exist, and hospitals and critical access hospitals are exempt from the "
+              "accreditation requirement, so these counts understate total capacity. If "
+              "unaccredited or differently accredited sites are distributed differently from "
+              "ACR-accredited sites, the disparities reported here may be overstated or understated.",
+          new="Because only ACR-accredited facilities were counted, these counts understate total "
+              "capacity, and the disparities reported here may be overstated or understated if "
+              "unaccredited or differently accredited sites are distributed differently."),
+        E("E-04", "replace", why + "the SDI result is reported in Results and the Discussion.",
+          loc=lim,
+          old="Repeating the analysis with the Robert Graham Center Social Deprivation Index yielded "
+              "the same conclusion, but the University of Wisconsin",
+          new="The University of Wisconsin"),
+        E("E-04", "delete", why + "same statement.", loc=lim, span=", so it remains untested here"),
+        E("E-04", "replace", why + "the design is stated as cross-sectional above.", loc=lim,
+          old="The analysis is a single cross-section, so change in accredited capacity over time",
+          new="Change in accredited capacity over time"),
+        E("E-04", "delete", why + "the Discussion and the Take-Home Points state this conclusion.",
+          loc=lim,
+          span=" Because no index showed an inverse deprivation gradient after adjustment for "
+               "metropolitan status, area deprivation measures should not be treated as substitutes "
+               "for geographic measures in imaging capacity research."),
+        E("E-04", "delete_para", "The journal's instructions state that the Take-Home Points take "
+          "the place of a conclusions section; each Conclusion sentence is a Take-Home Point.",
+          loc="CONCLUSION", exact=True),
+        E("E-04", "delete_para", "Conclusion removed (see the heading).",
+          loc="More than four of every five US counties have no ACR-accredited cardiac MR or cardiac "
+              "CT facility. Neither"),
+        E("E-04", "replace", why + "the atlas is described in the first sentence.", loc=dav,
+          old="cardiac imaging atlas are publicly available",
+          new="atlas of accredited CMR and CCT facility rates are publicly available"),
+        E("E-04", "delete", why + "same statement.", loc=dav,
+          span=" The atlas maps accredited CMR and CCT facility rates across all 3,144 US counties "
+               "as a standalone resource for research on geographic disparities in cardiac imaging "
+               "access."),
+        E("E-04", "replace", why + "same statement.", loc=dav,
+          old="Repository URL withheld from the blinded manuscript because it identifies the authors;",
+          new="Repository URL withheld for blinded review;"),
     ]
     return ed
 
@@ -756,6 +998,15 @@ def apply(doc, ed, log):
                 else:
                     p = _para(doc, e["loc"])
                     doc.insert_paragraph_after(p, e["text"])
+            elif k == "delete_para":
+                hits = [q for q in doc.paragraphs()
+                        if (doc.accepted_text(q).strip() == e["loc"] if e.get("exact")
+                            else e["loc"] in doc.accepted_text(q))]
+                if not hits:
+                    status = "already applied"
+                else:
+                    doc.delete_paragraph(hits[0])
+                    e["old"] = e["loc"]
             elif k in ("cell_insert", "cell_replace"):
                 tbl = tables[e["table"]]
                 if "row_index" in e:
@@ -775,6 +1026,25 @@ def apply(doc, ed, log):
                         status = "already applied"
                     else:
                         doc.replace(p, e["old"], e["new"])
+            elif k == "table_after":
+                if any(doc.accepted_text(q).startswith(e["title"][:40]) for q in doc.paragraphs()):
+                    status = "already applied"
+                else:
+                    foot = _para(doc, e["loc"])
+                    tp = doc.insert_paragraph_after(foot, e["title"], model=_para(doc, e["title_model"]))
+                    model_tbl = tables[e["model_table"]]
+                    ns = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+                    widest = max(model_tbl.findall(ns + "tr"), key=lambda r: len(r.findall(ns + "tc")))
+                    total = sum(int(tc.find(ns + "tcPr/" + ns + "tcW").get(ns + "w"))
+                                for tc in widest.findall(ns + "tc"))
+                    ncol = len(e["rows"][0])
+                    share = e["widths"]
+                    assert len(share) == ncol, "one width per Table 4 column"
+                    widths = [int(total * w / sum(share)) for w in share]
+                    bold = [i for i, r in enumerate(e["rows"]) if i == 0 or not any(r[1:])]
+                    tbl = doc.insert_table_after(tp, e["rows"], model_tbl, widths, bold_rows=bold)
+                    doc.insert_paragraph_after(tbl, e["note"], model=foot)
+                where = "after Table 3"
             elif k == "rows_after":
                 tbl = tables[e["table"]]
                 labels = [doc.row_texts(tr)[0] for tr in
@@ -800,8 +1070,9 @@ def apply(doc, ed, log):
             skipped += 1
         log.append({"task": e["task"], "kind": k, "location": where[:80], "status": status,
                     "old": e.get("old", e.get("span", e.get("anchor", ""))),
-                    "new": e.get("new", e.get("text", "") if k != "rows_after"
-                                 else " | ".join(" / ".join(r) for r in e["rows"])),
+                    "new": e.get("new", e.get("text", "") if k not in ("rows_after", "table_after")
+                                 else (e["title"] if k == "table_after"
+                                       else " | ".join(" / ".join(r) for r in e["rows"]))),
                     "rationale": e["why"]})
         print(f"  {status:<18} {e['task']:<6} {k:<14} {where[:60]}")
     return applied, skipped

@@ -205,10 +205,7 @@ def cohort_facts():
     a = pd.read_csv(os.path.join(BASE_DIR, "data", "processed", "facility_mapping_audit.csv"), dtype=str)
     inc = a[a.final_included == "True"]
     share = pd.to_numeric(inc.mapping_share, errors="coerce")
-    x = pd.read_excel(os.path.join(BASE_DIR, "data", "download.xlsx"))
-    ct = x[x["modality"].astype(str).str.strip() == "CTAP"]
-    mods = ct["modules"].astype(str)
-    calcium_only = int((mods.str.contains("calcium", case=False) & ~mods.str.contains("cardiac", case=False)).sum())
+    calcium_only = int(a["ct_calcium_score_only"].astype(str).str.lower().eq("true").sum())
     return {"included": len(inc), "cmr": int((inc.modality_label == "CMR").sum()),
             "cct": int((inc.modality_label == "CCT").sum()),
             "accredited": int((inc.status == "Accredited").sum()),
@@ -265,11 +262,12 @@ def table_s1(R, N):
         "and gender identity were not available.",
         "Sources: CDC/ATSDR Social Vulnerability Index 2022 component estimates "
         "(American Community Survey 2018-2022) for age, race and ethnicity, poverty, "
-        "insurance, and disability; County Health Rankings & Roadmaps 2024 for sex "
+        "insurance, and disability; County Health Rankings & Roadmaps 2024 (University of "
+        "Wisconsin Population Health Institute; www.countyhealthrankings.org) for sex "
         "(Census population estimates) and for diabetes, obesity, smoking, physical "
         "inactivity (model-based estimates), premature age-adjusted mortality, and "
-        "primary care physicians; American Community Survey 2019-2023 population with "
-        "SVI land area for density. Race and ethnicity categories are mutually "
+        "primary care physicians; US Census Bureau population estimates for July 1, 2023 "
+        "(the population weights, and with SVI land area for density). Race and ethnicity categories are mutually "
         "exclusive; all categories other than Hispanic or Latino are non-Hispanic.",
         f"County Health Rankings 2024 reports Connecticut by its former counties, so the "
         f"9 Connecticut planning regions lack those measures; other missing values are as "
@@ -595,10 +593,11 @@ def supplementary_methods(doc, R, N):
               "the nonmetropolitan cardiac MR stratum each of the 14 facilities is in a different "
               "county; in the nonmetropolitan cardiac CT stratum the 115 facilities are in 108 "
               "counties, seven of them with two. Whether a fit lies on the boundary is decided by "
-              "its likelihood and information matrix, not by the counts alone. Every stratified fit was checked for a "
-              "positive-definite information matrix (model_spec.fit_primary_checked). Where the "
-              "matrix was not positive definite, alpha was below 0.05, and the Poisson "
-              "log-likelihood was at least as high as the NB2 value, the Poisson fit was reported "
+              "its likelihood and information matrix, not by the counts alone. Every stratified fit was checked "
+              "(model_spec.fit_primary_checked): where alpha was below 0.05 and the Poisson "
+              "log-likelihood (alpha = 0) was at least as high as the highest NB2 value found, "
+              "whether or not the information matrix at the optimizer's stopping point was positive "
+              "definite, the likelihood is maximized on the boundary and the Poisson fit was reported "
               "as the boundary solution and checked with profile-likelihood intervals, fixed-alpha "
               "fits, and an index-by-metropolitan-status interaction model whose dispersion is "
               "estimated from all counties (Supplementary Table S4). Any other failure would have "
@@ -617,8 +616,8 @@ def supplementary_methods(doc, R, N):
               "(each code against code 1; for cardiac MR, codes 7-9 were combined because codes 8 "
               "and 9 contain no facility, which would otherwise leave those coefficients without a "
               "finite estimate), with log population density (residents per square mile "
-              "of land area; American Community Survey 2019-2023 population and SVI 2022 land "
-              "area), within metropolitan and nonmetropolitan strata, and with each of the four "
+              "of land area; US Census Bureau population estimate for July 1, 2023 and SVI 2022 "
+              "land area), within metropolitan and nonmetropolitan strata, and with each of the four "
               "SVI theme percentiles in place of the overall SVI (Supplementary Table S6). These "
               "analyses were not prespecified.")
     heading(doc, "S7. Software and reproducibility", 11)

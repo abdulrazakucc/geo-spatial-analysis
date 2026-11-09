@@ -617,6 +617,7 @@
         "units_with_event": 286,
         "max_count": 21,
         "n": 1186,
+        "llf_poisson": -850.7014616060723,
         "estimate": {
           "irr": 1.0109584021768265,
           "ci_low": 0.9745948713968935,
@@ -676,6 +677,7 @@
         "units_with_event": 444,
         "max_count": 61,
         "n": 1186,
+        "llf_poisson": -1153.9988058250847,
         "estimate": {
           "irr": 1.0406814656490648,
           "ci_low": 1.0143241713771916,
@@ -735,6 +737,7 @@
         "units_with_event": 282,
         "max_count": 21,
         "n": 1178,
+        "llf_poisson": -838.5030403777076,
         "estimate": {
           "irr": 1.0032304291689609,
           "ci_low": 0.9670840735683565,
@@ -794,6 +797,7 @@
         "units_with_event": 438,
         "max_count": 61,
         "n": 1178,
+        "llf_poisson": -1147.073191586383,
         "estimate": {
           "irr": 1.0237630628172802,
           "ci_low": 0.9979798954700996,
@@ -803,7 +807,7 @@
         "estimable": true
       },
       "EDI_CCT_nonmetro": {
-        "solution": "NB2",
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
         "converged": true,
         "gradient_max_abs": 4.418791377542684,
         "gradient": {
@@ -823,11 +827,12 @@
         "units_with_event": 108,
         "max_count": 2,
         "n": 1956,
+        "llf_poisson": -357.3688676291465,
         "estimate": {
-          "irr": 0.957798825583743,
-          "ci_low": 0.8923802046170798,
-          "ci_high": 1.0280131557638534,
-          "p": 0.23226418844373364
+          "irr": 0.9578511272487529,
+          "ci_low": 0.8924675485584442,
+          "ci_high": 1.0280248099257634,
+          "p": 0.23257029436437826
         },
         "estimable": true
       },
@@ -852,6 +857,7 @@
         "units_with_event": 282,
         "max_count": 21,
         "n": 1179,
+        "llf_poisson": -835.1549975981754,
         "estimate": {
           "irr": 1.0438381323336932,
           "ci_low": 1.0089568423153978,
@@ -911,6 +917,7 @@
         "units_with_event": 438,
         "max_count": 61,
         "n": 1179,
+        "llf_poisson": -1142.6465857047415,
         "estimate": {
           "irr": 1.0384534503059233,
           "ci_low": 1.0140869401730803,
@@ -1878,16 +1885,16 @@
         "families": [
           "extended"
         ],
-        "irr": 0.9577988256,
-        "ci_low": 0.8923802046,
-        "ci_high": 1.0280131558,
-        "p": 0.2322641884,
+        "irr": 0.9578511272,
+        "ci_low": 0.8924675486,
+        "ci_high": 1.0280248099,
+        "p": 0.2325702944,
         "holm_primary": null,
         "bh_primary": null,
         "holm_primary_svi_only": null,
         "bh_primary_svi_only": null,
         "holm_extended": 1.0,
-        "bh_extended": 0.380068672
+        "bh_extended": 0.3805695726
       },
       {
         "test": "SDI-CMR, unadjusted (Figure 2)",
@@ -3109,7 +3116,7 @@
       },
       "density": {
         "label": "Population density, persons per square mile",
-        "source": "ACS 2019-2023 population / SVI 2022 land area",
+        "source": "Census Bureau estimate, July 1, 2023 / SVI 2022 land area",
         "by_stratum": {
           "all": {
             "n_available": 3144,
@@ -3433,7 +3440,7 @@
     "notes": {
       "connecticut_planning_regions_missing_chr": 9,
       "unit": "county; no patient-level data",
-      "weights": "population-weighted means use total county population (ACS 2019-2023)",
+      "weights": "population-weighted means use total county population (US Census Bureau estimate, July 1, 2023)",
       "not_available": [
         "cardiovascular disease prevalence or severity",
         "characteristics of patients imaged at accredited facilities",

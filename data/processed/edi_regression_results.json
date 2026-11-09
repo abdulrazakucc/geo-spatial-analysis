@@ -119,11 +119,11 @@
         "solution": "NB2"
       },
       "nonmetro": {
-        "irr": 0.9577988261355148,
-        "ci_low": 0.892357558202042,
-        "ci_high": 1.0280392460561902,
-        "p": 0.23243169215437054,
-        "solution": "NB2"
+        "irr": 0.9578511272487533,
+        "ci_low": 0.8924675485584446,
+        "ci_high": 1.0280248099257638,
+        "p": 0.23257029436438215,
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)"
       }
     },
     "stratified_n": {

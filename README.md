@@ -180,7 +180,7 @@ python code/00_run_all.py --all            # everything
 descriptive statistic, every regression coefficient, every correlation, and
 every table cell in the paper directly from the committed data, then compares
 them against the manuscript file and reports any disagreement. The current run
-reports **289 checks, 0 mismatches**.
+reports **308 checks, 0 mismatches**.
 
 Full details of what is checked and how, including the model specification and
 each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md)**.
@@ -214,7 +214,7 @@ Defined once in `code/model_spec.py` and used by every script that fits a model.
 code/                     numbered pipeline, run in order
   00_run_all.py           master runner, stages A-E
   01_download_datasets.py       A  fetch SVI, RUCC, TIGER, ZIP crosswalk
-  01b_fetch_census_population.py A  ACS population via the Census API
+  01b_fetch_census_population.py A  Census Bureau county population estimates (July 1, 2023)
   01c_fetch_hud_crosswalk.py    A  HUD ZIP-county crosswalk (needs a token)
   02_build_analytic_dataset.py  B  build the analytic dataset
   03_descriptive_analysis.py    C  Table 1
@@ -228,12 +228,13 @@ code/                     numbered pipeline, run in order
                                    multiplicity, urbanicity, full PCA, population table
   12_manuscript_numbers.py      D  recompute and check every manuscript number
   facility_mapping.py           helper: cohort, ZIP-to-county, audit trail
-  04_choropleth_map.py          E  Figure 1A
-  08_svi_edi_comparison_maps.py E  Figures 2 and 3
-  10_forest_plots.py            E  Figure 1B and Figure S
+  04_choropleth_map.py          -  superseded by 16; not run
+  08_svi_edi_comparison_maps.py -  superseded by 16; not run
+  10_forest_plots.py            -  superseded by 16; not run
   11_edi_tables_and_stats.py    E  Word tables, supplementary statistics
   16_publication_figures.py     E  Figures 1A, 1B, 2, S1, S2, S3
   17_table1.py                  E  manuscript Table 1
+  20_table4_population.py       E  manuscript Table 4 (characteristics of county residents)
   19_supplementary_material.py  E  supplementary methods, Tables S1-S6
   07_publication_outputs.py     E  descriptives by SVI quartile
 
@@ -388,7 +389,7 @@ estimated-dispersion model**, defined once in `code/model_spec.py`; the
 | ACR Accredited Facility Search | CMR and CCT facility locations | extracted 2026-05-20 |
 | CDC/ATSDR Social Vulnerability Index | SVI, and 4 of the 6 EDI inputs | 2022 |
 | County Health Rankings | median income, child poverty (EDI inputs) | 2024 |
-| American Community Survey (5-year) | population aged 45+ | 2019-2023 |
+| US Census Bureau county population estimates (Vintage 2023) | total population and adults aged 45+ | July 1, 2023 |
 | USDA Rural-Urban Continuum Codes | metropolitan classification | 2023 |
 | Robert Graham Center SDI | external validation | 2015-2019 |
 | Census TIGER/Line | county geometry for maps | 2023 |

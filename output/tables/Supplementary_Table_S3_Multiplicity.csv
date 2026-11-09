@@ -12,7 +12,7 @@
 "EDI-CCT, adjusted for metropolitan status (Table 2)",1.02 (0.99-1.04),0.186,0.559,0.372,1.000,0.335
 "EDI-CCT, adjusted for ordinal RUCC (Table 3)",1.03 (1.00-1.05),0.033,,,0.428,0.085
 "EDI-CCT, metropolitan counties (Table 3)",1.02 (1.00-1.05),0.071,,,0.711,0.142
-"EDI-CCT, nonmetropolitan counties (Table 3)",0.96 (0.89-1.03),0.232,,,1.000,0.380
+"EDI-CCT, nonmetropolitan counties (Table 3)",0.96 (0.89-1.03),0.233,,,1.000,0.381
 "SDI-CMR, unadjusted (Figure 2)",1.02 (0.98-1.05),0.322,,,1.000,0.483
 "SDI-CMR, adjusted for metropolitan status (Figure 2)",1.04 (1.00-1.07),0.043,,,0.468,0.096
 "SDI-CCT, unadjusted (Figure 2)",1.02 (1.00-1.05),0.033,,,0.428,0.085

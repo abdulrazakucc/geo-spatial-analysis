@@ -36,7 +36,7 @@ CODE_DIR = os.path.join(BASE_DIR, "code")
 
 ACQUIRE = [
     ("01_download_datasets.py", "Download SVI, RUCC, TIGER, ZIP crosswalk"),
-    ("01b_fetch_census_population.py", "Fetch ACS population (needs a Census API key)"),
+    ("01b_fetch_census_population.py", "Fetch Census Bureau county population estimates, July 1, 2023"),
     ("01c_fetch_hud_crosswalk.py", "Fetch HUD ZIP-county crosswalk (needs a HUD token)"),
 ]
 BUILD = [
@@ -60,6 +60,7 @@ PRESENT = [
     ("11_edi_tables_and_stats.py", "Word tables and supplementary statistics"),
     ("16_publication_figures.py", "Manuscript and supplementary figures, 600 dpi"),
     ("17_table1.py", "Manuscript Table 1, Word and CSV"),
+    ("20_table4_population.py", "Manuscript Table 4, population characteristics"),
     ("19_supplementary_material.py", "Supplementary methods, Tables S1-S6, Figures S1-S3"),
     ("07_publication_outputs.py", "Descriptives by SVI quartile"),
 ]

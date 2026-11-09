@@ -29,7 +29,7 @@ EDI, unadjusted                           0.9894         0.967-1.013    0.3718
 EDI, adjusted for metropolitan status     1.0163         0.992-1.041    0.1862
 EDI, adjusted for ordinal RUCC            1.0269         1.002-1.052    0.0331 *
 EDI, metropolitan counties only           1.0238         0.998-1.050    0.0711
-EDI, nonmetropolitan counties only        0.9578         0.892-1.028    0.2324
+EDI, nonmetropolitan counties only        0.9579         0.892-1.028    0.2326
 Metropolitan status (from adjusted model)  2.1273         1.737-2.606    0.0000 *
 
   Stratum sizes. Metropolitan, 1178 counties carrying 1409 facilities in 438 counties. Nonmetropolitan, 1956 counties carrying 115 facilities in 108 counties.

@@ -22,7 +22,8 @@
     "metro_cct_mean_rate": 0.7499741382197413,
     "nonmetro_cct_mean_rate": 0.3338217435357628,
     "mean_edi_no_facility": 52.779402067271775,
-    "mean_edi_has_facility": 39.87962555165068
+    "mean_edi_has_facility": 39.87962555165068,
+    "mean_edi_contrast_mannwhitney_p": 6.36791878094019e-22
   },
   "table1": {
     "all_counties": {
@@ -324,12 +325,12 @@
         "stratified_metro_n": 1178,
         "stratified_metro_events": 1409,
         "stratified_nonmetro": {
-          "irr": 0.957798825583743,
-          "ci_low": 0.8923802046170798,
-          "ci_high": 1.0280131557638534,
-          "p": 0.23226418844373364,
+          "irr": 0.9578511272487529,
+          "ci_low": 0.8924675485584442,
+          "ci_high": 1.0280248099257634,
+          "p": 0.23257029436437826,
           "estimable": true,
-          "solution": "NB2",
+          "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
           "alpha_nb2": 6.47422172375767e-05
         },
         "stratified_nonmetro_n": 1956,

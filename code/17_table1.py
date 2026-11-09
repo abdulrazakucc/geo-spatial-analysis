@@ -110,8 +110,8 @@ def footnotes(t1):
         "EDI quintiles are formed among rate-eligible counties with an EDI value, "
         "so the metropolitan strata and the quintile strata do not sum to the same "
         "total.",
-        "Population denominators are American Community Survey 5-year estimates, "
-        "2019-2023.",
+        "Population denominators are US Census Bureau county population estimates "
+        "for July 1, 2023 (Vintage 2023).",
     ]
 
 
