@@ -116,7 +116,8 @@ def footnotes(t1):
 
 
 def write_csv(rows, notes, path):
-    with open(path, "w", newline="", encoding="utf-8") as f:
+    # utf-8-sig writes a byte-order mark so Excel reads "≥" as UTF-8, not Mac Roman.
+    with open(path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(HEADERS)
         w.writerows(rows)

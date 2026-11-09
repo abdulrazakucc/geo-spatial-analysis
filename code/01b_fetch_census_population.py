@@ -8,7 +8,8 @@ import requests
 import pandas as pd
 import numpy as np
 
-API_KEY = "6b96038c5dfd62de3ca34c33de2560ae2c235137"
+# The key is read from the environment, never stored in the repository.
+API_KEY = os.environ.get("CENSUS_API_KEY", "")
 BASE_URL = "https://api.census.gov/data/2023/acs/acs5"
 
 # B01001: Sex by Age
@@ -29,6 +30,8 @@ def fetch_acs_data():
     
     # Fetch all counties: for=county:*&in=state:*
     var_str = ",".join(ALL_VARS)
+    if not API_KEY:
+        raise SystemExit("Set CENSUS_API_KEY to fetch Census data (stage A only).")
     url = f"{BASE_URL}?get={var_str}&for=county:*&in=state:*&key={API_KEY}"
     
     print(f"  URL: {BASE_URL}?get=...&for=county:*&in=state:*")

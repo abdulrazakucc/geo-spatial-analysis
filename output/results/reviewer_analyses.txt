@@ -4,42 +4,43 @@ ANALYSES ADDED IN RESPONSE TO PEER REVIEW (ROUND 1)
 Every model uses model_spec.py. IRRs per 10 percentile points of the index.
 
 --------------------------------------------------------------------------------------
-R1-02  COUNTY-WEIGHTED (PRIMARY) VERSUS POPULATION-WEIGHTED ESTIMATES
+R1-02  PRIMARY NB2 VERSUS POPULATION-WEIGHTED AND COUNTY-WEIGHTED ESTIMATES
 --------------------------------------------------------------------------------------
-The log(adults 45+) offset makes each model a rate model; it does not weight
-counties. The primary estimand is the county-level association.
+Poisson with the log-population offset weights each county's rate by its adults
+aged 45+ (the average adult); with weights 1/adults it weights counties equally
+(the average county). The NB2 weight N/(1 + alpha*mu) lies between the two.
 
-  Model                          Primary NB2      Poisson robust      Pop-wt Poisson          Pop-wt NB2       Rate-eligible
-  SVI_CMR_unadjusted        1.00 (0.96-1.04)    1.00 (0.97-1.04)    0.97 (0.93-1.01)    0.98 (0.95-1.02)    1.00 (0.96-1.04)
-    P                                  0.980               0.834               0.141               0.393               0.970
-  SVI_CMR_adjusted          1.00 (0.97-1.04)    1.00 (0.97-1.03)    0.97 (0.92-1.01)    0.98 (0.94-1.02)    1.00 (0.97-1.04)
-    P                                  0.854               0.937               0.117               0.289               0.856
-    metropolitan term      8.56 (5.01-14.61)   8.94 (5.32-15.02)    4.37 (2.47-7.74)    4.43 (2.55-7.70)   8.54 (5.00-14.57)
-  SVI_CCT_unadjusted        1.03 (1.01-1.06)    1.04 (1.01-1.07)    1.03 (0.98-1.08)    1.02 (0.99-1.06)    1.03 (1.01-1.06)
-    P                                  0.014               0.007               0.302               0.186               0.014
-  SVI_CCT_adjusted          1.03 (1.01-1.06)    1.03 (1.01-1.06)    1.02 (0.98-1.07)    1.02 (0.99-1.06)    1.03 (1.01-1.06)
-    P                                  0.008               0.010               0.326               0.232               0.008
-    metropolitan term       2.08 (1.71-2.54)    2.17 (1.79-2.63)    1.80 (1.43-2.27)    1.80 (1.46-2.22)    2.08 (1.71-2.53)
-  EDI_CMR_unadjusted        0.95 (0.91-0.98)    0.96 (0.93-1.00)    0.99 (0.95-1.03)    0.99 (0.96-1.03)    0.95 (0.91-0.98)
-    P                                  0.003               0.037               0.514               0.639               0.003
-  EDI_CMR_adjusted          0.99 (0.96-1.03)    1.00 (0.96-1.03)    0.99 (0.95-1.03)    0.99 (0.96-1.03)    0.99 (0.96-1.03)
-    P                                  0.699               0.778               0.531               0.755               0.698
-    metropolitan term      8.33 (4.86-14.28)   8.75 (5.16-14.85)    4.01 (2.27-7.08)    4.23 (2.43-7.36)   8.31 (4.84-14.24)
-  EDI_CCT_unadjusted        0.99 (0.97-1.01)    1.00 (0.98-1.03)    1.03 (0.99-1.07)    1.02 (0.99-1.06)    0.99 (0.97-1.01)
-    P                                  0.372               0.864               0.136               0.158               0.372
-  EDI_CCT_adjusted          1.02 (0.99-1.04)    1.02 (1.00-1.05)    1.03 (0.99-1.07)    1.03 (0.99-1.06)    1.02 (0.99-1.04)
-    P                                  0.186               0.092               0.131               0.133               0.188
-    metropolitan term       2.13 (1.74-2.61)    2.27 (1.87-2.76)    1.88 (1.52-2.34)    1.88 (1.53-2.31)    2.12 (1.73-2.60)
-  SDI_CMR_unadjusted        1.02 (0.98-1.05)    1.02 (0.99-1.06)    1.00 (0.96-1.04)    1.02 (0.98-1.06)    1.02 (0.98-1.05)
-    P                                  0.322               0.208               0.919               0.445               0.327
-  SDI_CMR_adjusted          1.04 (1.00-1.07)    1.03 (0.99-1.07)    1.00 (0.95-1.04)    1.01 (0.97-1.05)    1.04 (1.00-1.07)
-    P                                  0.043               0.103               0.878               0.521               0.043
-    metropolitan term      8.67 (5.08-14.80)   8.92 (5.29-15.04)    4.06 (2.30-7.18)    4.24 (2.43-7.39)   8.65 (5.06-14.77)
-  SDI_CCT_unadjusted        1.02 (1.00-1.05)    1.03 (1.00-1.06)    1.03 (0.99-1.07)    1.03 (0.99-1.06)    1.02 (1.00-1.05)
-    P                                  0.033               0.026               0.165               0.129               0.034
-  SDI_CCT_adjusted          1.03 (1.01-1.06)    1.04 (1.01-1.06)    1.03 (0.99-1.07)    1.03 (0.99-1.06)    1.03 (1.01-1.06)
-    P                                  0.003               0.010               0.174               0.147               0.003
-    metropolitan term       2.12 (1.74-2.58)    2.21 (1.82-2.68)    1.78 (1.42-2.24)    1.80 (1.47-2.22)    2.11 (1.73-2.57)
+  Model                          Primary NB2       Population-wt           County-wt       Rate-eligible
+  SVI_CMR_unadjusted        1.00 (0.96-1.04)    1.00 (0.97-1.04)    1.01 (0.96-1.06)    1.00 (0.96-1.04)
+    P                                  0.980               0.834               0.787               0.970
+  SVI_CMR_adjusted          1.00 (0.97-1.04)    1.00 (0.97-1.03)    1.04 (0.98-1.09)    1.00 (0.97-1.04)
+    P                                  0.854               0.937               0.201               0.856
+    metropolitan term      8.55 (5.01-14.59)   8.94 (5.32-15.02)  15.65 (7.77-31.53)   8.52 (4.99-14.55)
+  SVI_CCT_unadjusted        1.03 (1.01-1.06)    1.04 (1.01-1.07)    1.05 (1.01-1.09)    1.03 (1.01-1.06)
+    P                                  0.014               0.007               0.011               0.014
+  SVI_CCT_adjusted          1.03 (1.01-1.06)    1.03 (1.01-1.06)    1.06 (1.02-1.10)    1.03 (1.01-1.06)
+    P                                  0.008               0.010               0.002               0.008
+    metropolitan term       2.08 (1.71-2.54)    2.17 (1.79-2.63)    2.42 (1.85-3.15)    2.08 (1.71-2.53)
+  EDI_CMR_unadjusted        0.95 (0.91-0.98)    0.96 (0.93-1.00)    0.87 (0.82-0.92)    0.95 (0.91-0.98)
+    P                                  0.003               0.037              <0.001               0.003
+  EDI_CMR_adjusted          0.99 (0.96-1.03)    1.00 (0.96-1.03)    0.96 (0.90-1.03)    0.99 (0.96-1.03)
+    P                                  0.699               0.778               0.273               0.698
+    metropolitan term      8.33 (4.86-14.28)   8.75 (5.16-14.85)  14.45 (6.85-30.49)   8.31 (4.84-14.24)
+  EDI_CCT_unadjusted        0.99 (0.97-1.01)    1.00 (0.98-1.03)    0.96 (0.92-0.99)    0.99 (0.97-1.01)
+    P                                  0.372               0.864               0.027               0.372
+  EDI_CCT_adjusted          1.02 (0.99-1.04)    1.02 (1.00-1.05)    1.00 (0.96-1.04)    1.02 (0.99-1.04)
+    P                                  0.186               0.092               0.845               0.188
+    metropolitan term       2.13 (1.74-2.61)    2.27 (1.87-2.76)    2.33 (1.78-3.06)    2.12 (1.73-2.60)
+  SDI_CMR_unadjusted        1.02 (0.98-1.05)    1.02 (0.99-1.06)    1.01 (0.95-1.08)    1.02 (0.98-1.05)
+    P                                  0.322               0.208               0.764               0.326
+  SDI_CMR_adjusted          1.04 (1.00-1.07)    1.03 (0.99-1.07)    1.06 (0.99-1.13)    1.04 (1.00-1.07)
+    P                                  0.043               0.103               0.088               0.043
+    metropolitan term      8.67 (5.08-14.80)   8.92 (5.29-15.04)  15.92 (7.83-32.40)   8.64 (5.06-14.76)
+  SDI_CCT_unadjusted        1.02 (1.00-1.05)    1.03 (1.00-1.06)    1.04 (1.00-1.08)    1.02 (1.00-1.05)
+    P                                  0.033               0.026               0.072               0.034
+  SDI_CCT_adjusted          1.03 (1.01-1.06)    1.04 (1.01-1.06)    1.06 (1.02-1.10)    1.03 (1.01-1.06)
+    P                                  0.003               0.010               0.006               0.003
+    metropolitan term       2.11 (1.74-2.58)    2.21 (1.82-2.68)    2.44 (1.88-3.17)    2.11 (1.73-2.57)
 
   SVI: n = 3,144; Kish effective n under population weights = 314; top 1% of counties carry 22.3% of the weight; metropolitan counties 85.0%.
   EDI: n = 3,134; Kish effective n under population weights = 309; top 1% of counties carry 22.6% of the weight; metropolitan counties 84.9%.
@@ -85,10 +86,10 @@ R2-03  STRATIFIED FITS, DIAGNOSED
 
   SVI_CMR  interaction: nonmetro slope 0.80 (0.65-0.99), metro slope 1.01 (0.97-1.05), ratio 1.26 (1.02-1.56) P 0.033
   SVI_CCT  interaction: nonmetro slope 0.98 (0.91-1.05), metro slope 1.04 (1.01-1.07), ratio 1.06 (0.99-1.14) P 0.104
-  EDI_CMR  interaction: nonmetro slope 0.71 (0.56-0.89), metro slope 1.00 (0.97-1.04), ratio 1.42 (1.12-1.80) P 0.004
+  EDI_CMR  interaction: nonmetro slope 0.70 (0.56-0.89), metro slope 1.00 (0.97-1.04), ratio 1.42 (1.13-1.80) P 0.003
   EDI_CCT  interaction: nonmetro slope 0.96 (0.89-1.03), metro slope 1.02 (1.00-1.05), ratio 1.07 (0.99-1.15) P 0.088
   SDI_CMR  interaction: nonmetro slope 0.76 (0.61-0.96), metro slope 1.04 (1.01-1.08), ratio 1.36 (1.09-1.71) P 0.007
-  SDI_CCT  interaction: nonmetro slope 1.00 (0.94-1.08), metro slope 1.04 (1.01-1.06), ratio 1.03 (0.96-1.11) P 0.361
+  SDI_CCT  interaction: nonmetro slope 1.00 (0.94-1.08), metro slope 1.04 (1.01-1.06), ratio 1.03 (0.96-1.11) P 0.362
 
   DETAIL SVI_CMR_nonmetro: 14 facilities in 14 of 1,958 counties; distribution {'0': 1944, '1': 14}
     Poisson Wald 0.80 (0.65-0.99) P 0.039; profile 0.644-0.981, LR P 0.032; robust 0.80 (0.68-0.94)
@@ -121,11 +122,11 @@ R2-02  MULTIPLE COMPARISONS
   SVI-CCT, adjusted for metropolitan status (Table 2)            P 0.008  primary: Holm 0.030 BH 0.030; extended: Holm 0.113 BH 0.034
   EDI-CMR, unadjusted (Table 2)                                  P 0.003  extended: Holm 0.049 BH 0.018
   EDI-CMR, adjusted for metropolitan status (Table 2)            P 0.699  primary: Holm 1.000 BH 0.854; extended: Holm 1.000 BH 0.899
-  EDI-CMR, adjusted for ordinal RUCC (Table 3)                   P 0.801  extended: Holm 1.000 BH 0.914
+  EDI-CMR, adjusted for ordinal RUCC (Table 3)                   P 0.802  extended: Holm 1.000 BH 0.914
   EDI-CMR, metropolitan counties (Table 3)                       P 0.863  extended: Holm 1.000 BH 0.914
   EDI-CMR, nonmetropolitan counties (Table 3)                    P 0.003  extended: Holm 0.049 BH 0.018
   EDI-CCT, unadjusted (Table 2)                                  P 0.372  extended: Holm 1.000 BH 0.515
-  EDI-CCT, adjusted for metropolitan status (Table 2)            P 0.186  primary: Holm 0.558 BH 0.372; extended: Holm 1.000 BH 0.335
+  EDI-CCT, adjusted for metropolitan status (Table 2)            P 0.186  primary: Holm 0.559 BH 0.372; extended: Holm 1.000 BH 0.335
   EDI-CCT, adjusted for ordinal RUCC (Table 3)                   P 0.033  extended: Holm 0.428 BH 0.085
   EDI-CCT, metropolitan counties (Table 3)                       P 0.071  extended: Holm 0.711 BH 0.142
   EDI-CCT, nonmetropolitan counties (Table 3)                    P 0.232  extended: Holm 1.000 BH 0.380
@@ -142,7 +143,7 @@ R1-04  EXPLORATORY: THE POSITIVE SVI ASSOCIATION AND URBANICITY
 --------------------------------------------------------------------------------------
   SVI_CMR: metropolitan status (primary)                             1.00 (0.97-1.04) P 0.854
   SVI_CMR: ordinal RUCC                                              1.01 (0.97-1.04) P 0.712
-  SVI_CMR: categorical RUCC                                                 0.98 (NE) P NE
+  SVI_CMR: categorical RUCC                                          1.00 (0.97-1.04) P 0.801
   SVI_CMR: metropolitan status + log population density              0.97 (0.93-1.00) P 0.065
   SVI_CMR: categorical RUCC + log population density                 0.95 (0.91-0.98) P 0.006
   SVI_CMR: metropolitan counties only                                1.01 (0.97-1.05) P 0.560
@@ -154,11 +155,11 @@ R1-04  EXPLORATORY: THE POSITIVE SVI ASSOCIATION AND URBANICITY
   SVI_CCT: categorical RUCC + log population density                 1.01 (0.99-1.04) P 0.415
   SVI_CCT: metropolitan counties only                                1.04 (1.01-1.07) P 0.002
   SVI_CCT: nonmetropolitan counties only                             0.98 (0.92-1.05) P 0.543
-  SVI_CMR_theme1                           +metro 0.99 (0.95-1.02) P 0.488; +density 0.96 (0.93-1.00) P 0.037
+  SVI_CMR_theme1                           +metro 0.99 (0.95-1.02) P 0.489; +density 0.96 (0.93-1.00) P 0.037
   SVI_CMR_theme2                           +metro 0.91 (0.88-0.94) P <0.001; +density 0.91 (0.88-0.95) P <0.001
   SVI_CMR_theme3                           +metro 1.05 (1.00-1.10) P 0.040; +density 0.92 (0.87-0.97) P 0.002
   SVI_CMR_theme4                           +metro 1.10 (1.06-1.14) P <0.001; +density 1.06 (1.02-1.10) P 0.007
-  SVI_CCT_theme1                           +metro 1.03 (1.00-1.05) P 0.023; +density 1.02 (1.00-1.04) P 0.122
+  SVI_CCT_theme1                           +metro 1.03 (1.00-1.05) P 0.023; +density 1.02 (1.00-1.04) P 0.121
   SVI_CCT_theme2                           +metro 0.97 (0.95-0.99) P 0.014; +density 0.98 (0.96-1.00) P 0.113
   SVI_CCT_theme3                           +metro 1.04 (1.01-1.07) P 0.010; +density 0.98 (0.95-1.01) P 0.264
   SVI_CCT_theme4                           +metro 1.07 (1.05-1.10) P <0.001; +density 1.05 (1.02-1.08) P <0.001

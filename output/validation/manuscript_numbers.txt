@@ -37,12 +37,12 @@ REGRESSION MODELS  (manuscript Tables 2 and 3)
   SVI, CMR, unadjusted                              1.00 (0.96-1.04)     0.980
   SVI, CMR, adjusted for metropolitan status        1.00 (0.97-1.04)     0.854
   SVI, CMR, adjusted for ordinal RUCC               1.01 (0.97-1.04)     0.712
-  SVI, CMR, metropolitan status term               8.56 (5.01-14.61)    <0.001
+  SVI, CMR, metropolitan status term               8.55 (5.01-14.59)    <0.001
   SVI, CMR, ordinal RUCC term                       0.70 (0.64-0.76)    <0.001
 
   EDI, CMR, unadjusted                              0.95 (0.91-0.98)     0.003
   EDI, CMR, adjusted for metropolitan status        0.99 (0.96-1.03)     0.699
-  EDI, CMR, adjusted for ordinal RUCC               1.00 (0.97-1.04)     0.801
+  EDI, CMR, adjusted for ordinal RUCC               1.00 (0.97-1.04)     0.802
   EDI, CMR, metropolitan status term               8.33 (4.86-14.28)    <0.001
   EDI, CMR, ordinal RUCC term                       0.70 (0.64-0.76)    <0.001
   EDI, CMR, metro counties only                     1.00 (0.97-1.04)     0.863   n=1,178, 694 facilities
@@ -87,14 +87,17 @@ EDI CONSTRUCTION
 ------------------------------------------------------------------------------
 MODEL DIAGNOSTICS  (justification for the specification)
 ------------------------------------------------------------------------------
-  cmr_facility_count         mean 0.2377, variance 1.1473, ratio 4.83, 90.1% zero
-  cct_facility_count         mean 0.5076, variance 4.5273, ratio 8.92, 81.8% zero
-  Fixed-alpha sensitivity vs Poisson on AIC: negative binomial lower in 5 of 8 models.
+  cmr_facility_count         mean 0.2296, variance 1.1105, ratio 4.84, 90.5% zero
+  cct_facility_count         mean 0.4905, variance 4.3830, ratio 8.94, 82.4% zero
+  Estimated-dispersion NB2 vs Poisson on AIC: NB2 lower in 8 of 8 index models.
   PRIMARY specification (dispersion estimated) has the lowest AIC in 12 of 12 model/outcome combinations and the lowest BIC in 12 of 12.
   Source: output/results/model_specification_comparison.csv
-  Sensitivity to fixing alpha at 1.0, primary EDI-CMR models:
-    EDI_CMR_unadjusted     alpha=1.0 IRR 0.9430 (P 0.0041)   alpha estimated IRR 0.9477 (P 0.0029, alpha 0.594)
-    EDI_CMR_adjusted       alpha=1.0 IRR 0.9897 (P 0.6370)   alpha estimated IRR 0.9929 (P 0.6981, alpha 0.440)
+  Sensitivity to fixing alpha at 1.0, adjusted index models:
+    SVI_CMR_adjusted       alpha=1.0 IRR 1.0041 (P 0.8500)   alpha estimated IRR 1.0034 (P 0.8542, alpha 0.439)
+    SVI_CCT_adjusted       alpha=1.0 IRR 1.0317 (P 0.0577)   alpha estimated IRR 1.0330 (P 0.0076, alpha 0.182)
+    EDI_CMR_adjusted       alpha=1.0 IRR 0.9897 (P 0.6378)   alpha estimated IRR 0.9929 (P 0.6990, alpha 0.440)
+    EDI_CCT_adjusted       alpha=1.0 IRR 1.0098 (P 0.5618)   alpha estimated IRR 1.0163 (P 0.1862, alpha 0.192)
+  Both outcomes are overdispersed (variance-to-mean ratio 4.84 for CMR and 8.94 for CCT). The estimated-dispersion NB2 model has lower AIC than Poisson in 8 of 8 index models; output/results/model_specification_comparison.csv compares all three specifications. With the dispersion fixed at 1, the significance of an adjusted index association changes for: SVI_CCT.
 
 ------------------------------------------------------------------------------
 EXTERNAL VALIDATION  (manuscript Figure 2)

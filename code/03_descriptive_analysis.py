@@ -126,7 +126,7 @@ def main():
     
     # Save Table 1
     table1_path = os.path.join(TABLE_DIR, "table1_descriptive.csv")
-    table1.to_csv(table1_path, index=False)
+    table1.to_csv(table1_path, index=False, encoding="utf-8-sig")
     print(f"\n  ✓ Saved: {table1_path}")
     
     # Formatted output

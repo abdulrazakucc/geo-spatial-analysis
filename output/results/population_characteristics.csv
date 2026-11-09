@@ -1,4 +1,4 @@
-variable,label,source,stratum,n_available,n_missing,median,q1,q3,population_weighted_mean
+﻿variable,label,source,stratum,n_available,n_missing,median,q1,q3,population_weighted_mean
 pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),all,3144,0,19.3,16.6,22.2,16.536913489320924
 pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),metropolitan,1186,0,17.5,15.0,19.8,15.986769760037165
 pct_65plus,"Aged ≥65 years, %",SVI 2022 (ACS 2018-2022),nonmetropolitan,1958,0,20.4,18.0,23.475,19.991853132293873

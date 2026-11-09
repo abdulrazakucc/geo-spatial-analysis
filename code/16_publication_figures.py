@@ -283,7 +283,7 @@ def figure2(numbers, idx):
 
     fig = plt.figure(figsize=(15.2, 8.0))
     st.title_block(
-        fig, "External validation: a published index reproduces the geography, not the deprivation gradient",
+        fig, "Comparison with a published index: it reproduces the geography, not the deprivation gradient",
         f"Purpose-built EDI ({idx['EDI_models']['n']:,} counties) versus Robert Graham Center Social "
         f"Deprivation Index ({idx['SDI_models']['n']:,} counties). The two indices agree closely "
         f"(Spearman ρ = {idx['agreement_with_EDI']['spearman_rho']:.2f}) but differ in how much "
@@ -438,9 +438,17 @@ def figure_s3():
     for x, e, v in zip(xs, ev, ve):
         ax.text(x, e + 0.07, f"{e:.2f}\n{100 * v:.1f}%", ha="center", va="bottom",
                 fontsize=9.6, color=st.INK)
-    ax.axhline(1.0, color=st.MUTE, lw=1.0, ls=(0, (4, 3)))
-    ax.text(k + 0.42, 1.0, "eigenvalue = 1", ha="right", va="bottom", fontsize=9.6,
-            color=st.MUTE)
+    # Reference lines are named in a legend placed in the empty right-middle of the
+    # panel, so no label can collide with the bar values.
+    h1 = ax.axhline(1.0, color=st.MUTE, lw=1.0, ls=(0, (4, 3)), label="Eigenvalue = 1")
+    handles = [h1]
+    pa = P.get("parallel_analysis")
+    if pa:
+        h2, = ax.plot(xs, pa["threshold_95"], color=st.INK, lw=1.3, ls=(0, (1, 1.4)),
+                      label="Parallel analysis, 95th percentile")
+        handles.append(h2)
+    ax.legend(handles=handles, loc="center right", bbox_to_anchor=(0.99, 0.5), frameon=False,
+              fontsize=9.6, handlelength=2.6)
     ax2 = ax.twinx()
     ax2.plot(xs, [100 * c for c in cum], color=st.INK, lw=1.4, marker="o", ms=4.5)
     ax2.text(2.15, 100 * cum[1] - 6, "cumulative", fontsize=9.6, color=st.INK,

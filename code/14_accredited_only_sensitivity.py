@@ -74,6 +74,7 @@ def fit(d, outcome, adjusted, index="SVI"):
                      "ci_high": float(hi), "p": float(res.pvalues[term])}
     out["_alpha"] = float(res.params["alpha"])
     out["_n"] = int(res.nobs)
+    out["_events"] = int(sub[outcome].sum())
     return out
 
 
@@ -122,7 +123,8 @@ def main():
                             "cohort": label, "index": index, "outcome": oname,
                             "model": spec, "term": term, "irr": r[term]["irr"],
                             "ci_low": r[term]["ci_low"], "ci_high": r[term]["ci_high"],
-                            "p_value": r[term]["p"], "alpha": r["_alpha"], "n": r["_n"]})
+                            "p_value": r[term]["p"], "alpha": r["_alpha"], "n": r["_n"],
+                            "facilities": r["_events"]})
 
     desc = pd.DataFrame(desc_rows)
     models = pd.DataFrame(model_rows)

@@ -1,4 +1,4 @@
-component,indicator,label,eigenvector_coefficient,loading_correlation,eigenvalue,variance_explained
+﻿component,indicator,label,eigenvector_coefficient,loading_correlation,eigenvalue,variance_explained
 PC1,EP_POV150,Persons below 150% of the federal poverty level,0.5000735253599168,0.938720742170773,3.5237501109486598,0.5872916851581101
 PC1,EP_UNEMP,Civilian labor force unemployed,0.3451692704688154,0.6479398274800215,3.5237501109486598,0.5872916851581101
 PC1,EP_NOHSDP,Adults aged ≥25 years without a high-school diploma,0.3985336283279392,0.7481135560910877,3.5237501109486598,0.5872916851581101

@@ -1,110 +1,86 @@
-# Why We Use Principal Component Analysis (PCA) to Construct the Economic Deprivation Index
+# How the Economic Deprivation Index (EDI) Is Built with Principal Component Analysis
 
-## The Simple Explanation
+## The simple explanation
 
-Imagine you want to know how "deprived" a county is. You have 6 different measurements:
+To describe how economically deprived a county is, we use six county measures:
 
-1. How many people are in poverty
-2. How many people are unemployed
-3. How many people lack a high school diploma
-4. How many households spend too much on housing
-5. How low the median income is
-6. How many children are in poverty
+1. Persons below 150% of the federal poverty level
+2. Civilian labor force unemployed
+3. Adults aged 25 or older without a high-school diploma
+4. Housing cost-burdened households
+5. Median household income (sign reversed, so higher means poorer)
+6. Children in poverty
 
-Each of these tells you *something* about deprivation, but none alone tells the whole story. You need a way to combine them into a single "deprivation score."
+Each says something about deprivation; none says everything. Principal component
+analysis (PCA) combines them into one score.
 
-## Why Not Just Average Them?
+## Why not just average them?
 
-Three problems with a simple average:
+**Different scales.** Poverty is a percentage; income is in dollars. They cannot
+be averaged directly. PCA works on standardized values (each measure rescaled to
+mean 0 and standard deviation 1), so the original units no longer matter.
 
-**Problem 1: Different scales.** Poverty is measured as a percentage (0% to 50%), but income is measured in dollars ($20,000 to $150,000). You cannot average a percentage and a dollar amount directly.
+**Overlap.** Some measures move together closely. In these data the correlation
+between persons below 150% of the poverty level and children in poverty is 0.86.
+A simple average would count that shared poverty signal twice.
 
-**Problem 2: Redundancy.** "Percent in poverty" and "percent of children in poverty" are highly correlated (r = 0.85). If you average them equally, you are double-counting the poverty signal while undercounting other aspects of deprivation.
+**Weights.** After standardization every measure has the same variance, so the
+weights PCA assigns are set by how strongly the measures are correlated with one
+another, not by how much any one varies on its original scale. Measures that share
+more of the common pattern receive larger weights.
 
-**Problem 3: Equal weighting assumption.** A simple average assumes all 6 variables contribute equally. But what if unemployment varies little across counties while poverty varies a lot? The poverty variable actually carries more *information* about between-county differences, and should get more weight.
+## What PCA does
 
-## What PCA Does (Step by Step)
+1. **Standardize** the six measures (z-scores).
+2. **Find the combination that captures the most shared variation:**
 
-### Step 1: Standardize
+   ```text
+   EDI_score = w1*(poverty) + w2*(unemployment) + w3*(no_diploma)
+             + w4*(housing_burden) + w5*(-income) + w6*(child_poverty)
+   ```
 
-Convert all 6 variables to the same scale by subtracting the mean and dividing by the standard deviation. Now every variable has mean = 0 and standard deviation = 1, regardless of whether it was originally in percent or dollars.
+   The weights are the first eigenvector of the correlation matrix.
+3. **Use the first principal component (PC1) as the index.** In these data PC1
+   explains 58.7% of the variance in the six measures across 3,134 counties, and
+   all six load positively on it.
+4. **Convert to national percentiles** (0 to 100). A county at the 80th percentile
+   is more deprived than 80% of counties.
 
-### Step 2: Find the "Best Summary Direction"
+## How many components?
 
-PCA finds the single linear combination of all 6 variables that captures the most variation across counties. Mathematically:
+A second component has an eigenvalue just above 1 (1.03) and is dominated by one
+measure, housing cost burden. Horn's parallel analysis compares each eigenvalue
+with those obtained from data in which every measure is shuffled independently, so
+that any correlation is destroyed; the second eigenvalue is no larger than chance,
+and parallel analysis retains one component. The index therefore uses PC1 alone.
+The scree plot, biplot and all loadings are in Supplementary Figure S3 and Table S5.
 
-```
-ADI_score = w1*(poverty) + w2*(unemployment) + w3*(no_diploma) + w4*(housing_burden) + w5*(-income) + w6*(child_poverty)
-```
+## Why a purpose-built county index?
 
-The weights (w1 through w6) are chosen to maximize the spread of county scores. Counties that are consistently high on all 6 indicators get high EDI scores. Counties that are consistently low get low scores.
+The Area Deprivation Index (ADI) of Singh (2003), distributed for block groups by
+the University of Wisconsin Neighborhood Atlas (Kind and Buckingham, 2018), is a
+validated measure, but it is not published for counties. Aggregating block groups
+to counties would require weighting choices and would not match the county unit of
+the SVI. We therefore built a county-level index from economic measures with the
+same general PCA approach. It is called the EDI so that it is never confused with
+the ADI; it is not the ADI.
 
-### Step 3: Extract the Score
+Other studies have used the ADI at finer geography. For example, Mango et al.
+(J Am Coll Radiol 2023) used ZIP-level ADI and compared the most and least deprived
+extremes. Our study uses counties, a continuous index per 10 percentile points, and
+count models of facility numbers.
 
-The first principal component (PC1) IS the EDI score. In our data, PC1 explains 58.7% of the total variance across all 6 variables. This means one number captures more than half of all the information contained in 6 different measurements.
+## What the index showed
 
-### Step 4: Convert to Percentile
+| Model, cardiac MR | IRR per 10 percentile points | P |
+|---|---|---|
+| SVI, unadjusted | 1.00 | 0.980 |
+| EDI, unadjusted | 0.95 | 0.003 |
+| SVI, adjusted for metropolitan status | 1.00 | 0.854 |
+| EDI, adjusted for metropolitan status | 0.99 | 0.699 |
 
-The raw PC1 score is converted to a national percentile rank (0 to 100) for easier interpretation. A county at the 80th percentile is more deprived than 80% of all US counties.
-
-## Why 58.7% Variance Explained is Good
-
-When you combine 6 variables into 1 score, the maximum possible variance explained is 100% (if all 6 variables were perfectly correlated). The minimum useful threshold is about 40%. Our 58.7% indicates:
-
-- The 6 indicators share a strong common factor (socioeconomic deprivation)
-- But they also have unique variation (each tells you something different)
-- One score is a good summary without losing too much information
-
-## Why We Constructed Our Own EDI (Rather Than Using the Pre-Built Neighborhood Atlas)
-
-The University of Wisconsin Neighborhood Atlas provides a validated, downloadable EDI - but only at the Census block group and ZIP code level. **No pre-built county-level EDI exists.**
-
-### Why not just download the Neighborhood Atlas EDI?
-
-| Issue | Explanation |
-|-------|-------------|
-| **Resolution mismatch** | Neighborhood Atlas EDI is at block group (~600-3,000 people) or ZIP code level. Our unit of analysis is the county (~100,000 people). |
-| **No county product exists** | There is simply no downloadable county-level EDI from any standard source. |
-| **Aggregation problems** | Averaging block group ADIs up to counties introduces ecological fallacy (a county with one rich area and one poor area averages to "middle"), requires arbitrary weighting decisions, and is biased by suppressed/missing block groups. |
-| **Our predictors must match** | SVI is published at the county level. For a valid head-to-head comparison, EDI must also be at the county level. |
-
-### How Mango et al. (JACR 2023) Used EDI Differently
-
-Mango et al. studied breast imaging accreditation at the ZIP code level. The Neighborhood Atlas provides ZIP-level EDI directly, so they could simply download and merge. They also used EDI as a binary classifier (top 3% vs bottom 3%) with chi-square tests.
-
-Our study differs in three key ways:
-1. **County-level unit** (no pre-built EDI available) - we must construct our own
-2. **Continuous predictor** (per 10-percentile in regression) - more statistical power than binary extremes
-3. **Count-based outcome** (negative binomial) - more information than presence/absence
-
-### Our Solution: Replicate the Validated PCA Methodology at County Level
-
-We applied the same PCA approach that Singh (2003) and Kind/Buckingham (2018) used, but computed directly on county-level ACS data. This is standard practice when the geographic unit differs from published EDI products.
-
-## Why This Approach is Validated
-
-This is not a new or experimental method. It has been used in published research for decades:
-
-- **Singh (2003)** used PCA of Census variables to create the original EDI (cited 2,500+ times)
-- **Kind and Buckingham (2018)** updated the EDI using PCA in the New England Journal of Medicine
-- **Mango et al. (2023)** applied the pre-built EDI to breast imaging accreditation disparities at the ZIP level
-
-We follow the same PCA methodology, applied at the county level to cardiac imaging - extending the Mango et al. framework with more sophisticated statistical methods.
-
-## The Key Result: EDI Finds What SVI Misses
-
-| Predictor | CMR IRR | p-value |
-|-----------|---------|---------|
-| SVI (CDC composite of 16 variables) | 0.9915 | 0.6808 (not significant) |
-| EDI (PCA of 6 economic variables) | 0.9373 | 0.0018 (significant) |
-
-The SVI dilutes the economic signal by including non-economic themes (minority status, disability, vehicle access). EDI, by focusing purely on socioeconomic indicators via PCA, isolates the economic component and reveals a true association with CMR access.
-
-## Analogy
-
-Think of it like a medical test:
-
-- **SVI** is like a broad screening panel that tests for many things at once. It may miss subtle findings because of noise from unrelated tests.
-- **EDI (via PCA)** is like a targeted test focused specifically on the condition you are looking for (economic deprivation). It has better sensitivity for that specific question.
-
-Both have their place, but for the question "does economic deprivation predict imaging access?" the focused measure (EDI) outperforms the broad measure (SVI).
+The EDI is associated with lower cardiac MR capacity before adjustment but not
+after: the unadjusted association reflects the EDI's correlation with
+nonmetropolitan location. The study does not test whether either index predicts
+access better than the other or better than geographic measures. Current values
+are in `output/validation/manuscript_numbers.json`.

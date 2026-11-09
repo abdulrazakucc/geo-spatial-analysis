@@ -158,20 +158,21 @@ def kish_ess(w):
 
 # ------------------------------------------------------------------ R1-02
 def weighting(m):
-    """County-weighted (primary) and population-weighted estimates.
+    """Primary NB2 estimates beside population-weighted and county-weighted ones.
 
-    The primary NB2 model carries log(adults 45+) as an OFFSET. An offset makes
-    the model a model for the facility rate; it does not weight observations.
-    Every county is one unit, so the primary estimand is the county-level
-    association. Weighting by adults 45+ targets a different estimand, the
-    association for the average adult. Both are reported; neither replaces the
-    other.
-
-    Weighted fits use Poisson quasi-likelihood with robust (HC0) standard
-    errors, which is consistent for the mean model whatever the variance, and
-    NB2 with alpha held at the unweighted estimate, also with robust errors.
-    An unweighted robust Poisson fit is shown so the effect of weighting can be
-    separated from the effect of the family.
+    How each model weights counties follows from its score equation, written in
+    terms of the county rate r = y / N and the fitted rate lambda:
+      * Poisson with offset log(N):      sum N * x * (r - lambda) = 0.
+        Each county's rate counts in proportion to its adults aged 45+, so this
+        is the population-weighted (average-adult) estimator. Fitted with robust
+        (HC0) standard errors, which are valid whatever the variance.
+      * Poisson with offset and weights 1/N: sum x * (r - lambda) = 0.
+        Every county's rate counts equally: the average-county estimator.
+      * NB2 with offset (primary):       sum N / (1 + alpha * mu) * x * (r - lambda) = 0.
+        The weight rises with population and levels off, between the two.
+    An earlier version also put population weights (var_weights = N) on the
+    offset Poisson model. That weights rates by N squared, double-counting
+    population, and is no longer used.
     """
     out = {"models": {}, "weights": {}, "descriptive": {}}
     for index in INDICES:
@@ -189,25 +190,22 @@ def weighting(m):
                 X, off = design(d, terms)
                 prim = model_spec.fit_primary_terms(d, ocol, terms)
                 alpha = model_spec.alpha_of(prim)
-                pu = sm.GLM(d[ocol], X, family=Poisson(), offset=off).fit(cov_type="HC0")
-                pw = sm.GLM(d[ocol], X, family=Poisson(), offset=off,
-                            var_weights=w).fit(cov_type="HC0")
-                nw = sm.GLM(d[ocol], X, family=NegativeBinomial(alpha=alpha), offset=off,
-                            var_weights=w).fit(cov_type="HC0")
+                pw = sm.GLM(d[ocol], X, family=Poisson(), offset=off).fit(cov_type="HC0")
+                pc = sm.GLM(d[ocol], X, family=Poisson(), offset=off,
+                            var_weights=1.0 / w).fit(cov_type="HC0")
                 dr = sample(m, index, restrict=True)
                 rr = model_spec.fit_primary_terms(dr, ocol, terms)
                 key = f"{index}_{oname}_{'adjusted' if adjusted else 'unadjusted'}"
                 blk = {"n": int(len(d)), "n_rate_eligible": int(len(dr)),
                        "alpha_unweighted": alpha,
                        "primary_nb2": est(prim, "idx10"),
-                       "poisson_unweighted_robust": est(pu, "idx10"),
                        "poisson_population_weighted_robust": est(pw, "idx10"),
-                       "nb2_population_weighted_robust": est(nw, "idx10"),
+                       "poisson_county_weighted_robust": est(pc, "idx10"),
                        "rate_eligible_nb2": est(rr, "idx10")}
                 if adjusted:
-                    for lab, r in [("primary_nb2", prim), ("poisson_unweighted_robust", pu),
+                    for lab, r in [("primary_nb2", prim),
                                    ("poisson_population_weighted_robust", pw),
-                                   ("nb2_population_weighted_robust", nw),
+                                   ("poisson_county_weighted_robust", pc),
                                    ("rate_eligible_nb2", rr)]:
                         blk[f"metro_{lab}"] = est(r, "metro_indicator")
                 out["models"][key] = blk
@@ -434,19 +432,35 @@ def urban_core(m):
     """
     out = {"models": {}, "themes": {}, "descriptive": {}}
     d = sample(m, "SVI").dropna(subset=["log_density"])
-    dummies = pd.get_dummies(d.rucc_code.astype(int), prefix="rucc", drop_first=True).astype(float)
-    d = pd.concat([d, dummies], axis=1)
-    rucc_cat = list(dummies.columns)
-    specs = [("metropolitan status (primary)", ["metro_indicator"]),
-             ("ordinal RUCC", ["rucc_code"]),
-             ("categorical RUCC", rucc_cat),
-             ("metropolitan status + log population density", ["metro_indicator", "log_density"]),
-             ("categorical RUCC + log population density", rucc_cat + ["log_density"])]
     for oname, ocol in OUTCOMES.items():
+        # A RUCC category with no facilities of this modality has no finite
+        # coefficient (separation: cardiac MR has none in RUCC 8 or 9), so such
+        # categories are merged into the nearest lower code that has facilities.
+        ev = d.groupby(d.rucc_code.astype(int))[ocol].sum()
+        merged, last = {}, None
+        for code in sorted(ev.index):
+            if ev[code] > 0 or last is None:
+                last = code
+            merged[code] = last
+        rc = d.rucc_code.astype(int).map(merged)
+        dummies = pd.get_dummies(rc, prefix="ruccgrp", drop_first=True).astype(float)
+        dd_ = pd.concat([d.drop(columns=[c for c in d.columns if c.startswith("ruccgrp_")]),
+                         dummies], axis=1)
+        rucc_cat = list(dummies.columns)
+        groups = {}
+        for code, g in merged.items():
+            groups.setdefault(g, []).append(code)
+        out["descriptive"][f"rucc_groups_{oname}"] = {
+            str(g): f"{min(c)}-{max(c)}" if len(c) > 1 else str(c[0]) for g, c in groups.items()}
+        specs = [("metropolitan status (primary)", ["metro_indicator"]),
+                 ("ordinal RUCC", ["rucc_code"]),
+                 ("categorical RUCC", rucc_cat),
+                 ("metropolitan status + log population density", ["metro_indicator", "log_density"]),
+                 ("categorical RUCC + log population density", rucc_cat + ["log_density"])]
         for label, extra in specs:
-            res, diag = model_spec.fit_primary_checked(d, ocol, ["idx10"] + extra)
+            res, diag = model_spec.fit_primary_checked(dd_, ocol, ["idx10"] + extra)
             e = est(res, "idx10")
-            blk = {"estimate": e, "estimable": estimable(e), "n": int(len(d)),
+            blk = {"estimate": e, "estimable": estimable(e), "n": int(len(dd_)),
                    "solution": diag["solution"]}
             if "log_density" in extra:
                 blk["log_density"] = est(res, "log_density")
@@ -502,6 +516,9 @@ PCA_SOURCES = {
 }
 
 
+PA_REPS, PA_SEED = 1000, 20261108
+
+
 def pca_full(m):
     """Every component of the EDI PCA, on exactly the published input.
 
@@ -550,6 +567,17 @@ def pca_full(m):
     off = ~np.eye(k, dtype=bool)
     kmo = float((R[off] ** 2).sum() / ((R[off] ** 2).sum() + (partial[off] ** 2).sum()))
 
+    # Horn's parallel analysis. Each indicator is shuffled independently, which
+    # keeps its distribution and destroys the correlations; a component is
+    # retained while its eigenvalue exceeds the 95th percentile of the
+    # eigenvalues at the same rank across the permuted datasets.
+    rng = np.random.default_rng(PA_SEED)
+    perm = np.array([np.sort(np.linalg.eigvalsh(np.corrcoef(
+        np.column_stack([rng.permutation(Z[:, j]) for j in range(k)]), rowvar=False)))[::-1]
+        for _ in range(PA_REPS)])
+    pa95 = np.percentile(perm, 95, axis=0)
+    pa_keep = int(np.cumprod(eig > pa95).sum())
+
     comp_rows = []
     for j in range(k):
         for i, f in enumerate(feats):
@@ -558,7 +586,7 @@ def pca_full(m):
                               "loading_correlation": float(comps[j, i] * np.sqrt(eig[j])),
                               "eigenvalue": float(eig[j]),
                               "variance_explained": float(p.explained_variance_ratio_[j])})
-    pd.DataFrame(comp_rows).to_csv(os.path.join(RESULTS, "edi_pca_components.csv"), index=False)
+    pd.DataFrame(comp_rows).to_csv(os.path.join(RESULTS, "edi_pca_components.csv"), index=False, encoding="utf-8-sig")
     sc = dd[["fips"]].copy()
     sc["pc1"], sc["pc2"] = scores[:, 0], scores[:, 1]
     meta = m[["county_fips", "metro_indicator"]].rename(columns={"county_fips": "fips"})
@@ -576,6 +604,13 @@ def pca_full(m):
             "pc2_loadings": dict(zip(feats, map(float, comps[1] * np.sqrt(eig[1])))),
             "correlation_matrix": {f: dict(zip(feats, map(float, R[i]))) for i, f in enumerate(feats)},
             "kmo": kmo,
+            "parallel_analysis": {
+                "method": f"Horn's parallel analysis, {PA_REPS:,} datasets with each indicator "
+                          f"permuted independently; 95th percentile of eigenvalues by rank",
+                "replicates": PA_REPS, "seed": PA_SEED,
+                "threshold_95": [float(x) for x in pa95],
+                "mean": [float(x) for x in perm.mean(axis=0)],
+                "n_retained": pa_keep},
             "bartlett_chi2": float(bartlett), "bartlett_df": int(k * (k - 1) / 2),
             "bartlett_p": float(stats.chi2.sf(bartlett, k * (k - 1) / 2)),
             "pc1_vs_published_edi_pearson": abs(r),
@@ -637,7 +672,7 @@ def population_characteristics(m):
                    "population_weighted_mean": float(np.average(x, weights=v.total_population))}
             out["variables"][key]["by_stratum"][s] = res
             rows.append({"variable": key, "label": label, "source": source, "stratum": s, **res})
-    pd.DataFrame(rows).to_csv(os.path.join(RESULTS, "population_characteristics.csv"), index=False)
+    pd.DataFrame(rows).to_csv(os.path.join(RESULTS, "population_characteristics.csv"), index=False, encoding="utf-8-sig")
     ct = d[d.county_fips.str.startswith("09")]
     out["notes"] = {
         "connecticut_planning_regions_missing_chr": int(ct.chr_diabetes.isna().sum()),
@@ -702,8 +737,13 @@ def comprehensive_table(m, W, S, U):
                     det = S["detail"].get(f"{index}_{oname}_{lab}")
                     if det:
                         pr = det["poisson_profile"]
-                        note += (f"Profile-likelihood 95% CI {pr['ci_low']:.2f}-{pr['ci_high']:.2f}; "
-                                 f"likelihood-ratio P = {pr['lr_p']:.3f}. ")
+                    else:
+                        # Every boundary row carries a profile-likelihood interval,
+                        # not only the cardiac MR strata that have a detail block.
+                        sub = d[d["metro_indicator"] == (1 if lab == "metro" else 0)]
+                        pr = _profile_ci(sub, ocol, ["idx10"], "idx10")
+                    note += (f"Profile-likelihood 95% CI {pr['ci_low']:.2f}-{pr['ci_high']:.2f}; "
+                             f"likelihood-ratio P = {pr['lr_p']:.3f}. ")
                 elif not s["estimable"]:
                     note = "Not estimable: information matrix not invertible. "
                 if lab == "nonmetro":
@@ -732,30 +772,27 @@ def comprehensive_table(m, W, S, U):
                 am = a[a.term == "metro"].iloc[0]
                 # Facility totals are national; the EDI sample omits the
                 # counties without an EDI value, so its total is lower.
-                acc_ev = int(acc_desc[f"{oname.lower()}_facilities"]) if index == "SVI" else None
+                acc_ev = int(ai.facilities)
                 add(index, oname, "Cohort", "Adjusted; Accredited status only (Under Review excluded)",
                     NB, int(ai.n), acc_ev,
                     {"irr": ai.irr, "ci_low": ai.ci_low, "ci_high": ai.ci_high, "p": ai.p_value},
                     {"irr": am.irr, "ci_low": am.ci_low, "ci_high": am.ci_high, "p": am.p_value},
                     float(ai.alpha), "Cohort excludes the Under Review records", "Metropolitan status")
+            wu = W["models"][f"{index}_{oname}_unadjusted"]
             wb = W["models"][f"{index}_{oname}_adjusted"]
-            add(index, oname, "Family and weighting", "Adjusted; Poisson, robust SE",
-                "Poisson QMLE, HC0", len(d), ev, wb["poisson_unweighted_robust"],
-                wb["metro_poisson_unweighted_robust"], None,
-                "Unweighted reference for the weighted Poisson fit", "Metropolitan status")
-            add(index, oname, "Family and weighting",
-                "Adjusted; population-weighted Poisson, robust SE",
-                "Poisson QMLE, weights = adults aged ≥45 y, HC0", len(d), ev,
-                wb["poisson_population_weighted_robust"],
+            pw_spec = "Poisson with log-population offset, HC0"
+            add(index, oname, "Weighting", "Unadjusted; population-weighted, robust SE",
+                pw_spec, len(d), ev, wu["poisson_population_weighted_robust"], None, None,
+                "Each county's rate weighted by its adults aged ≥45 y: the average adult")
+            add(index, oname, "Weighting", "Adjusted; population-weighted, robust SE",
+                pw_spec, len(d), ev, wb["poisson_population_weighted_robust"],
                 wb["metro_poisson_population_weighted_robust"], None,
-                "Estimand: association for the average adult, not the average county",
+                "Each county's rate weighted by its adults aged ≥45 y: the average adult",
                 "Metropolitan status")
-            add(index, oname, "Family and weighting",
-                "Adjusted; population-weighted NB2, robust SE",
-                "NB2, alpha fixed at unweighted estimate, weights = adults aged ≥45 y, HC0",
-                len(d), ev, wb["nb2_population_weighted_robust"],
-                wb["metro_nb2_population_weighted_robust"], wb["alpha_unweighted"],
-                "Estimand: association for the average adult", "Metropolitan status")
+            add(index, oname, "Weighting", "Adjusted; counties weighted equally, robust SE",
+                "Poisson with log-population offset, weights 1/adults aged ≥45 y, HC0", len(d), ev,
+                wb["poisson_county_weighted_robust"], wb["metro_poisson_county_weighted_robust"], None,
+                "Each county's rate weighted equally: the average county", "Metropolitan status")
             dd = d.dropna(subset=["log_density"])
             dn = model_spec.fit_primary_terms(dd, ocol, ["idx10", "metro_indicator", "log_density"])
             add(index, oname, "Exploratory", "Adjusted for metropolitan status and log population density",
@@ -770,7 +807,7 @@ def comprehensive_table(m, W, S, U):
                         {"irr": r.irr, "ci_low": r.ci_low, "ci_high": r.ci_high, "p": r.p_value},
                         alpha=float(r.alpha), note="IRR versus the least vulnerable quartile (Q1)")
     t = pd.DataFrame(rows)
-    t.to_csv(os.path.join(RESULTS, "comprehensive_model_table.csv"), index=False)
+    t.to_csv(os.path.join(RESULTS, "comprehensive_model_table.csv"), index=False, encoding="utf-8-sig")
     return t
 
 
@@ -799,24 +836,22 @@ def write_report(R):
     a("")
     W = R["R1-02_weighting"]
     a("-" * 86)
-    a("R1-02  COUNTY-WEIGHTED (PRIMARY) VERSUS POPULATION-WEIGHTED ESTIMATES")
+    a("R1-02  PRIMARY NB2 VERSUS POPULATION-WEIGHTED AND COUNTY-WEIGHTED ESTIMATES")
     a("-" * 86)
-    a("The log(adults 45+) offset makes each model a rate model; it does not weight")
-    a("counties. The primary estimand is the county-level association.")
+    a("Poisson with the log-population offset weights each county's rate by its adults")
+    a("aged 45+ (the average adult); with weights 1/adults it weights counties equally")
+    a("(the average county). The NB2 weight N/(1 + alpha*mu) lies between the two.")
     a("")
-    a(f"  {'Model':<22}{'Primary NB2':>20}{'Poisson robust':>20}{'Pop-wt Poisson':>20}{'Pop-wt NB2':>20}{'Rate-eligible':>20}")
+    a(f"  {'Model':<22}{'Primary NB2':>20}{'Population-wt':>20}{'County-wt':>20}{'Rate-eligible':>20}")
     for k, v in W["models"].items():
-        a(f"  {k:<22}{_f(v['primary_nb2']):>20}{_f(v['poisson_unweighted_robust']):>20}"
-          f"{_f(v['poisson_population_weighted_robust']):>20}{_f(v['nb2_population_weighted_robust']):>20}"
-          f"{_f(v['rate_eligible_nb2']):>20}")
-        a(f"  {'  P':<22}{_p(v['primary_nb2']['p']):>20}{_p(v['poisson_unweighted_robust']['p']):>20}"
-          f"{_p(v['poisson_population_weighted_robust']['p']):>20}{_p(v['nb2_population_weighted_robust']['p']):>20}"
-          f"{_p(v['rate_eligible_nb2']['p']):>20}")
+        a(f"  {k:<22}{_f(v['primary_nb2']):>20}{_f(v['poisson_population_weighted_robust']):>20}"
+          f"{_f(v['poisson_county_weighted_robust']):>20}{_f(v['rate_eligible_nb2']):>20}")
+        a(f"  {'  P':<22}{_p(v['primary_nb2']['p']):>20}{_p(v['poisson_population_weighted_robust']['p']):>20}"
+          f"{_p(v['poisson_county_weighted_robust']['p']):>20}{_p(v['rate_eligible_nb2']['p']):>20}")
         if "metro_primary_nb2" in v:
             a(f"  {'  metropolitan term':<22}{_f(v['metro_primary_nb2']):>20}"
-              f"{_f(v['metro_poisson_unweighted_robust']):>20}"
               f"{_f(v['metro_poisson_population_weighted_robust']):>20}"
-              f"{_f(v['metro_nb2_population_weighted_robust']):>20}{_f(v['metro_rate_eligible_nb2']):>20}")
+              f"{_f(v['metro_poisson_county_weighted_robust']):>20}{_f(v['metro_rate_eligible_nb2']):>20}")
     a("")
     for idx, w in W["weights"].items():
         a(f"  {idx}: n = {w['n']:,}; Kish effective n under population weights = "

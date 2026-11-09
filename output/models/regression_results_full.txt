@@ -9,18 +9,18 @@ calculations but retained in these count models.
 
 Model                                                    IRR            95% CI        P
 --------------------------------------------------------------------------------------------
-SVI - CMR, unadjusted                                  1.000 (0.965-1.035)   0.9796
-SVI - CMR, adjusted for metropolitan status            1.003 (0.968-1.040)   0.8536
-SVI - CMR, adjusted for ordinal RUCC                   1.007 (0.971-1.044)   0.7120
-SVI - CMR, metropolitan status term                    8.561 (5.015-14.614)   <0.001
+SVI - CMR, unadjusted                                  1.000 (0.965-1.035)   0.9798
+SVI - CMR, adjusted for metropolitan status            1.003 (0.968-1.040)   0.8542
+SVI - CMR, adjusted for ordinal RUCC                   1.007 (0.971-1.044)   0.7115
+SVI - CMR, metropolitan status term                    8.548 (5.009-14.588)   <0.001
 SVI - CCT, unadjusted                                  1.030 (1.006-1.055)   0.0138
 SVI - CCT, adjusted for metropolitan status            1.033 (1.009-1.058)   0.0076
 SVI - CCT, adjusted for ordinal RUCC                   1.035 (1.010-1.060)   0.0049
 SVI - CCT, metropolitan status term                    2.083 (1.711-2.536)   <0.001
 EDI - CMR, unadjusted                                  0.948 (0.915-0.982)   0.0029
-EDI - CMR, adjusted for metropolitan status            0.993 (0.958-1.029)   0.6989
-EDI - CMR, adjusted for ordinal RUCC                   1.005 (0.968-1.043)   0.8014
-EDI - CMR, metropolitan status term                    8.330 (4.858-14.281)   <0.001
+EDI - CMR, adjusted for metropolitan status            0.993 (0.958-1.029)   0.6990
+EDI - CMR, adjusted for ordinal RUCC                   1.005 (0.968-1.043)   0.8020
+EDI - CMR, metropolitan status term                    8.330 (4.859-14.283)   <0.001
 EDI - CCT, unadjusted                                  0.989 (0.967-1.013)   0.3718
 EDI - CCT, adjusted for metropolitan status            1.016 (0.992-1.041)   0.1862
 EDI - CCT, adjusted for ordinal RUCC                   1.027 (1.002-1.052)   0.0331
@@ -35,49 +35,49 @@ EDI - CCT, adjusted (alpha = 1.0)                      1.010 (0.977-1.044)   0.5
 
 SENSITIVITY: restricted to rate-eligible counties (>= 1,000 adults 45+)
 --------------------------------------------------------------------------------------------
-SVI - CMR, adjusted (n = 3,038)                        1.003 (0.968-1.040)   0.8556
+SVI - CMR, adjusted (n = 3,038)                        1.003 (0.968-1.040)   0.8562
 SVI - CCT, adjusted (n = 3,038)                        1.033 (1.009-1.058)   0.0078
-EDI - CMR, adjusted (n = 3,029)                        0.993 (0.958-1.029)   0.6981
-EDI - CCT, adjusted (n = 3,029)                        1.016 (0.992-1.041)   0.1879
+EDI - CMR, adjusted (n = 3,029)                        0.993 (0.958-1.029)   0.6982
+EDI - CCT, adjusted (n = 3,029)                        1.016 (0.992-1.041)   0.1880
 
 SENSITIVITY: Accredited-only cohort (real cohort, from 14_*)
 --------------------------------------------------------------------------------------------
-Primary (Accredited + Under Review) CMR unadjusted S   1.000 (0.965-1.035)   0.9796
-Primary (Accredited + Under Review) CMR adjusted SVI   1.003 (0.968-1.040)   0.8536
-Primary (Accredited + Under Review) CMR adjusted met   8.561 (5.015-14.614)   0.0000
+Primary (Accredited + Under Review) CMR unadjusted S   1.000 (0.965-1.035)   0.9798
+Primary (Accredited + Under Review) CMR adjusted SVI   1.003 (0.968-1.040)   0.8542
+Primary (Accredited + Under Review) CMR adjusted met   8.548 (5.009-14.588)   0.0000
 Primary (Accredited + Under Review) CCT unadjusted S   1.030 (1.006-1.055)   0.0138
 Primary (Accredited + Under Review) CCT adjusted SVI   1.033 (1.009-1.058)   0.0076
 Primary (Accredited + Under Review) CCT adjusted met   2.083 (1.711-2.536)   0.0000
 Primary (Accredited + Under Review) CMR unadjusted E   0.948 (0.915-0.982)   0.0029
-Primary (Accredited + Under Review) CMR adjusted EDI   0.993 (0.958-1.029)   0.6989
-Primary (Accredited + Under Review) CMR adjusted met   8.330 (4.858-14.281)   0.0000
+Primary (Accredited + Under Review) CMR adjusted EDI   0.993 (0.958-1.029)   0.6990
+Primary (Accredited + Under Review) CMR adjusted met   8.330 (4.859-14.283)   0.0000
 Primary (Accredited + Under Review) CCT unadjusted E   0.989 (0.967-1.013)   0.3718
 Primary (Accredited + Under Review) CCT adjusted EDI   1.016 (0.992-1.041)   0.1862
 Primary (Accredited + Under Review) CCT adjusted met   2.127 (1.737-2.606)   0.0000
-Sensitivity (Accredited only) CMR unadjusted SVI       0.999 (0.964-1.035)   0.9547
-Sensitivity (Accredited only) CMR adjusted SVI         1.003 (0.967-1.039)   0.8833
-Sensitivity (Accredited only) CMR adjusted metro       8.486 (4.971-14.489)   0.0000
+Sensitivity (Accredited only) CMR unadjusted SVI       0.999 (0.964-1.035)   0.9549
+Sensitivity (Accredited only) CMR adjusted SVI         1.003 (0.967-1.039)   0.8841
+Sensitivity (Accredited only) CMR adjusted metro       8.471 (4.964-14.456)   0.0000
 Sensitivity (Accredited only) CCT unadjusted SVI       1.030 (1.006-1.055)   0.0135
 Sensitivity (Accredited only) CCT adjusted SVI         1.033 (1.009-1.058)   0.0077
-Sensitivity (Accredited only) CCT adjusted metro       2.066 (1.697-2.515)   0.0000
+Sensitivity (Accredited only) CCT adjusted metro       2.066 (1.697-2.514)   0.0000
 Sensitivity (Accredited only) CMR unadjusted EDI       0.948 (0.915-0.982)   0.0029
-Sensitivity (Accredited only) CMR adjusted EDI         0.993 (0.957-1.029)   0.6862
-Sensitivity (Accredited only) CMR adjusted metro       8.248 (4.811-14.142)   0.0000
-Sensitivity (Accredited only) CCT unadjusted EDI       0.990 (0.967-1.014)   0.4126
-Sensitivity (Accredited only) CCT adjusted EDI         1.017 (0.993-1.041)   0.1711
+Sensitivity (Accredited only) CMR adjusted EDI         0.993 (0.957-1.029)   0.6863
+Sensitivity (Accredited only) CMR adjusted metro       8.249 (4.811-14.144)   0.0000
+Sensitivity (Accredited only) CCT unadjusted EDI       0.990 (0.967-1.014)   0.4127
+Sensitivity (Accredited only) CCT adjusted EDI         1.017 (0.993-1.041)   0.1712
 Sensitivity (Accredited only) CCT adjusted metro       2.112 (1.724-2.586)   0.0000
 
 SENSITIVITY: SVI quartile indicators (from 15_*)
 --------------------------------------------------------------------------------------------
-CMR unadjusted SVI Q2 vs Q1                            0.996 (0.745-1.330)   0.9774
-CMR unadjusted SVI Q3 vs Q1                            1.125 (0.853-1.485)   0.4045
+CMR unadjusted SVI Q2 vs Q1                            0.996 (0.746-1.331)   0.9788
+CMR unadjusted SVI Q3 vs Q1                            1.125 (0.853-1.485)   0.4050
 CMR unadjusted SVI Q4 vs Q1                            0.968 (0.726-1.291)   0.8245
-CMR adjusted for metropolitan status SVI Q2 vs Q1      1.008 (0.753-1.348)   0.9594
-CMR adjusted for metropolitan status SVI Q3 vs Q1      1.142 (0.864-1.509)   0.3517
-CMR adjusted for metropolitan status SVI Q4 vs Q1      0.982 (0.734-1.314)   0.9026
-CCT unadjusted SVI Q2 vs Q1                            1.207 (0.985-1.479)   0.0696
+CMR adjusted for metropolitan status SVI Q2 vs Q1      1.007 (0.753-1.348)   0.9611
+CMR adjusted for metropolitan status SVI Q3 vs Q1      1.141 (0.864-1.509)   0.3525
+CMR adjusted for metropolitan status SVI Q4 vs Q1      0.982 (0.734-1.313)   0.9011
+CCT unadjusted SVI Q2 vs Q1                            1.207 (0.985-1.479)   0.0694
 CCT unadjusted SVI Q3 vs Q1                            1.381 (1.136-1.678)   0.0012
-CCT unadjusted SVI Q4 vs Q1                            1.254 (1.028-1.530)   0.0259
+CCT unadjusted SVI Q4 vs Q1                            1.254 (1.028-1.531)   0.0258
 CCT adjusted for metropolitan status SVI Q2 vs Q1      1.218 (0.994-1.492)   0.0566
 CCT adjusted for metropolitan status SVI Q3 vs Q1      1.393 (1.146-1.692)   0.0009
-CCT adjusted for metropolitan status SVI Q4 vs Q1      1.270 (1.041-1.550)   0.0184
+CCT adjusted for metropolitan status SVI Q4 vs Q1      1.270 (1.041-1.550)   0.0183

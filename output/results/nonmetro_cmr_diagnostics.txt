@@ -38,9 +38,9 @@ Diagnosis:
 
   Interaction model, all 3,134 counties, NB2 with alpha estimated from all
   counties (does not depend on the sparse stratum's dispersion):
-    nonmetropolitan EDI slope 0.71 (0.56-0.89), P 0.003
-    metropolitan EDI slope    1.00 (0.97-1.04), P 0.864
-    ratio of slopes           1.42 (1.12-1.80), P 0.004
+    nonmetropolitan EDI slope 0.70 (0.56-0.89), P 0.003
+    metropolitan EDI slope    1.00 (0.97-1.04), P 0.863
+    ratio of slopes           1.42 (1.13-1.80), P 0.003
 
   Within the stratum, adjusting for ordinal RUCC (4-9) or log population
   density: 0.71 (0.56-0.90) and 0.71 (0.56-0.90).

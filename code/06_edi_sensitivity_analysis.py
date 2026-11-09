@@ -128,8 +128,7 @@ def _fit(analysis, count_col, terms):
     X = sm.add_constant(analysis[terms], has_constant='add')
     offset = analysis['log_pop'].values
     # Primary specification: NB2 with the dispersion estimated. See model_spec.py.
-    res = dm.NegativeBinomial(y, X, loglike_method="nb2",
-                              offset=offset).fit(disp=0, maxiter=300)
+    res = model_spec.fit_nb2(dm.NegativeBinomial(y, X, loglike_method="nb2", offset=offset))
     out = {'n': int(len(analysis)), 'aic': float(res.aic),
            'events': int(y.sum()), 'counties_with_facility': int((y > 0).sum())}
     for t in terms:

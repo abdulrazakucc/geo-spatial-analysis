@@ -303,7 +303,7 @@ def create_table1(df):
     print(f"  Spearman ρ (CCT rate vs SVI): {cct_rho:.4f}, p = {cct_p:.4f}")
     
     # Save CSV
-    table_df.to_csv(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.csv"), index=False)
+    table_df.to_csv(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.csv"), index=False, encoding="utf-8-sig")
     
     # Save formatted text
     with open(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.txt"), 'w') as f:

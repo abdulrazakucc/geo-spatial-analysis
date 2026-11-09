@@ -1,16 +1,17 @@
 ==============================================================================
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
-Document: manuscript/manuscript_CLEAN.docx
-SHA256:   cb6f794103466f201a7969cd689ef3fb0bdc26f1f7a01c64816c0028dba83646
-Checked:  2026-11-04T23:17:16Z
-Code:     48ba75a (working tree modified)
-Checks:   245     Mismatches: 0
+Document: manuscript/manuscript_SUBMISSION.docx
+SHA256:   9e5c04d81a55132dd660f5f99df5716cc4508ae1eb91b6b63455832b344ad384
+Checked:  2026-11-09T03:27:50Z
+Code:     6a9fa9b (working tree modified)
+Checks:   289     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
 ALL CHECKS
 ------------------------------------------------------------------------------
+  ok    absent: Data Availability promises the URL 'at revision' in the revision itself absent
   ok    absent: pre-HUD CMR facility total (now 722) absent
   ok    absent: pre-HUD CCT facility total (now 1,542) absent
   ok    absent: intermediate CMR facility total (now 722) absent
@@ -79,7 +80,7 @@ ALL CHECKS
   ok    manuscript AIC+BIC claim matches generated comparison supported by AIC and BIC
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
-  ok    body word count note matches the text 3,432
+  ok    body word count note matches the text 3,500
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
   ok    Summary note matches actual counts 27 words; 224 characters
@@ -94,23 +95,27 @@ ALL CHECKS
   ok    rate-excluded county count         106 counties
   ok    claim: no facility in the rate-excluded counties supported
   ok    claim: rate-eligible restriction changed no IRR by more than 0.001 supported
-  ok    weighted SVI-CCT adjusted          IRR 1.02; 95% CI, 0.98-1.07; P = 0.326
-  ok    weighted EDI-CMR unadjusted        IRR 0.99; 95% CI, 0.95-1.03; P = 0.514
-  ok    weighted metro term, CMR (EDI model) IRR 4.01; 95% CI, 2.27-7.08
-  ok    weighted metro term, CCT (EDI model) IRR 1.88; 95% CI, 1.52-2.34
-  ok    claim: no index association significant in population-weighted models supported
+  ok    weighted SVI-CCT adjusted          IRR 1.03; 95% CI, 1.01-1.06; P = 0.010
+  ok    weighted metro term, CMR (EDI model) IRR 8.75; 95% CI, 5.16-14.85
+  ok    weighted metro term, CCT (EDI model) IRR 2.27; 95% CI, 1.87-2.76
+  ok    weighted EDI-CMR adjusted          IRR 1.00; 95% CI, 0.96-1.03; P = 0.778
+  ok    claim: weighted estimates described as agreeing with the primary estimates supported
+  ok    claim: no 'none significant under weighting' claim not claimed
+  ok    SVI-CCT with dispersion fixed at 1 dispersion fixed at 1 (P = 0.058)
+  ok    claim: rate-eligible bound stated for index IRRs supported
+  ok    SVI-CCT index-by-metro interaction P interaction P = 0.104
+  ok    claim: SVI-CCT not called 'confined' to metropolitan counties (interaction not significant) not claimed
   ok    claim: estimated dispersion wins AIC and BIC in all 12 models supported
-  ok    Holm-adjusted SVI-CCT, primary family Holm adjustment (P = 0.030)
-  ok    BH-adjusted SVI-CCT, all tests     significant (P = 0.034)
-  ok    BH-adjusted SDI-CMR, all tests     SDI-CMR association (P = 0.096)
-  ok    claim: SDI-CMR loses significance under FDR supported
-  ok    size of the extended family        all 18 index associations
+  ok    Holm-adjusted SVI-CCT, primary family within the primary family (P = 0.030)
+  ok    BH-adjusted SVI-CCT, all tests     index associations (P = 0.034)
+  ok    size of the extended family        18 negative binomial index associations
+  ok    claim: extended family not described as all associations reported not claimed
   ok    Table 2 note Holm SVI-CMR          1.000 (SVI, cardiac MR)
   ok    Table 2 note Holm SVI-CCT          0.030 (SVI, cardiac CT)
   ok    Table 2 note Holm EDI-CMR          1.000 (EDI, cardiac MR)
-  ok    Table 2 note Holm EDI-CCT          0.558 (EDI, cardiac CT)
+  ok    Table 2 note Holm EDI-CCT          0.559 (EDI, cardiac CT)
   ok    nonmetro EDI-CMR estimate          IRR 0.70; 95% CI, 0.56-0.89; P = 0.003
-  ok    nonmetro EDI-CMR interaction P     interaction P = 0.004
+  ok    nonmetro EDI-CMR interaction P     interaction P = 0.003
   ok    nonmetro profile-likelihood CI     0.55-0.88
   ok    nonmetro RUCC-adjusted estimate    IRR 0.71
   ok    nonmetro facility count            14 accredited CMR facilities
@@ -122,22 +127,61 @@ ALL CHECKS
   ok    SVI-CCT, nonmetropolitan stratum   IRR 0.98; 95% CI, 0.92-1.05
   ok    SVI-CCT, density-adjusted          IRR 1.02; 95% CI, 0.99-1.04; P = 0.152
   ok    claim: SVI-CCT attenuated by density supported
-  ok    claim: SVI-CCT confined to metropolitan counties supported
+  ok    claim: SVI-CCT confined to metropolitan counties not claimed
   ok    SVI theme 4, CCT                   IRR 1.07; 95% CI, 1.05-1.10
   ok    SVI theme 3, CCT                   IRR 1.04; 95% CI, 1.01-1.07
-  ok    SVI-CMR, density-adjusted          IRR 0.97; 95% CI, 0.93-1.00; P = 0.065
-  ok    theme 3 vs density, metro          ρ = 0.37
-  ok    theme 4 vs density, metro          ρ = 0.20
-  ok    CCT facilities in RUCC 1           987 of 1,542
+  ok    themes 4 and 3 vs density, metro   ρ = 0.20 and 0.37
+  ok    claim: themes 3-4 strongest, not sole carriers not claimed
   ok    PC1 eigenvalue                     eigenvalue 3.52
   ok    PC1 loading range                  loadings, 0.33-0.94
   ok    claim: all six indicators load positively on PC1 supported
   ok    PC2 eigenvalue and variance        eigenvalue 1.03; 17.1% of variance
   ok    claim: PC2 reflects mainly housing cost burden supported
+  ok    claim: parallel analysis retained one component supported
   ok    pooled Q1/Q5 ratio                 1.4-fold
-  ok    reference list numbered 1..N       1..18
-  ok    references cited in order of first appearance 1..18
-  ok    front-matter reference count       18
+  ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98 computed by the pipeline
+  ok    estimate in text: IRR 0.99; 95% CI, 0.96-1.03 computed by the pipeline
+  ok    estimate in text: IRR 8.33; 95% CI, 4.86-14.28 computed by the pipeline
+  ok    estimate in text: IRR 2.13; 95% CI, 1.74-2.61 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.96-1.04; P = 0.980 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.014 computed by the pipeline
+  ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98; P = 0.003 computed by the pipeline
+  ok    estimate in text: IRR 0.99; 95% CI, 0.97-1.01; P = 0.372 computed by the pipeline
+  ok    estimate in text: IRR 0.99; 95% CI, 0.96-1.03; P = 0.699 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 0.99-1.04; P = 0.186 computed by the pipeline
+  ok    estimate in text: IRR 8.33; 95% CI, 4.86-14.28 computed by the pipeline
+  ok    estimate in text: IRR 2.13; 95% CI, 1.74-2.61 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.97-1.04; P = 0.802 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.97-1.04; P = 0.863 computed by the pipeline
+  ok    estimate in text: IRR 0.70; 95% CI, 0.56-0.89; P = 0.003 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 0.98-1.05; P = 0.322 computed by the pipeline
+  ok    estimate in text: IRR 1.04; 95% CI, 1.00-1.07; P = 0.043 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 1.00-1.05; P = 0.033 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.003 computed by the pipeline
+  ok    estimate in text: IRR 8.67; 95% CI, 5.08-14.80 computed by the pipeline
+  ok    estimate in text: IRR 2.11; 95% CI, 1.74-2.58 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.010 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.96-1.03; P = 0.778 computed by the pipeline
+  ok    estimate in text: IRR 8.75; 95% CI, 5.16-14.85 computed by the pipeline
+  ok    estimate in text: IRR 2.27; 95% CI, 1.87-2.76 computed by the pipeline
+  ok    estimate in text: IRR 1.04; 95% CI, 1.01-1.07 computed by the pipeline
+  ok    estimate in text: IRR 0.98; 95% CI, 0.92-1.05 computed by the pipeline
+  ok    estimate in text: IRR 1.07; 95% CI, 1.05-1.10 computed by the pipeline
+  ok    estimate in text: IRR 1.04; 95% CI, 1.01-1.07 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 0.99-1.04; P = 0.152 computed by the pipeline
+  ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98; P = 0.006 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
+  ok    estimate in text: 8.55 (95% CI, 5.01-14.59) computed by the pipeline
+  ok    estimate in text: 2.08 (95% CI, 1.71-2.54) computed by the pipeline
+  ok    IRR in text: IRR 0.71              computed by the pipeline
+  ok    IRR in text: IRR 0.80              computed by the pipeline
+  ok    IRR in text: IRR 0.76              computed by the pipeline
+  ok    reference list numbered 1..N       1..21
+  ok    references cited in order of first appearance 1..21
+  ok    front-matter reference count       21
   ok    Q1/Q5 gradient                     2.9-fold
   ok    Q1 CMR rate                        0.26
   ok    Q5 CMR rate                        0.09
@@ -228,20 +272,20 @@ ALL CHECKS
   ok    T2 Cardiac CT metro term           2.13 (1.74-2.61)
   ok    T3 RUCC Cardiac MR n               3,134
   ok    T3 RUCC Cardiac MR EDI             1.00 (0.97-1.04)
-  ok    T3 RUCC Cardiac MR P               0.801
+  ok    T3 RUCC Cardiac MR P               0.802
   ok    T3 RUCC Cardiac MR term            0.70 (0.64-0.76)
   ok    T3 RUCC Cardiac CT n               3,134
   ok    T3 RUCC Cardiac CT EDI             1.03 (1.00-1.05)
   ok    T3 RUCC Cardiac CT P               0.033
   ok    T3 RUCC Cardiac CT term            0.84 (0.81-0.88)
   ok    T3 weighted Cardiac MR n           3,134
-  ok    T3 weighted Cardiac MR EDI         0.99 (0.95-1.03)
-  ok    T3 weighted Cardiac MR P           0.531
-  ok    T3 weighted Cardiac MR metro       4.01 (2.27-7.08)
+  ok    T3 weighted Cardiac MR EDI         1.00 (0.96-1.03)
+  ok    T3 weighted Cardiac MR P           0.778
+  ok    T3 weighted Cardiac MR metro       8.75 (5.16-14.85)
   ok    T3 weighted Cardiac CT n           3,134
-  ok    T3 weighted Cardiac CT EDI         1.03 (0.99-1.07)
-  ok    T3 weighted Cardiac CT P           0.131
-  ok    T3 weighted Cardiac CT metro       1.88 (1.52-2.34)
+  ok    T3 weighted Cardiac CT EDI         1.02 (1.00-1.05)
+  ok    T3 weighted Cardiac CT P           0.092
+  ok    T3 weighted Cardiac CT metro       2.27 (1.87-2.76)
   ok    T3 Cardiac MR, metropolitan n      1,178
   ok    T3 Cardiac MR, metropolitan EDI    1.00 (0.97-1.04)
   ok    T3 Cardiac MR, metropolitan P      0.863

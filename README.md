@@ -78,36 +78,44 @@ Analyses added in response to the first round of review are produced by
 supplement by `code/19_supplementary_material.py` (stage E). The gate checks
 every number they put in the manuscript.
 
-**Population weighting (R1-02).** The log-population offset models each county's
-rate but weights every county equally, so the primary estimand is the
-association in the average county. Weighting by adults aged 45+ (Poisson
-quasi-likelihood, robust SEs) estimates it for the average adult:
+**Population weighting (R1-02).** With a log-population offset, Poisson regression
+weights each county's rate by its adults aged 45+ (score: sum N x (r - lambda) = 0),
+so it is the population-weighted (average-adult) analysis. The primary NB2 model's
+weight, N/(1 + alpha mu), rises with population and levels off. Population-weighted
+estimates (Poisson with offset, robust SEs) agree with the primary ones:
 
-| Adjusted model | County-weighted (primary) | Population-weighted |
+| Model | Primary NB2 | Population-weighted Poisson |
 |---|---|---|
-| SVI, CCT | 1.03 (1.01-1.06), P 0.008 | 1.02 (0.98-1.07), P 0.326 |
-| EDI, CMR | 0.99 (0.96-1.03), P 0.699 | 0.99 (0.95-1.03), P 0.531 |
-| Metropolitan status, CMR (EDI model) | 8.33 (4.86-14.28) | 4.01 (2.27-7.08) |
+| SVI, CCT, adjusted | 1.03 (1.01-1.06), P 0.008 | 1.03 (1.01-1.06), P 0.010 |
+| EDI, CMR, adjusted | 0.99 (0.96-1.03), P 0.699 | 1.00 (0.96-1.03), P 0.778 |
+| EDI, CMR, unadjusted | 0.95 (0.91-0.98), P 0.003 | 0.96 (0.93-1.00), P 0.037 |
+| Metropolitan status, CMR (EDI model) | 8.33 (4.86-14.28) | 8.75 (5.16-14.85) |
 
-No index association is significant under weighting; the metropolitan effect
-persists. None of the 106 rate-excluded counties has an accredited facility.
+An earlier version added population weights to the offset Poisson model, which
+weights rates by population squared; it was replaced. None of the 106
+rate-excluded counties has an accredited facility.
 
 **Nonmetropolitan CMR stratum (R2-03).** Previously reported as not estimable.
 Each of its 14 facilities is in a different county, so the NB2 dispersion
 estimate lies on its boundary (alpha = 0) and the Hessian at the optimiser's
 stopping point is not positive definite. The maximum-likelihood fit is then the
 Poisson fit: EDI IRR 0.70 (0.56-0.89), P 0.003; EDI x metro interaction
-P 0.004. `model_spec.fit_primary_checked` applies this rule to every
+P 0.003. `model_spec.fit_primary_checked` applies this rule to every
 stratified fit and substitutes nothing when the Hessian is usable. Details:
 `output/results/nonmetro_cmr_diagnostics.txt`.
 
 **Multiplicity (R2-02).** Primary family = the four metropolitan-adjusted SVI and
 EDI associations. Holm-adjusted P for SVI-CCT = 0.030;
-Benjamini-Hochberg across all 18 index tests = 0.034.
+Benjamini-Hochberg across the 18 negative binomial index tests = 0.034.
 
-**Positive SVI-CCT association (R1-04, exploratory).** Confined to metropolitan
-counties and no longer significant after adjustment for log population density
-(1.02 (0.99-1.04), P 0.152).
+**Positive SVI-CCT association (R1-04, exploratory).** Detected in metropolitan
+counties (1.04 (1.01-1.07)) but not in nonmetropolitan
+counties (0.98 (0.92-1.05)); the interaction
+(P 0.104) does not establish different slopes.
+No longer significant after adjustment for log population density
+(1.02 (0.99-1.04), P 0.152). With categorical RUCC
+(cardiac MR codes 7-9 combined) and density, SVI-CMR is inverse
+(0.95 (0.91-0.98), P 0.006).
 
 The manuscript revision is applied as tracked changes by
 `tools/revise_manuscript_r1.py` and the submission package is assembled by
@@ -172,7 +180,7 @@ python code/00_run_all.py --all            # everything
 descriptive statistic, every regression coefficient, every correlation, and
 every table cell in the paper directly from the committed data, then compares
 them against the manuscript file and reports any disagreement. The current run
-reports **245 checks, 0 mismatches**.
+reports **289 checks, 0 mismatches**.
 
 Full details of what is checked and how, including the model specification and
 each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md)**.

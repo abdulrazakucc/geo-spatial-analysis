@@ -1,4 +1,4 @@
-Stratum,n_counties,adult_45plus_millions,cmr_sites,cmr_counties_with_pct,cmr_rate_median_iqr,cct_sites,cct_rate_median_iqr
+﻿Stratum,n_counties,adult_45plus_millions,cmr_sites,cmr_counties_with_pct,cmr_rate_median_iqr,cct_sites,cct_rate_median_iqr
 All counties,3144,141.6,722,300 (9.5%),0.00 (0.00–0.00),1542,0.00 (0.00–0.00)
 Q1 (least vulnerable),786,21.47,101,60 (7.6%),0.00 (0.00–0.00),182,0.00 (0.00–0.00)
 Q2,786,33.62,168,75 (9.5%),0.00 (0.00–0.00),350,0.00 (0.00–0.00)

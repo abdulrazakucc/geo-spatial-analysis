@@ -1,15 +1,15 @@
-Test (location),IRR (95% CI),Unadjusted P,"Holm P, primary family","BH P, primary family","Holm P, all 18","BH P, all 18"
+﻿Test (location),IRR (95% CI),Unadjusted P,"Holm P, primary family","BH P, primary family","Holm P, all 18","BH P, all 18"
 "SVI-CMR, unadjusted (Table 2)",1.00 (0.96-1.04),0.980,,,1.000,0.980
 "SVI-CMR, adjusted for metropolitan status (Table 2)",1.00 (0.97-1.04),0.854,1.000,0.854,1.000,0.914
 "SVI-CCT, unadjusted (Table 2)",1.03 (1.01-1.06),0.014,,,0.193,0.050
 "SVI-CCT, adjusted for metropolitan status (Table 2)",1.03 (1.01-1.06),0.008,0.030,0.030,0.113,0.034
 "EDI-CMR, unadjusted (Table 2)",0.95 (0.91-0.98),0.003,,,0.049,0.018
 "EDI-CMR, adjusted for metropolitan status (Table 2)",0.99 (0.96-1.03),0.699,1.000,0.854,1.000,0.899
-"EDI-CMR, adjusted for ordinal RUCC (Table 3)",1.00 (0.97-1.04),0.801,,,1.000,0.914
+"EDI-CMR, adjusted for ordinal RUCC (Table 3)",1.00 (0.97-1.04),0.802,,,1.000,0.914
 "EDI-CMR, metropolitan counties (Table 3)",1.00 (0.97-1.04),0.863,,,1.000,0.914
 "EDI-CMR, nonmetropolitan counties (Table 3)",0.70 (0.56-0.89),0.003,,,0.049,0.018
 "EDI-CCT, unadjusted (Table 2)",0.99 (0.97-1.01),0.372,,,1.000,0.515
-"EDI-CCT, adjusted for metropolitan status (Table 2)",1.02 (0.99-1.04),0.186,0.558,0.372,1.000,0.335
+"EDI-CCT, adjusted for metropolitan status (Table 2)",1.02 (0.99-1.04),0.186,0.559,0.372,1.000,0.335
 "EDI-CCT, adjusted for ordinal RUCC (Table 3)",1.03 (1.00-1.05),0.033,,,0.428,0.085
 "EDI-CCT, metropolitan counties (Table 3)",1.02 (1.00-1.05),0.071,,,0.711,0.142
 "EDI-CCT, nonmetropolitan counties (Table 3)",0.96 (0.89-1.03),0.232,,,1.000,0.380
@@ -19,6 +19,6 @@ Test (location),IRR (95% CI),Unadjusted P,"Holm P, primary family","BH P, primar
 "SDI-CCT, adjusted for metropolitan status (Figure 2)",1.03 (1.01-1.06),0.003,,,0.049,0.018
 
 "Primary family: the 4 metropolitan-adjusted SVI and EDI associations, designated as the primary analysis before review. Holm controls the family-wise error rate; Benjamini-Hochberg (BH) controls the false discovery rate."
-"Extended family: all 18 index associations reported in Tables 2 and 3 and Figure 2. Significant at P < 0.05: unadjusted 8, Holm 3, BH 5."
+"Extended family: all 18 negative binomial index associations reported in Tables 2 and 3 and Figure 2; the population-weighted Poisson estimates in Table 3 are a separate sensitivity analysis and not part of it. Significant at P < 0.05: unadjusted 8, Holm 3, BH 5."
 "Within the primary family no conclusion changed under either procedure. A further two-test family restricted to the SVI, the designated primary predictor, gave the same result (1 of 2 significant after Holm adjustment)."
 Metropolitan-status terms are not deprivation hypotheses and are not included; each had P < 0.001. CCT = cardiac computed tomography; CI = confidence interval; CMR = cardiac magnetic resonance; EDI = economic deprivation index; IRR = incidence rate ratio; NB2 = negative binomial (quadratic variance); NE = not estimable; RUCC = Rural-Urban Continuum Code; SDI = Social Deprivation Index; SVI = Social Vulnerability Index.

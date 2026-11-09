@@ -46,7 +46,7 @@ from statsmodels.genmod.families import NegativeBinomial
 __all__ = [
     "PRIMARY_LABEL", "SENSITIVITY_LABEL",
     "analytic_sample", "fit_primary", "fit_primary_terms",
-    "fit_fixed_alpha", "fit_primary_checked", "estimates", "alpha_of",
+    "fit_fixed_alpha", "fit_primary_checked", "estimates", "alpha_of", "fit_nb2",
 ]
 
 PRIMARY_LABEL = "negative binomial, dispersion estimated"
@@ -76,11 +76,35 @@ def _design(d: pd.DataFrame, adjusted: bool):
     return sm.add_constant(d[terms], has_constant="add"), np.log(d["adult_pop_45plus"])
 
 
+def fit_nb2(model, maxiter: int = MAXITER):
+    """Fit an NB2 model to its maximum-likelihood solution.
+
+    statsmodels fits NegativeBinomial with BFGS by default, which can stop a
+    little short of the maximum: in the EDI-by-metropolitan-status interaction
+    model it stopped 0.0003 log-likelihood units short, enough to move a
+    printed P value from 0.003 to 0.004. Newton-Raphson steps from the BFGS
+    point then finish the job. The Newton result is kept only when it is a
+    proper interior solution (converged, finite, alpha > 0, finite standard
+    errors, and no lower likelihood); otherwise the BFGS result stands, which is
+    what the boundary diagnostics in fit_primary_checked rely on.
+    """
+    res = model.fit(disp=0, maxiter=maxiter)
+    try:
+        pol = model.fit(start_params=np.asarray(res.params), method="newton",
+                        maxiter=100, disp=0)
+    except Exception:  # noqa: BLE001
+        return res
+    alpha = float(np.asarray(pol.params)[-1])
+    ok = (bool(pol.mle_retvals.get("converged", False)) and np.isfinite(pol.llf)
+          and pol.llf >= res.llf - 1e-10 and alpha > 0
+          and np.all(np.isfinite(np.asarray(pol.bse))))
+    return pol if ok else res
+
+
 def fit_primary(d: pd.DataFrame, outcome: str, adjusted: bool):
     """NB2 with dispersion estimated by maximum likelihood."""
     X, offset = _design(d, adjusted)
-    return dm.NegativeBinomial(d[outcome], X, loglike_method="nb2",
-                               offset=offset).fit(disp=0, maxiter=MAXITER)
+    return fit_nb2(dm.NegativeBinomial(d[outcome], X, loglike_method="nb2", offset=offset))
 
 
 def fit_fixed_alpha(d: pd.DataFrame, outcome: str, adjusted: bool, alpha: float = 1.0):
@@ -97,9 +121,8 @@ def fit_primary_terms(d: pd.DataFrame, outcome: str, terms: list):
     ordinal-RUCC and metro-stratified variants.
     """
     X = sm.add_constant(d[terms], has_constant="add")
-    return dm.NegativeBinomial(d[outcome], X, loglike_method="nb2",
-                               offset=np.log(d["adult_pop_45plus"])
-                               ).fit(disp=0, maxiter=MAXITER)
+    return fit_nb2(dm.NegativeBinomial(d[outcome], X, loglike_method="nb2",
+                                       offset=np.log(d["adult_pop_45plus"])))
 
 
 #: Below this, an estimated NB2 dispersion is treated as lying on the boundary
@@ -154,6 +177,10 @@ def fit_primary_checked(d: pd.DataFrame, outcome: str, terms: list) -> tuple:
         "n": int(len(d)),
     }
     if diag["hessian_positive_definite"]:
+        # Regular interior fit: finish it at the maximum, as every primary fit is.
+        res = fit_nb2(model)
+        diag.update(alpha=float(res.params["alpha"]), llf_nb2=float(res.llf),
+                    converged=bool(res.mle_retvals.get("converged", False)))
         return res, diag
     pois = sm.GLM(d[outcome], X, family=sm.families.Poisson(), offset=offset).fit()
     diag["llf_poisson"] = float(pois.llf)

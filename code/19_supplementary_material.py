@@ -76,6 +76,12 @@ def f_p(p):
     return "<0.001" if p < 0.001 else f"{p:.3f}"
 
 
+def f_pe(p):
+    """P value with its relation sign: 'P = 0.003', 'P < 0.001'."""
+    t = f_p(p)
+    return "P NE" if t == "NE" else ("P < 0.001" if t == "<0.001" else f"P = {t}")
+
+
 def f_n(x):
     if x is None or (isinstance(x, float) and not np.isfinite(x)):
         return ""
@@ -102,6 +108,10 @@ def add_table(doc, title, header, rows, notes, widths=None, font=7.5, bold_rows=
     t = doc.add_table(rows=1, cols=len(header))
     t.style = "Table Grid"
     _set_cell_margins(t)
+    tr_pr = t.rows[0]._tr.get_or_add_trPr()
+    hdr = OxmlElement("w:tblHeader")
+    hdr.set(qn("w:val"), "true")
+    tr_pr.append(hdr)
     for i, h in enumerate(header):
         c = t.rows[0].cells[i]
         c.text = ""
@@ -113,7 +123,12 @@ def add_table(doc, title, header, rows, notes, widths=None, font=7.5, bold_rows=
         sub = all(v == "" for v in row[1:])
         for i, v in enumerate(row):
             cells[i].text = ""
-            run = cells[i].paragraphs[0].add_run(str(v))
+            # A label written with leading spaces marks a sub-row: the spaces
+            # become a real paragraph indent, never literal characters.
+            text = str(v)
+            if text != text.lstrip():
+                cells[i].paragraphs[0].paragraph_format.left_indent = Pt(9)
+            run = cells[i].paragraphs[0].add_run(text.strip())
             run.font.size = Pt(font)
             if sub or k in bold_rows:
                 run.bold = True
@@ -145,10 +160,11 @@ def add_table(doc, title, header, rows, notes, widths=None, font=7.5, bold_rows=
 
 def write_csv(name, header, rows, notes):
     path = os.path.join(TABLES, name)
-    with open(path, "w", newline="", encoding="utf-8") as f:
+    # utf-8-sig writes a byte-order mark so Excel reads "≥" and "ρ" as UTF-8.
+    with open(path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(header)
-        w.writerows(rows)
+        w.writerows([[str(v).strip() for v in r] for r in rows])
         w.writerow([])
         for n in notes:
             w.writerow([n])
@@ -184,6 +200,25 @@ def para(doc, text, size=10):
 
 
 # --------------------------------------------------------------------- tables
+def cohort_facts():
+    """Cohort and county-assignment counts, read from the audit trail and extract."""
+    a = pd.read_csv(os.path.join(BASE_DIR, "data", "processed", "facility_mapping_audit.csv"), dtype=str)
+    inc = a[a.final_included == "True"]
+    share = pd.to_numeric(inc.mapping_share, errors="coerce")
+    x = pd.read_excel(os.path.join(BASE_DIR, "data", "download.xlsx"))
+    ct = x[x["modality"].astype(str).str.strip() == "CTAP"]
+    mods = ct["modules"].astype(str)
+    calcium_only = int((mods.str.contains("calcium", case=False) & ~mods.str.contains("cardiac", case=False)).sum())
+    return {"included": len(inc), "cmr": int((inc.modality_label == "CMR").sum()),
+            "cct": int((inc.modality_label == "CCT").sum()),
+            "accredited": int((inc.status == "Accredited").sum()),
+            "under_review": int((inc.status == "Under Review").sum()),
+            "hud": int((inc.mapping_method == "hud_res_ratio").sum()),
+            "manual": int((inc.mapping_method == "manual_zip_override").sum()),
+            "share_lt1": int((share < 1).sum()), "share_lt90": int((share < 0.9).sum()),
+            "calcium_only": calcium_only}
+
+
 def table_s1(R, N):
     C = R["E-05_population"]
     strata = [("all", "All counties"), ("metropolitan", "Metropolitan (RUCC 1-3)"),
@@ -211,15 +246,19 @@ def table_s1(R, N):
                 b = v["by_stratum"][s]
                 cells.append(f"{b['population_weighted_mean']:.{dp}f} "
                              f"[{b['median']:.{dp}f} ({b['q1']:.{dp}f}-{b['q3']:.{dp}f})]")
-            rows.append([v["label"]] + cells)
+            nmiss = v["by_stratum"]["all"]["n_missing"]
+            rows.append([v["label"] + (f" (missing, {nmiss} counties)" if nmiss else "")] + cells)
     miss = {k: v["by_stratum"]["all"]["n_missing"] for k, v in C["variables"].items()}
     chr_missing = max(miss[k] for k in ("pct_female", "diabetes", "obesity", "smoking",
                                         "inactivity", "premature_mortality", "pcp"))
     notes = [
-        "Values are population-weighted means [county median (interquartile range)]. "
-        "Population-weighted means use total county population as the weight and "
-        "approximate the characteristic among all residents of the stratum; medians "
-        "describe the distribution across counties.",
+        "Values are total-population-weighted averages of county estimates [county median "
+        "(interquartile range)]. Each county's published estimate is weighted by its total "
+        "population; for measures defined on adults, or age-adjusted, this approximates but is "
+        "not identical to a pooled value for the stratum, and the density value is the density "
+        "experienced by the average resident, not total population divided by total area. "
+        "Medians describe the distribution across counties. Missing counts are for all "
+        "counties.",
         "Unit of observation is the county. These are characteristics of county "
         "residents, not of patients imaged at accredited facilities; the study used no "
         "patient-level data, and cardiovascular disease prevalence, disease severity, "
@@ -233,8 +272,8 @@ def table_s1(R, N):
         "SVI land area for density. Race and ethnicity categories are mutually "
         "exclusive; all categories other than Hispanic or Latino are non-Hispanic.",
         f"County Health Rankings 2024 reports Connecticut by its former counties, so the "
-        f"9 Connecticut planning regions lack those measures; up to {chr_missing} "
-        f"counties are missing a County Health Rankings measure.",
+        f"9 Connecticut planning regions lack those measures; other missing values are as "
+        f"published (up to {chr_missing} counties for one measure).",
         "Rurality strata follow the 2023 USDA Rural-Urban Continuum Codes. " + ABBREV,
     ]
     return header, rows, notes
@@ -243,7 +282,8 @@ def table_s1(R, N):
 def table_s2(R, N):
     t = pd.read_csv(os.path.join(RESULTS, "comprehensive_model_table.csv"))
     header = ["Index", "Outcome", "Model", "Specification", "Counties, No.", "Facilities, No.",
-              "Index IRR (95% CI)", "P", "Second term", "Second term IRR (95% CI)", "Notes"]
+              "Index IRR (95% CI)", "P", "Second term", "Second term IRR (95% CI)",
+              "Dispersion (alpha)", "Notes"]
     rows = []
     for _, r in t.iterrows():
         e = f_est(r.irr, r.ci_low if r.estimable else np.nan, r.ci_high if r.estimable else np.nan)
@@ -252,6 +292,8 @@ def table_s2(R, N):
         rows.append([r["index"], r.outcome, r.model, r.specification, f_n(r.n_counties),
                      f_n(r.facilities), e, f_p(r.p if r.estimable else np.nan),
                      r.second_term if isinstance(r.second_term, str) else "", sec,
+                     (f"{r.alpha:.3g}" if pd.notna(r.alpha) else
+                      ("0 (Poisson)" if "Poisson" in str(r.specification) else "")),
                      r.note if isinstance(r.note, str) else ""])
     spec = pd.read_csv(os.path.join(RESULTS, "model_specification_comparison.csv"))
     rows_b = []
@@ -274,19 +316,28 @@ def table_s2(R, N):
         "and an offset of log(adults aged ≥45 years). The primary analysis is the SVI and EDI "
         "model adjusted for metropolitan status. Second term: metropolitan status (RUCC 1-3 vs "
         "4-9), ordinal RUCC per 1-code increase, or log population density per 1-unit increase.",
-        "The offset makes each model a model for the facility rate but weights every county "
-        "equally; primary estimates therefore describe the average county. Population-weighted "
-        "models weight counties by adults aged ≥45 years (normalized to mean 1) and estimate the "
-        "association for the average adult; robust (HC0) standard errors. Under these weights "
+        f"Panel A has {len(rows)} rows from "
+        f"{len(rows) - int((t.group == 'Index coding').sum()) + int((t.group == 'Index coding').sum()) // 3} "
+        "fitted models: the three SVI quartile contrasts for each outcome come from one model. "
+        "Weighting: the NB2 model weights each county's rate by N/(1 + alpha x mu), which rises "
+        "with population (N) and levels off. Population-weighted rows are Poisson regressions "
+        "with the same offset, which weight each county's rate by its adults aged ≥45 years and "
+        "so describe the average adult; rows with counties weighted equally use weights 1/N and "
+        "describe the average county; both have robust (HC0) standard errors. Under population weights "
         f"the Kish effective sample size is {W['SVI']['kish_effective_n']:.0f} of "
         f"{W['SVI']['n']:,} counties, and the largest 1% of counties carry "
         f"{100 * W['SVI']['share_of_weight_top_1pct_counties']:.1f}% of the weight.",
-        "Stratified rows marked Poisson: in these strata every county had zero or one facility, "
-        "the NB2 dispersion estimate lay on its boundary (alpha = 0) and the information matrix "
-        "could not be inverted at the optimizer's stopping point; the maximum-likelihood NB2 fit "
-        "at alpha = 0 is the Poisson fit, shown here (see Supplementary Table S4). Facility "
-        "totals differ by index because counties without an index value are excluded.",
-        "Panel B compares specifications for the unadjusted and metropolitan-adjusted models.",
+        "Stratified rows marked Poisson: the NB2 dispersion estimate lay on its boundary "
+        "(alpha = 0), the information matrix could not be inverted at the optimizer's stopping "
+        "point, and the Poisson log-likelihood was at least as high, so the maximum-likelihood "
+        "NB2 fit is the Poisson fit, shown here with a profile-likelihood interval. For cardiac "
+        "MR each of the 14 nonmetropolitan facilities is in a different county; for cardiac CT "
+        "the 115 nonmetropolitan facilities are in 108 counties (seven with two), and the counts "
+        "show no overdispersion (see Supplementary Table S4 and Supplementary Methods S4). "
+        "Facility totals differ by index because counties without an index value are excluded.",
+        "Panel B covers the unadjusted and metropolitan-adjusted SVI, EDI and SDI models (12 "
+        "index-outcome models, each fitted as Poisson, NB2 with dispersion estimated, and NB2 "
+        "with dispersion fixed at 1); it does not cover the other Panel A sensitivity rows.",
         ABBREV,
     ]
     return header, rows, header_b, rows_b, notes
@@ -307,8 +358,9 @@ def table_s3(R):
         f"Primary family: the {fam['primary']['n_tests']} metropolitan-adjusted SVI and EDI "
         "associations, designated as the primary analysis before review. Holm controls the "
         "family-wise error rate; Benjamini-Hochberg (BH) controls the false discovery rate.",
-        f"Extended family: all {fam['extended']['n_tests']} index associations reported in "
-        f"Tables 2 and 3 and Figure 2. Significant at P < 0.05: unadjusted "
+        f"Extended family: all {fam['extended']['n_tests']} negative binomial index associations "
+        f"reported in Tables 2 and 3 and Figure 2; the population-weighted Poisson estimates in "
+        f"Table 3 are a separate sensitivity analysis and not part of it. Significant at P < 0.05: unadjusted "
         f"{fam['extended']['significant_unadjusted']}, Holm {fam['extended']['significant_holm']}, "
         f"BH {fam['extended']['significant_bh']}.",
         f"Within the primary family no conclusion changed under either procedure. A further "
@@ -350,26 +402,27 @@ def table_s4(R):
         ["Dispersion held fixed", ""],
     ]
     for a, g in det["fixed_alpha_grid"].items():
-        rows.append([f"  alpha = {float(a):g}", f"{f_e(g)}; P {f_p(g['p'])}"])
+        rows.append([f"  alpha = {float(a):g}" if float(a) >= 1e-3 else
+                     f"  alpha = {float(a):.6f} (effectively Poisson)", f"{f_e(g)}; {f_pe(g['p'])}"])
     rows += [
         ["Alternative estimators", ""],
         ["  Interaction model, all counties (NB2, alpha estimated): nonmetropolitan EDI slope",
-         f"{f_e(inter['nonmetro_slope'])}; P {f_p(inter['nonmetro_slope']['p'])}"],
+         f"{f_e(inter['nonmetro_slope'])}; {f_pe(inter['nonmetro_slope']['p'])}"],
         ["  Interaction model: metropolitan EDI slope",
-         f"{f_e(inter['metro_slope'])}; P {f_p(inter['metro_slope']['p'])}"],
-        ["  Interaction model: ratio of slopes", f"{f_e(inter['interaction_ratio'])}; P "
-                                                  f"{f_p(inter['interaction_ratio']['p'])}"],
+         f"{f_e(inter['metro_slope'])}; {f_pe(inter['metro_slope']['p'])}"],
+        ["  Interaction model: ratio of slopes", f"{f_e(inter['interaction_ratio'])}; "
+                                                  f"{f_pe(inter['interaction_ratio']['p'])}"],
         ["  Within stratum, adjusted for ordinal RUCC (4-9)",
-         f"{f_e(det['within_stratum_ordinal_rucc'])}; P {f_p(det['within_stratum_ordinal_rucc']['p'])}"],
+         f"{f_e(det['within_stratum_ordinal_rucc'])}; {f_pe(det['within_stratum_ordinal_rucc']['p'])}"],
         ["  Within stratum, adjusted for log population density",
-         f"{f_e(det['within_stratum_log_density'])}; P {f_p(det['within_stratum_log_density']['p'])}"],
+         f"{f_e(det['within_stratum_log_density'])}; {f_pe(det['within_stratum_log_density']['p'])}"],
         ["Mean EDI percentile, counties with vs without a facility",
          f"{det['mean_index_with_facility']:.1f} vs {det['mean_index_without_facility']:.1f}"],
     ]
     other = []
     for idx in ("SVI", "SDI"):
         e = S["strata"][f"{idx}_CMR_nonmetro"]["estimate"]
-        other.append(f"{idx} {f_e(e)}, P {f_p(e['p'])}")
+        other.append(f"{idx} {f_e(e)}, {f_pe(e['p'])}")
     rows.append(["Same stratum, other indices (boundary solution)", "; ".join(other)])
     counties = "; ".join(f"{c['county']} (RUCC {c['rucc']}, EDI {c['index_percentile']:.0f})"
                          for c in det["facility_counties"])
@@ -409,8 +462,14 @@ def table_s5(R):
         f"{P['pc1_vs_published_edi_pearson']:.6f}. Kaiser-Meyer-Olkin measure "
         f"{P['kmo']:.2f}; Bartlett test of sphericity χ² = {P['bartlett_chi2']:,.0f}, "
         f"df = {P['bartlett_df']}, P {'< 0.001' if P['bartlett_p'] < 0.001 else '= ' + f_p(P['bartlett_p'])}.",
-        f"{P['n_components_eigenvalue_gt_1']} components have eigenvalues above 1. PC2 "
-        f"(eigenvalue {P['eigenvalues'][1]:.2f}) is dominated by housing cost burden; the index "
+        f"{['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][P['n_components_eigenvalue_gt_1']]} "
+        f"component{'' if P['n_components_eigenvalue_gt_1'] == 1 else 's'} "
+        f"{'has an eigenvalue' if P['n_components_eigenvalue_gt_1'] == 1 else 'have eigenvalues'} above 1. PC2 "
+        f"(eigenvalue {P['eigenvalues'][1]:.2f}) is dominated by housing cost burden and does not "
+        f"exceed the 95th percentile of eigenvalues from {P['parallel_analysis']['replicates']:,} "
+        f"permuted datasets ({P['parallel_analysis']['threshold_95'][1]:.2f}); parallel analysis "
+        f"retains {['no', 'one', 'two', 'three'][P['parallel_analysis']['n_retained']]} "
+        f"component{'' if P['parallel_analysis']['n_retained'] == 1 else 's'}, and the index "
         f"retains PC1 only, as a single economic deprivation dimension. Software: Python 3.11, "
         f"scikit-learn 1.4 (PCA, full singular value decomposition; StandardScaler).",
         "PC2 sign is fixed so that its coefficients sum to a positive value; PC2 orientation is "
@@ -429,14 +488,15 @@ def table_s6(R):
             if not k.startswith(f"SVI_{oname}:"):
                 continue
             label = k.split(": ", 1)[1]
-            label = label[0].upper() + label[1:]
             if v["solution"].startswith("Poisson"):
                 label += " (boundary Poisson solution)"
             e = v["estimate"]
             ok = v["estimable"]
-            rows.append(["", "Adjusted for " + label if not label.endswith("only") and
-                         not label.startswith(("Metropolitan counties", "Nonmetropolitan counties"))
-                         else label, f"{v['n']:,}",
+            # Sentence case: a stratum label stands alone and is capitalized;
+            # anything else follows "Adjusted for" and stays lowercase.
+            standalone = label.startswith(("metropolitan counties", "nonmetropolitan counties"))
+            text = label[0].upper() + label[1:] if standalone else "Adjusted for " + label
+            rows.append(["", text, f"{v['n']:,}",
                          f_e(e) if ok else f_est(e["irr"], np.nan, np.nan),
                          f_p(e["p"]) if ok else "NE"])
         for t, name in [(1, "socioeconomic status"), (2, "household characteristics"),
@@ -459,10 +519,12 @@ def table_s6(R):
         "Exploratory analyses prompted by the positive SVI-CCT association; not prespecified. "
         "All models are NB2 with dispersion estimated and a log(adults aged ≥45 years) offset; "
         "IRR per 10-percentile increase in the SVI or theme. Categorical RUCC uses indicator "
-        "variables for codes 2-9 (reference, code 1). Log population density is residents per "
+        "variables for each code against code 1. Log population density is residents per "
         "square mile of land area.",
-        "For cardiac MR the categorical-RUCC model is not estimable because no county coded 8 or "
-        "9 has an accredited CMR facility (quasi-complete separation).",
+        f"For cardiac MR no county coded 8 or 9 has an accredited facility, which would leave "
+        f"those coefficients without a finite estimate (quasi-complete separation), so codes "
+        f"{d['rucc_groups_CMR']['7']} were combined; for cardiac CT every code has facilities and "
+        f"none were combined.",
         f"Metropolitan counties by RUCC code: {rucc}.",
         f"Within metropolitan counties, Spearman correlation of log population density with the "
         f"overall SVI ρ = {d['spearman_svi_density_metro']['rho']:.2f} and with each theme: {rho}.",
@@ -493,37 +555,47 @@ def supplementary_methods(doc, R, N):
               f"percentage of children in poverty (County Health Rankings 2024). The "
               f"{P['n_counties']:,} counties with all six were standardized to z-scores and "
               f"decomposed by principal component analysis of the correlation matrix; the first "
-              f"component score was converted to national percentiles to form the EDI. The scree "
+              f"component score was converted to national percentiles to form the EDI. The "
+              f"number of components was assessed by Horn's parallel analysis "
+              f"({P['parallel_analysis']['replicates']:,} datasets with each indicator permuted "
+              f"independently; a component is retained while its eigenvalue exceeds the 95th "
+              f"percentile at the same rank), which retained "
+              f"{['no', 'one', 'two', 'three'][P['parallel_analysis']['n_retained']]}. The scree "
               f"plot, biplot, eigenvalues, and loadings are shown in Supplementary Figure S3 and "
               f"Supplementary Table S5. Code: code/06_edi_sensitivity_analysis.py (index) and "
               f"code/18_reviewer_analyses.py (full decomposition).")
-    heading(doc, "S3. County-weighted and population-weighted estimands", 11)
+    heading(doc, "S3. How the models weight counties", 11)
     w = W["weights"]["SVI"]
-    para(doc, "The primary models include log(adults aged ≥45 years) as an offset. An offset "
-              "fixes the coefficient of log population at 1, so that the model describes the "
-              "facility rate; it does not weight observations, and every county contributes as "
-              "one unit. The primary estimand is therefore the association between an index and "
-              "the facility rate in the average county, the unit at which capacity is planned and "
-              "at which the indices are published. Weighting by population changes the estimand "
-              "to the association experienced by the average adult. Because the two estimands "
-              "differ when associations vary between small and large counties, weighting was "
-              "treated as a sensitivity analysis rather than a correction. Weighted models used "
-              "Poisson quasi-likelihood, which is consistent for the mean model regardless of the "
-              "variance function, with weights equal to adults aged ≥45 years divided by their "
-              "mean and robust (HC0) standard errors; a weighted NB2 model with alpha held at its "
-              f"unweighted estimate was fitted as a check. Under population weights the Kish "
-              f"effective sample size was {w['kish_effective_n']:.0f} counties and the largest 1% "
-              f"of counties carried {100 * w['share_of_weight_top_1pct_counties']:.1f}% of the "
-              f"weight, so weighted estimates are dominated by a few large metropolitan counties. "
+    para(doc, "All count models include log(adults aged ≥45 years) as an offset, which fixes the "
+              "coefficient of log population at 1 so that each model describes the facility rate. "
+              "How strongly each county's rate counts follows from the score equation of each "
+              "model, written in terms of the county rate r = y/N and the fitted rate lambda. "
+              "For Poisson regression with the offset it is sum N x (r - lambda) = 0: each "
+              "county's rate is weighted by its adults aged ≥45 years (N), so the estimate "
+              "describes the association for the average adult. This is the population "
+              "weighting of rates proposed by Reviewer 1, and it was fitted with robust (HC0) "
+              "standard errors as the population-weighted sensitivity analysis. Adding weights "
+              "1/N gives sum x (r - lambda) = 0, in which every county counts equally (the "
+              "average county); this is reported as a further contrast. The primary NB2 model "
+              "gives sum N/(1 + alpha mu) x (r - lambda) = 0: the weight rises with population and "
+              "levels off for large counties, so populous counties count more than small ones "
+              "without dominating. The NB2 model was retained as primary because it fits the "
+              "overdispersed counts best (lowest AIC and BIC in all 12 index-outcome models). "
+              f"Under population weights the Kish effective sample size is "
+              f"{w['kish_effective_n']:.0f} counties and the largest 1% of counties carry "
+              f"{100 * w['share_of_weight_top_1pct_counties']:.1f}% of the weight. "
               f"The {W['descriptive']['excluded']['n']} counties with fewer than 1,000 adults aged "
               f"≥45 years, excluded only from county-level rates, contained "
               f"{W['descriptive']['excluded']['cmr_facilities']} CMR and "
               f"{W['descriptive']['excluded']['cct_facilities']} CCT facilities.")
     heading(doc, "S4. Estimation in sparse strata", 11)
-    para(doc, "When every county in a stratum has zero or one facility, the data carry no "
-              "information about overdispersion and the maximum-likelihood estimate of the NB2 "
-              "dispersion lies on the boundary of the parameter space, alpha = 0. The NB2 model "
-              "then reduces to Poisson regression. Every stratified fit was checked for a "
+    para(doc, "In sparse strata the counts can show no overdispersion, and the "
+              "maximum-likelihood estimate of the NB2 dispersion then lies on the boundary of the "
+              "parameter space, alpha = 0, where the NB2 model reduces to Poisson regression. In "
+              "the nonmetropolitan cardiac MR stratum each of the 14 facilities is in a different "
+              "county; in the nonmetropolitan cardiac CT stratum the 115 facilities are in 108 "
+              "counties, seven of them with two. Whether a fit lies on the boundary is decided by "
+              "its likelihood and information matrix, not by the counts alone. Every stratified fit was checked for a "
               "positive-definite information matrix (model_spec.fit_primary_checked). Where the "
               "matrix was not positive definite, alpha was below 0.05, and the Poisson "
               "log-likelihood was at least as high as the NB2 value, the Poisson fit was reported "
@@ -535,22 +607,46 @@ def supplementary_methods(doc, R, N):
     para(doc, f"The primary hypothesis family comprised the {M['families']['primary']['n_tests']} "
               f"metropolitan-adjusted associations of the SVI and EDI with CMR and CCT capacity. "
               f"Holm and Benjamini-Hochberg adjustments were applied within this family and across "
-              f"all {M['families']['extended']['n_tests']} index associations reported in the main "
-              f"tables and figures (Supplementary Table S3). Sensitivity and exploratory analyses "
+              f"all {M['families']['extended']['n_tests']} negative binomial index associations "
+              f"reported in the main tables and figures (Supplementary Table S3); the population-"
+              f"weighted Poisson estimates are a separate sensitivity analysis and not part of that family. Sensitivity and exploratory analyses "
               f"were interpreted by their agreement with the primary estimates.")
     heading(doc, "S6. Exploratory urbanicity analyses", 11)
     para(doc, "Because the binary metropolitan indicator does not distinguish dense central "
               "counties from outlying ones, the SVI models were refitted with categorical RUCC "
-              "(codes 2-9 against code 1), with log population density (residents per square mile "
+              "(each code against code 1; for cardiac MR, codes 7-9 were combined because codes 8 "
+              "and 9 contain no facility, which would otherwise leave those coefficients without a "
+              "finite estimate), with log population density (residents per square mile "
               "of land area; American Community Survey 2019-2023 population and SVI 2022 land "
               "area), within metropolitan and nonmetropolitan strata, and with each of the four "
               "SVI theme percentiles in place of the overall SVI (Supplementary Table S6). These "
               "analyses were not prespecified.")
     heading(doc, "S7. Software and reproducibility", 11)
     para(doc, "Python 3.11.7, statsmodels 0.14.6, SciPy 1.13.0, NumPy 1.26.4, scikit-learn 1.4.2. "
-              "Every value in the manuscript and this supplement is regenerated from the "
-              "committed county dataset by code/00_run_all.py and checked against the manuscript "
-              "by code/12_manuscript_numbers.py.")
+              "Every value in the manuscript and this supplement is regenerated from the county "
+              "dataset by code/00_run_all.py. code/12_manuscript_numbers.py recomputes the "
+              "manuscript's values and checks the manuscript against them: named values, table "
+              "cells, specified wording, and every estimate quoted in the text.")
+    heading(doc, "S8. Facility cohort and county assignment", 11)
+    F = cohort_facts()
+    para(doc, "The ACR accredited-facility extract (May 20, 2026) held one record per facility "
+              "and accredited modality. Records were retained when the modality was MRI or CT and "
+              "the accreditation listed a cardiac module, the site was in the 50 states or the "
+              "District of Columbia, and the accreditation had not expired before the extraction "
+              f"date. CT records accredited only for a calcium-scoring module, without a cardiac "
+              f"module ({F['calcium_only']} records), were therefore not included. The cohort comprised "
+              f"{F['included']:,} facility-modality records ({F['cmr']:,} CMR and {F['cct']:,} CCT), "
+              f"{F['accredited']:,} listed as Accredited and {F['under_review']} as Under Review. "
+              "Each record's ZIP code was assigned to the county holding the "
+              "largest share of the ZIP's residential addresses in the HUD-USPS ZIP-County "
+              "crosswalk (2026, first quarter), which returns Connecticut's nine planning regions "
+              f"directly; {F['hud']:,} records were assigned this way, and {F['manual']} records with a unique "
+              "hospital ZIP absent from every crosswalk (98415, Tacoma, Washington) were assigned "
+              "to Pierce County, where every other Tacoma ZIP lies. A ZIP assignment is not an "
+              f"address-level geocode: {F['share_lt1']} included records had ZIPs whose addresses span "
+              f"more than one county, {F['share_lt90']} of them with less than 90% in the assigned county. Every source "
+              "record is listed with its assignment or exclusion reason in "
+              "data/processed/facility_mapping_audit.csv.")
 
 
 FIGURES = [
@@ -606,7 +702,7 @@ def main():
     h, rows, hb, rows_b, notes = table_s2(R, N)
     add_table(doc, "Supplementary Table S2. Primary and sensitivity models for the association of "
                    "each index with accredited facility counts. Panel A, all models", h, rows, [],
-              widths=[0.4, 0.4, 1.55, 1.15, 0.55, 0.55, 0.95, 0.45, 0.8, 0.95, 1.65], font=6.5)
+              widths=[0.4, 0.52, 1.4, 1.15, 0.55, 0.55, 0.95, 0.45, 0.7, 0.95, 0.5, 1.33], font=6.5)
     add_table(doc, "Supplementary Table S2, Panel B. Model fit by specification", hb, rows_b, notes,
               widths=[1.0, 0.6, 1.8, 0.6, 0.8, 0.8, 0.9, 1.1, 0.6, 0.55, 0.55], font=6.5)
     written.append(write_csv("Supplementary_Table_S2_All_Models.csv", h, rows, notes))

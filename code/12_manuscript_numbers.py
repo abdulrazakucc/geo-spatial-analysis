@@ -242,76 +242,65 @@ def regressions(m):
 
 def model_diagnostics(m):
     """
-    Evidence for the modelling choices, so they can be checked rather than taken
-    on trust: overdispersion of the outcomes, negative binomial versus Poisson,
-    and sensitivity to fixing the dispersion parameter at alpha = 1.
+    Evidence for the modelling choices, on the primary analytic sample and the
+    primary (estimated-dispersion, fully converged) NB2 fits: overdispersion of
+    the outcomes, NB2 versus Poisson on AIC, and sensitivity to fixing the
+    dispersion at alpha = 1. The interpretation is generated from these numbers,
+    so it cannot drift from them.
     """
     from statsmodels.genmod.families import Poisson
-    from statsmodels.discrete.discrete_model import NegativeBinomial as NBMLE
+    import statsmodels.discrete.discrete_model as dm
 
-    el = m[m.rate_excluded == 0].copy()
-    el["svi_per10"] = el.svi_pct100 / 10.0
-    el["log_pop"] = np.log(el.adult_pop_45plus)
-    d_edi = el.dropna(subset=["edi_national_percentile"]).copy()
-    d_edi["edi_per10"] = d_edi.edi_national_percentile / 10.0
-
-    out = {"overdispersion": {}, "aic_nb_vs_poisson": {}, "alpha_sensitivity": {}}
-
+    m = m.copy()
+    m["log_pop"] = np.log(m.adult_pop_45plus)
+    out = {"overdispersion": {}, "aic_nb_vs_poisson": {}, "alpha_sensitivity": {},
+           "_sample": "primary analytic sample (all counties with the index)"}
     for col in ["cmr_facility_count", "cct_facility_count"]:
-        mu, var = float(el[col].mean()), float(el[col].var())
+        mu, var = float(m[col].mean()), float(m[col].var())
         out["overdispersion"][col] = {
             "mean": mu, "variance": var, "variance_to_mean_ratio": var / mu,
-            "pct_zero": float(100 * (el[col] == 0).mean()),
+            "pct_zero": float(100 * (m[col] == 0).mean()),
         }
-
-    for idx, d, term in [("SVI", el, "svi_per10"), ("EDI", d_edi, "edi_per10")]:
+    for idx, col_idx in [("SVI", "svi_pct100"), ("EDI", "edi_national_percentile")]:
+        d = model_spec.analytic_sample(m, col_idx)
+        d["log_pop"] = np.log(d.adult_pop_45plus)
         for mod, col in [("CMR", "cmr_facility_count"), ("CCT", "cct_facility_count")]:
-            for lab, terms in [("unadjusted", [term]), ("adjusted", [term, "metro_indicator"])]:
+            for lab, terms in [("unadjusted", ["idx10"]), ("adjusted", ["idx10", "metro_indicator"])]:
                 X = sm.add_constant(d[terms], has_constant="add")
-                nbf = sm.GLM(d[col], X, family=NegativeBinomial(alpha=ALPHA),
-                             offset=d.log_pop).fit()
+                nbf = model_spec.fit_nb2(dm.NegativeBinomial(d[col], X, loglike_method="nb2",
+                                                             offset=d.log_pop))
                 pof = sm.GLM(d[col], X, family=Poisson(), offset=d.log_pop).fit()
+                fix = sm.GLM(d[col], X, family=NegativeBinomial(alpha=ALPHA), offset=d.log_pop).fit()
                 out["aic_nb_vs_poisson"][f"{idx}_{mod}_{lab}"] = {
-                    "aic_negative_binomial": float(nbf.aic),
-                    "aic_poisson": float(pof.aic),
+                    "aic_negative_binomial": float(nbf.aic), "aic_poisson": float(pof.aic),
                     "poisson_pearson_dispersion": float(pof.pearson_chi2 / pof.df_resid),
-                    "nb_irr": float(np.exp(nbf.params[term])),
-                    "nb_p": float(nbf.pvalues[term]),
-                    "poisson_irr": float(np.exp(pof.params[term])),
-                    "poisson_p": float(pof.pvalues[term]),
+                    "nb_irr": float(np.exp(nbf.params["idx10"])), "nb_p": float(nbf.pvalues["idx10"]),
+                    "poisson_irr": float(np.exp(pof.params["idx10"])),
+                    "poisson_p": float(pof.pvalues["idx10"]),
                 }
-
-    # Fixed alpha = 1 versus alpha estimated by maximum likelihood, primary models
-    for lab, terms in [("unadjusted", ["edi_per10"]),
-                       ("adjusted", ["edi_per10", "metro_indicator"])]:
-        X = sm.add_constant(d_edi[terms], has_constant="add")
-        fixed = sm.GLM(d_edi.cmr_facility_count, X,
-                       family=NegativeBinomial(alpha=ALPHA), offset=d_edi.log_pop).fit()
-        mle = NBMLE(d_edi.cmr_facility_count, X, offset=d_edi.log_pop.values).fit(disp=0)
-        block = {
-            "fixed_alpha_1": {"irr": float(np.exp(fixed.params["edi_per10"])),
-                              "p": float(fixed.pvalues["edi_per10"])},
-            "estimated_alpha": {"irr": float(np.exp(mle.params["edi_per10"])),
-                                "p": float(mle.pvalues["edi_per10"]),
-                                "alpha": float(mle.params["alpha"])},
-        }
-        if "metro_indicator" in terms:
-            block["fixed_alpha_1"]["metro_irr"] = float(np.exp(fixed.params["metro_indicator"]))
-            block["estimated_alpha"]["metro_irr"] = float(np.exp(mle.params["metro_indicator"]))
-        out["alpha_sensitivity"][f"EDI_CMR_{lab}"] = block
-
+                if lab == "adjusted":
+                    out["alpha_sensitivity"][f"{idx}_{mod}_adjusted"] = {
+                        "fixed_alpha_1": {"irr": float(np.exp(fix.params["idx10"])),
+                                          "p": float(fix.pvalues["idx10"]),
+                                          "metro_irr": float(np.exp(fix.params["metro_indicator"]))},
+                        "estimated_alpha": {"irr": float(np.exp(nbf.params["idx10"])),
+                                            "p": float(nbf.pvalues["idx10"]),
+                                            "alpha": float(nbf.params["alpha"]),
+                                            "metro_irr": float(np.exp(nbf.params["metro_indicator"]))},
+                    }
+    od = out["overdispersion"]
+    wins = sum(v["aic_negative_binomial"] < v["aic_poisson"] for v in out["aic_nb_vs_poisson"].values())
+    flips = [k.replace("_adjusted", "") for k, v in out["alpha_sensitivity"].items()
+             if (v["fixed_alpha_1"]["p"] < 0.05) != (v["estimated_alpha"]["p"] < 0.05)]
     out["_interpretation"] = (
-        "Both outcomes are overdispersed (variance-to-mean ratio well above 1), which "
-        "is why negative binomial is used. The Poisson Pearson dispersion statistic is "
-        "below 1 here because most fitted means are far below 1; it is unreliable for "
-        "sparse counts and the AIC comparison is the informative one. Negative binomial "
-        "wins on AIC in six of eight models, decisively for the primary CMR outcome. "
-        "For the two adjusted CCT models Poisson has marginally lower AIC and yields "
-        "nominally significant deprivation terms, but those estimates are above 1, that "
-        "is, more capacity with more deprivation, so they do not support a "
-        "deprivation-disadvantage reading under either family. Conclusions are unchanged "
-        "when alpha is estimated rather than fixed at 1."
-    )
+        f"Both outcomes are overdispersed (variance-to-mean ratio "
+        f"{od['cmr_facility_count']['variance_to_mean_ratio']:.2f} for CMR and "
+        f"{od['cct_facility_count']['variance_to_mean_ratio']:.2f} for CCT). The estimated-"
+        f"dispersion NB2 model has lower AIC than Poisson in {wins} of "
+        f"{len(out['aic_nb_vs_poisson'])} index models; output/results/"
+        f"model_specification_comparison.csv compares all three specifications. With the "
+        f"dispersion fixed at 1, the significance of an adjusted index association changes for: "
+        f"{', '.join(flips) if flips else 'none'}.")
     return out
 
 
@@ -510,14 +499,10 @@ def write_report(R):
     for col, v in md["overdispersion"].items():
         a(f"  {col:<26} mean {v['mean']:.4f}, variance {v['variance']:.4f}, "
           f"ratio {v['variance_to_mean_ratio']:.2f}, {v['pct_zero']:.1f}% zero")
-    # The block above compares the FIXED-alpha sensitivity against Poisson,
-    # which is no longer the primary specification, so quoting its win count
-    # here would misdescribe the published models. The verdict comes from the
-    # canonical comparison instead, which fits all three specifications.
     nb_wins = sum(1 for v in md["aic_nb_vs_poisson"].values()
                   if v["aic_negative_binomial"] < v["aic_poisson"])
-    a(f"  Fixed-alpha sensitivity vs Poisson on AIC: negative binomial lower in "
-      f"{nb_wins} of {len(md['aic_nb_vs_poisson'])} models.")
+    a(f"  Estimated-dispersion NB2 vs Poisson on AIC: NB2 lower in "
+      f"{nb_wins} of {len(md['aic_nb_vs_poisson'])} index models.")
     spec_csv = os.path.join(RESULTS, "model_specification_comparison.csv")
     if os.path.exists(spec_csv):
         t = pd.read_csv(spec_csv)
@@ -530,12 +515,13 @@ def write_report(R):
         a(f"  Source: output/results/model_specification_comparison.csv")
     else:
         a("  Run code/13_model_specification.py for the AIC/BIC comparison.")
-    a("  Sensitivity to fixing alpha at 1.0, primary EDI-CMR models:")
+    a("  Sensitivity to fixing alpha at 1.0, adjusted index models:")
     for k, v in md["alpha_sensitivity"].items():
         a(f"    {k:<22} alpha=1.0 IRR {v['fixed_alpha_1']['irr']:.4f} "
           f"(P {v['fixed_alpha_1']['p']:.4f})   alpha estimated "
           f"IRR {v['estimated_alpha']['irr']:.4f} (P {v['estimated_alpha']['p']:.4f}, "
           f"alpha {v['estimated_alpha']['alpha']:.3f})")
+    a(f"  {md['_interpretation']}")
     a("")
     if R.get("sdi"):
         s = R["sdi"]
@@ -645,6 +631,7 @@ def _parse_table(rows):
 # Add to this list whenever a published value changes.
 # ---------------------------------------------------------------------------
 FORBIDDEN = [
+    (r"restored at revision", "Data Availability promises the URL 'at revision' in the revision itself"),
     # Pre-HUD facility and county counts
     (r"\b687\b", "pre-HUD CMR facility total (now 722)"),
     (r"\b1,481\b", "pre-HUD CCT facility total (now 1,542)"),
@@ -940,6 +927,64 @@ def _check_lengths(paragraphs, checks):
                 break
 
 
+def _estimate_index(R):
+    """Every estimate the pipeline produced, at printed precision.
+
+    Returns (full, no_p, irr_only): sets of (IRR, CI low, CI high, P), of
+    (IRR, CI low, CI high), and of IRR alone, all formatted as the paper prints
+    them. Built from the gate's own results plus the reviewer analyses.
+    """
+    full, no_p, irr_only = set(), set(), set()
+
+    def ptxt(v):
+        return None if v is None else ("< 0.001" if v < 0.001 else f"= {v:.3f}")
+
+    def walk(o):
+        if isinstance(o, dict):
+            low = {str(k).lower(): v for k, v in o.items()}
+            if all(isinstance(low.get(k), (int, float)) and not isinstance(low.get(k), bool)
+                   for k in ("irr", "ci_low", "ci_high")):
+                trip = (f"{low['irr']:.2f}", f"{low['ci_low']:.2f}", f"{low['ci_high']:.2f}")
+                no_p.add(trip)
+                irr_only.add(trip[0])
+                pv = low.get("p", low.get("p_value"))
+                if isinstance(pv, (int, float)):
+                    full.add(trip + (ptxt(pv),))
+            elif isinstance(low.get("irr"), (int, float)):
+                irr_only.add(f"{low['irr']:.2f}")
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+    walk(R)
+    return full, no_p, irr_only
+
+
+def _check_all_estimates(prose, R, checks):
+    """Safety net: every estimate quoted in the prose must be one the pipeline
+    computed. The value checks elsewhere cover named quantities only; three
+    submitted values (an SVI metropolitan IRR in the Table 2 note, an SDI
+    metropolitan IRR in Results, and an ordinal-RUCC P value) went stale without
+    any check failing, because no check named them."""
+    full, no_p, irr_only = _estimate_index(R)
+    pat = re.compile(r"IRR (\d+\.\d{2}); 95% CI, (\d+\.\d{2})-(\d+\.\d{2})"
+                     r"(?:; P (= \d\.\d{3}|< 0\.001))?")
+    for m in pat.finditer(prose):
+        irr, lo, hi, pp = m.groups()
+        ok = ((irr, lo, hi, pp) in full) if pp else ((irr, lo, hi) in no_p)
+        checks.append((f"estimate in text: {m.group(0)}", "computed by the pipeline",
+                       "matches a result" if ok else "NO MATCHING RESULT", ok))
+    for m in re.finditer(r"(\d+\.\d{2}) \(95% CI, (\d+\.\d{2})-(\d+\.\d{2})\)", prose):
+        ok = m.groups() in no_p
+        checks.append((f"estimate in text: {m.group(0)}", "computed by the pipeline",
+                       "matches a result" if ok else "NO MATCHING RESULT", ok))
+    for m in re.finditer(r"IRR (\d+\.\d{2})(?!; 95% CI)", prose):
+        ok = m.group(1) in irr_only
+        checks.append((f"IRR in text: {m.group(0)}", "computed by the pipeline",
+                       "matches a result" if ok else "NO MATCHING RESULT", ok))
+
+
 def _fe(e, p=True):
     """Estimate in the manuscript's prose format."""
     t = f"IRR {e['irr']:.2f}; 95% CI, {e['ci_low']:.2f}-{e['ci_high']:.2f}"
@@ -987,14 +1032,28 @@ def _check_revision_r1(prose, paragraphs, R, checks):
           "by more than 0.001", W["max_abs_irr_change_rate_eligible_adjusted"] < 0.001)
     wm = W["models"]
     has("weighted SVI-CCT adjusted", _fe(wm["SVI_CCT_adjusted"]["poisson_population_weighted_robust"]))
-    has("weighted EDI-CMR unadjusted", _fe(wm["EDI_CMR_unadjusted"]["poisson_population_weighted_robust"]))
     has("weighted metro term, CMR (EDI model)",
         _fe(wm["EDI_CMR_adjusted"]["metro_poisson_population_weighted_robust"], p=False))
     has("weighted metro term, CCT (EDI model)",
         _fe(wm["EDI_CCT_adjusted"]["metro_poisson_population_weighted_robust"], p=False))
-    all_null = all(v["poisson_population_weighted_robust"]["p"] >= 0.05 for v in wm.values())
-    claim("no index association significant in population-weighted models",
-          "none of the index associations was significant", all_null)
+    has("weighted EDI-CMR adjusted", _fe(wm["EDI_CMR_adjusted"]["poisson_population_weighted_robust"]))
+    # Population weighting is Poisson with the offset (rates weighted by N). The
+    # earlier var_weights = N fit weighted rates by N squared; its "no index
+    # association significant" claim must not return.
+    claim("weighted estimates described as agreeing with the primary estimates",
+          "Population-weighted estimates agreed with the primary estimates",
+          wm["SVI_CCT_adjusted"]["poisson_population_weighted_robust"]["p"] < 0.05
+          and wm["EDI_CMR_adjusted"]["poisson_population_weighted_robust"]["p"] >= 0.05)
+    claim("no 'none significant under weighting' claim", "none of the index associations was "
+          "significant", False)
+    fa = R["regressions"]["sensitivity_fixed_alpha"]["SVI_CCT"]["adjusted_metro"]["p"]
+    has("SVI-CCT with dispersion fixed at 1", f"dispersion fixed at 1 (P = {fa:.3f})")
+    claim("rate-eligible bound stated for index IRRs", "no adjusted index IRR by more than 0.001",
+          W["max_abs_irr_change_rate_eligible_adjusted"] < 0.001)
+    sv_int = rv["R2-03_strata"]["interaction"]["SVI_CCT"]["interaction_ratio"]["p"]
+    has("SVI-CCT index-by-metro interaction P", f"interaction P = {sv_int:.3f}")
+    claim("SVI-CCT not called 'confined' to metropolitan counties (interaction not significant)",
+          "confined to metropolitan", sv_int < 0.05)
 
     spec_csv = os.path.join(RESULTS, "model_specification_comparison.csv")
     if os.path.exists(spec_csv):
@@ -1009,13 +1068,13 @@ def _check_revision_r1(prose, paragraphs, R, checks):
     M = rv["R2-02_multiplicity"]
     tests = {t["test"]: t for t in M["tests"]}
     sc = tests["SVI-CCT, adjusted for metropolitan status (Table 2)"]
-    has("Holm-adjusted SVI-CCT, primary family", f"Holm adjustment (P = {sc['holm_primary']:.3f})")
-    has("BH-adjusted SVI-CCT, all tests", f"significant (P = {sc['bh_extended']:.3f})")
-    sd = tests["SDI-CMR, adjusted for metropolitan status (Figure 2)"]
-    has("BH-adjusted SDI-CMR, all tests", f"SDI-CMR association (P = {sd['bh_extended']:.3f})")
-    claim("SDI-CMR loses significance under FDR", "not the adjusted SDI-CMR association",
-          sd["bh_extended"] >= 0.05)
-    has("size of the extended family", f"all {M['families']['extended']['n_tests']} index associations")
+    has("Holm-adjusted SVI-CCT, primary family", f"within the primary family (P = {sc['holm_primary']:.3f})")
+    has("BH-adjusted SVI-CCT, all tests", f"index associations (P = {sc['bh_extended']:.3f})")
+    # The extended family is the negative binomial associations only; Table 3 also
+    # reports population-weighted ones, so "all N index associations" would be wrong.
+    has("size of the extended family", f"{M['families']['extended']['n_tests']} negative binomial index associations")
+    claim("extended family not described as all associations reported",
+          f"all {M['families']['extended']['n_tests']} index associations", False)
     for name, short in [("SVI-CMR", "SVI, cardiac MR"), ("SVI-CCT", "SVI, cardiac CT"),
                         ("EDI-CMR", "EDI, cardiac MR"), ("EDI-CCT", "EDI, cardiac CT")]:
         tt = tests[f"{name}, adjusted for metropolitan status (Table 2)"]
@@ -1059,12 +1118,15 @@ def _check_revision_r1(prose, paragraphs, R, checks):
     th = U["themes"]
     has("SVI theme 4, CCT", _fe(th["SVI_CCT_theme4"]["adjusted_metro"], p=False))
     has("SVI theme 3, CCT", _fe(th["SVI_CCT_theme3"]["adjusted_metro"], p=False))
-    has("SVI-CMR, density-adjusted", _fe(um["SVI_CMR: metropolitan status + log population density"]["estimate"]))
+    # The density-adjusted SVI-CMR estimate and the RUCC 1 facility count are
+    # reported in Supplementary Table S6 and the results files, not in the text.
     dsc = U["descriptive"]
-    has("theme 3 vs density, metro", f"ρ = {dsc['spearman_theme3_density_metro']['rho']:.2f}")
-    has("theme 4 vs density, metro", f"ρ = {dsc['spearman_theme4_density_metro']['rho']:.2f}")
-    r1 = dsc["by_metro_rucc"]["1"]["cct_facilities"]
-    has("CCT facilities in RUCC 1", f"{r1:,} of {R['descriptives']['cct_facilities']:,}")
+    has("themes 4 and 3 vs density, metro",
+        f"ρ = {dsc['spearman_theme4_density_metro']['rho']:.2f} and "
+        f"{dsc['spearman_theme3_density_metro']['rho']:.2f}")
+    # Theme 1 is also positive (P < 0.05), so the themes are "strongest", not the
+    # only carriers of the association.
+    claim("themes 3-4 strongest, not sole carriers", "carried by those two themes", False)
 
     P = rv["R2-01_pca"]
     has("PC1 eigenvalue", f"eigenvalue {P['eigenvalues'][0]:.2f}")
@@ -1077,6 +1139,9 @@ def _check_revision_r1(prose, paragraphs, R, checks):
     top2 = max(P["pc2_loadings"], key=lambda k: abs(P["pc2_loadings"][k]))
     claim("PC2 reflects mainly housing cost burden", "reflected mainly housing cost burden",
           top2 == "EP_HBURD")
+    pa = P.get("parallel_analysis", {})
+    claim("parallel analysis retained one component", "parallel analysis retained one component",
+          pa.get("n_retained") == 1)
 
     g = R["quintiles"]
     has("pooled Q1/Q5 ratio", f"{g['q1_over_q5_ratio_pooled']:.1f}-fold")
@@ -1158,7 +1223,8 @@ def check_manuscript(R):
     """
     if not os.path.exists(MANUSCRIPT):
         return (f"Manuscript not found at {MANUSCRIPT}\n"
-                "(The manuscript/ folder is not tracked in git. Check skipped.)\n")
+                "ANALYSIS-ONLY RUN: no manuscript was checked (the manuscript/ folder is "
+                "not tracked in git). This is not a manuscript pass.\n")
 
     prose, doc_tables, prose_paragraphs = read_manuscript(MANUSCRIPT)
 
@@ -1230,6 +1296,7 @@ def check_manuscript(R):
     _check_lengths(prose_paragraphs, checks)
     _check_table_geometry(MANUSCRIPT, checks)
     _check_revision_r1(prose, prose_paragraphs, R, checks)
+    _check_all_estimates(prose, R, checks)
     _check_references(prose_paragraphs, checks)
 
     ck_prose("Q1/Q5 gradient", f"{g['q1_over_q5_ratio']:.1f}-fold")
@@ -1407,7 +1474,11 @@ def main():
     ap.add_argument("--strict", action="store_true",
                     help="exit non-zero if any check fails")
     args = ap.parse_args()
+    explicit = args.manuscript != MANUSCRIPT
     globals()["MANUSCRIPT"] = args.manuscript
+    if not os.path.exists(args.manuscript) and (args.strict or explicit):
+        print(f"FAILED: manuscript not found: {args.manuscript}")
+        return 2
 
     m = load()
     R = {
