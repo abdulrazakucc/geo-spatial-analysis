@@ -30,12 +30,26 @@ FILES = [
     ("01_Revised_Manuscript_CLEAN.pdf", "05_Manuscript_Clean_Line_Numbered.pdf",
      "Supplementary/Other (for reviewers)", "the response letter's page and line numbers refer to it"),
     ("13_Title_Page.docx", "06_Title_Page.docx", "Title Page", "not blinded"),
-    ("04_Supplementary_Material.docx", "07_Supplementary_Material.docx", "Supplementary Material",
-     "Methods S1-S8, Tables S1-S6, Figures S1-S3"),
-    ("05_Figures/Figure1A_CMR_Choropleth.tif", "08_Figure1A.tif", "Figure", "TIFF, 600 dpi"),
-    ("05_Figures/Figure1B_Forest.tif", "09_Figure1B.tif", "Figure", "TIFF, 600 dpi"),
-    ("05_Figures/Figure2_External_Validation.tif", "10_Figure2.tif", "Figure", "TIFF, 600 dpi"),
+    ("05_Figures/Figure1A_CMR_Choropleth.tif", "07_Figure1A.tif", "Figure", "TIFF, 600 dpi"),
+    ("05_Figures/Figure1B_Forest.tif", "08_Figure1B.tif", "Figure", "TIFF, 600 dpi"),
+    ("05_Figures/Figure2_External_Validation.tif", "09_Figure2.tif", "Figure", "TIFF, 600 dpi"),
 ]
+
+#: Supplementary material, in its own subfolder. The Word document is the item
+#: to upload (Methods S1-S8, Tables S1-S6 and Figures S1-S3 inside); the PDF is
+#: the same document as it will appear, and the TIFFs are the supplementary
+#: figures at full resolution in case the journal asks for them separately.
+SUPP_DIR = "Supplementary_Material"
+SUPP = [
+    ("04_Supplementary_Material.docx", "Supplementary_Material.docx", "Supplementary Material",
+     "upload this; Methods S1-S8, Tables S1-S6, Figures S1-S3; blinded"),
+    ("04_Supplementary_Material.pdf", "Supplementary_Material.pdf", "Supplementary Material (if a PDF "
+     "is preferred)", "same document"),
+    ("05_Figures/FigureS1_CCT_Choropleth.tif", "Figure_S1.tif", "only if requested", "TIFF, 600 dpi"),
+    ("05_Figures/FigureS2_EDI_Quintiles.tif", "Figure_S2.tif", "only if requested", "TIFF, 600 dpi"),
+    ("05_Figures/FigureS3_EDI_PCA.tif", "Figure_S3.tif", "only if requested", "TIFF, 600 dpi"),
+]
+CONFIRM = "10_Author_Order_Confirmation.docx"
 
 
 def authors():
@@ -60,12 +74,12 @@ def guide(path):
     d = pkg.new_doc("Revision 1: Upload Guide", f"Manuscript {pkg.MS_ID} | {pkg.TITLE}")
     pkg.H(d, "Files and where each goes", 11.5)
     rows = [[new, item, note] for _, new, item, note in FILES]
-    rows.append(["11_Author_Order_Confirmation.docx", "Other (authorship change)",
-                 "signed by all eight authors"])
+    rows.append([CONFIRM, "Other (authorship change)", "signed by all eight authors"])
+    rows += [[f"{SUPP_DIR}/{new}", item, note] for _, new, item, note in SUPP]
     pkg.T(d, ["File", "Submission item", "Note"], rows, widths=[2.6, 2.1, 1.8], size=9.5)
     pkg.H(d, "Before uploading", 11.5)
     for t in [
-        "Have all eight authors sign 11_Author_Order_Confirmation. The journal requires every author's "
+        "Have all eight authors sign 10_Author_Order_Confirmation. The journal requires every author's "
         "written agreement to a change in author order; the cover letter says it is enclosed.",
         "Generate the conflict-of-interest statement in the Elsevier Declarations tool and upload it.",
         "On the title page, add your telephone number and each author's leadership roles "
@@ -88,9 +102,14 @@ def main():
     os.makedirs(OUT)
     for src, new, _, _ in FILES:
         shutil.copy2(os.path.join(pkg.PKG, src), os.path.join(OUT, new))
-    confirmation(os.path.join(OUT, "11_Author_Order_Confirmation.docx"))
+    os.makedirs(os.path.join(OUT, SUPP_DIR))
+    for src, new, _, _ in SUPP:
+        shutil.copy2(os.path.join(pkg.PKG, src), os.path.join(OUT, SUPP_DIR, new))
+    confirmation(os.path.join(OUT, CONFIRM))
     guide(os.path.join(OUT, "00_Upload_Guide.docx"))
-    print(f"  wrote {os.path.relpath(OUT, pkg.BASE)} ({len(os.listdir(OUT))} files)")
+    n_supp = len(os.listdir(os.path.join(OUT, SUPP_DIR)))
+    print(f"  wrote {os.path.relpath(OUT, pkg.BASE)} ({len(os.listdir(OUT)) - 1} files, "
+          f"plus {SUPP_DIR}/ with {n_supp})")
 
 
 if __name__ == "__main__":
