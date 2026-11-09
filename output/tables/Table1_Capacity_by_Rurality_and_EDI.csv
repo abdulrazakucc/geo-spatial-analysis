@@ -10,10 +10,10 @@ Q3,605,29.6,177 (24.5),65 (10.7),0.19,374 (24.3),117 (19.3),0.54
 Q4,606,26.3,112 (15.5),37 (6.1),0.08,317 (20.6),95 (15.7),0.62
 Q5 (most deprived),606,12.2,48 (6.6),19 (3.1),0.09,97 (6.3),47 (7.8),0.30
 
-CMR = cardiac magnetic resonance; CCT = cardiac computed tomography; RUCC = Rural-Urban Continuum Code (USDA ERS 2023); EDI = Economic Deprivation Index.
+CMR = cardiac magnetic resonance; CCT = cardiac computed tomography; RUCC = Rural-Urban Continuum Code (USDA ERS 2023); EDI = economic deprivation index.
 "Metropolitan is RUCC 1-3, nonmetropolitan RUCC 4-9."
 "Rate = accredited facilities per 100,000 adults aged 45 years and older."
 "Facility percentages are of the national total for each modality (722 CMR and 1,542 CCT facilities); percentages of counties with at least one facility use the counties in the row as the denominator. EDI quintile rows sum to less than 100% of facilities because counties without an EDI value are not in a quintile."
 "Facility and county counts include every county in the stratum. Mean rates are calculated over the rate-eligible counties only, because a per-head rate is not defined for a county with fewer than 1,000 adults aged 45 and older (106 counties excluded, none with an accredited facility; 3,038 of 3,144 retained)."
-"EDI quintiles are formed among rate-eligible counties with an EDI value, so the metropolitan strata and the quintile strata do not sum to the same total."
+"Quintiles are restricted to the 3,029 counties with ≥1,000 adults aged ≥45 years and an available EDI value; metropolitan strata include all 3,144 counties, so the two sets of strata do not sum to the same total."
 "Population denominators are US Census Bureau county population estimates for July 1, 2023 (Vintage 2023)."

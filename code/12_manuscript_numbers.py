@@ -598,8 +598,34 @@ def read_manuscript(path):
             tables.append(rows)
     # The flattened prose supports substring checks; the paragraph list lets
     # section-aware checks (Summary Sentence, Abstract) address one block.
+    # The submitted manuscript writes ranges and pairs with an en dash
+    # ("0.96–1.04", "SVI–CCT"); every check here is written with a hyphen, so
+    # the two are read alike.
+    nd = lambda t: t.replace("\u2013", "-")
+    prose_parts = [nd(t) for t in prose_parts]
+    tables = [[[nd(c) for c in row] for row in tb] for tb in tables]
     return (re.sub(r"\s+", " ", " ".join(prose_parts)), tables,
             [re.sub(r"\s+", " ", t).strip() for t in prose_parts])
+
+
+#: The tables, in manuscript order, when they are separate files (as submitted).
+TABLE_FILES = ["Table1_Capacity_by_Rurality_and_EDI.docx", "Table2_Primary_Models.docx",
+               "Table3_Sensitivity_EDI.docx", "Table4_Comparison_SDI.docx",
+               "Table5_Population_Characteristics.docx"]
+
+
+def read_table_files():
+    """Tables 1-5 from their separate files: [rows] per table, plus the title
+    and note paragraphs of each, read the same way as the manuscript."""
+    tables, texts = [], []
+    for name in TABLE_FILES:
+        path = os.path.join(BASE_DIR, "output", "tables", name)
+        if not os.path.exists(path):
+            break
+        prose, tb, paras = read_manuscript(path)
+        tables.append(tb[0] if tb else [])
+        texts.append(prose)
+    return tables, texts
 
 
 def _parse_table(rows):
@@ -897,20 +923,29 @@ def _check_lengths(paragraphs, checks):
     # Body word count, under the definition the manuscript states for itself.
     # This drifted once already: the note said 2,646 after edits had reduced the
     # text, and no plausible definition produced that figure.
+    # The submitted manuscript's definition: Introduction through Data
+    # Availability, without headings, subheadings, bracketed notes, or the
+    # AI-use declaration that follows Data Availability.
     HEADINGS = {"INTRODUCTION", "METHODS", "RESULTS", "DISCUSSION",
                 "STUDY LIMITATIONS", "CONCLUSION", "DATA AVAILABILITY",
                 "REFERENCES"}
+    SUBHEADINGS = {"Study Design and Data Sources", "Measures of Area Disadvantage",
+                   "Metropolitan Status and Statistical Analysis",
+                   "Distribution of Accredited Capacity", "Social Vulnerability Index",
+                   "Economic Deprivation Index", "External Validation With a Published Index",
+                   "Comparison With a Published Index", "Sensitivity and Exploratory Analyses"}
     try:
         lo = next(i for i, t in enumerate(paragraphs)
                   if t.strip().upper() == "INTRODUCTION")
         hi = next(i for i, t in enumerate(paragraphs)
-                  if t.strip().upper() == "REFERENCES")
+                  if t.strip().upper() == "REFERENCES"
+                  or t.strip().startswith("Declaration of generative AI"))
     except StopIteration:
         lo = hi = None
     if lo is not None:
         body = [t for t in paragraphs[lo:hi]
                 if t.strip() and t.strip().upper() not in HEADINGS
-                and not t.strip().startswith("[")]
+                and t.strip() not in SUBHEADINGS and not t.strip().startswith("[")]
         words = sum(len(t.split()) for t in body)
         for t in paragraphs:
             m = re.search(r"Word count[^:]*:\s*([\d,]+)", t)
@@ -922,11 +957,13 @@ def _check_lengths(paragraphs, checks):
 
     abstract = after("Abstract", count=4)
     if abstract:
-        words = sum(len(t.split()) for t in abstract)
+        # Section labels ("Objective:", ...) are not counted, as in the
+        # submitted manuscript's own abstract count.
+        words = sum(len((t.split(":", 1)[1] if ":" in t[:12] else t).split()) for t in abstract)
         checks.append(("Abstract word count", f"<= {ABSTRACT_WORD_LIMIT}",
                        str(words), words <= ABSTRACT_WORD_LIMIT))
         for t in paragraphs:
-            m = re.search(r"Abstract word count:\s*(\d+)", t)
+            m = re.search(r"Abstract(?: word count)?:\s*(\d+)( words)?", t)
             if m:
                 stated = int(m.group(1))
                 checks.append(("Abstract note matches actual count",
@@ -1249,6 +1286,14 @@ def check_manuscript(R):
                 "not tracked in git). This is not a manuscript pass.\n")
 
     prose, doc_tables, prose_paragraphs = read_manuscript(MANUSCRIPT)
+    # The submitted manuscript carries no tables: they are separate files, and
+    # are checked there, cell by cell, in manuscript order.
+    table_texts = []
+    if not doc_tables:
+        doc_tables, table_texts = read_table_files()
+        # Table titles and notes are part of the submission, so the text checks
+        # (named values, forbidden phrases, every quoted estimate) cover them too.
+        prose = prose + " " + " ".join(table_texts)
 
     d, reg, c, g, pc = (R["descriptives"], R["regressions"], R["correlations"],
                         R["quintiles"], R["pca"])
@@ -1435,29 +1480,51 @@ def check_manuscript(R):
                 ck(f"T3 {label} EDI", fmt_est(blk[f"stratified_{lay}"]), cells[2])
                 ck(f"T3 {label} P", fmt_p(blk[f"stratified_{lay}"]["p"]), cells[3])
 
-    # ---- Table 4: characteristics of county residents (revision E-05). The
-    # original Table 4 (an index comparison) was withdrawn in August 2026 and is
-    # Figure 2; the current Table 4 is the population table and nothing else.
-    C = (R.get("reviewer") or {}).get("E-05_population")
-    if len(doc_tables) >= 5:
-        checks.append(("at most four tables", "4 tables", f"{len(doc_tables)} tables found", False))
-    if len(doc_tables) >= 4 and C:
-        ck_prose("Table 4 title", "Table 4. Characteristics of county residents")
-        ck_prose("Table 4 cited in Methods", "are summarized in Table 4")
+    # ---- Table 4: comparison with a published index (EDI versus SDI), as in
+    # the submitted manuscript. Figure 2 plots the same estimates.
+    sdi_blk = R.get("sdi") or {}
+    if len(doc_tables) >= 4 and sdi_blk.get("SDI_models"):
         t4 = _parse_table(doc_tables[3])
+        E4, D4 = sdi_blk["EDI_models"]["outcomes"], sdi_blk["SDI_models"]["outcomes"]
+        up = lambda e: {"irr": e["IRR"], "ci_low": e["CI_low"], "ci_high": e["CI_high"], "p": e["P"]}
+        for sect, y in (("Cardiac MR", "cmr_facility_count"), ("Cardiac CT", "cct_facility_count")):
+            for lab, k in (("Index, unadjusted", "unadjusted"),
+                           ("Index, adjusted for metropolitan status", "adjusted"),
+                           ("Metropolitan status", "metro_in_adjusted")):
+                cells = t4.get((sect, lab))
+                if cells is None:
+                    ck(f"T4 {sect} {lab}", "row present", "ROW NOT FOUND")
+                    continue
+                ck(f"T4 {sect} {lab} EDI", fmt_est(up(E4[y][k])), cells[1])
+                ck(f"T4 {sect} {lab} EDI P", fmt_p(E4[y][k]["P"]), cells[2])
+                ck(f"T4 {sect} {lab} SDI", fmt_est(up(D4[y][k])), cells[3])
+                ck(f"T4 {sect} {lab} SDI P", fmt_p(D4[y][k]["P"]), cells[4])
+        ck_prose("Table 4 cited with Figure 2", "(Table 4; Figure 2)")
+
+    # ---- Table 5: characteristics of county residents (revision E-05).
+    C = (R.get("reviewer") or {}).get("E-05_population")
+    if len(doc_tables) >= 6:
+        checks.append(("at most five tables", "5 tables", f"{len(doc_tables)} tables found", False))
+    if len(doc_tables) >= 5 and C:
+        title5 = table_texts[4] if len(table_texts) >= 5 else prose
+        checks.append(("Table 5 title", "Table 5. Characteristics of county residents",
+                       "found" if "Table 5. Characteristics of county residents" in title5 else "NOT FOUND",
+                       "Table 5. Characteristics of county residents" in title5))
+        ck_prose("Table 5 cited in Methods", "are summarized in Table 5")
+        t5 = _parse_table(doc_tables[4])
         strata = ["all", "metropolitan", "nonmetropolitan", "any_facility", "no_facility"]
-        cells = t4.get(("", "Counties, No."))
-        ck("T4 counties", " / ".join(f"{C['strata'][k]['counties']:,}" for k in strata),
+        cells = t5.get(("", "Counties, No."))
+        ck("T5 counties", " / ".join(f"{C['strata'][k]['counties']:,}" for k in strata),
            " / ".join(cells[1:6]) if cells else "ROW NOT FOUND")
         for key, v in C["variables"].items():
             if key == "density":
                 continue
-            row = next((c for (sec, lab), c in t4.items() if lab == v["label"]), None)
+            row = next((c for (sec, lab), c in t5.items() if lab == v["label"]), None)
             dp = 0 if key == "premature_mortality" else 1
             want = " / ".join(f"{v['by_stratum'][k]['population_weighted_mean']:.{dp}f}" for k in strata)
-            ck(f"T4 {v['label']}", want, " / ".join(row[1:6]) if row else "ROW NOT FOUND")
-    elif len(doc_tables) >= 4:
-        checks.append(("Table 4 has population results to check against", "reviewer_analyses.json",
+            ck(f"T5 {v['label']}", want, " / ".join(row[1:6]) if row else "ROW NOT FOUND")
+    elif len(doc_tables) >= 5:
+        checks.append(("Table 5 has population results to check against", "reviewer_analyses.json",
                        "missing", False))
 
     # The Figure 1 caption must state the finding, not just describe the panels.
@@ -1465,7 +1532,7 @@ def check_manuscript(R):
     # SVI-CCT association reads as a blanket null, which is what a coauthor
     # took it to mean. The estimate is rebuilt from the fitted model here, so
     # the caption cannot keep a value the model no longer produces.
-    cap = next((p for p in prose_paragraphs if p.strip().startswith("FIGURE 1")), "")
+    cap = next((p for p in prose_paragraphs if p.strip().upper().startswith("FIGURE 1")), "")
     svi_cct = M["SVI_CCT"]["adjusted_metro"]
     want = (f"IRR {svi_cct['irr']:.2f}; 95% CI, "
             f"{svi_cct['ci_low']:.2f}-{svi_cct['ci_high']:.2f}; "

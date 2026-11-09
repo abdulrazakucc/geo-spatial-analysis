@@ -234,7 +234,8 @@ def comparison_table(edi_res, svi_res, sdi_res, m):
 
 
 def external_validation_table(sdi_res):
-    """Manuscript Table 4, our EDI head to head with the external Graham Center SDI."""
+    """Reference table: our EDI head to head with the Graham Center SDI (the
+    manuscript's Table 4 is written by 21_manuscript_tables.py)."""
     if sdi_res is None:
         print("  skipped Reference_External_Validation_SDI.docx (run 09 first)")
         return

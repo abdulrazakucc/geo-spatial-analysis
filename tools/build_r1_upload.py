@@ -26,13 +26,19 @@ FILES = [
     ("02_Revised_Manuscript_TRACKED.docx", "03_Manuscript_Tracked_Changes.docx",
      "Revised Manuscript with Changes Marked", "blinded"),
     ("01_Revised_Manuscript_CLEAN.docx", "04_Manuscript_Clean.docx", "Manuscript",
-     "blinded; Tables 1-4 are embedded and editable"),
+     "blinded; tables are files 07-11, as at first submission"),
     ("01_Revised_Manuscript_CLEAN.pdf", "05_Manuscript_Clean_Line_Numbered.pdf",
      "Supplementary/Other (for reviewers)", "the response letter's page and line numbers refer to it"),
     ("13_Title_Page.docx", "06_Title_Page.docx", "Title Page", "not blinded"),
-    ("05_Figures/Figure1A_CMR_Choropleth.tif", "07_Figure1A.tif", "Figure", "TIFF, 600 dpi"),
-    ("05_Figures/Figure1B_Forest.tif", "08_Figure1B.tif", "Figure", "TIFF, 600 dpi"),
-    ("05_Figures/Figure2_External_Validation.tif", "09_Figure2.tif", "Figure", "TIFF, 600 dpi"),
+    # Tables are separate files, as at first submission (editable Word tables).
+    ("06_Tables/Table1_Capacity_by_Rurality_and_EDI.docx", "07_Table1.docx", "Table", "editable"),
+    ("06_Tables/Table2_Primary_Models.docx", "08_Table2.docx", "Table", "editable"),
+    ("06_Tables/Table3_Sensitivity_EDI.docx", "09_Table3.docx", "Table", "editable"),
+    ("06_Tables/Table4_Comparison_SDI.docx", "10_Table4.docx", "Table", "editable"),
+    ("06_Tables/Table5_Population_Characteristics.docx", "11_Table5.docx", "Table", "editable; new"),
+    ("05_Figures/Figure1A_CMR_Choropleth.tif", "12_Figure1A.tif", "Figure", "TIFF, 600 dpi"),
+    ("05_Figures/Figure1B_Forest.tif", "13_Figure1B.tif", "Figure", "TIFF, 600 dpi"),
+    ("05_Figures/Figure2_External_Validation.tif", "14_Figure2.tif", "Figure", "TIFF, 600 dpi"),
 ]
 
 #: Supplementary material, in its own subfolder. The Word document is the item
@@ -49,7 +55,7 @@ SUPP = [
     ("05_Figures/FigureS2_EDI_Quintiles.tif", "Figure_S2.tif", "only if requested", "TIFF, 600 dpi"),
     ("05_Figures/FigureS3_EDI_PCA.tif", "Figure_S3.tif", "only if requested", "TIFF, 600 dpi"),
 ]
-CONFIRM = "10_Author_Order_Confirmation.docx"
+CONFIRM = "15_Author_Order_Confirmation.docx"
 
 
 def authors():
@@ -79,7 +85,7 @@ def guide(path):
     pkg.T(d, ["File", "Submission item", "Note"], rows, widths=[2.6, 2.1, 1.8], size=9.5)
     pkg.H(d, "Before uploading", 11.5)
     for t in [
-        "Have all eight authors sign 10_Author_Order_Confirmation. The journal requires every author's "
+        "Have all eight authors sign 15_Author_Order_Confirmation. The journal requires every author's "
         "written agreement to a change in author order; the cover letter says it is enclosed.",
         "Generate the conflict-of-interest statement in the Elsevier Declarations tool and upload it.",
         "On the title page, add your telephone number and each author's leadership roles "

@@ -161,15 +161,16 @@ signal. That is the paper's central methodological point.
 | Manuscript element | Produced by | Output |
 |---|---|---|
 | Table 1 | `17_table1.py` | `output/tables/Table1_*` |
-| Table 4 (characteristics of county residents) | `20_table4_population.py`, from `18`'s results | `output/tables/Table4_*` |
-| Tables 2 and 3, every quoted estimate | `05`, `06`, `09`, `18`, checked by `12` | `output/results/`, `output/validation/` |
+| Tables 2-4 (primary models, sensitivity, SDI comparison) | `21_manuscript_tables.py`, from `12`'s and `18`'s results | `output/tables/Table2_*`, `Table3_*`, `Table4_*` |
+| Table 5 (characteristics of county residents) | `20_table5_population.py`, from `18`'s results | `output/tables/Table5_*` |
+| Every quoted estimate | `05`, `06`, `09`, `18`, checked by `12` | `output/results/`, `output/validation/` |
 | Figures 1A, 1B, 2, S1-S3 | `16_publication_figures.py` | `output/figures/` |
 | Supplement (Methods S1-S8, Tables S1-S6) | `19_supplementary_material.py` | `output/tables/Supplementary_*` |
 | Reviewer analyses | `18_reviewer_analyses.py` | `output/results/reviewer_analyses.json` |
 
-Superseded scripts (`04`, `08`, `10`) are not run. Table 4 describes county
-residents; it is not the index-comparison table withdrawn in August 2026, which
-became Figure 2.
+Superseded scripts (`04`, `08`, `10`) are not run. As in the manuscript submitted
+to JACR, the tables are separate files; the gate reads them from `output/tables/`
+when the manuscript carries none.
 
 ---
 

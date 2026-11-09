@@ -180,7 +180,7 @@ python code/00_run_all.py --all            # everything
 descriptive statistic, every regression coefficient, every correlation, and
 every table cell in the paper directly from the committed data, then compares
 them against the manuscript file and reports any disagreement. The current run
-reports **308 checks, 0 mismatches**.
+reports **328 checks, 0 mismatches**.
 
 Full details of what is checked and how, including the model specification and
 each analytic decision, are in **[docs/REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md)**.
@@ -234,7 +234,8 @@ code/                     numbered pipeline, run in order
   11_edi_tables_and_stats.py    E  Word tables, supplementary statistics
   16_publication_figures.py     E  Figures 1A, 1B, 2, S1, S2, S3
   17_table1.py                  E  manuscript Table 1
-  20_table4_population.py       E  manuscript Table 4 (characteristics of county residents)
+  21_manuscript_tables.py       E  manuscript Tables 2-4 (primary models, sensitivity, SDI comparison)
+  20_table5_population.py       E  manuscript Table 5 (characteristics of county residents)
   19_supplementary_material.py  E  supplementary methods, Tables S1-S6
   07_publication_outputs.py     E  descriptives by SVI quartile
 

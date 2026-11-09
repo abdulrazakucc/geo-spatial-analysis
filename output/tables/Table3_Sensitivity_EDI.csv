@@ -1,0 +1,15 @@
+﻿Table 3. Sensitivity analyses of the association between economic deprivation and accredited facility counts
+Model,"Counties, No.",EDI IRR (95% CI),P value,Rurality term IRR (95% CI)
+Rurality as ordinal RUCC (1-9),,,,
+Cardiac MR,"3,134",1.00 (0.97–1.04),0.802,0.70 (0.64–0.76)
+Cardiac CT,"3,134",1.03 (1.00–1.05),0.033,0.84 (0.81–0.88)
+Stratified by metropolitan status,,,,
+"Cardiac MR, metropolitan","1,178",1.00 (0.97–1.04),0.863,NA
+"Cardiac MR, nonmetropolitan","1,956",0.70 (0.56–0.89),0.003,NA
+"Cardiac CT, metropolitan","1,178",1.02 (1.00–1.05),0.071,NA
+"Cardiac CT, nonmetropolitan","1,956",0.96 (0.89–1.03),0.233,NA
+"Population-weighted, adjusted for metropolitan status",,,,
+Cardiac MR,"3,134",1.00 (0.96–1.03),0.778,8.75 (5.16–14.85)
+Cardiac CT,"3,134",1.02 (1.00–1.05),0.092,2.27 (1.87–2.76)
+
+"EDI = economic deprivation index; IRR = incidence rate ratio; NA = not applicable; RUCC = Rural-Urban Continuum Code. Unless noted, models are negative binomial with a log-population offset (adults aged ≥45 years); EDI IRRs are per 10-percentile increase. The rurality term is the ordinal RUCC value, for which IRR < 1 indicates lower capacity with increasing rurality. In the population-weighted rows it is metropolitan status. All rurality terms had P < 0.001. The nonmetropolitan cardiac MR stratum contains 14 accredited facilities, each in a different county; its dispersion estimate lay on the boundary of zero, where the negative binomial model reduces to Poisson regression, and the estimate shown is from that fit (profile-likelihood 95% CI, 0.55–0.88; Supplementary Table S4). It is imprecise and hypothesis-generating. The nonmetropolitan cardiac CT estimate is also from the Poisson fit, because its dispersion estimate lay on the same boundary. The EDI association differed between metropolitan and nonmetropolitan counties for cardiac MR (interaction P = 0.003) but not for cardiac CT (interaction P = 0.088). Population-weighted models are Poisson regressions with the same offset, which weight each county's rate by its adults aged ≥45 years, with robust standard errors."

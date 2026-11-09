@@ -332,19 +332,23 @@ def test_generated_table1_matches_manuscript():
                  for c in row.findall(f"{W}tc")]
                 for row in tbl.findall(f".//{W}tr")]
 
-    paper = cells(TrackedDocument(doc, author="test").tables()[0])
+    doc_tables = TrackedDocument(doc, author="test").tables()
+    if not doc_tables:
+        # As submitted to JACR, the tables are separate files: the generated
+        # Table 1 is the submitted table, and the gate checks its cells.
+        raise SkipTest("manuscript carries no tables (separate files)")
+    paper = cells(doc_tables[0])
     built = cells(Document(gen).tables[0]._tbl)
     assert paper == built, "generated Table 1 does not match the manuscript"
 
 
 def test_no_withdrawn_table4_artifacts():
-    """The original Table 4 (index comparison) was withdrawn and promoted to
-    Figure 2; its files must not return, or a stale file could reach a submission."""
+    """August-era index-comparison table files must not return; the submitted
+    Table 4 (SDI comparison) is Table4_Comparison_SDI, from 21_manuscript_tables.py."""
     tables = os.path.join(BASE_DIR, "output", "tables")
     if not os.path.isdir(tables):
         raise SkipTest("run the pipeline first")
-    # The current Table 4 is the population table (20_table4_population.py);
-    # only the withdrawn index-comparison names are stale.
+    # Only the August-era names are stale; Table 5 is the population table.
     withdrawn = ("table4_external_validation", "table4_svi_vs_edi")
     stale = [f for f in os.listdir(tables) if f.lower().startswith(withdrawn)]
     assert not stale, f"withdrawn Table 4 artifacts present: {stale}"
