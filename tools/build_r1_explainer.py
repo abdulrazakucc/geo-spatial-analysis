@@ -123,7 +123,7 @@ def load():
     gate = re.search(r"Validation: (\d+) checks, (\d+) mismatches", rep).groups()
     tests = re.search(r"pipeline tests: (\d+) passed, (\d+) failed", rep).groups()
     sub = docx.Document(os.path.join(BASE, "manuscript", "manuscript_SUBMISSION.docx"))
-    body_words = re.search(r"figure legends\): ([\d,]+)\.", "\n".join(p.text for p in sub.paragraphs)).group(1)
+    body_words = re.search(r"Word count: ([\d,]+) \(", "\n".join(p.text for p in sub.paragraphs)).group(1)
     resp = docx.Document(os.path.join(PKG, "03_Response_to_Reviewers.docx"))
     n_locs = sum(p.text.count("“") for p in resp.paragraphs if p.text.startswith("Location in"))
     L = pkg.Locator(os.path.join(PKG, "01_Revised_Manuscript_CLEAN.pdf"))
@@ -824,17 +824,19 @@ The accepted text of the two is identical, which a script confirms.</p>''')}
 data, so no permission letters are needed. (Open item: confirm none appeared in a preprint or
 conference poster.)</p>''')}
 <p class="lbl">Editor, comment 3: proofreading</p>{quote(V['ED'][3])}
-{plain('''<p>The whole manuscript was proofread. Corrections include: the Medicare law section was
-miscited as 145(a) and is 135(a); two supplementary figure citations sat in the wrong place;
-references were renumbered in order of first citation; estimate formats, abbreviations (AIC and
-BIC now defined) and geographic terms were made consistent; "strongly correlated" overstated the
-link between metropolitan status and deprivation; and a claim that rates "declined" across
-deprivation fifths was qualified because the decline is not steady.</p>''')}
+{plain('''<p>The whole manuscript was proofread. Corrections include: the Medicare sentence
+gave an effective date and called the ACR the largest accreditor, neither of which the cited CMS
+page states; the first reference reports rural-urban differences, not economic ones, so the
+sentence citing it was narrowed; the population denominators are Census Bureau estimates for July
+1, 2023, not American Community Survey estimates; abbreviations (AIC and BIC now defined) and
+geographic terms were made consistent; "strongly correlated" overstated the link between
+metropolitan status and deprivation; nonsignificant results are no longer described as showing no
+association; and the closing sentence that repeated the Summary Sentence was removed.</p>''')}
 <p class="lbl">Editor, comment 4: a table of population characteristics</p>{quote(V['ED'][4])}
 {plain('''<p>Journals often require a table describing the patients in a study: their race and
 ethnicity, sex, and health conditions. This study has no patients. It counts facilities in
 counties. We cannot describe who was scanned, because those data do not exist here. We added the
-closest honest equivalent to the main text as Table 4: a table describing the <i>residents</i> of
+closest honest equivalent as Table 5 (Table 4 remains the comparison with the published index): a table describing the <i>residents</i> of
 the counties, overall, by metropolitan status, and by whether the county has a facility. The
 supplement (Table S1) adds the spread across counties and the missing counts. Heart disease rates, disease
 severity and gender identity are not available at county level in these sources.</p>''')}
@@ -863,8 +865,8 @@ severity and gender identity are not available at county level in these sources.
      f"{sdi_m['cct_facility_count']['metro_in_adjusted']['IRR']:.2f}; "
      f"P = {RG['EDI_CMR']['adjusted_rucc']['p']:.3f}; P = {S['strata']['EDI_CCT_nonmetro']['estimate']['p']:.3f} "
      f"(nonmetropolitan CCT, a boundary solution); no conclusion affected"],
-    ["Body length", "2,524 words", f"{X['body_words']} words, under the journal's 3,000-word limit; "
-     "restatements removed, and the Conclusion section removed because the Take-Home Points take "
+    ["Body length", "2,493 words", f"{X['body_words']} words, under the journal's 3,000-word limit; "
+     "restatements removed, including the closing repeat of the Summary Sentence, and the Take-Home Points take "
      "its place"],
 ])}
 """)
@@ -900,9 +902,10 @@ Poisson fit, so its Table 3 P value is 0.233, not 0.232. The response letter dis
 <li><b>Every quoted estimate checked:</b> the validation script now also checks that every estimate
 quoted in the text, wherever it appears, matches a computed result. That is the check that would
 have caught the first three values above.</li>
-<li><b>Correct baseline:</b> the line numbers the reviewers cite match the repository's 16 August
-2026 submission file, not an alternative copy, so the tracked changes are measured against the
-version the journal received.</li>
+<li><b>Correct baseline:</b> the tracked changes are measured against the manuscript as submitted to
+JACR on September 25, 2026; its line numbers match the reviewers' references exactly (lines 78-79 and
+91-92, and page 9, line 165). Its tables were uploaded separately, so the revised tables are again
+separate files, with their changes listed in the response.</li>
 </ul>''')}
 """)
 
@@ -988,10 +991,10 @@ Mean county facility rates by EDI quintile. Note that the decline is not steady.
 
 REBUILD = '''<p>Rebuild from the repository root:</p>
 <pre>.venv/bin/python code/00_run_all.py --with-present
-.venv/bin/python tools/revise_manuscript_r1.py manuscript/_archive/manuscript_SUBMISSION_R0_as-submitted_2026-08-16.docx \\
+.venv/bin/python tools/revise_manuscript_r1.py manuscript/_archive/manuscript_JACR_first_submission_2026-09-25.docx \\
     manuscript/jacrad-reviews-2026/working/manuscript_R1_TRACKED.docx \\
-    --log manuscript/jacrad-reviews-2026/working/r1_change_log.csv
-.venv/bin/python tools/revise_manuscript_r1.py manuscript/_archive/manuscript_CLEAN_R0_pre-revision_2026-08-16.docx \\
+    --log manuscript/jacrad-reviews-2026/working/r1_change_log.csv --blind
+.venv/bin/python tools/revise_manuscript_r1.py manuscript/_archive/manuscript_JACR_first_submission_2026-09-25.docx \\
     manuscript/manuscript_CLEAN.docx
 .venv/bin/python tools/finalize_manuscript.py --validate
 .venv/bin/python tools/build_r1_package.py

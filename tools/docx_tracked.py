@@ -640,6 +640,21 @@ class TrackedDocument:
                 self._blobs[ct] = etree.tostring(
                     root, xml_declaration=True, encoding="UTF-8", standalone=True)
 
+    def scrub_identity(self, name=""):
+        """Blank the author fields of the package properties (creator and last
+        modified by in docProps/core.xml; company and manager in app.xml), so a
+        blinded copy does not name its authors in its file metadata."""
+        for part, tags in (("docProps/core.xml", ("creator", "lastModifiedBy")),
+                           ("docProps/app.xml", ("Company", "Manager"))):
+            if part not in self._blobs:
+                continue
+            root = etree.fromstring(self._blobs[part])
+            for el in root.iter():
+                if isinstance(el.tag, str) and el.tag.split("}")[-1] in tags:
+                    el.text = name
+            self._blobs[part] = etree.tostring(root, xml_declaration=True, encoding="UTF-8",
+                                               standalone=True)
+
     def save(self, dest=None):
         """Write the document. Backs up in place when overwriting the source."""
         dest = str(dest or self.path)

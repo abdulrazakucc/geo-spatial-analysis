@@ -302,9 +302,18 @@ def items(rv, mn, L):
                          for g in rates.values() for o in ("CMR", "CCT"))
     fam = M["families"]
 
+    #: Tables are separate files, as at first submission, so their locations name the file.
+    TABLE_LOCS = {"Table 1 footnote": "Table 1 file, footnote", "Table 2 footnote": "Table 2 file, footnote",
+                  "Table 3 footnote": "Table 3 file, footnote", "Table 5": "Table 5 file, title"}
+
     def loc(*pairs):
         out = []
         for lab, a, b in pairs:
+            if lab in TABLE_LOCS:
+                w = a.split()
+                q = " ".join(w[:8]) + (" \u2026" if len(w) > 8 else "")
+                out.append(f"{TABLE_LOCS[lab]} (\u201c{q}\u201d)")
+                continue
             f = L.find(a, b)
             assert f, f"location not found in the clean PDF: {lab}: {a!r}"
             w = a.split()
@@ -326,11 +335,11 @@ def items(rv, mn, L):
          "for the first time: restricting the regressions changed no adjusted index IRR by more than "
          "0.001, and the estimated-dispersion model had the lowest AIC and BIC in all 12 "
          "index-outcome models.",
-         ["Methods, paragraph 1: the cohort definition is retained; its result is removed.",
-          "Methods, paragraph 3: the AIC/BIC result is replaced by a description of the comparison; "
+         ["Methods, Study Design and Data Sources: the cohort definition is retained; its result is removed.",
+          "Methods, Metropolitan Status and Statistical Analysis: the AIC/BIC result is replaced by a description of the comparison; "
           "the sensitivity analyses are listed without results.",
-          "Methods, paragraph 2: the variance-explained result is removed; standardization is stated.",
-          "Results: a new paragraph reports all sensitivity analyses (Supplementary Table S2), and the "
+          "Methods, Measures of Area Disadvantage: the variance-explained result is removed; standardization is stated.",
+          "Results: a new subsection, Sensitivity and Exploratory Analyses, reports all sensitivity analyses (Supplementary Table S2), and the "
           "PCA result is reported with the full component structure (Supplementary Figure S3; Table S5)."],
          loc(("Methods, cohort", "Facilities listed as Accredited or Under Review", "facility-modality records, respectively"),
              ("Methods, model comparison", "Its fit was compared by the Akaike", "dispersion fixed at 1."),
@@ -383,12 +392,12 @@ def items(rv, mn, L):
          f"{w['n']:,} counties (Solon et al., reference 12, discuss weighting in this setting). The "
          f"weighting of each model is set out in Methods and Supplementary Methods S3, and the "
          f"results in Results, Table 3, and Supplementary Table S2.",
-         ["Methods, paragraph 1: number excluded stated; pooled rates added and identified as "
+         ["Methods, Study Design and Data Sources: number excluded stated; pooled rates added and identified as "
           "population-weighted mean county rates; all counties retained in regressions stated.",
-          "Methods, paragraph 3: how the negative binomial and Poisson models weight counties; the "
+          "Methods, Metropolitan Status and Statistical Analysis: how the negative binomial and Poisson models weight counties; the "
           "population-weighted (Poisson) sensitivity analysis.",
-          "Results, paragraph 1: pooled rates; none of the 106 excluded counties had a facility.",
-          "Results, EDI paragraph: pooled Q1/Q5 contrast (1.4-fold, versus 2.9-fold for mean county rates).",
+          "Results, Distribution of Accredited Capacity: pooled rates; none of the 106 excluded counties had a facility.",
+          "Results, Economic Deprivation Index: pooled Q1/Q5 contrast (1.4-fold, versus 2.9-fold for mean county rates).",
           "Results, sensitivity paragraph; Table 3 (population-weighted rows and footnote); "
           "Supplementary Table S2 (population-weighted and equally weighted rows); Supplementary "
           "Methods S3; Limitations."],
@@ -416,18 +425,18 @@ def items(rv, mn, L):
          "health', and in reference titles; 'rurality' is used only for the ordinal RUCC. The title retains 'Rurality' because the analysis examines the "
          "rural-urban continuum directly, through the ordinal RUCC models (Table 3) and the comparison "
          "of how strongly each index tracks rurality (Figure 2).",
-         ["Methods, paragraph 3: RUCC definitions and terminology rule.",
+         ["Methods, Metropolitan Status and Statistical Analysis: RUCC definitions and terminology rule.",
           "Introduction: 'metropolitan-rural gradient' to 'metropolitan-nonmetropolitan gradient'.",
           "Methods: 'correlated with rural location' to 'nonmetropolitan location'.",
           "Discussion: 'the rural populations within them' and 'the rural-urban gradient' corrected.",
-          "Limitations: 'high-deprivation and rural counties' to 'nonmetropolitan counties'.",
-          "Table 1: title and stratum heading 'Rurality' to 'Metropolitan status'.",
-          "The abbreviation RUCC is now defined once and used thereafter."],
+          "Discussion: 'high-deprivation and rural counties' to 'nonmetropolitan counties'.",
+          "Tables 1 and 3 (separate files): 'metropolitan status' for the binary split, 'rurality' only "
+          "for the ordinal RUCC."],
          loc(("Methods, definitions", "Metropolitan status was defined by the US Department",
               "refers to the ordinal RUCC gradient."),
              ("Introduction", "independent of the metropolitan-nonmetropolitan gradient", None),
              ("Discussion", "including nearly all nonmetropolitan counties", None),
-             ("Limitations", "high-deprivation and nonmetropolitan counties", None))),
+             ("Discussion", "high-deprivation and nonmetropolitan counties", None))),
         ("R1-04", "Positive SVI/CCT association. Expand the Discussion with plausible explanations, "
          "including tertiary care centers and urban-core clustering, without unsupported causal "
          "interpretation.",
@@ -453,8 +462,8 @@ def items(rv, mn, L):
          f"cannot show whom these facilities serve. Because the registry does not record facility type, "
          f"the Discussion presents the location of tertiary centers as a plausible explanation "
          f"consistent with these results, not as a tested one.",
-         ["Methods, paragraph 3: exploratory analyses described.",
-          "Results: new exploratory paragraph (Supplementary Table S6).",
+         ["Methods, Metropolitan Status and Statistical Analysis: exploratory analyses described.",
+          "Results, Sensitivity and Exploratory Analyses: new exploratory paragraph (Supplementary Table S6).",
           "Discussion: new paragraph on the SVI-CCT association."],
          loc(("Methods", "Exploratory SVI models added categorical RUCC", "used the four SVI themes."),
              ("Results", "In exploratory analyses, the SVI-CCT association", "(Supplementary Table S6)."),
@@ -540,8 +549,8 @@ def items(rv, mn, L):
          f"{sc['holm_extended']:.3f}). Sensitivity and exploratory analyses are identified as such and "
          f"interpreted by their agreement with the primary estimates. None of the paper's conclusions "
          f"rests on an association that loses significance under the primary-family adjustment.",
-         ["Methods, paragraph 3: primary family and procedures (references 14 and 15).",
-          "Methods, paragraph 3: the sensitivity analyses are stated to assess the robustness of the "
+         ["Methods, Metropolitan Status and Statistical Analysis: primary family and procedures (references 14 and 15).",
+          "Methods, Metropolitan Status and Statistical Analysis: the sensitivity analyses are stated to assess the robustness of the "
           "primary findings.",
           "Results, sensitivity paragraph: adjusted P values.",
           "Table 2 footnote: Holm-adjusted P values for the primary family.",
@@ -586,8 +595,8 @@ def items(rv, mn, L):
          f"rule now applied to every stratified fit substitutes the Poisson fit only in this boundary "
          f"situation; any other failure would still be reported as not estimable.",
          ["Table 3: nonmetropolitan CMR row now 0.70 (0.56-0.89), P = 0.003; footnote rewritten.",
-          "Methods, paragraph 3: boundary rule and interaction test.",
-          "Results, EDI paragraph; Discussion (the exception sentence); Limitations.",
+          "Methods, Metropolitan Status and Statistical Analysis: boundary rule and interaction test.",
+          "Results, Economic Deprivation Index; Discussion (the exception sentence); Limitations.",
           "Supplementary Table S4 (new)."],
          loc(("Methods", "Where a sparse stratum placed the dispersion", "equivalent Poisson model."),
              ("Results", "Within nonmetropolitan counties, whose 14 accredited", "is hypothesis-generating."),
@@ -658,20 +667,20 @@ def items(rv, mn, L):
          "We thank the editor for this reminder. The manuscript has been proofread in full for "
          "grammar, spelling, statistical terminology, and internal consistency, and every correction "
          "is marked in the tracked version. The principal corrections are as "
-         "follows. The sentence on the Medicare accreditation requirement gave a wrong section number "
-         "(145(a)), an effective date, and a description of the ACR as the largest accrediting "
-         "organization, none of which the cited CMS page states; it now states the requirement as "
-         "that page does. References 2 and 11 were rechecked and their access dates updated, and the "
-         "Social Deprivation Index is now cited (reference 13). Two "
-         "supplementary-figure citations that had been inserted at incorrect positions have been "
-         "restored to their proper locations. The references have been renumbered in order of first "
-         "citation, and the reference list has been completed. The reporting format of estimates and "
-         "confidence intervals, the definition of abbreviations (including AIC and BIC), and the "
-         "geographic terminology have been made consistent throughout. The description of "
-         "metropolitan status and economic deprivation as strongly correlated has been revised, "
-         "because it overstated the association. The statement that mean cardiac MR rates "
-         "declined across economic deprivation quintiles has been qualified, because the quintile "
-         "means do not decline monotonically. Nonsignificant results are now described as not "
+         "follows. The sentence on the Medicare accreditation requirement gave an effective date and "
+         "described the ACR as the largest accrediting organization, neither of which the cited CMS "
+         "page states; it now states the requirement as that page does. Reference 1 reports "
+         "cardiovascular mortality by rural-urban residence, not by economic status, so the sentence "
+         "citing it no longer refers to economically disadvantaged populations. Reference 2 was "
+         "rechecked and its access date updated; the RUCC documentation (reference 11) and the Social "
+         "Deprivation Index (reference 13) are now cited, and the added references are numbered in "
+         "order of first citation. The population denominators are now described correctly as US "
+         "Census Bureau estimates for July 1, 2023; they had been described as American Community "
+         "Survey estimates. Abbreviations (including AIC and BIC) and the geographic terminology have "
+         "been made consistent throughout. The description of metropolitan status and economic "
+         "deprivation as strongly correlated has been revised, because it overstated the association. "
+         "The closing sentence of the Discussion, which repeated the Summary Sentence, was removed. "
+         "Nonsignificant results are now described as not "
          "significant rather than as showing an absence of association; statements that no inverse "
          "gradient was found are limited to the primary models adjusted for metropolitan status; "
          "planning and mechanism statements are framed as hypotheses; the sample for the facility "
@@ -683,9 +692,9 @@ def items(rv, mn, L):
          f"Four submitted results changed in the last printed digit: the SVI-model metropolitan "
          f"incidence rate ratio for cardiac MR and its upper confidence limit (8.56 to "
          f"{MX['SVI_CMR']['metro_effect']['irr']:.2f} and 14.61 to "
-         f"{MX['SVI_CMR']['metro_effect']['ci_high']:.2f}; Table 2 footnote), the SDI-model metropolitan "
-         f"incidence rate ratio for cardiac CT (2.12 to "
-         f"{SDIo['cct_facility_count']['metro_in_adjusted']['IRR']:.2f}; Results), the P value of the "
+         f"{MX['SVI_CMR']['metro_effect']['ci_high']:.2f}; Figure 1 legend and Table 2 footnote), the "
+         f"SDI-model metropolitan incidence rate ratio for cardiac CT (2.12 to "
+         f"{SDIo['cct_facility_count']['metro_in_adjusted']['IRR']:.2f}; Results and Table 4), the P value of the "
          f"ordinal-RUCC model for the EDI and cardiac MR (0.801 to "
          f"{MX['EDI_CMR']['adjusted_rucc']['p']:.3f}; Results and Table 3), and the P value for the "
          f"nonmetropolitan cardiac CT stratum (0.232 to "
@@ -699,7 +708,7 @@ def items(rv, mn, L):
          f"outcome is the count of accredited facilities; no patients were enrolled and no patient "
          f"records were used, so the race and ethnicity, sex, clinical conditions and disease severity "
          f"of people who received cardiac imaging do not exist in these data and cannot be reported. To "
-         f"meet the requirement we added Table 4 to the main text. It reports the characteristics of "
+         f"meet the requirement we added Table 5. It reports the characteristics of "
          f"county residents for all {C['strata']['all']['counties']:,} counties, by metropolitan status, "
          f"and by presence of an accredited facility: age, sex, race and ethnicity, poverty, insurance, "
          f"disability, primary care physician supply, and county-level model-based prevalence of "
@@ -709,10 +718,13 @@ def items(rv, mn, L):
          f"Sex is reported as recorded in Census population estimates, which record sex, not gender. "
          f"Cardiovascular "
          f"disease prevalence, disease severity and gender identity are not available at the county "
-         f"level in these sources. Table 4 is cited in Methods.",
-         ["Table 4 (new, main text); Methods, paragraph 1; Supplementary Table S1 (new)."],
+         f"level in these sources. Table 5 is cited in Methods. Table 4 remains the comparison with the "
+         f"Social Deprivation Index, as submitted, so the manuscript has five tables and two figures, "
+         f"the journal's limit of seven exhibits.",
+         ["Table 5 (new; separate file, as the other tables); Methods, Study Design and Data Sources; Supplementary "
+          "Table S1 (new)."],
          loc(("Methods", "County population characteristics from the SVI 2022", "no patient-level data were used."),
-             ("Table 4", "Table 4. Characteristics of county residents", None))),
+             ("Table 5", "Table 5. Characteristics of county residents", None))),
         ("E-06", "Final submission package.",
          "Supplied: clean and tracked manuscripts (line-numbered, .docx and .pdf), this response, the "
          "supplementary material, figures (TIFF, PDF, PNG at 600 dpi), tables, statistical outputs, the "
@@ -748,12 +760,13 @@ def response_letter(rv, mn, L, path, gate):
         "explanation for the positive SVI-CCT association, and the Discussion now addresses the economics of advanced imaging, including the "
         "distinction between disparity and bias, with verified references.",
         "Geographic terminology now follows the RUCC definitions; Table 1 reports facility percentages; "
-        "the PCA is shown in full; Table 4 describes the population of the counties; and supplementary "
+        "the PCA is shown in full; Table 5 describes the population of the counties; and supplementary "
         "tables report all models, multiplicity, and estimation diagnostics.",
         "To meet the journal's limit of 3,000 words for Original Articles, the text was condensed by "
-        "removing statements made more than once; no result, analysis, or reference was removed. The "
-        "Conclusion section was removed because, under the journal's instructions, the Take-Home Points "
-        "take its place; each of its sentences is a Take-Home Point.",
+        "removing statements made more than once, including a closing sentence that repeated the "
+        "Summary Sentence; no result, analysis, or reference was removed.",
+        "As at first submission, Tables 1-5 are supplied as separate files; each response lists the "
+        "changes to its table, and every table cell is checked against the data."
     ]:
         B(d, t)
     P(d, f"Every number in the revision is regenerated by code from the public data, and the revised "
@@ -845,7 +858,10 @@ def permissions_log(path, rv):
          "None required", "Not applicable", "None"],
         ["Table 2", "Regression estimates", "Original", "Authors' analysis", "None required", "Not applicable", "None"],
         ["Table 3", "Sensitivity analyses", "Original", "Authors' analysis", "None required", "Not applicable", "None"],
-        ["Table 4", "Characteristics of county residents", "Original",
+        ["Table 4", "Comparison with the Social Deprivation Index", "Original",
+         "Authors' models (code/21); SDI from the Robert Graham Center (cited, reference 13)",
+         "None required", "Not applicable", "Not applicable"],
+        ["Table 5", "Characteristics of county residents", "Original",
          "Authors' analysis of SVI 2022, County Health Rankings 2024 and ACS values", "None required",
          "Not applicable", "Sources stated in the footnote."],
         ["Tables S1-S6", "Supplementary tables", "Original",
@@ -869,9 +885,9 @@ def permissions_log(path, rv):
         ["County population estimates, Vintage 2023 (July 1, 2023)", "US Census Bureau", "Population counts (total and aged ≥45 years)", "US government data."],
         ["TIGER/Line Shapefiles 2023", "US Census Bureau", "County boundaries in maps", "Public domain; credit line suggested."],
         ["County Health Rankings & Roadmaps 2024", "University of Wisconsin Population Health Institute",
-         "EDI inputs; Table 4 and S1 values", "Checked November 8, 2026: licensed for non-profit research use; "
+         "EDI inputs; Table 5 and S1 values", "Checked November 8, 2026: licensed for non-profit research use; "
          "cited as requested (University of Wisconsin Population Health Institute; County Health Rankings & "
-         "Roadmaps) in Table 4 and Table S1."],
+         "Roadmaps) in Table 5 and Table S1."],
         ["Social Deprivation Index 2015-2019", "Robert Graham Center", "External validation index",
          "Checked November 8, 2026: the AAFP terms bar distribution without permission. Cited as reference 13 "
          "(Butler et al., Health Serv Res 2013); the data file is no longer distributed in the repository and "
@@ -906,8 +922,9 @@ def proofreading_report(path, log_rows, rv, gate):
     T(d, ["Location (paragraph start)", "Before", "After", "Reason"], rows,
       widths=[1.4, 1.9, 1.9, 1.9], size=7.5)
     H(d, "2. Checks performed with no change required", 12)
-    for t in ["Abstract 249 of 250 words; Summary Sentence 27 words and 224 characters; body word count "
-              "note recomputed under the manuscript's own definition.",
+    for t in ["Abstract and body word counts recomputed under the manuscript's own definitions (labels "
+              "and subheadings excluded); Summary Sentence within 35 words and 250 characters and "
+              "repeated word for word in the abstract.",
               "All IRRs, CIs and P values in text and tables match the generated results to the printed "
               "precision, rounded once from full precision.",
               "Rates are per 100,000 adults aged ≥45 years throughout; denominators of every percentage "
@@ -921,15 +938,14 @@ def proofreading_report(path, log_rows, rv, gate):
          "(codes 1-3 and 4-9); 'rurality' only for the ordinal RUCC gradient; 'rural' only where "
          "reporting a cited source's terminology, in key words, or in reference titles.", size=10)
     T(d, ["Location", "Original wording", "Revised wording"], [
-        ["Introduction", "metropolitan-rural gradient", "metropolitan-nonmetropolitan gradient"],
-        ["Methods", "Metropolitan versus nonmetropolitan status used … codes 1-3 = metropolitan",
-         "RUCC definitions for codes 1-3 and 4-9, with the terminology rule"],
+        ["Introduction", "metropolitan–rural gradient", "metropolitan–nonmetropolitan gradient"],
+        ["Methods", "Metropolitan versus nonmetropolitan status was defined with … codes 1–3 = metropolitan",
+         "RUCC definitions for codes 1–3 and 4–9, with the terminology rule"],
         ["Methods", "correlated with rural location", "correlated with nonmetropolitan location"],
-        ["Results", "ordinal Rural-Urban Continuum Code (after definition)", "ordinal RUCC"],
         ["Discussion", "Most counties, and the rural populations within them", "Most counties, including nearly all nonmetropolitan counties"],
-        ["Discussion", "reflected the rural-urban gradient", "largely reflected the metropolitan-nonmetropolitan gradient"],
-        ["Limitations", "high-deprivation and rural counties", "high-deprivation and nonmetropolitan counties"],
-        ["Table 1", "Title and stratum heading 'rurality' / 'Rurality'", "'metropolitan status' / 'Metropolitan status'"],
+        ["Discussion", "reflected the rural–urban gradient", "largely reflected the metropolitan–nonmetropolitan gradient"],
+        ["Discussion", "high-deprivation and rural counties", "high-deprivation and nonmetropolitan counties"],
+        ["Tables 1 and 3 (separate files)", "-", "'Metropolitan status' for the binary split; 'rurality' only for the ordinal RUCC"],
         ["Retained", "Introduction sentence 1 (Cross et al. use rural/urban); key word 'rural health'; "
                      "'rurality' for the ordinal RUCC; title", "Unchanged; title flagged for author decision"],
     ], widths=[1.2, 2.8, 2.8], size=8.5)
@@ -940,15 +956,17 @@ def proofreading_report(path, log_rows, rv, gate):
               "22816561). References 5, 6 and 16 were verified (PMC, Europe PMC): reference 5 has 10 "
               "authors and reference 6 has 7, so 'et al.' after three authors is correct; the issue "
               "number (3) was added to reference 6.",
-              "References 2 and 11 were opened on November 8, 2026: both are live, and their access dates "
-              "and update dates now read as the pages show. The CMS page (reference 2) does not state a "
-              "section number, an effective date, or which accrediting organization is largest, so the "
-              "Introduction no longer attributes those to it.",
+              "Reference 2 (CMS) and the new reference 11 (USDA RUCC documentation) were opened on "
+              "November 8, 2026: both are live, and their access dates read accordingly. The CMS page "
+              "does not state an effective date or which accrediting organization is largest, so the "
+              "Introduction no longer attributes those to it. Reference 1 (Cross et al.) was read in "
+              "full: it reports cardiovascular mortality by rural-urban residence, age, sex, race and "
+              "ethnicity, not by economic status.",
               "The Data Availability bracket now says the repository URL will be provided on acceptance "
               "(it previously said it would be restored 'at revision', which this revision is); the gate "
               "forbids the old phrase.",
-              "The Summary Sentence is now the abstract's concluding sentence, word for word, as the "
-              "journal's instructions require."]:
+              "The Summary Sentence is kept as submitted with 'after adjustment' made 'after metropolitan "
+              "adjustment'; it is repeated word for word in the abstract, as the journal requires."]:
         B(d, t, size=10)
     d.save(path)
 
@@ -1017,11 +1035,11 @@ def change_log(path_docx, path_csv, log_rows, gate, tests_line):
 
 
 DECISIONS = [
-    ("Baseline version (resolved by evidence)", "The tracked changes are made against "
-     "manuscript_SUBMISSION.docx of August 16, 2026. Rendered with line numbers, it places the sentences "
-     "the reviewers quote at lines 78-79 and 92-93 and on page 9 (lines 159-162); the reviewers cite lines "
-     "78-79 and 91-92 and page 9, line 165. Dr. Naeem's 4-table copy places them on page 5 (lines 72-73 "
-     "and 86-87) and page 8. JACR therefore received the repo file. No action unless you know otherwise."),
+    ("Baseline version (resolved by evidence)", "The tracked changes are made against the manuscript "
+     "as submitted to JACR (first_submission_to_jacr/JACR_Main_Manuscript_Blinded.docx, September 25, "
+     "2026; tables were uploaded separately). Rendered with its line numbers, it places the sentences the "
+     "reviewers quote exactly where they cite them: lines 78-79, lines 91-92, and page 9, line 165. An "
+     "earlier build used an August 16 repository file whose lines fell close but not exactly (92-93)."),
     ("Reviewer 1's recommended studies (R1-05)", "The full comment lists three studies (PubMed 36219114, "
      "37466190, 42501016; Christensen et al., Radiology 2023, AJR 2024, Inquiry 2026). All three are now "
      "cited as references 20-22 in one added Discussion sentence, each described by what it found "
@@ -1064,18 +1082,18 @@ DECISIONS = [
      "cohort documentation, diagnostics text, blinding of the tracked file, change-log CSV, Figure 2 "
      "note, check-scope wording). Repository items (tracking tools/, docs, API key, checker exit code, "
      "pytest-free skips) are fixed in the working tree; committing them is your decision."),
-    ("Population characteristics (E-05)", "Resolved: moved into the main text as Table 4 (6 of 7 "
+    ("Population characteristics (E-05)", "Resolved: added as Table 5, a separate file like the other "
+     "tables; the submitted Table 4 (SDI comparison) is kept, so the exhibits are 5 tables and 2 figures (7 of 7 "
      "exhibits), because the editor calls the table mandatory; Supplementary Table S1 keeps the medians, "
-     "IQRs and missing counts. The old test against files named Table4* now blocks only the withdrawn "
-     "index-comparison table."),
+     "IQRs and missing counts."),
     ("Word count", "Resolved: an archived copy of the JACR author instructions (April 2025) limits "
      "Original Articles to fewer than 3,000 words, not counting references, and says the Take-Home "
      "Points take the place of a conclusions section. The text was condensed below 3,000 words by "
-     "removing restatements only; the Conclusion section was removed (each of its sentences is a "
+     "removing restatements only, including the Discussion's closing repeat of the Summary Sentence (the "
      "Take-Home Point). The revision script reports the count on the title block and the title page."),
     ("Title and Summary Sentence", "Title kept: 'Rurality' refers to the RUCC continuum the paper "
-     "analyzes. Summary Sentence replaced by the abstract's concluding sentence, because JACR requires "
-     "it to be taken word for word from the manuscript."),
+     "analyzes. Summary Sentence kept as submitted, scoped to metropolitan adjustment, and repeated word "
+     "for word in the abstract, as JACR requires."),
     ("PCA retention (R2-01)", "Resolved: PC2 eigenvalue 1.03 is below the parallel-analysis threshold "
      "(1.05), so one component is retained; reported in Results, Supplementary Methods S2, Table S5 and "
      "Figure S3."),
@@ -1187,7 +1205,7 @@ RECONCILE = [
     "All ten reviewer comments and the four editor requirements map one to one onto R1-01 to R2-05 and "
     "E-01 to E-05; E-06 (the package) is not an editor comment and is covered by the checklist.",
     "Baseline: the reviewers' line references (R1: lines 78-79, 91-92; R2: page 9, line 165) match the "
-    "repo's 16 August submission file, not Dr. Naeem's copy.",
+    "manuscript as submitted to JACR on September 25, 2026 exactly.",
     "R1-02: the reviewer proposed weighting the rate calculations by eligible population, or explaining "
     "why counties are weighted equally. Methods now identify the pooled rates as population-weighted mean "
     "county rates and state the rationale for the county-level estimand.",
@@ -1257,11 +1275,13 @@ def _first_author(sec, name):
 def _manuscript_counts():
     text = "\n".join(p.text for p in Document(os.path.join(BASE, "manuscript",
                                                             "manuscript_SUBMISSION.docx")).paragraphs)
-    body = re.search(r"figure legends\): ([\d,]+)\.", text).group(1)
+    # Front-matter line as in the submitted manuscript: "Word count: N (...). Abstract: N words.
+    # Tables and figures: 5 tables, 2 figures (7 of 7 permitted); ... References: 22."
+    body = re.search(r"Word count: ([\d,]+) \(", text).group(1)
     refs = re.search(r"References: (\d+)\.", text).group(1)
-    tf = re.search(r"Tables and figures: (\d+) of (\d+) permitted \((\d+) tables, (\d+) figures\)", text)
-    abstract = re.search(r"Abstract word count: (\d+)", text).group(1)
-    return {"body": body, "refs": refs, "tables": tf.group(3), "figures": tf.group(4), "abstract": abstract}
+    tf = re.search(r"Tables and figures: (\d+) tables, (\d+) figures", text)
+    abstract = re.search(r"Abstract: (\d+) words", text).group(1)
+    return {"body": body, "refs": refs, "tables": tf.group(1), "figures": tf.group(2), "abstract": abstract}
 
 
 def title_page(path):
@@ -1323,7 +1343,7 @@ def cover_letter(path, rv):
     P(d, "The principal changes are these:")
     for t in [
         "A table of the characteristics of county residents, including race and ethnicity, sex, and "
-        "clinical conditions, has been added to the main text (Table 4), as the editor requires; the "
+        "clinical conditions, has been added (Table 5), as the editor requires; the "
         "study has no patient-level data, and the table describes the residents of the counties "
         "analyzed.",
         "A population-weighted sensitivity analysis was added at Reviewer 1's suggestion, and Methods "
@@ -1375,7 +1395,7 @@ def completion_report(path, gate, tests_line, flags):
         ("E-02", "Complete", "01 clean, 02 tracked (identical accepted text)", "Baseline confirmed by the reviewers' line references"),
         ("E-03", "Complete", "08_Permissions_Log", "Data terms checked; ACR and SDI files no longer redistributed; optional ACR permission request drafted"),
         ("E-04", "Complete", "09_Proofreading_Report", "Confirm access dates, references 2 and 11"),
-        ("E-05", "Complete; Table 4 in the main text (patient-level items not applicable)", "Table 4; Table S1; response text", "-"),
+        ("E-05", "Complete; Table 5 added (patient-level items not applicable)", "Table 5; Table S1; response text", "-"),
         ("E-06", "Complete", "This package, including 13_Title_Page and 14_Cover_Letter; 11_Submission_Checklist; MANIFEST.csv", "-"),
     ]
     L = [f"# Completion report, Revision 1", "", f"{TITLE}", f"Manuscript {MS_ID}. Prepared {TODAY}.", "",
@@ -1464,7 +1484,8 @@ def main():
             if os.path.exists(src):
                 shutil.copy(src, os.path.join(PKG, "05_Figures"))
     for fn in os.listdir(TAB):
-        if fn.startswith(("Table1_", "Table4_", "Supplementary_Table_S")):
+        if fn.startswith(("Table1_", "Table2_Primary", "Table3_Sensitivity", "Table4_Comparison",
+                          "Table5_", "Supplementary_Table_S")):
             shutil.copy(os.path.join(TAB, fn), os.path.join(PKG, "06_Tables"))
     for fn in ("reviewer_analyses.json", "reviewer_analyses.txt", "comprehensive_model_table.csv",
                "nonmetro_cmr_diagnostics.txt", "population_characteristics.csv",

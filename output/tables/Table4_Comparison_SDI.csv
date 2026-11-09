@@ -1,0 +1,12 @@
+﻿Table 4. Comparison of the deprivation finding with a published county-level index
+Exposure,EDI IRR (95% CI),P value,SDI IRR (95% CI),P value
+Cardiac MR,,,,
+"Index, unadjusted",0.95 (0.91–0.98),0.003,1.02 (0.98–1.05),0.322
+"Index, adjusted for metropolitan status",0.99 (0.96–1.03),0.699,1.04 (1.00–1.07),0.043
+Metropolitan status,8.33 (4.86–14.28),<0.001,8.67 (5.08–14.80),<0.001
+Cardiac CT,,,,
+"Index, unadjusted",0.99 (0.97–1.01),0.372,1.02 (1.00–1.05),0.033
+"Index, adjusted for metropolitan status",1.02 (0.99–1.04),0.186,1.03 (1.01–1.06),0.003
+Metropolitan status,2.13 (1.74–2.61),<0.001,2.11 (1.74–2.58),<0.001
+
+"EDI = economic deprivation index; IRR = incidence rate ratio; SDI = Social Deprivation Index (Robert Graham Center, 2015–2019). Negative binomial regression with a log-population offset (adults aged ≥45 years); index IRRs are per 10-percentile increase. Analytic sample: 3,134 counties (EDI) and 3,133 (SDI); the SDI matched 3,133 of 3,144 counties. The two indices agree closely at the county level (Spearman ρ = 0.88) but differ in how strongly they encode rurality: Spearman ρ with the ordinal Rural-Urban Continuum Code was 0.25 for the EDI and 0.07 for the SDI, with mean nonmetropolitan-minus-metropolitan gaps of 16.2 and 7.1 percentile points, respectively. Metropolitan status rows are the metropolitan-status coefficients from the corresponding adjusted models."

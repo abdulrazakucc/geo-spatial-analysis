@@ -2,10 +2,10 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   eff76080fd4797547fee28fa590803f760928c74260ffc43a9ed5197201d7b68
-Checked:  2026-11-09T18:51:54Z
-Code:     fc1f79f (working tree modified)
-Checks:   309     Mismatches: 0
+SHA256:   5ca0139f81e97e3d0ff45ed660fbebd491fcee6d5767c645ca5c90a75decca69
+Checked:  2026-11-09T22:37:13Z
+Code:     f136747 (working tree modified)
+Checks:   328     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -82,18 +82,9 @@ ALL CHECKS
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
   ok    Summary Sentence taken word for word from the manuscript present elsewhere
-  ok    body word count note matches the text 2,992
+  ok    body word count note matches the text 2,974
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
-  ok    Summary note matches actual counts 29 words; 234 characters
-  ok    Table 1 grid matches cells         9 columns
-  ok    Table 1 fits the page              <= 9360 twips
-  ok    Table 2 grid matches cells         5 columns
-  ok    Table 2 fits the page              <= 9360 twips
-  ok    Table 3 grid matches cells         5 columns
-  ok    Table 3 fits the page              <= 9360 twips
-  ok    Table 4 grid matches cells         6 columns
-  ok    Table 4 fits the page              <= 9360 twips
   ok    pooled CMR rate, metro vs nonmetro 0.59 versus 0.07
   ok    pooled CCT rate, metro vs nonmetro 1.19 versus 0.54
   ok    rate-excluded county count         106 counties
@@ -142,28 +133,29 @@ ALL CHECKS
   ok    claim: PC2 reflects mainly housing cost burden supported
   ok    claim: parallel analysis retained one component supported
   ok    pooled Q1/Q5 ratio                 1.4-fold
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06 computed by the pipeline
   ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98 computed by the pipeline
   ok    estimate in text: IRR 0.99; 95% CI, 0.96-1.03 computed by the pipeline
   ok    estimate in text: IRR 8.33; 95% CI, 4.86-14.28 computed by the pipeline
   ok    estimate in text: IRR 2.13; 95% CI, 1.74-2.61 computed by the pipeline
   ok    estimate in text: IRR 1.00; 95% CI, 0.96-1.04; P = 0.980 computed by the pipeline
   ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.014 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
   ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98; P = 0.003 computed by the pipeline
   ok    estimate in text: IRR 0.99; 95% CI, 0.97-1.01; P = 0.372 computed by the pipeline
   ok    estimate in text: IRR 0.99; 95% CI, 0.96-1.03; P = 0.699 computed by the pipeline
   ok    estimate in text: IRR 1.02; 95% CI, 0.99-1.04; P = 0.186 computed by the pipeline
   ok    estimate in text: IRR 8.33; 95% CI, 4.86-14.28 computed by the pipeline
-  ok    estimate in text: IRR 2.13; 95% CI, 1.74-2.61 computed by the pipeline
+  ok    estimate in text: IRR 2.13; 95% CI, 1.74-2.61; P < 0.001 computed by the pipeline
   ok    estimate in text: IRR 1.00; 95% CI, 0.97-1.04; P = 0.802 computed by the pipeline
   ok    estimate in text: IRR 1.00; 95% CI, 0.97-1.04; P = 0.863 computed by the pipeline
   ok    estimate in text: IRR 0.70; 95% CI, 0.56-0.89; P = 0.003 computed by the pipeline
-  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
   ok    estimate in text: IRR 1.02; 95% CI, 0.98-1.05; P = 0.322 computed by the pipeline
   ok    estimate in text: IRR 1.04; 95% CI, 1.00-1.07; P = 0.043 computed by the pipeline
   ok    estimate in text: IRR 1.02; 95% CI, 1.00-1.05; P = 0.033 computed by the pipeline
   ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.003 computed by the pipeline
   ok    estimate in text: IRR 8.67; 95% CI, 5.08-14.80 computed by the pipeline
-  ok    estimate in text: IRR 2.11; 95% CI, 1.74-2.58 computed by the pipeline
+  ok    estimate in text: IRR 2.11; 95% CI, 1.74-2.58; P < 0.001 computed by the pipeline
   ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.010 computed by the pipeline
   ok    estimate in text: IRR 1.00; 95% CI, 0.96-1.03; P = 0.778 computed by the pipeline
   ok    estimate in text: IRR 1.04; 95% CI, 1.01-1.07 computed by the pipeline
@@ -178,6 +170,8 @@ ALL CHECKS
   ok    IRR in text: IRR 0.71              computed by the pipeline
   ok    IRR in text: IRR 0.80              computed by the pipeline
   ok    IRR in text: IRR 0.76              computed by the pipeline
+  ok    IRR in text: IRR 8.55              computed by the pipeline
+  ok    IRR in text: IRR 8.33              computed by the pipeline
   ok    reference list numbered 1..N       1..22
   ok    references cited in order of first appearance 1..22
   ok    front-matter reference count       22
@@ -297,26 +291,51 @@ ALL CHECKS
   ok    T3 Cardiac CT, nonmetropolitan n   1,956
   ok    T3 Cardiac CT, nonmetropolitan EDI 0.96 (0.89-1.03)
   ok    T3 Cardiac CT, nonmetropolitan P   0.233
-  ok    Table 4 title                      Table 4. Characteristics of county residents
-  ok    Table 4 cited in Methods           are summarized in Table 4
-  ok    T4 counties                        3,144 / 1,186 / 1,958 / 574 / 2,570
-  ok    T4 Aged ≥65 years, %               16.5 / 16.0 / 20.0 / 16.0 / 17.9
-  ok    T4 Female, %                       50.4 / 50.5 / 49.6 / 50.6 / 49.9
-  ok    T4 Non-Hispanic White, %           59.0 / 56.2 / 76.9 / 54.2 / 71.1
-  ok    T4 Non-Hispanic Black or African American, % 12.1 / 12.7 / 7.8 / 13.3 / 8.9
-  ok    T4 Hispanic or Latino, %           18.6 / 20.2 / 9.0 / 20.8 / 13.2
-  ok    T4 Non-Hispanic Asian, %           5.6 / 6.4 / 1.0 / 7.2 / 1.9
-  ok    T4 Non-Hispanic American Indian or Alaska Native, % 0.6 / 0.3 / 1.8 / 0.3 / 1.2
-  ok    T4 Non-Hispanic Native Hawaiian or Other Pacific Islander, % 0.2 / 0.2 / 0.1 / 0.2 / 0.1
-  ok    T4 Non-Hispanic multiracial or other race, % 3.9 / 4.0 / 3.4 / 4.0 / 3.7
-  ok    T4 Below 150% of the federal poverty level, % 20.5 / 19.7 / 25.6 / 19.6 / 22.7
-  ok    T4 Without health insurance, %     8.7 / 8.6 / 9.6 / 8.5 / 9.3
-  ok    T4 With a disability, %            12.9 / 12.2 / 16.9 / 11.9 / 15.2
-  ok    T4 Diagnosed diabetes, adults, %   10.2 / 10.1 / 10.7 / 10.1 / 10.5
-  ok    T4 Obesity, adults, %              33.4 / 32.7 / 37.9 / 32.0 / 36.9
-  ok    T4 Current smoking, adults, %      15.5 / 14.7 / 19.9 / 14.4 / 17.9
-  ok    T4 Physical inactivity, adults, %  23.9 / 23.4 / 27.3 / 23.2 / 25.7
-  ok    T4 Premature age-adjusted mortality, deaths per 100,000 aged <75 y 393 / 376 / 493 / 368 / 452
-  ok    T4 Primary care physicians per 100,000 74.9 / 78.5 / 52.1 / 83.2 / 54.5
+  ok    T4 Cardiac MR Index, unadjusted EDI 0.95 (0.91-0.98)
+  ok    T4 Cardiac MR Index, unadjusted EDI P 0.003
+  ok    T4 Cardiac MR Index, unadjusted SDI 1.02 (0.98-1.05)
+  ok    T4 Cardiac MR Index, unadjusted SDI P 0.322
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI 0.99 (0.96-1.03)
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status EDI P 0.699
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI 1.04 (1.00-1.07)
+  ok    T4 Cardiac MR Index, adjusted for metropolitan status SDI P 0.043
+  ok    T4 Cardiac MR Metropolitan status EDI 8.33 (4.86-14.28)
+  ok    T4 Cardiac MR Metropolitan status EDI P <0.001
+  ok    T4 Cardiac MR Metropolitan status SDI 8.67 (5.08-14.80)
+  ok    T4 Cardiac MR Metropolitan status SDI P <0.001
+  ok    T4 Cardiac CT Index, unadjusted EDI 0.99 (0.97-1.01)
+  ok    T4 Cardiac CT Index, unadjusted EDI P 0.372
+  ok    T4 Cardiac CT Index, unadjusted SDI 1.02 (1.00-1.05)
+  ok    T4 Cardiac CT Index, unadjusted SDI P 0.033
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI 1.02 (0.99-1.04)
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status EDI P 0.186
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI 1.03 (1.01-1.06)
+  ok    T4 Cardiac CT Index, adjusted for metropolitan status SDI P 0.003
+  ok    T4 Cardiac CT Metropolitan status EDI 2.13 (1.74-2.61)
+  ok    T4 Cardiac CT Metropolitan status EDI P <0.001
+  ok    T4 Cardiac CT Metropolitan status SDI 2.11 (1.74-2.58)
+  ok    T4 Cardiac CT Metropolitan status SDI P <0.001
+  ok    Table 4 cited with Figure 2        (Table 4; Figure 2)
+  ok    Table 5 title                      Table 5. Characteristics of county residents
+  ok    Table 5 cited in Methods           are summarized in Table 5
+  ok    T5 counties                        3,144 / 1,186 / 1,958 / 574 / 2,570
+  ok    T5 Aged ≥65 years, %               16.5 / 16.0 / 20.0 / 16.0 / 17.9
+  ok    T5 Female, %                       50.4 / 50.5 / 49.6 / 50.6 / 49.9
+  ok    T5 Non-Hispanic White, %           59.0 / 56.2 / 76.9 / 54.2 / 71.1
+  ok    T5 Non-Hispanic Black or African American, % 12.1 / 12.7 / 7.8 / 13.3 / 8.9
+  ok    T5 Hispanic or Latino, %           18.6 / 20.2 / 9.0 / 20.8 / 13.2
+  ok    T5 Non-Hispanic Asian, %           5.6 / 6.4 / 1.0 / 7.2 / 1.9
+  ok    T5 Non-Hispanic American Indian or Alaska Native, % 0.6 / 0.3 / 1.8 / 0.3 / 1.2
+  ok    T5 Non-Hispanic Native Hawaiian or Other Pacific Islander, % 0.2 / 0.2 / 0.1 / 0.2 / 0.1
+  ok    T5 Non-Hispanic multiracial or other race, % 3.9 / 4.0 / 3.4 / 4.0 / 3.7
+  ok    T5 Below 150% of the federal poverty level, % 20.5 / 19.7 / 25.6 / 19.6 / 22.7
+  ok    T5 Without health insurance, %     8.7 / 8.6 / 9.6 / 8.5 / 9.3
+  ok    T5 With a disability, %            12.9 / 12.2 / 16.9 / 11.9 / 15.2
+  ok    T5 Diagnosed diabetes, adults, %   10.2 / 10.1 / 10.7 / 10.1 / 10.5
+  ok    T5 Obesity, adults, %              33.4 / 32.7 / 37.9 / 32.0 / 36.9
+  ok    T5 Current smoking, adults, %      15.5 / 14.7 / 19.9 / 14.4 / 17.9
+  ok    T5 Physical inactivity, adults, %  23.9 / 23.4 / 27.3 / 23.2 / 25.7
+  ok    T5 Premature age-adjusted mortality, deaths per 100,000 aged <75 y 393 / 376 / 493 / 368 / 452
+  ok    T5 Primary care physicians per 100,000 74.9 / 78.5 / 52.1 / 83.2 / 54.5
   ok    Fig 1 caption states SVI-CCT       IRR 1.03; 95% CI, 1.01-1.06; P = 0.008
   ok    Fig 1 caption names the gradient   present

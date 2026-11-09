@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-20_table4_population.py
+20_table5_population.py
 =======================
-Manuscript Table 4: characteristics of county residents, overall, by
+Manuscript Table 5: characteristics of county residents, overall, by
 metropolitan status, and by presence of an accredited facility.
 
 The editor required a table describing the population, including race and
@@ -13,11 +13,11 @@ total-population-weighted averages of county estimates; the full distribution
 Supplementary Table S1.
 
 Reads   output/results/reviewer_analyses.json   (18_reviewer_analyses.py)
-Writes  output/tables/Table4_Population_Characteristics.csv   (read by the revision script)
-        output/tables/Table4_Population_Characteristics.docx
+Writes  output/tables/Table5_Population_Characteristics.csv
+        output/tables/Table5_Population_Characteristics.docx
 
-This is the only generator of Table 4. It is not the withdrawn Table 4 (an
-index comparison promoted to Figure 2 in August 2026).
+This is the only generator of Table 5. Table 4 is the index comparison
+(21_manuscript_tables.py), as in the submitted manuscript.
 """
 
 import csv
@@ -31,9 +31,9 @@ from docx.shared import Inches, Pt
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS = os.path.join(BASE_DIR, "output", "results")
 TABLES = os.path.join(BASE_DIR, "output", "tables")
-STEM = "Table4_Population_Characteristics"
+STEM = "Table5_Population_Characteristics"
 
-TITLE = ("Table 4. Characteristics of county residents, overall, by metropolitan status, and by "
+TITLE = ("Table 5. Characteristics of county residents, overall, by metropolitan status, and by "
          "presence of an accredited cardiac imaging facility")
 STRATA = [("all", "All counties"), ("metropolitan", "Metropolitan (RUCC 1-3)"),
           ("nonmetropolitan", "Nonmetropolitan (RUCC 4-9)"),

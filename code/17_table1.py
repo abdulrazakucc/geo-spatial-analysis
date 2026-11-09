@@ -88,8 +88,8 @@ def footnotes(t1):
     excluded = t1["all_counties"]["counties"] - t1["all_counties"]["rate_eligible"]
     return [
         "CMR = cardiac magnetic resonance; CCT = cardiac computed tomography; "
-        "RUCC = Rural-Urban Continuum Code (USDA ERS 2023); EDI = Economic "
-        "Deprivation Index.",
+        "RUCC = Rural-Urban Continuum Code (USDA ERS 2023); EDI = economic "
+        "deprivation index.",
         "Metropolitan is RUCC 1-3, nonmetropolitan RUCC 4-9.",
         "Rate = accredited facilities per 100,000 adults aged 45 years and older.",
         # Revision R2-04: the denominators of the two kinds of percentage.
@@ -107,9 +107,11 @@ def footnotes(t1):
         f"{', none with an accredited facility' if t1['_rate_excluded_facilities'] == 0 else ''}; "
         f"{t1['all_counties']['rate_eligible']:,} of "
         f"{t1['all_counties']['counties']:,} retained).",
-        "EDI quintiles are formed among rate-eligible counties with an EDI value, "
-        "so the metropolitan strata and the quintile strata do not sum to the same "
-        "total.",
+        f"Quintiles are restricted to the "
+        f"{sum(t1[f'edi_q{i}']['counties'] for i in range(1, 6)):,} counties with ≥1,000 "
+        f"adults aged ≥45 years and an available EDI value; metropolitan strata include all "
+        f"{t1['all_counties']['counties']:,} counties, so the two sets of strata do not sum to "
+        f"the same total.",
         "Population denominators are US Census Bureau county population estimates "
         "for July 1, 2023 (Vintage 2023).",
     ]
