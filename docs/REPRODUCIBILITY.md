@@ -38,6 +38,19 @@ modality, status, ZIP code, county assignment and exclusion reason, without
 facility names. Stage A (`--all`) re-downloads source data and is not a way to
 reproduce the frozen submission, because the sources change over time.
 
+A plain checkout does not contain these two frozen inputs, and a fresh download
+can differ from them. Check any copy against the SHA-256 of the files the
+submission used:
+
+| File | SHA-256 |
+|---|---|
+| `data/download.xlsx` (ACR list, extracted May 20, 2026) | `bb43ae91cbc25ca35275a94c8ef1ea9c2cc3c1c9e231ea5f1475af766789f366` |
+| `data/raw/rgc_sdi_2015_2019_county.csv` (Robert Graham Center SDI) | `4165f3911c3251e593b58a7c79f346e3a9a2c4889bc7fe7f6d8e5d1471adb19c` |
+| `data/raw/acs_county_population.csv` (Census Bureau estimates, July 1, 2023; committed) | `52718969f054b44b4ec9f01714a5817923965942b85bf5425966d698a03eaf9f` |
+
+Stages C-E need the SDI file (step 09 downloads it when absent, which may not
+reproduce the frozen copy); only stage B needs the ACR list.
+
 **Checking a manuscript.**
 
 ```bash

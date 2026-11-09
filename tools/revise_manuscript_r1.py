@@ -81,6 +81,7 @@ def build_edits(rv, mn):
     sc = tests["SVI-CCT, adjusted for metropolitan status (Table 2)"]
     sd = tests["SDI-CMR, adjusted for metropolitan status (Figure 2)"]
     lo_l, hi_l = min(P["pc1_loadings"].values()), max(P["pc1_loadings"].values())
+    rl = mn["sdi"]["rurality_link"]
     words = {1: "one", 2: "two", 3: "three", 4: "four"}
 
     ed = []
@@ -295,10 +296,18 @@ def build_edits(rv, mn):
     # ------------------------------------------------------------- Results 4
     loc = "To establish whether these findings depended on the purpose-built index"
     ed += [
-        E("R1-03", "replace", "Abbreviation.", loc=loc,
-          old="the ordinal Rural-Urban Continuum Code at", new="the ordinal RUCC at"),
+        E("R1-03", "replace", "Abbreviation (ordinal RUCC); sentence condensed for the word limit, "
+          "with the same values (also in the Figure 2 note).", loc=loc,
+          old="The two indices differed in how strongly they encoded rurality: the EDI correlated with "
+              "the ordinal Rural-Urban Continuum Code at ρ = 0.25, with a mean 16.2-percentile gap "
+              "between nonmetropolitan and metropolitan counties, whereas the SDI correlated at "
+              "ρ = 0.07 with a gap of 7.1 points (Figure 2).",
+          new=f"The EDI encoded rurality more strongly than the SDI (Spearman ρ with ordinal RUCC, "
+              f"{rl['EDI']['spearman_vs_rucc']:.2f} vs {rl['SDI']['spearman_vs_rucc']:.2f}; mean "
+              f"nonmetropolitan-metropolitan gap, {rl['EDI']['gap']:.1f} vs {rl['SDI']['gap']:.1f} "
+              f"percentile points; Figure 2)."),
         E("R2-01", "insert_after", "PCA result (moved from Methods, R1-01) with the scree plot, "
-          "biplot and loadings requested.", loc=loc, anchor="gap of 7.1 points (Figure 2).",
+          "biplot and loadings requested.", loc=loc, anchor="percentile points; Figure 2).",
           text=f" The EDI's first principal component explained "
                f"{100 * P['variance_explained'][0]:.1f}% of the variance in its six indicators "
                f"(eigenvalue {P['eigenvalues'][0]:.2f}), all six loaded positively "
@@ -323,15 +332,15 @@ def build_edits(rv, mn):
     assert W["max_abs_irr_change_rate_eligible_adjusted"] < 0.001
     assert sc["holm_primary"] < 0.05 and sc["bh_extended"] < 0.05
     sens = (f"In every sensitivity analysis, metropolitan status or rurality remained strongly associated with "
-            f"capacity and no model adjusted for it showed an inverse deprivation gradient "
-            f"(Supplementary Table S2); the SVI-CCT association was not significant with the "
+            f"capacity where it was modeled, and no model adjusted for metropolitan status showed a "
+            f"significant inverse deprivation gradient (Supplementary Table S2); the SVI-CCT association was not significant with the "
             f"dispersion fixed at 1 (P = {fa_sc:.3f}). The "
             f"estimated-dispersion model had lower AIC and BIC than the Poisson and fixed-dispersion "
             f"models in all {spec_wins} index-outcome models. Restricting the cohort to Accredited "
             f"facilities changed no conclusion, and restricting the regressions to counties with at "
             f"least 1,000 eligible adults changed no adjusted index IRR by more than 0.001. "
             f"Population-weighted SVI and EDI estimates led to the same conclusions: SVI-CCT "
-            f"remained positive ({fe(w_sc)}) and adjusted EDI-CMR null ({fe(w_ea)}; Table 3). The "
+            f"remained positive ({fe(w_sc)}) and adjusted EDI-CMR not significant ({fe(w_ea)}; Table 3). The "
             f"adjusted SVI-CCT association "
             f"remained significant after Holm adjustment within the primary family "
             f"(P = {sc['holm_primary']:.3f}) and after false discovery rate adjustment across the "
@@ -418,11 +427,11 @@ def build_edits(rv, mn):
                "it. MRI adoption has responded to market and payer conditions (17), and physicians "
                "and radiologists concentrate in more populous areas (18,19). Among Medicare "
                "beneficiaries, racial gaps in access to digital mammography narrowed as the "
-               "technology diffused (20), use of screening CT colonography, which Medicare does not "
-               "cover, rose steeply with income (21), and gaps in physician care by urbanicity, "
+               "technology diffused (20), use of screening CT colonography, which Medicare did not "
+               "then cover, rose steeply with income (21), and gaps in physician care by urbanicity, "
                "income, and area deprivation widened as inflation-adjusted payment declined (22). "
                "Disparities in capacity are often interpreted as evidence of bias, "
-               "which these data can neither show nor exclude; the observed pattern is more "
+               "which these data can neither show nor exclude; the observed pattern is "
                "consistent with market size. Payer mix, certificate-of-need regulation, health-system ownership, "
                "workforce supply, and accreditation practices could also contribute; none was "
                "measured, and the cross-sectional ecologic design shows where accredited capacity "
@@ -846,7 +855,7 @@ def build_edits(rv, mn):
           "metropolitan concentration.", loc=dis,
           span=", while reproducing the metropolitan effect almost exactly"),
         E("E-04", "replace", why + "same statement.", loc=dis,
-          old="is detected at all therefore depends", new="is detected therefore depends"),
+          old="is detected at all therefore depends", new="is detected therefore appears to depend"),
         E("E-04", "replace", why + "same statement.", loc=dis,
           old="whereas the concentration of capacity in metropolitan counties was reproduced",
           new="whereas metropolitan concentration was reproduced"),
@@ -877,22 +886,37 @@ def build_edits(rv, mn):
           "metropolitan IRRs (8.33 and 2.13); mean county rates differ far more.", loc=dis,
           old="Metropolitan counties had approximately eightfold higher CMR capacity",
           new="Metropolitan status was associated with approximately eightfold higher CMR capacity"),
-        E("E-04", "replace", why + "same statement.", loc=dis,
-          old="different levers by modality:", new="different levers:"),
+        E("E-04", "replace", "Implications stated as hypotheses: the data do not test what "
+          "expands CMR or CCT capacity.", loc=dis,
+          old="For radiology practices this points to different levers by modality: CMR expansion is a "
+              "capital and workforce problem, whereas CCT expansion may respond to accreditation support "
+              "and training applied to scanners already in place, which makes accreditation itself a "
+              "plausible point of intervention.",
+          new="For radiology practices this suggests different levers: CMR expansion may depend on "
+              "capital and workforce, whereas CCT expansion may respond to accreditation support and "
+              "training on existing scanners; neither was tested here."),
         E("E-04", "replace", "The Mann-Whitney U test is also used for the facility versus "
           "no-facility deprivation contrast in Results.", loc=m3,
           old="Mann-Whitney U tests comparing metropolitan and nonmetropolitan counties",
           new="Mann-Whitney U tests for two-group comparisons"),
-        E("E-04", "replace", why + "same statement.", loc=dis,
-          old="training applied to scanners already in place, which makes accreditation itself a "
-              "plausible", new="training on existing scanners, making accreditation a plausible"),
         E("E-04", "replace", why + "same statement.", loc=dis,
           old="and that deprivation indices should not", new="and deprivation indices should not"),
         E("E-04", "replace", why + "Limitations states that the design precludes causal inference.",
           loc=dis,
           old="although we did not link imaging supply to patient outcomes and the design does not "
               "support causal inference.",
-          new="although imaging supply was not linked to patient outcomes."),
+          new="although imaging supply was not linked to outcomes here."),
+        E("E-04", "replace", "The overlap is stated as the two documented facts it rests on; no "
+          "county-level linkage was performed.", loc=dis,
+          old="The counties with the least imaging capacity overlap regions of documented excess",
+          new="Nonmetropolitan counties, which have the least imaging capacity, also have documented excess"),
+        E("E-04", "replace", "Statistical, not causal, wording.", loc=dis,
+          old="are largely attributable to metropolitan location", new="are largely accounted for by metropolitan location"),
+        E("E-04", "replace", "Scope: the primary models; nonsignificance is not shown absence.", loc=dis,
+          old="More important, neither index showed an inverse deprivation gradient",
+          new="More important, in the primary models neither index showed a significant inverse deprivation gradient"),
+        E("E-04", "replace", "Nonsignificance is not shown absence.", loc=dis,
+          old="EDI associations were null", new="EDI associations were not significant"),
         E("E-04", "replace", why + "Methods names the other accrediting organizations and the "
           "exemption.", loc=lim,
           old="Only ACR-accredited facilities were counted. Three other CMS-designated accrediting "
@@ -937,12 +961,77 @@ def build_edits(rv, mn):
           "acceptance.", loc=dav, span="is provided in the submission system and "),
     ]
 
+    # ------------------------------------------- manuscript review, November 9
+    # Wording that claimed more than the analyses test: nonsignificance stated as
+    # absence, the scope of "no inverse gradient", an unstated comparison sample,
+    # and policy or mechanism statements beyond the data.
+    abs_ = "Results: We identified"
+    concl = ("deprivation indices showed no significant inverse association after metropolitan "
+             "adjustment and should not serve as unadjusted proxies for imaging capacity.")
+    ed += [
+        E("E-04", "replace", "Nonsignificance is not shown absence.", loc=abs_,
+          old="SVI was unassociated with cardiac MR capacity",
+          new="SVI was not significantly associated with cardiac MR capacity"),
+        E("E-04", "replace", "Same specification, shorter (abstract limit).",
+          loc="Methods: Cross-sectional ecologic analysis",
+          old="with dispersion estimated from the data and", new="with estimated dispersion and"),
+        E("E-04", "replace", "Conclusion limited to what the models test.",
+          loc="Discussion: Accredited cardiac imaging capacity is concentrated",
+          old="deprivation indices did not identify these gaps independent of geography, so "
+              "deprivation-based targeting may misidentify communities lacking this infrastructure.",
+          new=concl),
+        E("E-04", "replace", "Nonsignificance is not shown absence; adjustment named.",
+          loc="Metropolitan location, not area deprivation, tracks accredited capacity.",
+          old="After adjustment, the economic deprivation index was not independently associated",
+          new="After adjustment for metropolitan status, the economic deprivation index was not "
+              "significantly associated"),
+        E("E-04", "replace_para", "Planning conclusion stated as a hypothesis; the study did not "
+          "compare how well measures identify unmet need.",
+          loc="Deprivation-based resource targeting may misidentify",
+          new="Deprivation indices should not serve as unadjusted proxies for imaging capacity; whether "
+              "geographic or deprivation measures better identify unmet imaging need requires direct "
+              "evaluation."),
+        E("E-04", "replace", "Scope: the primary models shown in the figure.", loc="FIGURE 1 Accredited Cardiac",
+          old="Neither index showed an inverse deprivation gradient once metropolitan status was "
+              "included in the model;",
+          new="In these primary models, neither index showed a significant inverse deprivation "
+              "gradient once metropolitan status was included;"),
+        E("E-04", "replace", "Nonsignificant correlations do not confirm absence.",
+          loc="the SVI was not associated with cardiac MR capacity",
+          old="Spearman correlations confirmed the absence of a monotonic relationship",
+          new="Spearman correlations were small and not significant"),
+        E("E-04", "replace", "Nonsignificance is not shown absence.",
+          loc="the SVI was not associated with cardiac MR capacity",
+          old="the SVI was not associated with cardiac MR capacity",
+          new="the SVI was not significantly associated with cardiac MR capacity"),
+        E("E-04", "replace", "Nonsignificance is not shown absence.", loc=r3,
+          old="deprivation was no longer associated with capacity",
+          new="deprivation was no longer significantly associated with capacity"),
+        E("E-04", "replace", "Nonsignificance is not shown absence.", loc=r3,
+          old="Within metropolitan counties, deprivation was not associated",
+          new="Within metropolitan counties, deprivation was not significantly associated"),
+        E("E-04", "replace", "The comparison sample is stated: the quintile counties (at least 1,000 "
+          "adults aged 45+ and an EDI value).", loc=r3,
+          old="Counties with no accredited facility had higher mean deprivation scores than counties "
+              "with at least one",
+          new=f"In the {sum(T1[f'edi_q{i}']['counties'] for i in range(1, 6)):,} "
+              f"quintile counties, those with no accredited facility had higher mean deprivation "
+              f"scores than those with at least one"),
+        E("E-04", "replace", "Nonsignificance is not shown absence.", loc=r4,
+          old="The SDI was not associated with CMR capacity",
+          new="The SDI was not significantly associated with CMR capacity"),
+        E("E-04", "replace", "Table 4 presents county health indicators; the limitation is "
+          "cardiovascular-specific need and that the indicators were not modeled.", loc=lim,
+          old="Travel distance, use of facilities in adjacent counties, and local disease burden were "
+              "not captured;",
+          new="Travel distance, cross-county use, and cardiovascular-specific need were not measured, "
+              "and the county health indicators in Table 4 were not modeled;"),
+    ]
+
     # --------------------------------------------- Summary Sentence (JACR rule)
     # JACR: the summary sentence must be taken word for word from the manuscript.
     # The submitted one was not; it is now the abstract's concluding sentence.
-    summ = ("Accredited cardiac imaging capacity is concentrated in metropolitan counties; deprivation "
-            "indices did not identify these gaps independent of geography, so deprivation-based "
-            "targeting may misidentify communities lacking this infrastructure.")
+    summ = "Accredited cardiac imaging capacity is concentrated in metropolitan counties; " + concl
     assert len(summ.split()) <= 35 and len(summ) <= 250
     ed += [
         E("E-04", "replace_para", "JACR requires the Summary Sentence to be taken word for word from the "

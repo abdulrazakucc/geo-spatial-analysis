@@ -2,9 +2,9 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   1a5eca7de8808fa821ac4f5e35586797ab3b4b35854c6fcd0a5ae24ccf4993c1
-Checked:  2026-11-09T18:08:24Z
-Code:     d4204b7 (working tree modified)
+SHA256:   eff76080fd4797547fee28fa590803f760928c74260ffc43a9ed5197201d7b68
+Checked:  2026-11-09T18:50:24Z
+Code:     877182d (working tree modified)
 Checks:   309     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
@@ -82,10 +82,10 @@ ALL CHECKS
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
   ok    Summary Sentence taken word for word from the manuscript present elsewhere
-  ok    body word count note matches the text 2,987
+  ok    body word count note matches the text 2,992
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
-  ok    Summary note matches actual counts 28 words; 239 characters
+  ok    Summary note matches actual counts 29 words; 234 characters
   ok    Table 1 grid matches cells         9 columns
   ok    Table 1 fits the page              <= 9360 twips
   ok    Table 2 grid matches cells         5 columns

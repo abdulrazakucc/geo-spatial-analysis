@@ -326,9 +326,10 @@ def table_s2(R, N):
         f"{W['SVI']['n']:,} counties, and the largest 1% of counties carry "
         f"{100 * W['SVI']['share_of_weight_top_1pct_counties']:.1f}% of the weight.",
         "Stratified rows marked Poisson: the NB2 dispersion estimate lay on its boundary "
-        "(alpha = 0), the information matrix could not be inverted at the optimizer's stopping "
-        "point, and the Poisson log-likelihood was at least as high, so the maximum-likelihood "
-        "NB2 fit is the Poisson fit, shown here with a profile-likelihood interval. For cardiac "
+        "(alpha = 0): alpha was near zero and the Poisson log-likelihood was at least as high as "
+        "the best NB2 value, so the maximum-likelihood NB2 fit is the Poisson fit, shown here with "
+        "a profile-likelihood interval. In some of these fits the information matrix also could "
+        "not be inverted at the optimizer's stopping point; the decision does not depend on it. For cardiac "
         "MR each of the 14 nonmetropolitan facilities is in a different county; for cardiac CT "
         "the 115 nonmetropolitan facilities are in 108 counties (seven with two), and the counts "
         "show no overdispersion (see Supplementary Table S4 and Supplementary Methods S4). "
@@ -686,7 +687,7 @@ def main():
     r.bold = True
     r.font.size = Pt(14)
     para(doc, "Area Deprivation, Rurality, and Accredited Cardiac Imaging Capacity in US Counties")
-    para(doc, "Contents: Supplementary Methods S1-S7; Supplementary Tables S1-S6; Supplementary "
+    para(doc, "Contents: Supplementary Methods S1-S8; Supplementary Tables S1-S6; Supplementary "
               "Figures S1-S3.")
     supplementary_methods(doc, R, N)
 

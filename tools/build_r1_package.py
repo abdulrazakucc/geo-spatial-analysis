@@ -468,11 +468,11 @@ def items(rv, mn, L):
          "them, and the population density, referral networks, and hospital infrastructure that supply "
          "that volume. It states the reviewer's point directly: disparities in capacity are often "
          "interpreted as evidence of bias, which county-level data can neither show nor exclude, and "
-         "the pattern we observe is more consistent with market size. "
+         "the pattern we observe is consistent with market size, which we did not measure. "
          "It cites the three studies the reviewer recommends (references 20-22): racial gaps in "
          "access to digital mammography among Medicare beneficiaries narrowed as the technology "
          "diffused (Christensen et al., Radiology 2023); use of screening CT colonography, which "
-         "Medicare does not cover, rose steeply with income (Christensen et al., AJR 2024); and gaps "
+         "Medicare did not then cover, rose steeply with income (Christensen et al., AJR 2024); and gaps "
          "in physician care by urbanicity, income, and area deprivation widened as inflation-adjusted "
          "Medicare payment declined (Christensen et al., Inquiry 2026). It also cites evidence that "
          "MRI adoption responds to market and payer conditions (Baker, reference 17) and that "
@@ -671,7 +671,13 @@ def items(rv, mn, L):
          "metropolitan status and economic deprivation as strongly correlated has been revised, "
          "because it overstated the association. The statement that mean cardiac MR rates "
          "declined across economic deprivation quintiles has been qualified, because the quintile "
-         "means do not decline monotonically. Finally, in rechecking every value we refined every "
+         "means do not decline monotonically. Nonsignificant results are now described as not "
+         "significant rather than as showing an absence of association; statements that no inverse "
+         "gradient was found are limited to the primary models adjusted for metropolitan status; "
+         "planning and mechanism statements are framed as hypotheses; the sample for the facility "
+         "versus no-facility deprivation contrast is stated; and the statement on Medicare coverage "
+         "of screening CT colonography is dated, because Medicare has covered it since 2025. "
+         "Finally, in rechecking every value we refined every "
          "negative binomial fit with Newton-Raphson steps after the default quasi-Newton optimizer, "
          "which had stopped marginally short of the maximum in some models. "
          f"Four submitted results changed in the last printed digit: the SVI-model metropolitan "
@@ -1105,7 +1111,7 @@ def checklist(path, files_ok, gate, tests_line):
         ["Revised tracked-changes manuscript, line-numbered (.docx, .pdf)", "02", "Done", files_ok("02")],
         ["Response to reviewers and editor (.docx, .pdf)", "03", "Done; comments quoted verbatim; "
          "no placeholders", files_ok("03")],
-        ["Supplementary material: Methods S1-S7, Tables S1-S6, Figures S1-S3", "04", "Done", files_ok("04")],
+        ["Supplementary material: Methods S1-S8, Tables S1-S6, Figures S1-S3", "04", "Done", files_ok("04")],
         ["Figures 1A, 1B, 2, S1-S3 at 600 dpi (TIFF, PDF, PNG)", "05_Figures", "Done", files_ok("05_Figures")],
         ["Table 1 (.docx, .csv) and supplementary tables (.csv)", "06_Tables", "Done", files_ok("06_Tables")],
         ["Statistical outputs and validation report", "07_Statistical_Outputs", "Done", files_ok("07_Statistical_Outputs")],
