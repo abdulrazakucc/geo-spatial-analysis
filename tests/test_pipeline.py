@@ -20,6 +20,10 @@ import sys
 
 import pandas as pd
 
+# Skips use unittest.SkipTest, which pytest also honours, so pytest is never needed.
+import unittest  # noqa: E402
+from unittest import SkipTest  # noqa: E402
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, "code"))
 
@@ -126,8 +130,7 @@ def test_no_unexpected_nan_in_results():
     """
     path = os.path.join(BASE_DIR, "output", "validation", "manuscript_numbers.json")
     if not os.path.exists(path):
-        import pytest
-        pytest.skip("run the pipeline first")
+        raise SkipTest("run the pipeline first")
     with open(path) as f:
         R = json.load(f)
     for block in ("correlations", "descriptives", "quintiles"):
@@ -239,8 +242,7 @@ def test_manuscript_numbers():
     """The working manuscript must pass the gate, executed live."""
     working = os.path.join(BASE_DIR, "manuscript", "manuscript_CLEAN.docx")
     if not os.path.exists(working):
-        import pytest
-        pytest.skip("manuscript not present (it is not tracked in git)")
+        raise SkipTest("manuscript not present (it is not tracked in git)")
     code, text = _run_gate(working)
     assert os.path.relpath(working, BASE_DIR) in text, (
         "the report does not name the manuscript that was checked")
@@ -252,8 +254,7 @@ def test_submission_manuscript_passes_gate():
     """The file that would actually be submitted must pass, by name."""
     submission = os.path.join(BASE_DIR, "manuscript", "manuscript_SUBMISSION.docx")
     if not os.path.exists(submission):
-        import pytest
-        pytest.skip("submission manuscript not built; run tools/finalize_manuscript.py")
+        raise SkipTest("submission manuscript not built; run tools/finalize_manuscript.py")
     code, text = _run_gate(submission)
     assert "manuscript_SUBMISSION.docx" in text, (
         "the report must record that the submission file was the one checked")
@@ -266,8 +267,7 @@ def test_submission_manuscript_is_clean():
     import zipfile
     submission = os.path.join(BASE_DIR, "manuscript", "manuscript_SUBMISSION.docx")
     if not os.path.exists(submission):
-        import pytest
-        pytest.skip("submission manuscript not built")
+        raise SkipTest("submission manuscript not built")
     with zipfile.ZipFile(submission) as z:
         names = z.namelist()
         assert z.testzip() is None, "corrupt package"
@@ -299,8 +299,7 @@ def test_publication_outputs_consume_canonical_results():
     report = os.path.join(BASE_DIR, "output", "models", "regression_results_full.txt")
     numbers = os.path.join(BASE_DIR, "output", "validation", "manuscript_numbers.json")
     if not (os.path.exists(report) and os.path.exists(numbers)):
-        import pytest
-        pytest.skip("run the pipeline first")
+        raise SkipTest("run the pipeline first")
     text = open(report).read()
     with open(numbers) as f:
         R = json.load(f)["regressions"]
@@ -321,8 +320,7 @@ def test_generated_table1_matches_manuscript():
                        "Table1_Capacity_by_Rurality_and_EDI.docx")
     doc = os.path.join(BASE_DIR, "manuscript", "manuscript_SUBMISSION.docx")
     if not (os.path.exists(gen) and os.path.exists(doc)):
-        import pytest
-        pytest.skip("run the pipeline first")
+        raise SkipTest("run the pipeline first")
 
     sys.path.insert(0, os.path.join(BASE_DIR, "tools"))
     from docx import Document
@@ -340,14 +338,65 @@ def test_generated_table1_matches_manuscript():
 
 
 def test_no_withdrawn_table4_artifacts():
-    """Table 4 was withdrawn and promoted to Figure 2; nothing may still ship
-    under that name, or a stale file could reach a submission."""
+    """The original Table 4 (index comparison) was withdrawn and promoted to
+    Figure 2; its files must not return, or a stale file could reach a submission."""
     tables = os.path.join(BASE_DIR, "output", "tables")
     if not os.path.isdir(tables):
-        import pytest
-        pytest.skip("run the pipeline first")
-    stale = [f for f in os.listdir(tables) if f.lower().startswith("table4")]
+        raise SkipTest("run the pipeline first")
+    # The current Table 4 is the population table (20_table4_population.py);
+    # only the withdrawn index-comparison names are stale.
+    withdrawn = ("table4_external_validation", "table4_svi_vs_edi")
+    stale = [f for f in os.listdir(tables) if f.lower().startswith(withdrawn)]
     assert not stale, f"withdrawn Table 4 artifacts present: {stale}"
+
+
+def test_reviewer_analyses_outputs():
+    """Revision round 1: the sparse nonmetropolitan CMR stratum must be
+    reported from its boundary (Poisson) solution with a finite interval, every
+    primary row of the comprehensive table must be estimable, and the full PCA
+    must reproduce the published index."""
+    path = os.path.join(RESULTS, "reviewer_analyses.json")
+    if not os.path.exists(path):
+        raise SkipTest("run the pipeline first")
+    with open(path) as f:
+        R = json.load(f)
+    s = R["R2-03_strata"]["strata"]["EDI_CMR_nonmetro"]
+    assert s["solution"].startswith("Poisson"), s["solution"]
+    assert s["events"] == s["units_with_event"], "a county holds more than one facility"
+    e = s["estimate"]
+    assert all(v == v for v in (e["irr"], e["ci_low"], e["ci_high"], e["p"])), e
+    t = pd.read_csv(os.path.join(RESULTS, "comprehensive_model_table.csv"))
+    prim = t[t.model == "Adjusted for metropolitan status"]
+    assert len(prim) == 6 and prim.estimable.all(), "a primary model is not estimable"
+    assert R["R2-01_pca"]["pc1_vs_published_edi_pearson"] > 0.999999
+    assert R["R1-02_weighting"]["descriptive"]["excluded"]["n"] == 106
+
+
+def test_boundary_rule_leaves_regular_fits_alone():
+    """fit_primary_checked must return the ordinary NB2 fit whenever its
+    information matrix is usable; the Poisson substitution is for the boundary
+    case only."""
+    import model_spec
+    d = model_spec.analytic_sample(_county(), "svi_percentile")
+    res, diag = model_spec.fit_primary_checked(d, "cct_facility_count",
+                                               ["idx10", "metro_indicator"])
+    assert diag["solution"] == "NB2", diag["solution"]
+    assert diag["hessian_positive_definite"]
+
+
+def test_csv_outputs_open_cleanly_in_excel():
+    """Any output CSV holding non-ASCII text (≥, ρ, en dash) must start with a
+    UTF-8 byte-order mark. Without one, Excel on macOS decodes the file as Mac
+    Roman and prints "≥45" as "‚â•45" in a submitted table."""
+    bad = []
+    for folder in (RESULTS, os.path.join(BASE_DIR, "output", "tables")):
+        for fn in sorted(os.listdir(folder)):
+            if not fn.endswith(".csv"):
+                continue
+            raw = open(os.path.join(folder, fn), "rb").read()
+            if any(b > 127 for b in raw) and not raw.startswith(b"\xef\xbb\xbf"):
+                bad.append(fn)
+    assert not bad, f"non-ASCII CSVs without a UTF-8 BOM: {bad}"
 
 
 if __name__ == "__main__":
@@ -358,6 +407,8 @@ if __name__ == "__main__":
         try:
             fn()
             print(f"  PASS  {name}")
+        except unittest.SkipTest as exc:
+            print(f"  SKIP  {name}: {exc}")
         except AssertionError as exc:
             failures += 1
             print(f"  FAIL  {name}\n          {exc}")

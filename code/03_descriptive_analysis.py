@@ -126,7 +126,7 @@ def main():
     
     # Save Table 1
     table1_path = os.path.join(TABLE_DIR, "table1_descriptive.csv")
-    table1.to_csv(table1_path, index=False)
+    table1.to_csv(table1_path, index=False, encoding="utf-8-sig")
     print(f"\n  ✓ Saved: {table1_path}")
     
     # Formatted output
@@ -150,7 +150,7 @@ def main():
         f.write(f"  CCT: ρ = {spearman['cct_rho']:.3f}, p = {spearman['cct_p']:.4f}\n")
         f.write(f"\n{'─' * 90}\n")
         f.write("Notes: SVI from CDC/ATSDR 2022, overall percentile rank. RUCC from USDA ERS 2023.\n")
-        f.write("Population denominators from ACS 5-year estimates 2019–2023.\n")
+        f.write("Population denominators from US Census Bureau county estimates, July 1, 2023 (Vintage 2023).\n")
         f.write("Counties with <1,000 adults aged ≥45 excluded from rate calculations.\n")
     print(f"  ✓ Saved: {txt_path}")
 

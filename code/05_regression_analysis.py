@@ -32,6 +32,9 @@ import statsmodels.api as sm
 import statsmodels.discrete.discrete_model as dm
 from statsmodels.genmod.generalized_linear_model import GLM
 from statsmodels.genmod.families import Poisson, NegativeBinomial
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import model_spec  # noqa: E402
 
 warnings.filterwarnings('ignore')
 
@@ -73,8 +76,8 @@ def load_data():
 def fit_negbin_primary(endog, exog, offset, label=""):
     """Primary specification: NB2 with the dispersion estimated. See model_spec."""
     try:
-        return dm.NegativeBinomial(endog, exog, loglike_method="nb2",
-                                   offset=offset).fit(disp=0, maxiter=300)
+        return model_spec.fit_nb2(dm.NegativeBinomial(endog, exog, loglike_method="nb2",
+                                                      offset=offset))
     except Exception as exc:
         print(f"  ! {label} failed to converge: {exc}")
         return None

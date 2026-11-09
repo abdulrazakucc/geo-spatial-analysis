@@ -10,11 +10,11 @@ CMR   (n = 3134 rate-eligible counties)
 Model                                        IRR              95% CI         P
 ..............................................................................
 EDI, unadjusted                           0.9477         0.915-0.982    0.0029 *
-EDI, adjusted for metropolitan status     0.9929         0.958-1.029    0.6989
-EDI, adjusted for ordinal RUCC            1.0048         0.968-1.043    0.8014
+EDI, adjusted for metropolitan status     0.9929         0.958-1.029    0.6990
+EDI, adjusted for ordinal RUCC            1.0048         0.968-1.043    0.8020
 EDI, metropolitan counties only           1.0032         0.967-1.041    0.8632
-EDI, nonmetropolitan counties only        0.7041             nan-nan       nan
-Metropolitan status (from adjusted model)  8.3296        4.858-14.281    0.0000 *
+EDI, nonmetropolitan counties only        0.7036         0.558-0.887    0.0029 *
+Metropolitan status (from adjusted model)  8.3304        4.859-14.283    0.0000 *
 
   Stratum sizes. Metropolitan, 1178 counties carrying 694 facilities in 282 counties. Nonmetropolitan, 1956 counties carrying 14 facilities in 14 counties.
   CAUTION. The nonmetropolitan CMR stratum contains only 14 facilities. Any estimate from it is unstable and
@@ -29,8 +29,8 @@ EDI, unadjusted                           0.9894         0.967-1.013    0.3718
 EDI, adjusted for metropolitan status     1.0163         0.992-1.041    0.1862
 EDI, adjusted for ordinal RUCC            1.0269         1.002-1.052    0.0331 *
 EDI, metropolitan counties only           1.0238         0.998-1.050    0.0711
-EDI, nonmetropolitan counties only        0.9578         0.892-1.028    0.2324
-Metropolitan status (from adjusted model)  2.1274         1.737-2.606    0.0000 *
+EDI, nonmetropolitan counties only        0.9579         0.892-1.028    0.2326
+Metropolitan status (from adjusted model)  2.1273         1.737-2.606    0.0000 *
 
   Stratum sizes. Metropolitan, 1178 counties carrying 1409 facilities in 438 counties. Nonmetropolitan, 1956 counties carrying 115 facilities in 108 counties.
 

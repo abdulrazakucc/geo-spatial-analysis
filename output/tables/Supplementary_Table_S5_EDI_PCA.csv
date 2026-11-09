@@ -1,0 +1,19 @@
+﻿Indicator,Source,PC1 loading,PC2 loading,PC1 coefficient,PC2 coefficient
+Persons below 150% of the federal poverty level,CDC/ATSDR SVI 2022 (ACS 2018-2022),0.939,-0.026,0.500,-0.026
+Civilian labor force unemployed,CDC/ATSDR SVI 2022 (ACS 2018-2022),0.648,0.367,0.345,0.362
+Adults aged ≥25 years without a high-school diploma,CDC/ATSDR SVI 2022 (ACS 2018-2022),0.748,-0.236,0.399,-0.232
+Housing cost-burdened households,CDC/ATSDR SVI 2022 (ACS 2018-2022),0.326,0.871,0.173,0.859
+Median household income (sign reversed),County Health Rankings 2024,0.832,-0.259,0.443,-0.255
+Children in poverty,County Health Rankings 2024,0.930,-0.113,0.495,-0.112
+Component,,Eigenvalue,"Variance explained, %","Cumulative, %",
+PC1,,3.524,58.7,58.7,
+PC2,,1.028,17.1,75.9,
+PC3,,0.627,10.4,86.3,
+PC4,,0.512,8.5,94.8,
+PC5,,0.171,2.9,97.7,
+PC6,,0.138,2.3,100.0,
+
+"Principal component analysis of the correlation matrix of six county indicators (n = 3,134 counties with all six). Indicators were standardized to z-scores before extraction; median household income was sign-reversed so that every indicator increases with deprivation. Loadings are indicator-component correlations (coefficient × √eigenvalue); coefficients are eigenvector elements."
+"The EDI is the PC1 score, converted to national percentiles (0-100). PC1 from this full decomposition correlates with the published index at r = 1.000000. Kaiser-Meyer-Olkin measure 0.81; Bartlett test of sphericity χ² = 11,256, df = 15, P < 0.001."
+"Two components have eigenvalues above 1. PC2 (eigenvalue 1.03) is dominated by housing cost burden and does not exceed the 95th percentile of eigenvalues from 1,000 permuted datasets (1.05); parallel analysis retains one component, and the index retains PC1 only, as a single economic deprivation dimension. Software: Python 3.11, scikit-learn 1.4 (PCA, full singular value decomposition; StandardScaler)."
+PC2 sign is fixed so that its coefficients sum to a positive value; PC2 orientation is otherwise arbitrary. CCT = cardiac computed tomography; CI = confidence interval; CMR = cardiac magnetic resonance; EDI = economic deprivation index; IRR = incidence rate ratio; NB2 = negative binomial (quadratic variance); NE = not estimable; RUCC = Rural-Urban Continuum Code; SDI = Social Deprivation Index; SVI = Social Vulnerability Index.

@@ -1,0 +1,3452 @@
+{
+  "R1-02_weighting": {
+    "models": {
+      "SVI_CMR_unadjusted": {
+        "n": 3144,
+        "n_rate_eligible": 3038,
+        "alpha_unweighted": 0.590971363375362,
+        "primary_nb2": {
+          "irr": 0.9995435512874612,
+          "ci_low": 0.9648595619480058,
+          "ci_high": 1.0354743325580351,
+          "p": 0.9797856749136091
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.003666417335351,
+          "ci_low": 0.9697979093208567,
+          "ci_high": 1.0387177241825742,
+          "p": 0.8344822944440972
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.007295407894035,
+          "ci_low": 0.9555565830824706,
+          "ci_high": 1.061835642941555,
+          "p": 0.787019158640162
+        },
+        "rate_eligible_nb2": {
+          "irr": 0.9993205317879885,
+          "ci_low": 0.9646348066271724,
+          "ci_high": 1.0352534642045104,
+          "p": 0.9699179362458277
+        }
+      },
+      "SVI_CMR_adjusted": {
+        "n": 3144,
+        "n_rate_eligible": 3038,
+        "alpha_unweighted": 0.4389749285618737,
+        "primary_nb2": {
+          "irr": 1.0033644580117986,
+          "ci_low": 0.9680596010691224,
+          "ci_high": 1.0399568729957012,
+          "p": 0.8541845317442992
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 0.9986607540076241,
+          "ci_low": 0.9657639279820199,
+          "ci_high": 1.032678144936517,
+          "p": 0.9374963532959024
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.035412604630251,
+          "ci_low": 0.9816672547064691,
+          "ci_high": 1.0921004614213863,
+          "p": 0.20068327308477907
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.0033171502387823,
+          "ci_low": 0.9680120083111433,
+          "ci_high": 1.0399099342987803,
+          "p": 0.8562169892748358
+        },
+        "metro_primary_nb2": {
+          "irr": 8.548397626681544,
+          "ci_low": 5.009288080723286,
+          "ci_high": 14.587921638019154,
+          "p": 3.5752328734811065e-15
+        },
+        "metro_poisson_population_weighted_robust": {
+          "irr": 8.938424985944325,
+          "ci_low": 5.318178246607762,
+          "ci_high": 15.023084508368195,
+          "p": 1.3612907194243375e-16
+        },
+        "metro_poisson_county_weighted_robust": {
+          "irr": 15.65435997516096,
+          "ci_low": 7.772846563070318,
+          "ci_high": 31.527572845220526,
+          "p": 1.3530839980711692e-14
+        },
+        "metro_rate_eligible_nb2": {
+          "irr": 8.523994956366783,
+          "ci_low": 4.994929516349571,
+          "ci_high": 14.546449510115835,
+          "p": 3.892868607600451e-15
+        }
+      },
+      "SVI_CCT_unadjusted": {
+        "n": 3144,
+        "n_rate_eligible": 3038,
+        "alpha_unweighted": 0.22190046145861736,
+        "primary_nb2": {
+          "irr": 1.0303786862576543,
+          "ci_low": 1.006122124626685,
+          "ci_high": 1.0552200484488687,
+          "p": 0.01381227316360444
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.03747362095034,
+          "ci_low": 1.0099631227668815,
+          "ci_high": 1.0657334806631864,
+          "p": 0.007297043540539855
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.0491093149116493,
+          "ci_low": 1.0111883044075096,
+          "ci_high": 1.0884524176526027,
+          "p": 0.010701559451113342
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.0301688346222735,
+          "ci_low": 1.0059114047767643,
+          "ci_high": 1.0550112294059626,
+          "p": 0.014494909434328308
+        }
+      },
+      "SVI_CCT_adjusted": {
+        "n": 3144,
+        "n_rate_eligible": 3038,
+        "alpha_unweighted": 0.18153069820361353,
+        "primary_nb2": {
+          "irr": 1.0330425063723712,
+          "ci_low": 1.0086902831325502,
+          "ci_high": 1.0579826511839954,
+          "p": 0.007565521719379561
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.0346188698098702,
+          "ci_low": 1.0080416512552985,
+          "ci_high": 1.0618968020157256,
+          "p": 0.010371318815710143
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.0612256323842282,
+          "ci_low": 1.0227123398546458,
+          "ci_high": 1.1011892581538298,
+          "p": 0.0016287465644467276
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.0329151727620562,
+          "ci_low": 1.0085627462172344,
+          "ci_high": 1.0578556050416181,
+          "p": 0.007805097733346465
+        },
+        "metro_primary_nb2": {
+          "irr": 2.0833216424811,
+          "ci_low": 1.711323241049049,
+          "ci_high": 2.536183090325804,
+          "p": 2.602617054063022e-13
+        },
+        "metro_poisson_population_weighted_robust": {
+          "irr": 2.1733651687238087,
+          "ci_low": 1.7934648577899002,
+          "ci_high": 2.6337377819840264,
+          "p": 2.3924541357845077e-15
+        },
+        "metro_poisson_county_weighted_robust": {
+          "irr": 2.416711248784772,
+          "ci_low": 1.8520180653467164,
+          "ci_high": 3.1535833096257915,
+          "p": 8.106388730353707e-11
+        },
+        "metro_rate_eligible_nb2": {
+          "irr": 2.077667950893459,
+          "ci_low": 1.706656585807252,
+          "ci_high": 2.5293337570475636,
+          "p": 3.1943661414138166e-13
+        }
+      },
+      "EDI_CMR_unadjusted": {
+        "n": 3134,
+        "n_rate_eligible": 3029,
+        "alpha_unweighted": 0.5945584417208831,
+        "primary_nb2": {
+          "irr": 0.9477292051498934,
+          "ci_low": 0.9148027909392583,
+          "ci_high": 0.9818407368126268,
+          "p": 0.0029226957502862913
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 0.9634461430904173,
+          "ci_low": 0.9303419588865071,
+          "ci_high": 0.9977282672994392,
+          "p": 0.036847190013991296
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 0.8691563463953114,
+          "ci_low": 0.8169854185656252,
+          "ci_high": 0.9246587972225425,
+          "p": 8.991649563978105e-06
+        },
+        "rate_eligible_nb2": {
+          "irr": 0.9477256290835143,
+          "ci_low": 0.9147954320079665,
+          "ci_high": 0.9818412254751191,
+          "p": 0.002924128007800161
+        }
+      },
+      "EDI_CMR_adjusted": {
+        "n": 3134,
+        "n_rate_eligible": 3029,
+        "alpha_unweighted": 0.4403986600281478,
+        "primary_nb2": {
+          "irr": 0.9928858407226565,
+          "ci_low": 0.9576001998548568,
+          "ci_high": 1.0294716864689015,
+          "p": 0.6989688365134148
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 0.9951019933584535,
+          "ci_low": 0.9616505029671083,
+          "ci_high": 1.0297171104582024,
+          "p": 0.7783751684345721
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 0.9638927005148117,
+          "ci_low": 0.9025325901733955,
+          "ci_high": 1.0294244753280755,
+          "p": 0.27315423633354086
+        },
+        "rate_eligible_nb2": {
+          "irr": 0.9928672070438295,
+          "ci_low": 0.9575798351767033,
+          "ci_high": 1.0294549390141516,
+          "p": 0.6982361664521154
+        },
+        "metro_primary_nb2": {
+          "irr": 8.330419917425408,
+          "ci_low": 4.858662457831931,
+          "ci_high": 14.282921812931264,
+          "p": 1.2933381164450124e-14
+        },
+        "metro_poisson_population_weighted_robust": {
+          "irr": 8.748154271470813,
+          "ci_low": 5.155104253084422,
+          "ci_high": 14.845519974045757,
+          "p": 9.143789981809738e-16
+        },
+        "metro_poisson_county_weighted_robust": {
+          "irr": 14.453005926925446,
+          "ci_low": 6.850224766782169,
+          "ci_high": 30.493799464315376,
+          "p": 2.3591256645275843e-12
+        },
+        "metro_rate_eligible_nb2": {
+          "irr": 8.305835301368806,
+          "ci_low": 4.8441809203119,
+          "ci_high": 14.241189829264766,
+          "p": 1.4114391803636724e-14
+        }
+      },
+      "EDI_CCT_unadjusted": {
+        "n": 3134,
+        "n_rate_eligible": 3029,
+        "alpha_unweighted": 0.2422421203594568,
+        "primary_nb2": {
+          "irr": 0.9894011127390528,
+          "ci_low": 0.9665332818198373,
+          "ci_high": 1.0128099883390735,
+          "p": 0.371804119827538
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.0022417347826895,
+          "ci_low": 0.976794943604609,
+          "ci_high": 1.0283514482921157,
+          "p": 0.8644969464613812
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 0.9564765461498653,
+          "ci_low": 0.9195197380263418,
+          "ci_high": 0.9949187010367008,
+          "p": 0.02687363497813445
+        },
+        "rate_eligible_nb2": {
+          "irr": 0.9894115693932217,
+          "ci_low": 0.9665418579332258,
+          "ci_high": 1.0128224097220508,
+          "p": 0.37231330873295576
+        }
+      },
+      "EDI_CCT_adjusted": {
+        "n": 3134,
+        "n_rate_eligible": 3029,
+        "alpha_unweighted": 0.1917182115751949,
+        "primary_nb2": {
+          "irr": 1.0163030038519674,
+          "ci_low": 0.9922241189539116,
+          "ci_high": 1.040966225178516,
+          "p": 0.18621026137276564
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.0219954662406003,
+          "ci_low": 0.9964219422842832,
+          "ci_high": 1.0482253437955193,
+          "p": 0.09242666200158232
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 0.9960959582481812,
+          "ci_low": 0.9577602565211921,
+          "ci_high": 1.0359661003707645,
+          "p": 0.8451183538013438
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.0162373473440545,
+          "ci_low": 0.9921563091363058,
+          "ci_high": 1.0409028664403719,
+          "p": 0.18804403891716193
+        },
+        "metro_primary_nb2": {
+          "irr": 2.1273417197374354,
+          "ci_low": 1.7368613708450586,
+          "ci_high": 2.6056096753038713,
+          "p": 2.9707043007291296e-13
+        },
+        "metro_poisson_population_weighted_robust": {
+          "irr": 2.2703312962571056,
+          "ci_low": 1.8654720966551075,
+          "ci_high": 2.7630561743628306,
+          "p": 2.793460043223757e-16
+        },
+        "metro_poisson_county_weighted_robust": {
+          "irr": 2.3341017030071245,
+          "ci_low": 1.7798928002090728,
+          "ci_high": 3.0608757782158635,
+          "p": 8.862554904453651e-10
+        },
+        "metro_rate_eligible_nb2": {
+          "irr": 2.1209717872149967,
+          "ci_low": 1.7315998260707697,
+          "ci_high": 2.597898922391163,
+          "p": 3.7172565113558507e-13
+        }
+      },
+      "SDI_CMR_unadjusted": {
+        "n": 3133,
+        "n_rate_eligible": 3027,
+        "alpha_unweighted": 0.5815034014160391,
+        "primary_nb2": {
+          "irr": 1.0168669266055355,
+          "ci_low": 0.9837360146532061,
+          "ci_high": 1.0511136433169088,
+          "p": 0.3223194793023596
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.0237274869089918,
+          "ci_low": 0.9870654656875198,
+          "ci_high": 1.0617512251054442,
+          "p": 0.20756473105114748
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.009909364026209,
+          "ci_low": 0.9468447670716597,
+          "ci_high": 1.0771743785437555,
+          "p": 0.7643879030042204
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.0167435424255582,
+          "ci_low": 0.9836106358543925,
+          "ci_high": 1.0509925303584307,
+          "p": 0.32593175768703675
+        }
+      },
+      "SDI_CMR_adjusted": {
+        "n": 3133,
+        "n_rate_eligible": 3027,
+        "alpha_unweighted": 0.4283905528411556,
+        "primary_nb2": {
+          "irr": 1.035134756052428,
+          "ci_low": 1.0011606052374593,
+          "ci_high": 1.0702618117235805,
+          "p": 0.04255122994972324
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.0296316306449012,
+          "ci_low": 0.9941158383129913,
+          "ci_high": 1.0664162605270746,
+          "p": 0.10300641409588253
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.0573586772437968,
+          "ci_low": 0.9916944819413176,
+          "ci_high": 1.127370770637109,
+          "p": 0.08819350948618596
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.035103499478358,
+          "ci_low": 1.0011289285346185,
+          "ci_high": 1.070231040272345,
+          "p": 0.04274150636820717
+        },
+        "metro_primary_nb2": {
+          "irr": 8.668453445836992,
+          "ci_low": 5.076044688431195,
+          "ci_high": 14.803274942377755,
+          "p": 2.581034924904792e-15
+        },
+        "metro_poisson_population_weighted_robust": {
+          "irr": 8.922526060855326,
+          "ci_low": 5.29353002747039,
+          "ci_high": 15.039391652357594,
+          "p": 2.1035718752588237e-16
+        },
+        "metro_poisson_county_weighted_robust": {
+          "irr": 15.924133373143466,
+          "ci_low": 7.8276424188332685,
+          "ci_high": 32.39519770033874,
+          "p": 2.1930797510082756e-14
+        },
+        "metro_rate_eligible_nb2": {
+          "irr": 8.644991991802595,
+          "ci_low": 5.062216687975878,
+          "ci_high": 14.763470460647955,
+          "p": 2.800964133400708e-15
+        }
+      },
+      "SDI_CCT_unadjusted": {
+        "n": 3133,
+        "n_rate_eligible": 3027,
+        "alpha_unweighted": 0.2305310035048321,
+        "primary_nb2": {
+          "irr": 1.0246391572734685,
+          "ci_low": 1.0019789189230692,
+          "ci_high": 1.0478118678849098,
+          "p": 0.03290610258728119
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.0319303849320682,
+          "ci_low": 1.003741157823232,
+          "ci_high": 1.0609112828006417,
+          "p": 0.026134263973772557
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.038973404655023,
+          "ci_low": 0.9966166253099965,
+          "ci_high": 1.0831303714652398,
+          "p": 0.07180177618109221
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.024516448950871,
+          "ci_low": 1.0018558130861563,
+          "ci_high": 1.047689638030415,
+          "p": 0.033801137947354745
+        }
+      },
+      "SDI_CCT_adjusted": {
+        "n": 3133,
+        "n_rate_eligible": 3027,
+        "alpha_unweighted": 0.18595906581041627,
+        "primary_nb2": {
+          "irr": 1.0347659551949708,
+          "ci_low": 1.0119063513182247,
+          "ci_high": 1.0581419719677534,
+          "p": 0.0027138863622815637
+        },
+        "poisson_population_weighted_robust": {
+          "irr": 1.0353221637522425,
+          "ci_low": 1.0084615569650899,
+          "ci_high": 1.06289820901297,
+          "p": 0.00964754207146331
+        },
+        "poisson_county_weighted_robust": {
+          "irr": 1.0586947670668332,
+          "ci_low": 1.0167206379443376,
+          "ci_high": 1.1024017492955214,
+          "p": 0.005720976249616258
+        },
+        "rate_eligible_nb2": {
+          "irr": 1.0346711802567612,
+          "ci_low": 1.0118110371013103,
+          "ci_high": 1.0580478093230448,
+          "p": 0.002789504083233784
+        },
+        "metro_primary_nb2": {
+          "irr": 2.114963663727858,
+          "ci_low": 1.7355771905111164,
+          "ci_high": 2.577281680898257,
+          "p": 1.1199771636812179e-13
+        },
+        "metro_poisson_population_weighted_robust": {
+          "irr": 2.2095773568634725,
+          "ci_low": 1.8230473057604695,
+          "ci_high": 2.678061112587084,
+          "p": 6.437004893061893e-16
+        },
+        "metro_poisson_county_weighted_robust": {
+          "irr": 2.440889995389728,
+          "ci_low": 1.8781962205032785,
+          "ci_high": 3.1721626870259505,
+          "p": 2.4846213059547884e-11
+        },
+        "metro_rate_eligible_nb2": {
+          "irr": 2.1090468961846125,
+          "ci_low": 1.7306847903115812,
+          "ci_high": 2.570126481267074,
+          "p": 1.3893169384007326e-13
+        }
+      }
+    },
+    "weights": {
+      "SVI": {
+        "n": 3144,
+        "kish_effective_n": 313.7235533561902,
+        "share_of_weight_top_1pct_counties": 0.2232163024477015,
+        "share_of_weight_metropolitan": 0.8498445580098266
+      },
+      "EDI": {
+        "n": 3134,
+        "kish_effective_n": 308.527471546719,
+        "share_of_weight_top_1pct_counties": 0.22583475107075102,
+        "share_of_weight_metropolitan": 0.8488430768941007
+      },
+      "SDI": {
+        "n": 3133,
+        "kish_effective_n": 308.50963735371056,
+        "share_of_weight_top_1pct_counties": 0.22584129612852172,
+        "share_of_weight_metropolitan": 0.8488680850308549
+      }
+    },
+    "descriptive": {
+      "excluded": {
+        "n": 106,
+        "cmr_facilities": 0,
+        "cct_facilities": 0,
+        "metropolitan": 6,
+        "max_adults_45plus": 995,
+        "adults_45plus_total": 66794
+      },
+      "rates": {
+        "all": {
+          "CMR_pooled": 0.5098994182436065,
+          "CMR_mean_all_counties": 0.1517290084155264,
+          "CMR_mean_rate_eligible": 0.1570230422838759,
+          "CCT_pooled": 1.0890095608471486,
+          "CCT_mean_all_counties": 0.47875645120507054,
+          "CCT_mean_rate_eligible": 0.4954609225111067
+        },
+        "metropolitan": {
+          "CMR_pooled": 0.5883572086140149,
+          "CMR_mean_all_counties": 0.3633289057836266,
+          "CMR_mean_rate_eligible": 0.3651763408977806,
+          "CCT_pooled": 1.1858555602997165,
+          "CCT_mean_all_counties": 0.7461800026132335,
+          "CCT_mean_rate_eligible": 0.7499741382197413
+        },
+        "nonmetropolitan": {
+          "CMR_pooled": 0.06584673992555462,
+          "CMR_mean_all_counties": 0.02355869264506327,
+          "CMR_mean_rate_eligible": 0.024826652421439117,
+          "CCT_pooled": 0.5408839351027701,
+          "CCT_mean_all_counties": 0.3167726248669292,
+          "CCT_mean_rate_eligible": 0.3338217435357628
+        },
+        "edi_q1": {
+          "CMR_pooled": 0.5582511072096595,
+          "CMR_mean_all_counties": 0.261918073049076,
+          "CMR_mean_rate_eligible": 0.261918073049076,
+          "CCT_pooled": 1.021134316937669,
+          "CCT_mean_all_counties": 0.6030027410397932,
+          "CCT_mean_rate_eligible": 0.6030027410397932
+        },
+        "edi_q2": {
+          "CMR_pooled": 0.45355868898826324,
+          "CMR_mean_all_counties": 0.16125572788563639,
+          "CMR_mean_rate_eligible": 0.16125572788563639,
+          "CCT_pooled": 1.0282971803779708,
+          "CCT_mean_all_counties": 0.4128812292185462,
+          "CCT_mean_rate_eligible": 0.4128812292185462
+        },
+        "edi_q3": {
+          "CMR_pooled": 0.5988533278279428,
+          "CMR_mean_all_counties": 0.1850101161725059,
+          "CMR_mean_rate_eligible": 0.1850101161725059,
+          "CCT_pooled": 1.2653736983483084,
+          "CCT_mean_all_counties": 0.5393288580006111,
+          "CCT_mean_rate_eligible": 0.5393288580006111
+        },
+        "edi_q4": {
+          "CMR_pooled": 0.42625043514651006,
+          "CMR_mean_all_counties": 0.08116405167263856,
+          "CMR_mean_rate_eligible": 0.08116405167263856,
+          "CCT_pooled": 1.2064409637628901,
+          "CCT_mean_all_counties": 0.617426256979551,
+          "CCT_mean_rate_eligible": 0.617426256979551
+        },
+        "edi_q5": {
+          "CMR_pooled": 0.3940290156399967,
+          "CMR_mean_all_counties": 0.09019110995267056,
+          "CMR_mean_rate_eligible": 0.09019110995267056,
+          "CCT_pooled": 0.7962669691058266,
+          "CCT_mean_all_counties": 0.29962096344342964,
+          "CCT_mean_rate_eligible": 0.29962096344342964
+        }
+      },
+      "CMR_mannwhitney_p_all_counties": 1.2280300619314133e-102,
+      "CCT_mannwhitney_p_all_counties": 7.704492174190318e-103
+    },
+    "max_abs_irr_change_rate_eligible_adjusted": 0.00012733361031491697
+  },
+  "R2-03_strata": {
+    "strata": {
+      "SVI_CMR_metro": {
+        "solution": "NB2",
+        "converged": true,
+        "gradient_max_abs": 0.009875501887421478,
+        "gradient": {
+          "const": 0.002033675068721763,
+          "idx10": 0.009875501887421478,
+          "alpha": -0.00023145457815387807
+        },
+        "neg_hessian_eigenvalues": [
+          75.63445066393793,
+          112.08002948830588,
+          15019.038291337096
+        ],
+        "hessian_positive_definite": true,
+        "alpha": 0.4431810588012394,
+        "llf_nb2": -820.7918343737803,
+        "events": 708,
+        "units_with_event": 286,
+        "max_count": 21,
+        "n": 1186,
+        "llf_poisson": -850.7014616060723,
+        "estimate": {
+          "irr": 1.0109584021768265,
+          "ci_low": 0.9745948713968935,
+          "ci_high": 1.0486787083816989,
+          "p": 0.5598075158684297
+        },
+        "estimable": true
+      },
+      "SVI_CMR_nonmetro": {
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+        "converged": true,
+        "gradient_max_abs": 0.40552066620087546,
+        "gradient": {
+          "const": 0.00704327294373408,
+          "idx10": -0.009328149499651328,
+          "alpha": -0.40552066620087546
+        },
+        "neg_hessian_eigenvalues": [
+          -0.028936763314597717,
+          3.9257080036602354,
+          317.5135482569214
+        ],
+        "hessian_positive_definite": false,
+        "alpha": 0.003939112237484866,
+        "llf_nb2": -62.96724024809108,
+        "events": 14,
+        "units_with_event": 14,
+        "max_count": 1,
+        "n": 1958,
+        "llf_poisson": -62.965632601278784,
+        "estimate": {
+          "irr": 0.8032494010799205,
+          "ci_low": 0.6526063403170594,
+          "ci_high": 0.988665847196313,
+          "p": 0.038683844998568834
+        },
+        "estimable": true
+      },
+      "SVI_CCT_metro": {
+        "solution": "NB2",
+        "converged": true,
+        "gradient_max_abs": 0.008378931578214122,
+        "gradient": {
+          "const": -0.006919849729968064,
+          "idx10": -0.008378931578214122,
+          "alpha": 0.0005417829669594652
+        },
+        "neg_hessian_eigenvalues": [
+          150.0169432446168,
+          673.1967740792825,
+          32827.16562375668
+        ],
+        "hessian_positive_definite": true,
+        "alpha": 0.18821986697216594,
+        "llf_nb2": -1118.707661868997,
+        "events": 1427,
+        "units_with_event": 444,
+        "max_count": 61,
+        "n": 1186,
+        "llf_poisson": -1153.9988058250847,
+        "estimate": {
+          "irr": 1.0406814656490648,
+          "ci_low": 1.0143241713771916,
+          "ci_high": 1.0677236563090335,
+          "p": 0.002314457928038588
+        },
+        "estimable": true
+      },
+      "SVI_CCT_nonmetro": {
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+        "converged": true,
+        "gradient_max_abs": 4.172643791269964,
+        "gradient": {
+          "const": 0.0036445425397158004,
+          "idx10": -0.01636169918407404,
+          "alpha": -4.172643791269964
+        },
+        "neg_hessian_eigenvalues": [
+          -1.1686049279588526,
+          23.030683310518796,
+          4202.659156773429
+        ],
+        "hessian_positive_definite": false,
+        "alpha": 3.2929361412945066e-05,
+        "llf_nb2": -358.47086438208675,
+        "events": 115,
+        "units_with_event": 108,
+        "max_count": 2,
+        "n": 1958,
+        "llf_poisson": -358.47072615409957,
+        "estimate": {
+          "irr": 0.9792115990687402,
+          "ci_low": 0.915186369597114,
+          "ci_high": 1.0477159490179793,
+          "p": 0.5425892542766236
+        },
+        "estimable": true
+      },
+      "EDI_CMR_metro": {
+        "solution": "NB2",
+        "converged": true,
+        "gradient_max_abs": 0.00048152960192737737,
+        "gradient": {
+          "const": 3.852818995220275e-05,
+          "idx10": -0.00048152960192737737,
+          "alpha": 7.441086115471232e-05
+        },
+        "neg_hessian_eigenvalues": [
+          102.55057718740564,
+          141.23956347716734,
+          8450.983234581392
+        ],
+        "hessian_positive_definite": true,
+        "alpha": 0.4429343084580398,
+        "llf_nb2": -809.148043394879,
+        "events": 694,
+        "units_with_event": 282,
+        "max_count": 21,
+        "n": 1178,
+        "llf_poisson": -838.5030403777076,
+        "estimate": {
+          "irr": 1.0032304291689609,
+          "ci_low": 0.9670840735683565,
+          "ci_high": 1.040727814177365,
+          "p": 0.8632282503242312
+        },
+        "estimable": true
+      },
+      "EDI_CMR_nonmetro": {
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+        "converged": true,
+        "gradient_max_abs": 0.5761493109958409,
+        "gradient": {
+          "const": 0.011805162145881232,
+          "idx10": -0.00980384557671421,
+          "alpha": -0.5761493109958409
+        },
+        "neg_hessian_eigenvalues": [
+          -0.07554028044021618,
+          4.115092371322551,
+          244.34230944493652
+        ],
+        "hessian_positive_definite": false,
+        "alpha": 0.003950524434617646,
+        "llf_nb2": -60.05025813750339,
+        "events": 14,
+        "units_with_event": 14,
+        "max_count": 1,
+        "n": 1956,
+        "llf_poisson": -60.047957145482044,
+        "estimate": {
+          "irr": 0.7035614063970828,
+          "ci_low": 0.5582498636414086,
+          "ci_high": 0.8866973103094264,
+          "p": 0.002894505499818875
+        },
+        "estimable": true
+      },
+      "EDI_CCT_metro": {
+        "solution": "NB2",
+        "converged": true,
+        "gradient_max_abs": 0.000577268144155596,
+        "gradient": {
+          "const": 6.878218793993085e-05,
+          "idx10": -0.000577268144155596,
+          "alpha": 0.0004183259527161887
+        },
+        "neg_hessian_eigenvalues": [
+          266.1675598415539,
+          627.1551115743291,
+          18195.714618903956
+        ],
+        "hessian_positive_definite": true,
+        "alpha": 0.19851801809719016,
+        "llf_nb2": -1110.2071243051325,
+        "events": 1409,
+        "units_with_event": 438,
+        "max_count": 61,
+        "n": 1178,
+        "llf_poisson": -1147.073191586383,
+        "estimate": {
+          "irr": 1.0237630628172802,
+          "ci_low": 0.9979798954700996,
+          "ci_high": 1.0502123475095801,
+          "p": 0.07113991682472028
+        },
+        "estimable": true
+      },
+      "EDI_CCT_nonmetro": {
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+        "converged": true,
+        "gradient_max_abs": 4.418791377542684,
+        "gradient": {
+          "const": -0.005332438631501901,
+          "idx10": 0.013824908768484079,
+          "alpha": -4.418791377542684
+        },
+        "neg_hessian_eigenvalues": [
+          5.85304246782209,
+          21.646473719691905,
+          4099.566836258259
+        ],
+        "hessian_positive_definite": true,
+        "alpha": 6.47422172375767e-05,
+        "llf_nb2": -357.3691549649327,
+        "events": 115,
+        "units_with_event": 108,
+        "max_count": 2,
+        "n": 1956,
+        "llf_poisson": -357.3688676291465,
+        "estimate": {
+          "irr": 0.9578511272487529,
+          "ci_low": 0.8924675485584442,
+          "ci_high": 1.0280248099257634,
+          "p": 0.23257029436437826
+        },
+        "estimable": true
+      },
+      "SDI_CMR_metro": {
+        "solution": "NB2",
+        "converged": true,
+        "gradient_max_abs": 0.0008760550838360359,
+        "gradient": {
+          "const": 0.0002381964717059759,
+          "idx10": 0.0008760550838360359,
+          "alpha": -7.126767819749105e-06
+        },
+        "neg_hessian_eigenvalues": [
+          97.48429609129994,
+          123.0426879416489,
+          12285.404882048799
+        ],
+        "hessian_positive_definite": true,
+        "alpha": 0.4325895410939868,
+        "llf_nb2": -806.0882511622362,
+        "events": 694,
+        "units_with_event": 282,
+        "max_count": 21,
+        "n": 1179,
+        "llf_poisson": -835.1549975981754,
+        "estimate": {
+          "irr": 1.0438381323336932,
+          "ci_low": 1.0089568423153978,
+          "ci_high": 1.0799253256595556,
+          "p": 0.013354198505998694
+        },
+        "estimable": true
+      },
+      "SDI_CMR_nonmetro": {
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+        "converged": true,
+        "gradient_max_abs": 0.5048194566805526,
+        "gradient": {
+          "const": -0.005457577012031312,
+          "idx10": -0.004097591167516512,
+          "alpha": -0.5048194566805526
+        },
+        "neg_hessian_eigenvalues": [
+          -0.05594649953533399,
+          4.354837066952285,
+          250.64819657783687
+        ],
+        "hessian_positive_definite": false,
+        "alpha": 0.0030566544438407665,
+        "llf_nb2": -61.98578426282881,
+        "events": 14,
+        "units_with_event": 14,
+        "max_count": 1,
+        "n": 1954,
+        "llf_poisson": -61.98423911604902,
+        "estimate": {
+          "irr": 0.7636577455780037,
+          "ci_low": 0.6115206166342495,
+          "ci_high": 0.9536443032632455,
+          "p": 0.01737428813754586
+        },
+        "estimable": true
+      },
+      "SDI_CCT_metro": {
+        "solution": "NB2",
+        "converged": true,
+        "gradient_max_abs": 0.008516570398910517,
+        "gradient": {
+          "const": -0.0011513955698134737,
+          "idx10": -0.008516570398910517,
+          "alpha": -0.0002822617186435149
+        },
+        "neg_hessian_eigenvalues": [
+          219.79801208880875,
+          647.2019488217044,
+          25445.34925750113
+        ],
+        "hessian_positive_definite": true,
+        "alpha": 0.19323501404367857,
+        "llf_nb2": -1106.984061336058,
+        "events": 1409,
+        "units_with_event": 438,
+        "max_count": 61,
+        "n": 1179,
+        "llf_poisson": -1142.6465857047415,
+        "estimate": {
+          "irr": 1.0384534503059233,
+          "ci_low": 1.0140869401730803,
+          "ci_high": 1.0634054396442794,
+          "p": 0.0018415051043793958
+        },
+        "estimable": true
+      },
+      "SDI_CCT_nonmetro": {
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+        "converged": true,
+        "gradient_max_abs": 4.221071689907526,
+        "gradient": {
+          "const": 0.0023911972113666025,
+          "idx10": 0.006211662173257082,
+          "alpha": -4.221071689907526
+        },
+        "neg_hessian_eigenvalues": [
+          -1.9918408130786438,
+          23.32598459150618,
+          4025.8026696451825
+        ],
+        "hessian_positive_definite": false,
+        "alpha": 2.491200444695175e-05,
+        "llf_nb2": -358.05364092392904,
+        "events": 115,
+        "units_with_event": 108,
+        "max_count": 2,
+        "n": 1954,
+        "llf_poisson": -358.0535357253137,
+        "estimate": {
+          "irr": 1.0028829660358465,
+          "ci_low": 0.9363002979399825,
+          "ci_high": 1.0742004950524189,
+          "p": 0.9345407163000814
+        },
+        "estimable": true
+      }
+    },
+    "detail": {
+      "SVI_CMR_nonmetro": {
+        "n_counties": 1958,
+        "facilities": 14,
+        "counties_with_facility": 14,
+        "count_distribution": {
+          "0": 1944,
+          "1": 14
+        },
+        "poisson_wald": {
+          "irr": 0.8032494010799205,
+          "ci_low": 0.6526063403170594,
+          "ci_high": 0.988665847196313,
+          "p": 0.038683844998568834
+        },
+        "poisson_profile": {
+          "ci_low": 0.6444006975079569,
+          "ci_high": 0.9814849298990291,
+          "lr_statistic": 4.610529001249233,
+          "lr_p": 0.03177622939204935
+        },
+        "poisson_robust": {
+          "irr": 0.8032494010799205,
+          "ci_low": 0.6832719717530863,
+          "ci_high": 0.9442939663979222,
+          "p": 0.007944922495405637
+        },
+        "poisson_pearson_dispersion": 0.29916511872663387,
+        "fixed_alpha_grid": {
+          "1e-06": {
+            "irr": 0.8032494008417268,
+            "ci_low": 0.6526063378542348,
+            "ci_high": 0.9886658503410155,
+            "p": 0.03868384799336635,
+            "llf": -62.96563298255205
+          },
+          "0.1": {
+            "irr": 0.8032256271447521,
+            "ci_low": 0.6523612023381161,
+            "ci_high": 0.9889788138683492,
+            "p": 0.038982328055589634,
+            "llf": -63.00606503929905
+          },
+          "0.5": {
+            "irr": 0.8031313929775442,
+            "ci_low": 0.6514004051330727,
+            "ci_high": 0.9902051477144558,
+            "p": 0.04016018477307578,
+            "llf": -63.16500542301185
+          },
+          "1.0": {
+            "irr": 0.8030152660848908,
+            "ci_low": 0.6502474509031798,
+            "ci_high": 0.9916740414279641,
+            "p": 0.04158801559247815,
+            "llf": -63.35778030527706
+          }
+        },
+        "within_stratum_ordinal_rucc": {
+          "irr": 0.7718691432720631,
+          "ci_low": 0.6195844552492624,
+          "ci_high": 0.9615831534957767,
+          "p": 0.020924944887616686
+        },
+        "within_stratum_log_density": {
+          "irr": 0.7926173404108326,
+          "ci_low": 0.635987806849233,
+          "ci_high": 0.9878212153662761,
+          "p": 0.03854138666263073
+        },
+        "mean_index_with_facility": 39.480000000000004,
+        "mean_index_without_facility": 51.69177469135802,
+        "rucc_of_counties_with_facility": {
+          "4": 6,
+          "5": 5,
+          "6": 2,
+          "7": 1
+        },
+        "facility_counties": [
+          {
+            "county": "Cerro Gordo, IA",
+            "fips": "19033",
+            "rucc": 5,
+            "index_percentile": 13.43,
+            "adults_45plus": 20863,
+            "facilities": 1
+          },
+          {
+            "county": "Steuben, IN",
+            "fips": "18151",
+            "rucc": 7,
+            "index_percentile": 16.509999999999998,
+            "adults_45plus": 17080,
+            "facilities": 1
+          },
+          {
+            "county": "Wood, WI",
+            "fips": "55141",
+            "rucc": 4,
+            "index_percentile": 17.91,
+            "adults_45plus": 35952,
+            "facilities": 1
+          },
+          {
+            "county": "Flathead, MT",
+            "fips": "30029",
+            "rucc": 5,
+            "index_percentile": 20.94,
+            "adults_45plus": 52329,
+            "facilities": 1
+          },
+          {
+            "county": "Merrimack, NH",
+            "fips": "33013",
+            "rucc": 4,
+            "index_percentile": 21.09,
+            "adults_45plus": 74112,
+            "facilities": 1
+          },
+          {
+            "county": "Grafton, NH",
+            "fips": "33009",
+            "rucc": 5,
+            "index_percentile": 26.19,
+            "adults_45plus": 45695,
+            "facilities": 1
+          },
+          {
+            "county": "Bradford, PA",
+            "fips": "42015",
+            "rucc": 6,
+            "index_percentile": 37.54,
+            "adults_45plus": 29081,
+            "facilities": 1
+          },
+          {
+            "county": "Montour, PA",
+            "fips": "42093",
+            "rucc": 6,
+            "index_percentile": 38.18,
+            "adults_45plus": 8546,
+            "facilities": 1
+          },
+          {
+            "county": "Clearfield, PA",
+            "fips": "42033",
+            "rucc": 4,
+            "index_percentile": 50.17,
+            "adults_45plus": 39155,
+            "facilities": 1
+          },
+          {
+            "county": "Muskingum, OH",
+            "fips": "39119",
+            "rucc": 4,
+            "index_percentile": 51.1,
+            "adults_45plus": 38409,
+            "facilities": 1
+          },
+          {
+            "county": "Sussex, DE",
+            "fips": "10005",
+            "rucc": 4,
+            "index_percentile": 51.83,
+            "adults_45plus": 150816,
+            "facilities": 1
+          },
+          {
+            "county": "Hawaii, HI",
+            "fips": "15001",
+            "rucc": 5,
+            "index_percentile": 63.6,
+            "adults_45plus": 102008,
+            "facilities": 1
+          },
+          {
+            "county": "Oconee, SC",
+            "fips": "45073",
+            "rucc": 4,
+            "index_percentile": 69.67999999999999,
+            "adults_45plus": 42683,
+            "facilities": 1
+          },
+          {
+            "county": "Lee, MS",
+            "fips": "28081",
+            "rucc": 5,
+            "index_percentile": 74.55000000000001,
+            "adults_45plus": 33716,
+            "facilities": 1
+          }
+        ]
+      },
+      "EDI_CMR_nonmetro": {
+        "n_counties": 1956,
+        "facilities": 14,
+        "counties_with_facility": 14,
+        "count_distribution": {
+          "0": 1942,
+          "1": 14
+        },
+        "poisson_wald": {
+          "irr": 0.7035614063970828,
+          "ci_low": 0.5582498636414086,
+          "ci_high": 0.8866973103094264,
+          "p": 0.002894505499818875
+        },
+        "poisson_profile": {
+          "ci_low": 0.5484184113147712,
+          "ci_high": 0.8760993757005852,
+          "lr_statistic": 10.305465826641779,
+          "lr_p": 0.0013263676786366778
+        },
+        "poisson_robust": {
+          "irr": 0.7035614063970828,
+          "ci_low": 0.5954535306802349,
+          "ci_high": 0.8312968637635988,
+          "p": 3.617412105738041e-05
+        },
+        "poisson_pearson_dispersion": 0.2514322952519304,
+        "fixed_alpha_grid": {
+          "1e-06": {
+            "irr": 0.7035614085953144,
+            "ci_low": 0.5582498626530854,
+            "ci_high": 0.8866973174200871,
+            "p": 0.0028945063451482956,
+            "llf": -60.04795769788325
+          },
+          "0.1": {
+            "irr": 0.7037753264844626,
+            "ci_low": 0.5581484764653559,
+            "ci_high": 0.8873977643098611,
+            "p": 0.0029788215956748757,
+            "llf": -60.10527475501887
+          },
+          "0.5": {
+            "irr": 0.7045249389229734,
+            "ci_low": 0.5576976622402336,
+            "ci_high": 0.8900080154013799,
+            "p": 0.0033120053951777844,
+            "llf": -60.32749222060012
+          },
+          "1.0": {
+            "irr": 0.7052667469492285,
+            "ci_low": 0.5570546011953962,
+            "ci_high": 0.8929128011598191,
+            "p": 0.0037199655259822846,
+            "llf": -60.59111325916825
+          }
+        },
+        "within_stratum_ordinal_rucc": {
+          "irr": 0.7106213988313266,
+          "ci_low": 0.5613165071585524,
+          "ci_high": 0.8996399821435346,
+          "p": 0.004527796701107555
+        },
+        "within_stratum_log_density": {
+          "irr": 0.7082844837736261,
+          "ci_low": 0.5573515352352328,
+          "ci_high": 0.9000906577618758,
+          "p": 0.004790011062947163
+        },
+        "mean_index_with_facility": 34.06646002370316,
+        "mean_index_without_facility": 56.249420823537996,
+        "rucc_of_counties_with_facility": {
+          "4": 6,
+          "5": 5,
+          "6": 2,
+          "7": 1
+        },
+        "facility_counties": [
+          {
+            "county": "Merrimack, NH",
+            "fips": "33013",
+            "rucc": 4,
+            "index_percentile": 7.147415443522655,
+            "adults_45plus": 74112,
+            "facilities": 1
+          },
+          {
+            "county": "Grafton, NH",
+            "fips": "33009",
+            "rucc": 5,
+            "index_percentile": 12.125079770261646,
+            "adults_45plus": 45695,
+            "facilities": 1
+          },
+          {
+            "county": "Montour, PA",
+            "fips": "42093",
+            "rucc": 6,
+            "index_percentile": 16.368857689853222,
+            "adults_45plus": 8546,
+            "facilities": 1
+          },
+          {
+            "county": "Flathead, MT",
+            "fips": "30029",
+            "rucc": 5,
+            "index_percentile": 22.84620293554563,
+            "adults_45plus": 52329,
+            "facilities": 1
+          },
+          {
+            "county": "Cerro Gordo, IA",
+            "fips": "19033",
+            "rucc": 5,
+            "index_percentile": 24.154435226547545,
+            "adults_45plus": 20863,
+            "facilities": 1
+          },
+          {
+            "county": "Steuben, IN",
+            "fips": "18151",
+            "rucc": 7,
+            "index_percentile": 25.143586470963623,
+            "adults_45plus": 17080,
+            "facilities": 1
+          },
+          {
+            "county": "Wood, WI",
+            "fips": "55141",
+            "rucc": 4,
+            "index_percentile": 26.547543075941288,
+            "adults_45plus": 35952,
+            "facilities": 1
+          },
+          {
+            "county": "Sussex, DE",
+            "fips": "10005",
+            "rucc": 4,
+            "index_percentile": 31.684747925973195,
+            "adults_45plus": 150816,
+            "facilities": 1
+          },
+          {
+            "county": "Bradford, PA",
+            "fips": "42015",
+            "rucc": 6,
+            "index_percentile": 43.23548181238034,
+            "adults_45plus": 29081,
+            "facilities": 1
+          },
+          {
+            "county": "Hawaii, HI",
+            "fips": "15001",
+            "rucc": 5,
+            "index_percentile": 44.63943841735801,
+            "adults_45plus": 102008,
+            "facilities": 1
+          },
+          {
+            "county": "Clearfield, PA",
+            "fips": "42033",
+            "rucc": 4,
+            "index_percentile": 50.31908104658584,
+            "adults_45plus": 39155,
+            "facilities": 1
+          },
+          {
+            "county": "Muskingum, OH",
+            "fips": "39119",
+            "rucc": 4,
+            "index_percentile": 53.286534779834085,
+            "adults_45plus": 38409,
+            "facilities": 1
+          },
+          {
+            "county": "Lee, MS",
+            "fips": "28081",
+            "rucc": 5,
+            "index_percentile": 55.39246968730057,
+            "adults_45plus": 33716,
+            "facilities": 1
+          },
+          {
+            "county": "Oconee, SC",
+            "fips": "45073",
+            "rucc": 4,
+            "index_percentile": 64.03956604977664,
+            "adults_45plus": 42683,
+            "facilities": 1
+          }
+        ]
+      },
+      "SDI_CMR_nonmetro": {
+        "n_counties": 1954,
+        "facilities": 14,
+        "counties_with_facility": 14,
+        "count_distribution": {
+          "0": 1940,
+          "1": 14
+        },
+        "poisson_wald": {
+          "irr": 0.7636577455780037,
+          "ci_low": 0.6115206166342495,
+          "ci_high": 0.9536443032632455,
+          "p": 0.01737428813754586
+        },
+        "poisson_profile": {
+          "ci_low": 0.6004682915677969,
+          "ci_high": 0.9426911510364856,
+          "lr_statistic": 6.4274575723299705,
+          "lr_p": 0.01123693155853016
+        },
+        "poisson_robust": {
+          "irr": 0.7636577455780037,
+          "ci_low": 0.630337439908571,
+          "ci_high": 0.9251761286238478,
+          "p": 0.0058795500448576
+        },
+        "poisson_pearson_dispersion": 0.30500773502001893,
+        "fixed_alpha_grid": {
+          "1e-06": {
+            "irr": 0.7636577486442897,
+            "ci_low": 0.6115206168798274,
+            "ci_high": 0.9536443105385392,
+            "p": 0.017374291630354505,
+            "llf": -61.984239565208554
+          },
+          "0.1": {
+            "irr": 0.7639597740168896,
+            "ci_low": 0.6115428486516987,
+            "ci_high": 0.954364093379078,
+            "p": 0.017722333339493204,
+            "llf": -62.03444154031473
+          },
+          "0.5": {
+            "irr": 0.765082906242382,
+            "ci_low": 0.6115889539596367,
+            "ci_high": 0.9571001072444503,
+            "p": 0.019090897708750942,
+            "llf": -62.229986956600314
+          },
+          "1.0": {
+            "irr": 0.7663222779807144,
+            "ci_low": 0.6115645822165389,
+            "ci_high": 0.9602417321178708,
+            "p": 0.020752510571376188,
+            "llf": -62.46368137215133
+          }
+        },
+        "within_stratum_ordinal_rucc": {
+          "irr": 0.7508359661586012,
+          "ci_low": 0.5970183293137105,
+          "ci_high": 0.9442836516014039,
+          "p": 0.014281020339501748
+        },
+        "within_stratum_log_density": {
+          "irr": 0.762856088545546,
+          "ci_low": 0.6076582139713788,
+          "ci_high": 0.95769200259411,
+          "p": 0.019676360172479607
+        },
+        "mean_index_with_facility": 34.142857142857146,
+        "mean_index_without_facility": 50.20463917525773,
+        "rucc_of_counties_with_facility": {
+          "4": 6,
+          "5": 5,
+          "6": 2,
+          "7": 1
+        },
+        "facility_counties": [
+          {
+            "county": "Merrimack, NH",
+            "fips": "33013",
+            "rucc": 4,
+            "index_percentile": 8.0,
+            "adults_45plus": 74112,
+            "facilities": 1
+          },
+          {
+            "county": "Steuben, IN",
+            "fips": "18151",
+            "rucc": 7,
+            "index_percentile": 10.0,
+            "adults_45plus": 17080,
+            "facilities": 1
+          },
+          {
+            "county": "Wood, WI",
+            "fips": "55141",
+            "rucc": 4,
+            "index_percentile": 13.0,
+            "adults_45plus": 35952,
+            "facilities": 1
+          },
+          {
+            "county": "Flathead, MT",
+            "fips": "30029",
+            "rucc": 5,
+            "index_percentile": 15.0,
+            "adults_45plus": 52329,
+            "facilities": 1
+          },
+          {
+            "county": "Grafton, NH",
+            "fips": "33009",
+            "rucc": 5,
+            "index_percentile": 16.0,
+            "adults_45plus": 45695,
+            "facilities": 1
+          },
+          {
+            "county": "Cerro Gordo, IA",
+            "fips": "19033",
+            "rucc": 5,
+            "index_percentile": 20.0,
+            "adults_45plus": 20863,
+            "facilities": 1
+          },
+          {
+            "county": "Sussex, DE",
+            "fips": "10005",
+            "rucc": 4,
+            "index_percentile": 27.0,
+            "adults_45plus": 150816,
+            "facilities": 1
+          },
+          {
+            "county": "Montour, PA",
+            "fips": "42093",
+            "rucc": 6,
+            "index_percentile": 34.0,
+            "adults_45plus": 8546,
+            "facilities": 1
+          },
+          {
+            "county": "Bradford, PA",
+            "fips": "42015",
+            "rucc": 6,
+            "index_percentile": 38.0,
+            "adults_45plus": 29081,
+            "facilities": 1
+          },
+          {
+            "county": "Clearfield, PA",
+            "fips": "42033",
+            "rucc": 4,
+            "index_percentile": 46.0,
+            "adults_45plus": 39155,
+            "facilities": 1
+          },
+          {
+            "county": "Hawaii, HI",
+            "fips": "15001",
+            "rucc": 5,
+            "index_percentile": 55.0,
+            "adults_45plus": 102008,
+            "facilities": 1
+          },
+          {
+            "county": "Muskingum, OH",
+            "fips": "39119",
+            "rucc": 4,
+            "index_percentile": 62.0,
+            "adults_45plus": 38409,
+            "facilities": 1
+          },
+          {
+            "county": "Oconee, SC",
+            "fips": "45073",
+            "rucc": 4,
+            "index_percentile": 66.0,
+            "adults_45plus": 42683,
+            "facilities": 1
+          },
+          {
+            "county": "Lee, MS",
+            "fips": "28081",
+            "rucc": 5,
+            "index_percentile": 68.0,
+            "adults_45plus": 33716,
+            "facilities": 1
+          }
+        ]
+      }
+    },
+    "interaction": {
+      "SVI_CMR": {
+        "nonmetro_slope": {
+          "irr": 0.8031455408517709,
+          "ci_low": 0.6517700899090654,
+          "ci_high": 0.9896783693772747,
+          "p": 0.039654108217191016
+        },
+        "metro_slope": {
+          "irr": 1.010929411379473,
+          "ci_low": 0.9746118849072622,
+          "ci_high": 1.0486002588500063,
+          "p": 0.5603467943312854
+        },
+        "interaction_ratio": {
+          "irr": 1.2587125993469854,
+          "ci_low": 1.0182287283398876,
+          "ci_high": 1.5559936227079045,
+          "p": 0.03342395128902486
+        },
+        "alpha": 0.4395601375515671
+      },
+      "SVI_CCT": {
+        "nonmetro_slope": {
+          "irr": 0.9794271456981145,
+          "ci_low": 0.9145556730069452,
+          "ci_high": 1.048900096564237,
+          "p": 0.5521601145687365
+        },
+        "metro_slope": {
+          "irr": 1.040632136709872,
+          "ci_low": 1.0144150624500823,
+          "ci_high": 1.0675267787702454,
+          "p": 0.0022184243437702316
+        },
+        "interaction_ratio": {
+          "irr": 1.0624906010422366,
+          "ci_low": 0.987568575141455,
+          "ci_high": 1.1430965967516702,
+          "p": 0.10423128011529627
+        },
+        "alpha": 0.18129982400854355
+      },
+      "EDI_CMR": {
+        "nonmetro_slope": {
+          "irr": 0.7044185687169714,
+          "ci_low": 0.5580926163528056,
+          "ci_high": 0.8891096305771292,
+          "p": 0.003184985484374304
+        },
+        "metro_slope": {
+          "irr": 1.003225110713536,
+          "ci_low": 0.9671459789138263,
+          "ci_high": 1.040650165238254,
+          "p": 0.863194989602063
+        },
+        "interaction_ratio": {
+          "irr": 1.424188905952339,
+          "ci_low": 1.125122730375444,
+          "ci_high": 1.8027491446741002,
+          "p": 0.003279440854685843
+        },
+        "alpha": 0.43782767709655906
+      },
+      "EDI_CCT": {
+        "nonmetro_slope": {
+          "irr": 0.9583456005754641,
+          "ci_low": 0.8921986604541171,
+          "ci_high": 1.0293966252705204,
+          "p": 0.24362395281297322
+        },
+        "metro_slope": {
+          "irr": 1.0237943795740037,
+          "ci_low": 0.9981738950789567,
+          "ci_high": 1.0500724741598344,
+          "p": 0.06897077008909062
+        },
+        "interaction_ratio": {
+          "irr": 1.0682935038875736,
+          "ci_low": 0.9902326114864419,
+          "ci_high": 1.152508003887342,
+          "p": 0.08792854755047318
+        },
+        "alpha": 0.19067527733236436
+      },
+      "SDI_CMR": {
+        "nonmetro_slope": {
+          "irr": 0.7648907131373552,
+          "ci_low": 0.6120550380501655,
+          "ci_high": 0.9558908377057083,
+          "p": 0.018442522576620216
+        },
+        "metro_slope": {
+          "irr": 1.0438007724097642,
+          "ci_low": 1.0089766899286594,
+          "ci_high": 1.0798267822820125,
+          "p": 0.01328048524082833
+        },
+        "interaction_ratio": {
+          "irr": 1.364640404808162,
+          "ci_low": 1.0891709738741293,
+          "ci_high": 1.7097806305019982,
+          "p": 0.006882821006583207
+        },
+        "alpha": 0.4282200095178326
+      },
+      "SDI_CCT": {
+        "nonmetro_slope": {
+          "irr": 1.0035412302546702,
+          "ci_low": 0.9361395343742278,
+          "ci_high": 1.0757958229958318,
+          "p": 0.9206200721099043
+        },
+        "metro_slope": {
+          "irr": 1.0384065353277196,
+          "ci_low": 1.0141906545199626,
+          "ci_high": 1.0632006199285031,
+          "p": 0.001745800203044059
+        },
+        "interaction_ratio": {
+          "irr": 1.0347422746788406,
+          "ci_low": 0.9614940244001575,
+          "ci_high": 1.1135707012589167,
+          "p": 0.3619190838084462
+        },
+        "alpha": 0.18589136649900034
+      }
+    }
+  },
+  "R2-02_multiplicity": {
+    "tests": [
+      {
+        "test": "SVI-CMR, unadjusted (Table 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 0.9995435513,
+        "ci_low": 0.9648595619,
+        "ci_high": 1.0354743326,
+        "p": 0.9797856749,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.9797856749
+      },
+      {
+        "test": "SVI-CMR, adjusted for metropolitan status (Table 2)",
+        "families": [
+          "extended",
+          "primary",
+          "primary_svi_only"
+        ],
+        "irr": 1.003364458,
+        "ci_low": 0.9680596011,
+        "ci_high": 1.039956873,
+        "p": 0.8541845317,
+        "holm_primary": 1.0,
+        "bh_primary": 0.8541845317,
+        "holm_primary_svi_only": 0.8541845317,
+        "bh_primary_svi_only": 0.8541845317,
+        "holm_extended": 1.0,
+        "bh_extended": 0.9140063827
+      },
+      {
+        "test": "SVI-CCT, unadjusted (Table 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0303786863,
+        "ci_low": 1.0061221246,
+        "ci_high": 1.0552200484,
+        "p": 0.0138122732,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.1933718243,
+        "bh_extended": 0.0497241834
+      },
+      {
+        "test": "SVI-CCT, adjusted for metropolitan status (Table 2)",
+        "families": [
+          "extended",
+          "primary",
+          "primary_svi_only"
+        ],
+        "irr": 1.0330425064,
+        "ci_low": 1.0086902831,
+        "ci_high": 1.0579826512,
+        "p": 0.0075655217,
+        "holm_primary": 0.0302620869,
+        "bh_primary": 0.0302620869,
+        "holm_primary_svi_only": 0.0151310434,
+        "bh_primary_svi_only": 0.0151310434,
+        "holm_extended": 0.1134828258,
+        "bh_extended": 0.0340448477
+      },
+      {
+        "test": "EDI-CMR, unadjusted (Table 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 0.9477292051,
+        "ci_low": 0.9148027909,
+        "ci_high": 0.9818407368,
+        "p": 0.0029226958,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.0492065935,
+        "bh_extended": 0.0175361745
+      },
+      {
+        "test": "EDI-CMR, adjusted for metropolitan status (Table 2)",
+        "families": [
+          "extended",
+          "primary"
+        ],
+        "irr": 0.9928858407,
+        "ci_low": 0.9576001999,
+        "ci_high": 1.0294716865,
+        "p": 0.6989688365,
+        "holm_primary": 1.0,
+        "bh_primary": 0.8541845317,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.8986742184
+      },
+      {
+        "test": "EDI-CMR, adjusted for ordinal RUCC (Table 3)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0047905672,
+        "ci_low": 0.9679492042,
+        "ci_high": 1.0430341588,
+        "p": 0.8020031511,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.9140063827
+      },
+      {
+        "test": "EDI-CMR, metropolitan counties (Table 3)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0032304292,
+        "ci_low": 0.9670840736,
+        "ci_high": 1.0407278142,
+        "p": 0.8632282503,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.9140063827
+      },
+      {
+        "test": "EDI-CMR, nonmetropolitan counties (Table 3)",
+        "families": [
+          "extended"
+        ],
+        "irr": 0.7035614064,
+        "ci_low": 0.5582498636,
+        "ci_high": 0.8866973103,
+        "p": 0.0028945055,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.0492065935,
+        "bh_extended": 0.0175361745
+      },
+      {
+        "test": "EDI-CCT, unadjusted (Table 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 0.9894011127,
+        "ci_low": 0.9665332818,
+        "ci_high": 1.0128099883,
+        "p": 0.3718041198,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.5148057044
+      },
+      {
+        "test": "EDI-CCT, adjusted for metropolitan status (Table 2)",
+        "families": [
+          "extended",
+          "primary"
+        ],
+        "irr": 1.0163030039,
+        "ci_low": 0.992224119,
+        "ci_high": 1.0409662252,
+        "p": 0.1862102614,
+        "holm_primary": 0.5586307841,
+        "bh_primary": 0.3724205227,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.3351784705
+      },
+      {
+        "test": "EDI-CCT, adjusted for ordinal RUCC (Table 3)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0268920099,
+        "ci_low": 1.0021323325,
+        "ci_high": 1.0522634244,
+        "p": 0.0330877288,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.4277793336,
+        "bh_extended": 0.0850827313
+      },
+      {
+        "test": "EDI-CCT, metropolitan counties (Table 3)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0237630628,
+        "ci_low": 0.9979798955,
+        "ci_high": 1.0502123475,
+        "p": 0.0711399168,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.7113991682,
+        "bh_extended": 0.1422798336
+      },
+      {
+        "test": "EDI-CCT, nonmetropolitan counties (Table 3)",
+        "families": [
+          "extended"
+        ],
+        "irr": 0.9578511272,
+        "ci_low": 0.8924675486,
+        "ci_high": 1.0280248099,
+        "p": 0.2325702944,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.3805695726
+      },
+      {
+        "test": "SDI-CMR, unadjusted (Figure 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0168669266,
+        "ci_low": 0.9837360147,
+        "ci_high": 1.0511136433,
+        "p": 0.3223194793,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 1.0,
+        "bh_extended": 0.483479219
+      },
+      {
+        "test": "SDI-CMR, adjusted for metropolitan status (Figure 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0351347561,
+        "ci_low": 1.0011606052,
+        "ci_high": 1.0702618117,
+        "p": 0.0425512299,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.4680635294,
+        "bh_extended": 0.0957402674
+      },
+      {
+        "test": "SDI-CCT, unadjusted (Figure 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0246391573,
+        "ci_low": 1.0019789189,
+        "ci_high": 1.0478118679,
+        "p": 0.0329061026,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.4277793336,
+        "bh_extended": 0.0850827313
+      },
+      {
+        "test": "SDI-CCT, adjusted for metropolitan status (Figure 2)",
+        "families": [
+          "extended"
+        ],
+        "irr": 1.0347659552,
+        "ci_low": 1.0119063513,
+        "ci_high": 1.058141972,
+        "p": 0.0027138864,
+        "holm_primary": null,
+        "bh_primary": null,
+        "holm_primary_svi_only": null,
+        "bh_primary_svi_only": null,
+        "holm_extended": 0.0488499545,
+        "bh_extended": 0.0175361745
+      }
+    ],
+    "families": {
+      "primary": {
+        "n_tests": 4,
+        "significant_unadjusted": 1,
+        "significant_holm": 1,
+        "significant_bh": 1,
+        "changed_by_holm": [],
+        "changed_by_bh": []
+      },
+      "primary_svi_only": {
+        "n_tests": 2,
+        "significant_unadjusted": 1,
+        "significant_holm": 1,
+        "significant_bh": 1,
+        "changed_by_holm": [],
+        "changed_by_bh": []
+      },
+      "extended": {
+        "n_tests": 18,
+        "significant_unadjusted": 8,
+        "significant_holm": 3,
+        "significant_bh": 5,
+        "changed_by_holm": [
+          "SVI-CCT, unadjusted (Table 2)",
+          "SVI-CCT, adjusted for metropolitan status (Table 2)",
+          "EDI-CCT, adjusted for ordinal RUCC (Table 3)",
+          "SDI-CMR, adjusted for metropolitan status (Figure 2)",
+          "SDI-CCT, unadjusted (Figure 2)"
+        ],
+        "changed_by_bh": [
+          "EDI-CCT, adjusted for ordinal RUCC (Table 3)",
+          "SDI-CMR, adjusted for metropolitan status (Figure 2)",
+          "SDI-CCT, unadjusted (Figure 2)"
+        ]
+      }
+    }
+  },
+  "R1-04_urban_core": {
+    "models": {
+      "SVI_CMR: metropolitan status (primary)": {
+        "estimate": {
+          "irr": 1.0033644580117986,
+          "ci_low": 0.9680596010691224,
+          "ci_high": 1.0399568729957012,
+          "p": 0.8541845317442992
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2"
+      },
+      "SVI_CMR: ordinal RUCC": {
+        "estimate": {
+          "irr": 1.0068696026857131,
+          "ci_low": 0.9709885969458992,
+          "ci_high": 1.0440765215999452,
+          "p": 0.711545321867372
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2"
+      },
+      "SVI_CMR: categorical RUCC": {
+        "estimate": {
+          "irr": 1.004643208115953,
+          "ci_low": 0.969186670568142,
+          "ci_high": 1.0413968807699894,
+          "p": 0.8005039306969469
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2"
+      },
+      "SVI_CMR: metropolitan status + log population density": {
+        "estimate": {
+          "irr": 0.9653301436668783,
+          "ci_low": 0.9297845926339601,
+          "ci_high": 1.0022345967597397,
+          "p": 0.06527718721127482
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2",
+        "log_density": {
+          "irr": 1.4097532874503467,
+          "ci_low": 1.3016033708475323,
+          "ci_high": 1.526889355075173,
+          "p": 3.377617562282411e-17
+        }
+      },
+      "SVI_CMR: categorical RUCC + log population density": {
+        "estimate": {
+          "irr": 0.9468147897633776,
+          "ci_low": 0.9109527146529391,
+          "ci_high": 0.9840886707892491,
+          "p": 0.00553521684503028
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2",
+        "log_density": {
+          "irr": 1.6400825351357635,
+          "ci_low": 1.4722751197540915,
+          "ci_high": 1.8270163544614082,
+          "p": 2.616813293828209e-19
+        }
+      },
+      "SVI_CMR: metropolitan counties only": {
+        "estimate": {
+          "irr": 1.0109584021768265,
+          "ci_low": 0.9745948713968935,
+          "ci_high": 1.0486787083816989,
+          "p": 0.5598075158684297
+        },
+        "estimable": true,
+        "n": 1186,
+        "solution": "NB2"
+      },
+      "SVI_CMR: nonmetropolitan counties only": {
+        "estimate": {
+          "irr": 0.8032494010799205,
+          "ci_low": 0.6526063403170594,
+          "ci_high": 0.988665847196313,
+          "p": 0.038683844998568834
+        },
+        "estimable": true,
+        "n": 1958,
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)"
+      },
+      "SVI_CCT: metropolitan status (primary)": {
+        "estimate": {
+          "irr": 1.0330425063723712,
+          "ci_low": 1.0086902831325502,
+          "ci_high": 1.0579826511839954,
+          "p": 0.007565521719379561
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2"
+      },
+      "SVI_CCT: ordinal RUCC": {
+        "estimate": {
+          "irr": 1.034954066654277,
+          "ci_low": 1.0104985591090192,
+          "ci_high": 1.0600014323906275,
+          "p": 0.004863223528843301
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2"
+      },
+      "SVI_CCT: categorical RUCC": {
+        "estimate": {
+          "irr": 1.033671675049917,
+          "ci_low": 1.0092852929547946,
+          "ci_high": 1.0586472816545418,
+          "p": 0.006553704609282945
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2"
+      },
+      "SVI_CCT: metropolitan status + log population density": {
+        "estimate": {
+          "irr": 1.0179612011729713,
+          "ci_low": 0.9934574713455377,
+          "ci_high": 1.0430693179950918,
+          "p": 0.15215523627848984
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2",
+        "log_density": {
+          "irr": 1.214866527891981,
+          "ci_low": 1.1564080846573328,
+          "ci_high": 1.2762801472714165,
+          "p": 1.0306243973371882e-14
+        }
+      },
+      "SVI_CCT: categorical RUCC + log population density": {
+        "estimate": {
+          "irr": 1.0103486819098788,
+          "ci_low": 0.9856577191748819,
+          "ci_high": 1.0356581591950296,
+          "p": 0.4147395748690528
+        },
+        "estimable": true,
+        "n": 3144,
+        "solution": "NB2",
+        "log_density": {
+          "irr": 1.289261968704209,
+          "ci_low": 1.210511382707873,
+          "ci_high": 1.3731357240348916,
+          "p": 2.7698091342608627e-15
+        }
+      },
+      "SVI_CCT: metropolitan counties only": {
+        "estimate": {
+          "irr": 1.0406814656490648,
+          "ci_low": 1.0143241713771916,
+          "ci_high": 1.0677236563090335,
+          "p": 0.002314457928038588
+        },
+        "estimable": true,
+        "n": 1186,
+        "solution": "NB2"
+      },
+      "SVI_CCT: nonmetropolitan counties only": {
+        "estimate": {
+          "irr": 0.9792115990687402,
+          "ci_low": 0.915186369597114,
+          "ci_high": 1.0477159490179793,
+          "p": 0.5425892542766236
+        },
+        "estimable": true,
+        "n": 1958,
+        "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)"
+      }
+    },
+    "themes": {
+      "SVI_CMR_theme1": {
+        "adjusted_metro": {
+          "irr": 0.9877446954595137,
+          "ci_low": 0.9538111268507171,
+          "ci_high": 1.0228855125959406,
+          "p": 0.48935036571320567
+        },
+        "adjusted_metro_density": {
+          "irr": 0.9625526831441323,
+          "ci_low": 0.9286234106896625,
+          "ci_high": 0.9977216352319582,
+          "p": 0.037110738286455065
+        },
+        "n": 3144
+      },
+      "SVI_CMR_theme2": {
+        "adjusted_metro": {
+          "irr": 0.9078643478938462,
+          "ci_low": 0.8753764422773762,
+          "ci_high": 0.9415579793676384,
+          "p": 2.005355588669819e-07
+        },
+        "adjusted_metro_density": {
+          "irr": 0.9112918078217622,
+          "ci_low": 0.8766820399849112,
+          "ci_high": 0.9472679045841395,
+          "p": 2.5731746141092654e-06
+        },
+        "n": 3144
+      },
+      "SVI_CMR_theme3": {
+        "adjusted_metro": {
+          "irr": 1.04903550249755,
+          "ci_low": 1.0021851010535452,
+          "ci_high": 1.0980760783047108,
+          "p": 0.040014502438706655
+        },
+        "adjusted_metro_density": {
+          "irr": 0.9190696168734664,
+          "ci_low": 0.8707852391729979,
+          "ci_high": 0.9700313265095747,
+          "p": 0.0021766010634244374
+        },
+        "n": 3144
+      },
+      "SVI_CMR_theme4": {
+        "adjusted_metro": {
+          "irr": 1.1009128872280163,
+          "ci_low": 1.059467742508955,
+          "ci_high": 1.1439793177605715,
+          "p": 9.085168747211763e-07
+        },
+        "adjusted_metro_density": {
+          "irr": 1.0576576905703616,
+          "ci_low": 1.01549449375035,
+          "ci_high": 1.1015714977354056,
+          "p": 0.006918423911203543
+        },
+        "n": 3144
+      },
+      "SVI_CCT_theme1": {
+        "adjusted_metro": {
+          "irr": 1.0271517166508877,
+          "ci_low": 1.0036756599787189,
+          "ci_high": 1.0511768802296506,
+          "p": 0.023148091322849867
+        },
+        "adjusted_metro_density": {
+          "irr": 1.018597089431167,
+          "ci_low": 0.9951200801735569,
+          "ci_high": 1.0426279715074078,
+          "p": 0.12143289318130047
+        },
+        "n": 3144
+      },
+      "SVI_CCT_theme2": {
+        "adjusted_metro": {
+          "irr": 0.9702144153678145,
+          "ci_low": 0.9471660876827105,
+          "ci_high": 0.9938236007694141,
+          "p": 0.013700270142179151
+        },
+        "adjusted_metro_density": {
+          "irr": 0.980386949357385,
+          "ci_low": 0.9566561309379892,
+          "ci_high": 1.0047064346181276,
+          "p": 0.11310489136080272
+        },
+        "n": 3144
+      },
+      "SVI_CCT_theme3": {
+        "adjusted_metro": {
+          "irr": 1.0386387448159469,
+          "ci_low": 1.009107202260462,
+          "ci_high": 1.0690345285578517,
+          "p": 0.009995611398804255
+        },
+        "adjusted_metro_density": {
+          "irr": 0.9816766669616815,
+          "ci_low": 0.9503450094081561,
+          "ci_high": 1.0140412891284085,
+          "p": 0.26380791017493066
+        },
+        "n": 3144
+      },
+      "SVI_CCT_theme4": {
+        "adjusted_metro": {
+          "irr": 1.074044715591094,
+          "ci_low": 1.0473911447290307,
+          "ci_high": 1.101376555353247,
+          "p": 2.52775468509481e-08
+        },
+        "adjusted_metro_density": {
+          "irr": 1.0518533608006946,
+          "ci_low": 1.0247614292819158,
+          "ci_high": 1.0796615300041141,
+          "p": 0.00014634477194574088
+        },
+        "n": 3144
+      }
+    },
+    "descriptive": {
+      "rucc_groups_CMR": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7-9"
+      },
+      "rucc_groups_CCT": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9"
+      },
+      "by_metro_rucc": {
+        "1": {
+          "counties": 443,
+          "cct_facilities": 987,
+          "cmr_facilities": 493,
+          "mean_svi": 41.33492099322799,
+          "median_density": 367.2208569171245
+        },
+        "2": {
+          "counties": 385,
+          "cct_facilities": 284,
+          "cmr_facilities": 146,
+          "mean_svi": 51.86319480519481,
+          "median_density": 155.70523960198844
+        },
+        "3": {
+          "counties": 358,
+          "cct_facilities": 156,
+          "cmr_facilities": 69,
+          "mean_svi": 49.93796089385475,
+          "median_density": 95.30869133579542
+        }
+      },
+      "cct_share_rucc1": 0.6400778210116731,
+      "spearman_svi_density_metro": {
+        "rho": 0.10808890397113746,
+        "p": 0.00019192910244061144,
+        "n": 1186
+      },
+      "spearman_theme1_density_metro": {
+        "rho": -0.00335157272676356,
+        "p": 0.9082063471203407
+      },
+      "spearman_theme2_density_metro": {
+        "rho": -0.025636397220523195,
+        "p": 0.37772855045895637
+      },
+      "spearman_theme3_density_metro": {
+        "rho": 0.3687249419054776,
+        "p": 1.6779606844101638e-39
+      },
+      "spearman_theme4_density_metro": {
+        "rho": 0.1960123512084766,
+        "p": 9.801844662965897e-12
+      }
+    }
+  },
+  "R2-01_pca": {
+    "n_counties": 3134,
+    "features": [
+      "EP_POV150",
+      "EP_UNEMP",
+      "EP_NOHSDP",
+      "EP_HBURD",
+      "neg_income",
+      "child_poverty"
+    ],
+    "labels": {
+      "EP_POV150": "Persons below 150% of the federal poverty level",
+      "EP_UNEMP": "Civilian labor force unemployed",
+      "EP_NOHSDP": "Adults aged \u226525 years without a high-school diploma",
+      "EP_HBURD": "Housing cost-burdened households",
+      "neg_income": "Median household income (sign reversed)",
+      "child_poverty": "Children in poverty"
+    },
+    "sources": {
+      "EP_POV150": "CDC/ATSDR SVI 2022 (ACS 2018-2022)",
+      "EP_UNEMP": "CDC/ATSDR SVI 2022 (ACS 2018-2022)",
+      "EP_NOHSDP": "CDC/ATSDR SVI 2022 (ACS 2018-2022)",
+      "EP_HBURD": "CDC/ATSDR SVI 2022 (ACS 2018-2022)",
+      "neg_income": "County Health Rankings 2024",
+      "child_poverty": "County Health Rankings 2024"
+    },
+    "eigenvalues": [
+      3.5237501109486598,
+      1.0284073252143602,
+      0.6269001136775124,
+      0.5119114928281652,
+      0.17143440601601345,
+      0.1375965513152867
+    ],
+    "variance_explained": [
+      0.5872916851581101,
+      0.17140122086906012,
+      0.10448335227958533,
+      0.08531858213802758,
+      0.028572401002668953,
+      0.02293275855254789
+    ],
+    "cumulative_variance": [
+      0.5872916851581101,
+      0.7586929060271703,
+      0.8631762583067557,
+      0.9484948404447833,
+      0.9770672414474523,
+      1.0000000000000002
+    ],
+    "n_components_eigenvalue_gt_1": 2,
+    "pc1_coefficients": {
+      "EP_POV150": 0.5000735253599168,
+      "EP_UNEMP": 0.3451692704688154,
+      "EP_NOHSDP": 0.3985336283279392,
+      "EP_HBURD": 0.17348789969036832,
+      "neg_income": 0.4431156195132185,
+      "child_poverty": 0.4954857086277463
+    },
+    "pc2_coefficients": {
+      "EP_POV150": -0.02557319315234899,
+      "EP_UNEMP": 0.3616052249924767,
+      "EP_NOHSDP": -0.23225355016457827,
+      "EP_HBURD": 0.8585387356455789,
+      "neg_income": -0.25507429883862853,
+      "child_poverty": -0.11177791800778712
+    },
+    "pc1_loadings": {
+      "EP_POV150": 0.938720742170773,
+      "EP_UNEMP": 0.6479398274800215,
+      "EP_NOHSDP": 0.7481135560910877,
+      "EP_HBURD": 0.32566549056516975,
+      "neg_income": 0.8318013294495665,
+      "child_poverty": 0.9301086511294268
+    },
+    "pc2_loadings": {
+      "EP_POV150": -0.02593388254231461,
+      "EP_UNEMP": 0.3667053768285777,
+      "EP_NOHSDP": -0.23552930031541608,
+      "EP_HBURD": 0.8706477363079939,
+      "neg_income": -0.25867191735642253,
+      "child_poverty": -0.11335445594021003
+    },
+    "correlation_matrix": {
+      "EP_POV150": {
+        "EP_POV150": 0.9999999999999998,
+        "EP_UNEMP": 0.5285681882654076,
+        "EP_NOHSDP": 0.6460126368037254,
+        "EP_HBURD": 0.29541237923423647,
+        "neg_income": 0.7835232208751159,
+        "child_poverty": 0.8551518259092254
+      },
+      "EP_UNEMP": {
+        "EP_POV150": 0.5285681882654076,
+        "EP_UNEMP": 1.0,
+        "EP_NOHSDP": 0.35657449339754016,
+        "EP_HBURD": 0.29313848614262517,
+        "neg_income": 0.33335866672529535,
+        "child_poverty": 0.5370865065946646
+      },
+      "EP_NOHSDP": {
+        "EP_POV150": 0.6460126368037254,
+        "EP_UNEMP": 0.35657449339754016,
+        "EP_NOHSDP": 1.0,
+        "EP_HBURD": 0.09613449806308809,
+        "neg_income": 0.5096827093437502,
+        "child_poverty": 0.6400595760019755
+      },
+      "EP_HBURD": {
+        "EP_POV150": 0.29541237923423647,
+        "EP_UNEMP": 0.29313848614262517,
+        "EP_NOHSDP": 0.09613449806308809,
+        "EP_HBURD": 0.9999999999999998,
+        "neg_income": 0.11444296399556925,
+        "child_poverty": 0.201631453369877
+      },
+      "neg_income": {
+        "EP_POV150": 0.7835232208751159,
+        "EP_UNEMP": 0.33335866672529535,
+        "EP_NOHSDP": 0.5096827093437502,
+        "EP_HBURD": 0.11444296399556925,
+        "neg_income": 0.9999999999999998,
+        "child_poverty": 0.7839752613940534
+      },
+      "child_poverty": {
+        "EP_POV150": 0.8551518259092253,
+        "EP_UNEMP": 0.5370865065946646,
+        "EP_NOHSDP": 0.6400595760019755,
+        "EP_HBURD": 0.201631453369877,
+        "neg_income": 0.7839752613940533,
+        "child_poverty": 1.0
+      }
+    },
+    "kmo": 0.813308467330001,
+    "parallel_analysis": {
+      "method": "Horn's parallel analysis, 1,000 datasets with each indicator permuted independently; 95th percentile of eigenvalues by rank",
+      "replicates": 1000,
+      "seed": 20261108,
+      "threshold_95": [
+        1.082768460326183,
+        1.0486157096965916,
+        1.0232220985636789,
+        1.0016765754835137,
+        0.9834637077977362,
+        0.9620340105092051
+      ],
+      "mean": [
+        1.0590951893699612,
+        1.031331922617172,
+        1.00999788993104,
+        0.9892739334093485,
+        0.9682690893339371,
+        0.9420319753385383
+      ],
+      "n_retained": 1
+    },
+    "bartlett_chi2": 11256.137098196185,
+    "bartlett_df": 15,
+    "bartlett_p": 0.0,
+    "pc1_vs_published_edi_pearson": 0.9999999999999998,
+    "pc1_vs_published_n": 3134,
+    "standardisation": "z-scores, population standard deviation (scikit-learn StandardScaler)",
+    "software": "scikit-learn PCA, full SVD; published index uses PC1 only"
+  },
+  "E-05_population": {
+    "strata": {
+      "all": {
+        "counties": 3144,
+        "population_millions": 334.914895,
+        "adults_45plus_millions": 141.596553
+      },
+      "metropolitan": {
+        "counties": 1186,
+        "population_millions": 288.910527,
+        "adults_45plus_millions": 120.33506
+      },
+      "nonmetropolitan": {
+        "counties": 1958,
+        "population_millions": 46.004368,
+        "adults_45plus_millions": 21.261493
+      },
+      "any_facility": {
+        "counties": 574,
+        "population_millions": 238.653063,
+        "adults_45plus_millions": 99.570692
+      },
+      "no_facility": {
+        "counties": 2570,
+        "population_millions": 96.261832,
+        "adults_45plus_millions": 42.025861
+      }
+    },
+    "variables": {
+      "pct_65plus": {
+        "label": "Aged \u226565 years, %",
+        "source": "SVI 2022 (ACS 2018-2022)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 19.3,
+            "q1": 16.6,
+            "q3": 22.2,
+            "population_weighted_mean": 16.536913489320924
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 17.5,
+            "q1": 15.0,
+            "q3": 19.8,
+            "population_weighted_mean": 15.986769760037165
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 20.4,
+            "q1": 18.0,
+            "q3": 23.475,
+            "population_weighted_mean": 19.991853132293873
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 16.7,
+            "q1": 14.7,
+            "q3": 19.5,
+            "population_weighted_mean": 15.967047583629798
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 19.8,
+            "q1": 17.3,
+            "q3": 22.775,
+            "population_weighted_mean": 17.94972935898415
+          }
+        }
+      },
+      "pct_female": {
+        "label": "Female, %",
+        "source": "County Health Rankings 2024 (Census population estimates)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3135,
+            "n_missing": 9,
+            "median": 49.87107643,
+            "q1": 48.97276434,
+            "q3": 50.644534925,
+            "population_weighted_mean": 50.40070706245324
+          },
+          "metropolitan": {
+            "n_available": 1179,
+            "n_missing": 7,
+            "median": 50.262461820000006,
+            "q1": 49.54207966,
+            "q3": 50.925184185,
+            "population_weighted_mean": 50.531557116612746
+          },
+          "nonmetropolitan": {
+            "n_available": 1956,
+            "n_missing": 2,
+            "median": 49.62981764,
+            "q1": 48.6136401325,
+            "q3": 50.4185314975,
+            "population_weighted_mean": 49.58492387118343
+          },
+          "any_facility": {
+            "n_available": 568,
+            "n_missing": 6,
+            "median": 50.508204885,
+            "q1": 49.891403797500004,
+            "q3": 51.20361187,
+            "population_weighted_mean": 50.616231533142596
+          },
+          "no_facility": {
+            "n_available": 2567,
+            "n_missing": 3,
+            "median": 49.71740527,
+            "q1": 48.790129245,
+            "q3": 50.47151063,
+            "population_weighted_mean": 49.87148658966511
+          }
+        }
+      },
+      "pct_nh_white": {
+        "label": "Non-Hispanic White, %",
+        "source": "SVI 2022 (100 minus racial and ethnic minority %)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 81.8,
+            "q1": 62.775,
+            "q3": 91.0,
+            "population_weighted_mean": 59.023513526025766
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 76.25,
+            "q1": 60.1,
+            "q3": 87.2,
+            "population_weighted_mean": 56.16990061563247
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 85.25,
+            "q1": 65.025,
+            "q3": 92.3,
+            "population_weighted_mean": 76.94439464313476
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 72.5,
+            "q1": 56.925,
+            "q3": 83.775,
+            "population_weighted_mean": 54.17004466018523
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 84.0,
+            "q1": 64.3,
+            "q3": 91.9,
+            "population_weighted_mean": 71.05627029932279
+          }
+        }
+      },
+      "pct_nh_black": {
+        "label": "Non-Hispanic Black or African American, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 2.1,
+            "q1": 0.7,
+            "q3": 9.7,
+            "population_weighted_mean": 12.057137099859354
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 5.3,
+            "q1": 1.5,
+            "q3": 14.25,
+            "population_weighted_mean": 12.742730896060428
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 1.2,
+            "q1": 0.5,
+            "q3": 5.2,
+            "population_weighted_mean": 7.751561921250608
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 6.65,
+            "q1": 2.2,
+            "q3": 15.575,
+            "population_weighted_mean": 13.341749370717276
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 1.6,
+            "q1": 0.5,
+            "q3": 7.4,
+            "population_weighted_mean": 8.872316628048385
+          }
+        }
+      },
+      "pct_hispanic": {
+        "label": "Hispanic or Latino, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 4.7,
+            "q1": 2.5,
+            "q3": 10.6,
+            "population_weighted_mean": 18.624594764589375
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 5.9,
+            "q1": 3.2,
+            "q3": 12.275,
+            "population_weighted_mean": 20.155479468562252
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 4.0,
+            "q1": 2.2,
+            "q3": 9.275,
+            "population_weighted_mean": 9.01053579955712
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 7.1,
+            "q1": 3.6,
+            "q3": 14.674999999999999,
+            "population_weighted_mean": 20.82503939033877
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 4.2,
+            "q1": 2.4,
+            "q3": 9.4,
+            "population_weighted_mean": 13.169235781841344
+          }
+        }
+      },
+      "pct_nh_asian": {
+        "label": "Non-Hispanic Asian, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 0.6,
+            "q1": 0.3,
+            "q3": 1.3,
+            "population_weighted_mean": 5.64126113083146
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 1.2,
+            "q1": 0.525,
+            "q3": 2.9,
+            "population_weighted_mean": 6.3827962059686385
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 0.5,
+            "q1": 0.2,
+            "q3": 0.8,
+            "population_weighted_mean": 0.9843709558188041
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 2.1,
+            "q1": 1.1,
+            "q3": 4.475,
+            "population_weighted_mean": 7.154892672800097
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 0.5,
+            "q1": 0.2,
+            "q3": 0.9,
+            "population_weighted_mean": 1.8886543474468676
+          }
+        }
+      },
+      "pct_nh_aian": {
+        "label": "Non-Hispanic American Indian or Alaska Native, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 0.2,
+            "q1": 0.1,
+            "q3": 0.5,
+            "population_weighted_mean": 0.5507801287846573
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 0.1,
+            "q1": 0.1,
+            "q3": 0.3,
+            "population_weighted_mean": 0.3488817730064921
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 0.2,
+            "q1": 0.1,
+            "q3": 0.8,
+            "population_weighted_mean": 1.8187153902429438
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 0.1,
+            "q1": 0.1,
+            "q3": 0.3,
+            "population_weighted_mean": 0.27904001047746874
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 0.2,
+            "q1": 0.1,
+            "q3": 0.6,
+            "population_weighted_mean": 1.2244802883036756
+          }
+        }
+      },
+      "pct_nh_nhpi": {
+        "label": "Non-Hispanic Native Hawaiian or Other Pacific Islander, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 0.0,
+            "q1": 0.0,
+            "q3": 0.1,
+            "population_weighted_mean": 0.16115643259162898
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 0.0,
+            "q1": 0.0,
+            "q3": 0.1,
+            "population_weighted_mean": 0.16582985707543982
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 0.0,
+            "q1": 0.0,
+            "q3": 0.0,
+            "population_weighted_mean": 0.13180701232543832
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 0.0,
+            "q1": 0.0,
+            "q3": 0.1,
+            "population_weighted_mean": 0.1754717223134907
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 0.0,
+            "q1": 0.0,
+            "q3": 0.1,
+            "population_weighted_mean": 0.12566585788643622
+          }
+        }
+      },
+      "pct_nh_multi_other": {
+        "label": "Non-Hispanic multiracial or other race, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 3.0,
+            "q1": 2.2,
+            "q3": 4.0,
+            "population_weighted_mean": 3.9387540813913335
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 3.4000000000000004,
+            "q1": 2.7,
+            "q3": 4.3,
+            "population_weighted_mean": 4.032144257934914
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 2.7,
+            "q1": 1.9000000000000001,
+            "q3": 3.7,
+            "population_weighted_mean": 3.3522574878107227
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 3.6,
+            "q1": 3.0,
+            "q3": 4.4,
+            "population_weighted_mean": 4.049699091438018
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 2.9,
+            "q1": 2.1,
+            "q3": 3.875,
+            "population_weighted_mean": 3.6636983721647853
+          }
+        }
+      },
+      "pct_pov150": {
+        "label": "Below 150% of the federal poverty level, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 23.0,
+            "q1": 18.0,
+            "q3": 28.9,
+            "population_weighted_mean": 20.47084520173401
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 19.95,
+            "q1": 15.5,
+            "q3": 25.4,
+            "population_weighted_mean": 19.65638251423078
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 24.9,
+            "q1": 19.8,
+            "q3": 31.2,
+            "population_weighted_mean": 25.585725690221423
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 20.2,
+            "q1": 15.725,
+            "q3": 25.0,
+            "population_weighted_mean": 19.585718834876214
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 23.7,
+            "q1": 18.5,
+            "q3": 30.0,
+            "population_weighted_mean": 22.665257194564926
+          }
+        }
+      },
+      "pct_uninsured": {
+        "label": "Without health insurance, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 8.4,
+            "q1": 5.8,
+            "q3": 12.0,
+            "population_weighted_mean": 8.72321581606575
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 7.6,
+            "q1": 5.3,
+            "q3": 10.8,
+            "population_weighted_mean": 8.581830662058222
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 8.9,
+            "q1": 6.2,
+            "q3": 12.9,
+            "population_weighted_mean": 9.61112409804217
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 7.0,
+            "q1": 5.1,
+            "q3": 10.1,
+            "population_weighted_mean": 8.472592906968051
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 8.6,
+            "q1": 6.0,
+            "q3": 12.5,
+            "population_weighted_mean": 9.344562030566797
+          }
+        }
+      },
+      "pct_disability": {
+        "label": "With a disability, %",
+        "source": "SVI 2022",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 15.7,
+            "q1": 12.9,
+            "q3": 18.9,
+            "population_weighted_mean": 12.8717127083882
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 14.0,
+            "q1": 11.8,
+            "q3": 16.6,
+            "population_weighted_mean": 12.233068532667208
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 16.8,
+            "q1": 14.1,
+            "q3": 19.975,
+            "population_weighted_mean": 16.882441110809303
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 13.45,
+            "q1": 11.2,
+            "q3": 15.6,
+            "population_weighted_mean": 11.944427958588571
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 16.3,
+            "q1": 13.5,
+            "q3": 19.6,
+            "population_weighted_mean": 15.170644083524193
+          }
+        }
+      },
+      "density": {
+        "label": "Population density, persons per square mile",
+        "source": "Census Bureau estimate, July 1, 2023 / SVI 2022 land area",
+        "by_stratum": {
+          "all": {
+            "n_available": 3144,
+            "n_missing": 0,
+            "median": 44.75606035742342,
+            "q1": 15.965587876311695,
+            "q3": 121.24982787309602,
+            "population_weighted_mean": 2105.789830085898
+          },
+          "metropolitan": {
+            "n_available": 1186,
+            "n_missing": 0,
+            "median": 166.26455104873014,
+            "q1": 59.08123761368003,
+            "q3": 445.88120304570634,
+            "population_weighted_mean": 2430.005554854116
+          },
+          "nonmetropolitan": {
+            "n_available": 1958,
+            "n_missing": 0,
+            "median": 25.202315240450794,
+            "q1": 8.416858732872475,
+            "q3": 53.3914324212859,
+            "population_weighted_mean": 69.69325976733784
+          },
+          "any_facility": {
+            "n_available": 574,
+            "n_missing": 0,
+            "median": 334.880612655449,
+            "q1": 139.00670611475212,
+            "q3": 859.9868895479531,
+            "population_weighted_mean": 2862.7017895262693
+          },
+          "no_facility": {
+            "n_available": 2570,
+            "n_missing": 0,
+            "median": 33.51012190985854,
+            "q1": 12.319698734201747,
+            "q3": 72.98153034710268,
+            "population_weighted_mean": 229.24796724480433
+          }
+        }
+      },
+      "diabetes": {
+        "label": "Diagnosed diabetes, adults, %",
+        "source": "County Health Rankings 2024 (CDC model-based estimate)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3135,
+            "n_missing": 9,
+            "median": 10.2,
+            "q1": 8.9,
+            "q3": 11.799999999999999,
+            "population_weighted_mean": 10.195897618299027
+          },
+          "metropolitan": {
+            "n_available": 1179,
+            "n_missing": 7,
+            "median": 10.0,
+            "q1": 8.799999999999999,
+            "q3": 11.3,
+            "population_weighted_mean": 10.112046493747787
+          },
+          "nonmetropolitan": {
+            "n_available": 1956,
+            "n_missing": 2,
+            "median": 10.4,
+            "q1": 9.0,
+            "q3": 12.1,
+            "population_weighted_mean": 10.718666511421432
+          },
+          "any_facility": {
+            "n_available": 568,
+            "n_missing": 6,
+            "median": 9.8,
+            "q1": 8.6,
+            "q3": 11.0,
+            "population_weighted_mean": 10.074588030561614
+          },
+          "no_facility": {
+            "n_available": 2567,
+            "n_missing": 3,
+            "median": 10.299999999999999,
+            "q1": 9.0,
+            "q3": 12.0,
+            "population_weighted_mean": 10.493773386979871
+          }
+        }
+      },
+      "obesity": {
+        "label": "Obesity, adults, %",
+        "source": "County Health Rankings 2024 (CDC model-based estimate)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3135,
+            "n_missing": 9,
+            "median": 37.7,
+            "q1": 35.099999999999994,
+            "q3": 40.300000000000004,
+            "population_weighted_mean": 33.434796160489114
+          },
+          "metropolitan": {
+            "n_available": 1179,
+            "n_missing": 7,
+            "median": 36.3,
+            "q1": 33.2,
+            "q3": 39.0,
+            "population_weighted_mean": 32.7222601760274
+          },
+          "nonmetropolitan": {
+            "n_available": 1956,
+            "n_missing": 2,
+            "median": 38.4,
+            "q1": 36.199999999999996,
+            "q3": 40.824999999999996,
+            "population_weighted_mean": 37.87709374326403
+          },
+          "any_facility": {
+            "n_available": 568,
+            "n_missing": 6,
+            "median": 35.199999999999996,
+            "q1": 31.275,
+            "q3": 38.2,
+            "population_weighted_mean": 32.037264359843434
+          },
+          "no_facility": {
+            "n_available": 2567,
+            "n_missing": 3,
+            "median": 38.1,
+            "q1": 35.9,
+            "q3": 40.6,
+            "population_weighted_mean": 36.866436372426556
+          }
+        }
+      },
+      "smoking": {
+        "label": "Current smoking, adults, %",
+        "source": "County Health Rankings 2024 (BRFSS model-based estimate)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3135,
+            "n_missing": 9,
+            "median": 18.7,
+            "q1": 16.400000000000002,
+            "q3": 21.5,
+            "population_weighted_mean": 15.456737298876483
+          },
+          "metropolitan": {
+            "n_available": 1179,
+            "n_missing": 7,
+            "median": 17.2,
+            "q1": 14.799999999999999,
+            "q3": 19.8,
+            "population_weighted_mean": 14.744683670539585
+          },
+          "nonmetropolitan": {
+            "n_available": 1956,
+            "n_missing": 2,
+            "median": 19.6,
+            "q1": 17.4,
+            "q3": 22.5,
+            "population_weighted_mean": 19.896027637815283
+          },
+          "any_facility": {
+            "n_available": 568,
+            "n_missing": 6,
+            "median": 16.6,
+            "q1": 13.900000000000002,
+            "q3": 19.2,
+            "population_weighted_mean": 14.447560673500806
+          },
+          "no_facility": {
+            "n_available": 2567,
+            "n_missing": 3,
+            "median": 19.2,
+            "q1": 16.900000000000002,
+            "q3": 22.0,
+            "population_weighted_mean": 17.934771134662174
+          }
+        }
+      },
+      "inactivity": {
+        "label": "Physical inactivity, adults, %",
+        "source": "County Health Rankings 2024 (CDC model-based estimate)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3135,
+            "n_missing": 9,
+            "median": 26.3,
+            "q1": 23.1,
+            "q3": 30.099999999999998,
+            "population_weighted_mean": 23.940913636655615
+          },
+          "metropolitan": {
+            "n_available": 1179,
+            "n_missing": 7,
+            "median": 24.8,
+            "q1": 21.45,
+            "q3": 28.199999999999996,
+            "population_weighted_mean": 23.405132920854566
+          },
+          "nonmetropolitan": {
+            "n_available": 1956,
+            "n_missing": 2,
+            "median": 27.3,
+            "q1": 24.2,
+            "q3": 31.2,
+            "population_weighted_mean": 27.281232484549964
+          },
+          "any_facility": {
+            "n_available": 568,
+            "n_missing": 6,
+            "median": 24.2,
+            "q1": 20.8,
+            "q3": 27.200000000000003,
+            "population_weighted_mean": 23.22004615179609
+          },
+          "no_facility": {
+            "n_available": 2567,
+            "n_missing": 3,
+            "median": 27.0,
+            "q1": 23.599999999999998,
+            "q3": 30.599999999999998,
+            "population_weighted_mean": 25.7110041972992
+          }
+        }
+      },
+      "premature_mortality": {
+        "label": "Premature age-adjusted mortality, deaths per 100,000 aged <75 y",
+        "source": "County Health Rankings 2024 (NCHS mortality files)",
+        "by_stratum": {
+          "all": {
+            "n_available": 3080,
+            "n_missing": 64,
+            "median": 457.57322029,
+            "q1": 370.697738345,
+            "q3": 562.7638709575,
+            "population_weighted_mean": 392.50375304087044
+          },
+          "metropolitan": {
+            "n_available": 1178,
+            "n_missing": 8,
+            "median": 421.02408349999996,
+            "q1": 337.81946724,
+            "q3": 519.0779898850001,
+            "population_weighted_mean": 376.3707062506034
+          },
+          "nonmetropolitan": {
+            "n_available": 1902,
+            "n_missing": 56,
+            "median": 482.30454061,
+            "q1": 389.50236220749997,
+            "q3": 591.85825606,
+            "population_weighted_mean": 493.2159613228028
+          },
+          "any_facility": {
+            "n_available": 568,
+            "n_missing": 6,
+            "median": 398.21279642,
+            "q1": 323.16292752,
+            "q3": 483.4230443925,
+            "population_weighted_mean": 368.34964459088303
+          },
+          "no_facility": {
+            "n_available": 2512,
+            "n_missing": 58,
+            "median": 472.38943352499996,
+            "q1": 381.9422256125,
+            "q3": 581.5557169799999,
+            "population_weighted_mean": 451.85108589394355
+          }
+        }
+      },
+      "pcp": {
+        "label": "Primary care physicians per 100,000",
+        "source": "County Health Rankings 2024 (AMA Physician Masterfile)",
+        "by_stratum": {
+          "all": {
+            "n_available": 2978,
+            "n_missing": 166,
+            "median": 46.60813,
+            "q1": 29.434279999999998,
+            "q3": 70.62147,
+            "population_weighted_mean": 74.92530497068735
+          },
+          "metropolitan": {
+            "n_available": 1153,
+            "n_missing": 33,
+            "median": 54.229929999999996,
+            "q1": 33.431509999999996,
+            "q3": 80.15203,
+            "population_weighted_mean": 78.53727539550881
+          },
+          "nonmetropolitan": {
+            "n_available": 1825,
+            "n_missing": 133,
+            "median": 43.06235,
+            "q1": 27.31121,
+            "q3": 62.78007,
+            "population_weighted_mean": 52.080993861480735
+          },
+          "any_facility": {
+            "n_available": 567,
+            "n_missing": 7,
+            "median": 75.39516,
+            "q1": 52.40299,
+            "q3": 96.67772,
+            "population_weighted_mean": 83.16162635230027
+          },
+          "no_facility": {
+            "n_available": 2411,
+            "n_missing": 159,
+            "median": 41.47958,
+            "q1": 26.100900000000003,
+            "q3": 61.06264,
+            "population_weighted_mean": 54.51544627798171
+          }
+        }
+      }
+    },
+    "notes": {
+      "connecticut_planning_regions_missing_chr": 9,
+      "unit": "county; no patient-level data",
+      "weights": "population-weighted means use total county population (US Census Bureau estimate, July 1, 2023)",
+      "not_available": [
+        "cardiovascular disease prevalence or severity",
+        "characteristics of patients imaged at accredited facilities",
+        "gender identity"
+      ]
+    }
+  },
+  "R2-05_table_rows": 76
+}

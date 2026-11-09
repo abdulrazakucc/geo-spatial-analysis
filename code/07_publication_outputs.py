@@ -303,7 +303,7 @@ def create_table1(df):
     print(f"  Spearman ρ (CCT rate vs SVI): {cct_rho:.4f}, p = {cct_p:.4f}")
     
     # Save CSV
-    table_df.to_csv(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.csv"), index=False)
+    table_df.to_csv(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.csv"), index=False, encoding="utf-8-sig")
     
     # Save formatted text
     with open(os.path.join(TBL_DIR, "descriptives_by_svi_quartile.txt"), 'w') as f:
@@ -318,7 +318,7 @@ def create_table1(df):
         f.write("Notes:\n")
         f.write("  SVI = Social Vulnerability Index (CDC/ATSDR 2022, overall percentile rank RPL_THEMES).\n")
         f.write("  RUCC = Rural-Urban Continuum Code (USDA ERS 2023). Metropolitan = RUCC 1–3.\n")
-        f.write("  Population denominators from American Community Survey 5-year estimates 2019–2023.\n")
+        f.write("  Population denominators from US Census Bureau county estimates, July 1, 2023 (Vintage 2023).\n")
         f.write(f"  Counties with <1,000 adults aged ≥45 excluded from rate calculations (n={int(df['rate_excluded'].sum())}).\n")
         f.write("  Rate = accredited facilities per 100,000 adults aged ≥45 years.\n")
         f.write("  IQR = interquartile range.\n")

@@ -1,0 +1,32 @@
+﻿Quantity,Value
+Stratum,"1,956 nonmetropolitan counties; 14 accredited CMR facilities, in 14 counties (maximum 1 per county)"
+"NB2 fit, dispersion estimated (original)",
+Optimizer reported convergence,Yes
+Estimated alpha,0.0040
+Score at stopping point (const; EDI; alpha),0.0118; -0.0098; -0.576
+Eigenvalues of the negated Hessian,"-0.076, 4.115, 244.342"
+"Log-likelihood, NB2 at stopping point",-60.0503
+"Log-likelihood, Poisson (alpha = 0)",-60.0480
+Consequence,"Negated Hessian not positive definite; no covariance matrix, so no standard error, confidence interval, or P value"
+Boundary (Poisson) solution,
+EDI IRR (Wald 95% CI); P,0.70 (0.56-0.89); 0.003
+Profile-likelihood 95% CI; likelihood-ratio P,0.55-0.88; 0.001
+Robust (HC0) 95% CI; P,0.70 (0.60-0.83); <0.001
+Pearson dispersion statistic,0.251
+Dispersion held fixed,
+alpha = 0.000001 (effectively Poisson),0.70 (0.56-0.89); P = 0.003
+alpha = 0.1,0.70 (0.56-0.89); P = 0.003
+alpha = 0.5,0.70 (0.56-0.89); P = 0.003
+alpha = 1,0.71 (0.56-0.89); P = 0.004
+Alternative estimators,
+"Interaction model, all counties (NB2, alpha estimated): nonmetropolitan EDI slope",0.70 (0.56-0.89); P = 0.003
+Interaction model: metropolitan EDI slope,1.00 (0.97-1.04); P = 0.863
+Interaction model: ratio of slopes,1.42 (1.13-1.80); P = 0.003
+"Within stratum, adjusted for ordinal RUCC (4-9)",0.71 (0.56-0.90); P = 0.005
+"Within stratum, adjusted for log population density",0.71 (0.56-0.90); P = 0.005
+"Mean EDI percentile, counties with vs without a facility",34.1 vs 56.2
+"Same stratum, other indices (boundary solution)","SVI 0.80 (0.65-0.99), P = 0.039; SDI 0.76 (0.61-0.95), P = 0.017"
+
+"The original report of this row as not estimable reflected the optimizer stopping just inside the boundary alpha = 0, where the Poisson log-likelihood is higher; the NB2 maximum-likelihood estimate is the Poisson fit. No interval was imputed: each is a standard likelihood-based interval for a fitted model. With 14 events the estimate is imprecise and hypothesis-generating."
+"Counties holding the 14 facilities: Merrimack, NH (RUCC 4, EDI 7); Grafton, NH (RUCC 5, EDI 12); Montour, PA (RUCC 6, EDI 16); Flathead, MT (RUCC 5, EDI 23); Cerro Gordo, IA (RUCC 5, EDI 24); Steuben, IN (RUCC 7, EDI 25); Wood, WI (RUCC 4, EDI 27); Sussex, DE (RUCC 4, EDI 32); Bradford, PA (RUCC 6, EDI 43); Hawaii, HI (RUCC 5, EDI 45); Clearfield, PA (RUCC 4, EDI 50); Muskingum, OH (RUCC 4, EDI 53); Lee, MS (RUCC 5, EDI 55); Oconee, SC (RUCC 4, EDI 64)."
+IRR per 10-percentile increase in the EDI. CCT = cardiac computed tomography; CI = confidence interval; CMR = cardiac magnetic resonance; EDI = economic deprivation index; IRR = incidence rate ratio; NB2 = negative binomial (quadratic variance); NE = not estimable; RUCC = Rural-Urban Continuum Code; SDI = Social Deprivation Index; SVI = Social Vulnerability Index.

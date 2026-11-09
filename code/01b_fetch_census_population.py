@@ -1,93 +1,57 @@
 """
-Fetch county-level population data from Census ACS 5-Year API.
-Pulls total population and adults aged 45+ for all US counties.
+Fetch county population totals and adults aged 45+ (stage A).
+
+Source: US Census Bureau, Vintage 2023 county population estimates by age and
+sex (cc-est2023-agesex-all.csv), the July 1, 2023 estimate (YEAR = 5). The
+frozen file data/raw/acs_county_population.csv is this vintage: every county's
+total population and count aged 45+ match it exactly. The file name is
+historical; its values are Census Bureau population estimates, not American
+Community Survey estimates.
+
+The download is a public file, so no API key is needed. Connecticut appears by
+its nine planning regions (FIPS 09110-09190), as in the rest of the pipeline.
+
+Run
+    python code/01b_fetch_census_population.py [OUT.csv]
 """
-
+import io
 import os
-import requests
+import sys
+
 import pandas as pd
-import numpy as np
+import requests
 
-API_KEY = "6b96038c5dfd62de3ca34c33de2560ae2c235137"
-BASE_URL = "https://api.census.gov/data/2023/acs/acs5"
-
-# B01001: Sex by Age
-# Male 45+: variables 014-025 (45-49, 50-54, ..., 85+)
-# Female 45+: variables 038-049
-MALE_45PLUS = [f"B01001_{i:03d}E" for i in range(14, 26)]
-FEMALE_45PLUS = [f"B01001_{i:03d}E" for i in range(38, 50)]
-TOTAL_POP = "B01001_001E"
-
-ALL_VARS = [TOTAL_POP] + MALE_45PLUS + FEMALE_45PLUS
+URL = ("https://www2.census.gov/programs-surveys/popest/datasets/2020-2023/counties/asrh/"
+       "cc-est2023-agesex-all.csv")
+YEAR_JULY_2023 = 5          # 1 = April 1, 2020 base; 2-5 = July 1, 2020-2023
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_DIR = os.path.join(BASE_DIR, "data", "raw")
 
 
-def fetch_acs_data():
-    print("Fetching ACS 5-Year population data from Census API...")
-    
-    # Fetch all counties: for=county:*&in=state:*
-    var_str = ",".join(ALL_VARS)
-    url = f"{BASE_URL}?get={var_str}&for=county:*&in=state:*&key={API_KEY}"
-    
-    print(f"  URL: {BASE_URL}?get=...&for=county:*&in=state:*")
-    resp = requests.get(url, timeout=120)
-    
-    if resp.status_code != 200:
-        print(f"  ERROR: Status {resp.status_code}")
-        print(f"  Response: {resp.text[:500]}")
-        
-        # Try 2022 ACS if 2023 not available yet
-        print("\n  Trying 2022 ACS 5-year instead...")
-        alt_url = url.replace("/2023/", "/2022/")
-        resp = requests.get(alt_url, timeout=120)
-        if resp.status_code != 200:
-            print(f"  ERROR: Status {resp.status_code}")
-            print(f"  Response: {resp.text[:500]}")
-            return None
-    
-    data = resp.json()
-    header = data[0]
-    rows = data[1:]
-    
-    df = pd.DataFrame(rows, columns=header)
-    print(f"  Received {len(df)} county records")
-    
-    # Build county FIPS
-    df['county_fips'] = df['state'] + df['county']
-    
-    # Convert numeric columns
-    for col in ALL_VARS:
-        df[col] = pd.to_numeric(df[col], errors='coerce')
-    
-    # Calculate totals
-    df['total_population'] = df[TOTAL_POP]
-    df['adult_pop_45plus'] = df[MALE_45PLUS + FEMALE_45PLUS].sum(axis=1).astype(int)
-    
-    # Keep only needed columns
-    result = df[['county_fips', 'total_population', 'adult_pop_45plus']].copy()
-    result['total_population'] = result['total_population'].astype(int)
-    
-    # Exclude territories (FIPS starting with 60, 66, 69, 72, 78)
-    territory_fips = {'60', '66', '69', '72', '78'}
-    result = result[~result['county_fips'].str[:2].isin(territory_fips)]
-    
-    print(f"  After excluding territories: {len(result)} counties")
-    print(f"  Total pop range: {result['total_population'].min():,} – {result['total_population'].max():,}")
-    print(f"  Adult 45+ range: {result['adult_pop_45plus'].min():,} – {result['adult_pop_45plus'].max():,}")
-    
-    return result
+def fetch():
+    print(f"Downloading {URL} ...")
+    resp = requests.get(URL, timeout=300)
+    resp.raise_for_status()
+    p = pd.read_csv(io.BytesIO(resp.content), encoding="latin-1",
+                    dtype={"STATE": str, "COUNTY": str})
+    p = p[p["YEAR"] == YEAR_JULY_2023]
+    out = pd.DataFrame({
+        "county_fips": p["STATE"].str.zfill(2) + p["COUNTY"].str.zfill(3),
+        "total_population": p["POPESTIMATE"].astype(int),
+        "adult_pop_45plus": (p["AGE4564_TOT"] + p["AGE65PLUS_TOT"]).astype(int),
+    })
+    return out.sort_values("county_fips").reset_index(drop=True)
 
 
 def main():
-    result = fetch_acs_data()
-    if result is not None:
-        out_path = os.path.join(RAW_DIR, "acs_county_population.csv")
-        result.to_csv(out_path, index=False)
-        print(f"\n  ✓ Saved: {out_path}")
-    else:
-        print("\n  ✗ Failed to fetch data.")
+    out_path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(RAW_DIR, "acs_county_population.csv")
+    df = fetch()
+    assert len(df) == 3144 and df.county_fips.is_unique, len(df)
+    assert not df.county_fips.str.match(r"^090(0[1-9]|1[0-5])$").any(), "retired Connecticut counties"
+    df.to_csv(out_path, index=False)
+    print(f"  {len(df):,} counties; {df.adult_pop_45plus.sum() / 1e6:.1f} million adults aged 45+")
+    print(f"  wrote {out_path}")
 
 
 if __name__ == "__main__":

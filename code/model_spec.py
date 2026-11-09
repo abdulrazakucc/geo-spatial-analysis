@@ -46,7 +46,7 @@ from statsmodels.genmod.families import NegativeBinomial
 __all__ = [
     "PRIMARY_LABEL", "SENSITIVITY_LABEL",
     "analytic_sample", "fit_primary", "fit_primary_terms",
-    "fit_fixed_alpha", "estimates", "alpha_of",
+    "fit_fixed_alpha", "fit_primary_checked", "estimates", "alpha_of", "fit_nb2",
 ]
 
 PRIMARY_LABEL = "negative binomial, dispersion estimated"
@@ -76,11 +76,35 @@ def _design(d: pd.DataFrame, adjusted: bool):
     return sm.add_constant(d[terms], has_constant="add"), np.log(d["adult_pop_45plus"])
 
 
+def fit_nb2(model, maxiter: int = MAXITER):
+    """Fit an NB2 model to its maximum-likelihood solution.
+
+    statsmodels fits NegativeBinomial with BFGS by default, which can stop a
+    little short of the maximum: in the EDI-by-metropolitan-status interaction
+    model it stopped 0.0003 log-likelihood units short, enough to move a
+    printed P value from 0.003 to 0.004. Newton-Raphson steps from the BFGS
+    point then finish the job. The Newton result is kept only when it is a
+    proper interior solution (converged, finite, alpha > 0, finite standard
+    errors, and no lower likelihood); otherwise the BFGS result stands, which is
+    what the boundary diagnostics in fit_primary_checked rely on.
+    """
+    res = model.fit(disp=0, maxiter=maxiter)
+    try:
+        pol = model.fit(start_params=np.asarray(res.params), method="newton",
+                        maxiter=100, disp=0)
+    except Exception:  # noqa: BLE001
+        return res
+    alpha = float(np.asarray(pol.params)[-1])
+    ok = (bool(pol.mle_retvals.get("converged", False)) and np.isfinite(pol.llf)
+          and pol.llf >= res.llf - 1e-10 and alpha > 0
+          and np.all(np.isfinite(np.asarray(pol.bse))))
+    return pol if ok else res
+
+
 def fit_primary(d: pd.DataFrame, outcome: str, adjusted: bool):
     """NB2 with dispersion estimated by maximum likelihood."""
     X, offset = _design(d, adjusted)
-    return dm.NegativeBinomial(d[outcome], X, loglike_method="nb2",
-                               offset=offset).fit(disp=0, maxiter=MAXITER)
+    return fit_nb2(dm.NegativeBinomial(d[outcome], X, loglike_method="nb2", offset=offset))
 
 
 def fit_fixed_alpha(d: pd.DataFrame, outcome: str, adjusted: bool, alpha: float = 1.0):
@@ -97,9 +121,86 @@ def fit_primary_terms(d: pd.DataFrame, outcome: str, terms: list):
     ordinal-RUCC and metro-stratified variants.
     """
     X = sm.add_constant(d[terms], has_constant="add")
-    return dm.NegativeBinomial(d[outcome], X, loglike_method="nb2",
-                               offset=np.log(d["adult_pop_45plus"])
-                               ).fit(disp=0, maxiter=MAXITER)
+    return fit_nb2(dm.NegativeBinomial(d[outcome], X, loglike_method="nb2",
+                                       offset=np.log(d["adult_pop_45plus"])))
+
+
+#: Below this, an estimated NB2 dispersion is treated as lying on the boundary
+#: of the parameter space (alpha = 0), where NB2 reduces to Poisson.
+BOUNDARY_ALPHA = 0.05
+
+
+def fit_primary_checked(d: pd.DataFrame, outcome: str, terms: list) -> tuple:
+    """Primary specification, with the fit diagnosed rather than trusted.
+
+    Returns ``(result, diagnostics)``.
+
+    Why this exists
+        In a sparse stratum (14 accredited CMR facilities, each in a different
+        nonmetropolitan county) the dispersion estimate collapses towards zero.
+        The optimiser then stops at a point where the negated Hessian is not
+        positive definite, statsmodels declines to invert it, and the fit carries
+        a point estimate with no standard errors. That was previously reported
+        as "not estimable".
+
+        It is not a failure of the data. When the likelihood is maximised at
+        alpha = 0, the maximum-likelihood NB2 fit *is* the Poisson fit, which
+        has a well-defined information matrix for the regression coefficients.
+        This function detects exactly that situation and returns the Poisson
+        fit, labelled as the boundary solution. Nothing is substituted when the
+        Hessian is usable, and nothing is substituted when the failure has any
+        other cause: that case keeps its missing inference and is reported NE.
+
+    Diagnostics recorded
+        converged, gradient norm, eigenvalues of the negated Hessian, alpha,
+        log-likelihood of NB2 and of Poisson, and which solution was returned.
+    """
+    X = sm.add_constant(d[terms], has_constant="add")
+    offset = np.log(d["adult_pop_45plus"])
+    model = dm.NegativeBinomial(d[outcome], X, loglike_method="nb2", offset=offset)
+    res = model.fit(disp=0, maxiter=MAXITER)
+    neg_h = -model.hessian(res.params.values)
+    eig = np.linalg.eigvalsh(neg_h) if np.all(np.isfinite(neg_h)) else np.array([np.nan])
+    grad = model.score(res.params.values)
+    diag = {
+        "solution": "NB2",
+        "converged": bool(res.mle_retvals.get("converged", False)),
+        "gradient_max_abs": float(np.max(np.abs(grad))),
+        "gradient": {k: float(v) for k, v in zip(res.params.index, grad)},
+        "neg_hessian_eigenvalues": [float(v) for v in eig],
+        "hessian_positive_definite": bool(np.all(eig > 0)),
+        "alpha": float(res.params["alpha"]),
+        "llf_nb2": float(res.llf),
+        "events": int(d[outcome].sum()),
+        "units_with_event": int((d[outcome] > 0).sum()),
+        "max_count": int(d[outcome].max()),
+        "n": int(len(d)),
+    }
+    pois = sm.GLM(d[outcome], X, family=sm.families.Poisson(), offset=offset).fit()
+    diag["llf_poisson"] = float(pois.llf)
+    if diag["hessian_positive_definite"]:
+        # Finish the fit at the maximum, as every primary fit is.
+        res = fit_nb2(model)
+        diag.update(alpha=float(res.params["alpha"]), llf_nb2=float(res.llf),
+                    converged=bool(res.mle_retvals.get("converged", False)))
+        # A positive-definite Hessian at the stopping point does not prove an
+        # interior maximum. NB2 at alpha = 0 is the Poisson model, so if Poisson
+        # fits at least as well as the best NB2 point found, the likelihood is
+        # maximized on the boundary. This happened in the nonmetropolitan
+        # cardiac CT stratum: BFGS stopped at alpha = 6.5e-5 with an alpha
+        # gradient of -4.4, Newton could not improve it, and the stopped point
+        # (P = 0.232) was below the Poisson maximum (P = 0.233).
+        if diag["alpha"] < BOUNDARY_ALPHA and pois.llf >= res.llf - 1e-9:
+            diag["solution"] = "Poisson (NB2 dispersion on the boundary, alpha = 0)"
+            return pois, diag
+        return res, diag
+    # The boundary case: alpha near zero, and Poisson (alpha = 0 exactly) fits
+    # at least as well as the point the optimiser stopped at.
+    if diag["alpha"] < BOUNDARY_ALPHA and pois.llf >= res.llf - 1e-6:
+        diag["solution"] = "Poisson (NB2 dispersion on the boundary, alpha = 0)"
+        return pois, diag
+    diag["solution"] = "NB2, information matrix not invertible (not estimable)"
+    return res, diag
 
 
 def estimates(res, term: str) -> dict:

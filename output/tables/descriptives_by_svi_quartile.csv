@@ -1,4 +1,4 @@
-Stratum,Counties (n),Adults ≥45 (millions),CMR Sites,CMR Counties (%),CMR Rate Median (IQR),CMR Rate Mean,CCT Sites,CCT Counties (%),CCT Rate Median (IQR),CCT Rate Mean
+﻿Stratum,Counties (n),Adults ≥45 (millions),CMR Sites,CMR Counties (%),CMR Rate Median (IQR),CMR Rate Mean,CCT Sites,CCT Counties (%),CCT Rate Median (IQR),CCT Rate Mean
 All counties,3144,141.60,722,300 (9.5%),0.00 (0.00–0.00),0.16,1542,552 (17.6%),0.00 (0.00–0.00),0.50
 Q1 (least vulnerable),786,21.47,101,60 (7.6%),0.00 (0.00–0.00),0.15,182,100 (12.7%),0.00 (0.00–0.00),0.33
 Q2,786,33.62,168,75 (9.5%),0.00 (0.00–0.00),0.16,350,151 (19.2%),0.00 (0.00–0.00),0.56

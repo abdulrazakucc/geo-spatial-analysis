@@ -22,17 +22,20 @@
     "metro_cct_mean_rate": 0.7499741382197413,
     "nonmetro_cct_mean_rate": 0.3338217435357628,
     "mean_edi_no_facility": 52.779402067271775,
-    "mean_edi_has_facility": 39.87962555165068
+    "mean_edi_has_facility": 39.87962555165068,
+    "mean_edi_contrast_mannwhitney_p": 6.36791878094019e-22
   },
   "table1": {
     "all_counties": {
       "counties": 3144,
       "adults_millions": 141.596553,
       "cmr_facilities": 722,
+      "cmr_facilities_pct": 100.0,
       "counties_ge1_cmr": 300,
       "counties_ge1_cmr_pct": 9.541984732824428,
       "cmr_rate_mean": 0.1570230422838759,
       "cct_facilities": 1542,
+      "cct_facilities_pct": 100.0,
       "counties_ge1_cct": 552,
       "counties_ge1_cct_pct": 17.557251908396946,
       "cct_rate_mean": 0.4954609225111067,
@@ -42,10 +45,12 @@
       "counties": 1186,
       "adults_millions": 120.33506,
       "cmr_facilities": 708,
+      "cmr_facilities_pct": 98.06094182825485,
       "counties_ge1_cmr": 286,
       "counties_ge1_cmr_pct": 24.11467116357504,
       "cmr_rate_mean": 0.36517634089778056,
       "cct_facilities": 1427,
+      "cct_facilities_pct": 92.54215304798963,
       "counties_ge1_cct": 444,
       "counties_ge1_cct_pct": 37.436762225969645,
       "cct_rate_mean": 0.7499741382197413,
@@ -55,10 +60,12 @@
       "counties": 1958,
       "adults_millions": 21.261493,
       "cmr_facilities": 14,
+      "cmr_facilities_pct": 1.9390581717451523,
       "counties_ge1_cmr": 14,
       "counties_ge1_cmr_pct": 0.7150153217568949,
       "cmr_rate_mean": 0.024826652421439117,
       "cct_facilities": 115,
+      "cct_facilities_pct": 7.457846952010376,
       "counties_ge1_cct": 108,
       "counties_ge1_cct_pct": 5.515832482124617,
       "cct_rate_mean": 0.3338217435357628,
@@ -68,10 +75,12 @@
       "counties": 606,
       "adults_millions": 42.991406,
       "cmr_facilities": 240,
+      "cmr_facilities_pct": 33.2409972299169,
       "counties_ge1_cmr": 109,
       "counties_ge1_cmr_pct": 17.986798679867988,
       "cmr_rate_mean": 0.261918073049076,
       "cct_facilities": 439,
+      "cct_facilities_pct": 28.469520103761347,
       "counties_ge1_cct": 170,
       "counties_ge1_cct_pct": 28.052805280528055,
       "cct_rate_mean": 0.6030027410397932,
@@ -81,10 +90,12 @@
       "counties": 606,
       "adults_millions": 28.882701,
       "cmr_facilities": 131,
+      "cmr_facilities_pct": 18.14404432132964,
       "counties_ge1_cmr": 66,
       "counties_ge1_cmr_pct": 10.891089108910892,
       "cmr_rate_mean": 0.16125572788563639,
       "cct_facilities": 297,
+      "cct_facilities_pct": 19.260700389105057,
       "counties_ge1_cct": 117,
       "counties_ge1_cct_pct": 19.306930693069308,
       "cct_rate_mean": 0.4128812292185462,
@@ -94,10 +105,12 @@
       "counties": 605,
       "adults_millions": 29.556486,
       "cmr_facilities": 177,
+      "cmr_facilities_pct": 24.515235457063714,
       "counties_ge1_cmr": 65,
       "counties_ge1_cmr_pct": 10.743801652892563,
       "cmr_rate_mean": 0.1850101161725059,
       "cct_facilities": 374,
+      "cct_facilities_pct": 24.25421530479896,
       "counties_ge1_cct": 117,
       "counties_ge1_cct_pct": 19.33884297520661,
       "cct_rate_mean": 0.5393288580006111,
@@ -107,10 +120,12 @@
       "counties": 606,
       "adults_millions": 26.275633,
       "cmr_facilities": 112,
+      "cmr_facilities_pct": 15.512465373961218,
       "counties_ge1_cmr": 37,
       "counties_ge1_cmr_pct": 6.105610561056106,
       "cmr_rate_mean": 0.08116405167263856,
       "cct_facilities": 317,
+      "cct_facilities_pct": 20.557717250324256,
       "counties_ge1_cct": 95,
       "counties_ge1_cct_pct": 15.676567656765677,
       "cct_rate_mean": 0.617426256979551,
@@ -120,16 +135,23 @@
       "counties": 606,
       "adults_millions": 12.181844,
       "cmr_facilities": 48,
+      "cmr_facilities_pct": 6.648199445983379,
       "counties_ge1_cmr": 19,
       "counties_ge1_cmr_pct": 3.1353135313531353,
       "cmr_rate_mean": 0.09019110995267056,
       "cct_facilities": 97,
+      "cct_facilities_pct": 6.2905317769131,
       "counties_ge1_cct": 47,
       "counties_ge1_cct_pct": 7.755775577557755,
       "cct_rate_mean": 0.29962096344342964,
       "rate_eligible": 606
     },
-    "_note": "Rurality strata use all counties. EDI quintiles are restricted to rate-eligible counties with an EDI value."
+    "_note": "Metropolitan strata use all counties. EDI quintiles are restricted to rate-eligible counties with an EDI value. Facility percentages are of the national total for each modality.",
+    "_national_totals": {
+      "cmr": 722,
+      "cct": 1542
+    },
+    "_rate_excluded_facilities": 0
   },
   "regressions": {
     "n_svi": 3144,
@@ -140,168 +162,176 @@
     "models": {
       "SVI_CMR": {
         "unadjusted": {
-          "irr": 0.9995402497963146,
-          "ci_low": 0.9648565927771909,
-          "ci_high": 1.0354706786914096,
-          "p": 0.9796393327286228
+          "irr": 0.9995435512874612,
+          "ci_low": 0.9648595619480058,
+          "ci_high": 1.0354743325580351,
+          "p": 0.9797856749136091
         },
         "adjusted_metro": {
-          "irr": 1.0033787421476013,
-          "ci_low": 0.9680724697681254,
-          "ci_high": 1.039972658694494,
-          "p": 0.8535772823447894
+          "irr": 1.0033644580117986,
+          "ci_low": 0.9680596010691224,
+          "ci_high": 1.0399568729957012,
+          "p": 0.8541845317442992
         },
         "metro_effect": {
-          "irr": 8.560649555474239,
-          "ci_low": 5.014668130591405,
-          "ci_high": 14.614071939193003,
-          "p": 3.5760946390050745e-15
+          "irr": 8.548397626681544,
+          "ci_low": 5.009288080723286,
+          "ci_high": 14.587921638019154,
+          "p": 3.5752328734811065e-15
         },
         "adjusted_rucc": {
-          "irr": 1.0068570105813877,
-          "ci_low": 0.9709767142711784,
-          "ci_high": 1.0440631838610304,
-          "p": 0.7120467065739065
+          "irr": 1.0068696026857131,
+          "ci_low": 0.9709885969458992,
+          "ci_high": 1.0440765215999452,
+          "p": 0.711545321867372
         },
         "rucc_effect": {
-          "irr": 0.699846892204722,
-          "ci_low": 0.6446304050819486,
-          "ci_high": 0.7597930049023112,
-          "p": 1.7195268841854602e-17
+          "irr": 0.6998658890618816,
+          "ci_low": 0.6446497889607906,
+          "ci_high": 0.759811406224116,
+          "p": 1.7246424373368943e-17
         },
-        "alpha_adjusted": 0.4389781792396586
+        "alpha_adjusted": 0.4389749285618737
       },
       "SVI_CCT": {
         "unadjusted": {
-          "irr": 1.0303791454651043,
-          "ci_low": 1.0061225812382937,
-          "ci_high": 1.0552205101119245,
-          "p": 0.013810828641902913
+          "irr": 1.0303786862576543,
+          "ci_low": 1.006122124626685,
+          "ci_high": 1.0552200484488687,
+          "p": 0.01381227316360444
         },
         "adjusted_metro": {
-          "irr": 1.0330443029047953,
-          "ci_low": 1.0086920233710541,
-          "ci_high": 1.0579845057141735,
-          "p": 0.007562336981784896
+          "irr": 1.0330425063723712,
+          "ci_low": 1.0086902831325502,
+          "ci_high": 1.0579826511839954,
+          "p": 0.007565521719379561
         },
         "metro_effect": {
-          "irr": 2.0833881626465307,
-          "ci_low": 1.7113738539433674,
-          "ci_high": 2.5362700419047792,
-          "p": 2.598152076019466e-13
+          "irr": 2.0833216424811,
+          "ci_low": 1.711323241049049,
+          "ci_high": 2.536183090325804,
+          "p": 2.602617054063022e-13
         },
         "adjusted_rucc": {
-          "irr": 1.0349512726173538,
-          "ci_low": 1.010495859413848,
-          "ci_high": 1.0599985410267792,
-          "p": 0.004866524001054681
+          "irr": 1.034954066654277,
+          "ci_low": 1.0104985591090192,
+          "ci_high": 1.0600014323906275,
+          "p": 0.004863223528843301
         },
         "rucc_effect": {
-          "irr": 0.84917308838409,
-          "ci_low": 0.8160102850828134,
-          "ci_high": 0.8836836339171789,
-          "p": 8.699747662364378e-16
+          "irr": 0.8491747895086573,
+          "ci_low": 0.8160120001099865,
+          "ci_high": 0.8836853171765598,
+          "p": 8.705338323694707e-16
         },
-        "alpha_adjusted": 0.18152856586939842
+        "alpha_adjusted": 0.18153069820361353
       },
       "EDI_CMR": {
         "unadjusted": {
-          "irr": 0.9477290858441936,
-          "ci_low": 0.9148027290753743,
-          "ci_high": 0.9818405560102623,
-          "p": 0.0029225825342760656
+          "irr": 0.9477292051498934,
+          "ci_low": 0.9148027909392583,
+          "ci_high": 0.9818407368126268,
+          "p": 0.0029226957502862913
         },
         "adjusted_metro": {
-          "irr": 0.9928843317738106,
-          "ci_low": 0.9575987542037424,
-          "ci_high": 1.029470111520404,
-          "p": 0.6989078098288095
+          "irr": 0.9928858407226565,
+          "ci_low": 0.9576001998548568,
+          "ci_high": 1.0294716864689015,
+          "p": 0.6989688365134148
         },
         "metro_effect": {
-          "irr": 8.329608402815555,
-          "ci_low": 4.8583028846188885,
-          "ci_high": 14.281196086789109,
-          "p": 1.2935358457715712e-14
+          "irr": 8.330419917425408,
+          "ci_low": 4.858662457831931,
+          "ci_high": 14.282921812931264,
+          "p": 1.2933381164450124e-14
         },
         "adjusted_rucc": {
-          "irr": 1.0048056601654083,
-          "ci_low": 0.9679647415697739,
-          "ci_high": 1.0430487509938546,
-          "p": 0.8013884727246348
+          "irr": 1.004790567228423,
+          "ci_low": 0.967949204224134,
+          "ci_high": 1.0430341588022387,
+          "p": 0.8020031511338909
         },
         "rucc_effect": {
-          "irr": 0.6993345736352714,
-          "ci_low": 0.6422871489818603,
-          "ci_high": 0.7614489043675996,
-          "p": 1.762969929384899e-16
+          "irr": 0.6993221378359731,
+          "ci_low": 0.6422736869221202,
+          "ci_high": 0.7614377833398246,
+          "p": 1.761467895529968e-16
         },
-        "alpha_adjusted": 0.4403995757433463,
+        "alpha_adjusted": 0.4403986600281478,
         "stratified_metro": {
-          "irr": 1.003230646922428,
-          "ci_low": 0.9670842931715014,
-          "ci_high": 1.040728029636096,
-          "p": 0.863219099504453,
-          "estimable": true
+          "irr": 1.0032304291689609,
+          "ci_low": 0.9670840735683565,
+          "ci_high": 1.040727814177365,
+          "p": 0.8632282503242312,
+          "estimable": true,
+          "solution": "NB2",
+          "alpha_nb2": 0.4429343084580398
         },
         "stratified_metro_n": 1178,
         "stratified_metro_events": 694,
         "stratified_nonmetro": {
-          "irr": 0.7040607798073808,
-          "ci_low": NaN,
-          "ci_high": NaN,
-          "p": NaN,
-          "estimable": false
+          "irr": 0.7035614063970828,
+          "ci_low": 0.5582498636414086,
+          "ci_high": 0.8866973103094264,
+          "p": 0.002894505499818875,
+          "estimable": true,
+          "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+          "alpha_nb2": 0.003950524434617646
         },
         "stratified_nonmetro_n": 1956,
         "stratified_nonmetro_events": 14
       },
       "EDI_CCT": {
         "unadjusted": {
-          "irr": 0.9894007369140252,
-          "ci_low": 0.9665330270086128,
-          "ci_high": 1.012809485916608,
-          "p": 0.37178469507122436
+          "irr": 0.9894011127390528,
+          "ci_low": 0.9665332818198373,
+          "ci_high": 1.0128099883390735,
+          "p": 0.371804119827538
         },
         "adjusted_metro": {
-          "irr": 1.0163048101521859,
-          "ci_low": 0.9922258410092948,
-          "ci_high": 1.0409681187982636,
-          "p": 0.18616264771112234
+          "irr": 1.0163030038519674,
+          "ci_low": 0.9922241189539116,
+          "ci_high": 1.040966225178516,
+          "p": 0.18621026137276564
         },
         "metro_effect": {
-          "irr": 2.1274078193630466,
-          "ci_low": 1.7369113020562308,
-          "ci_high": 2.605696689594408,
-          "p": 2.9659261467617946e-13
+          "irr": 2.1273417197374354,
+          "ci_low": 1.7368613708450586,
+          "ci_high": 2.6056096753038713,
+          "p": 2.9707043007291296e-13
         },
         "adjusted_rucc": {
-          "irr": 1.0268938500231384,
-          "ci_low": 1.002134518778375,
-          "ci_high": 1.0522649000264124,
-          "p": 0.03307307421833124
+          "irr": 1.0268920098560672,
+          "ci_low": 1.0021323325473794,
+          "ci_high": 1.0522634243580575,
+          "p": 0.03308772882586589
         },
         "rucc_effect": {
-          "irr": 0.8403128560119796,
-          "ci_low": 0.8058654649427278,
-          "ci_high": 0.8762327295278669,
-          "p": 3.7425932844401206e-16
+          "irr": 0.8402999621991353,
+          "ci_low": 0.8058520992403375,
+          "ci_high": 0.8762203723704387,
+          "p": 3.727870209175772e-16
         },
-        "alpha_adjusted": 0.19171920418065777,
+        "alpha_adjusted": 0.1917182115751949,
         "stratified_metro": {
-          "irr": 1.023763210058807,
-          "ci_low": 0.9979800531607902,
-          "ci_high": 1.0502124836567743,
-          "p": 0.07113802901862086,
-          "estimable": true
+          "irr": 1.0237630628172802,
+          "ci_low": 0.9979798954700996,
+          "ci_high": 1.0502123475095801,
+          "p": 0.07113991682472028,
+          "estimable": true,
+          "solution": "NB2",
+          "alpha_nb2": 0.19851801809719016
         },
         "stratified_metro_n": 1178,
         "stratified_metro_events": 1409,
         "stratified_nonmetro": {
-          "irr": 0.957798825583743,
-          "ci_low": 0.8923802046170798,
-          "ci_high": 1.0280131557638534,
-          "p": 0.23226418844373364,
-          "estimable": true
+          "irr": 0.9578511272487529,
+          "ci_low": 0.8924675485584442,
+          "ci_high": 1.0280248099257634,
+          "p": 0.23257029436437826,
+          "estimable": true,
+          "solution": "Poisson (NB2 dispersion on the boundary, alpha = 0)",
+          "alpha_nb2": 6.47422172375767e-05
         },
         "stratified_nonmetro_n": 1956,
         "stratified_nonmetro_events": 115
@@ -392,61 +422,61 @@
     "sensitivity_rate_eligible": {
       "SVI_CMR": {
         "unadjusted": {
-          "irr": 0.9993176585729462,
-          "ci_low": 0.9646322115509091,
-          "ci_high": 1.035250296203707,
-          "p": 0.9697905897143345
+          "irr": 0.9993205317879885,
+          "ci_low": 0.9646348066271724,
+          "ci_high": 1.0352534642045104,
+          "p": 0.9699179362458277
         },
         "adjusted_metro": {
-          "irr": 1.0033323384359145,
-          "ci_low": 0.9680257170558245,
-          "ci_high": 1.0399266916306802,
-          "p": 0.8555708481503183
+          "irr": 1.0033171502387823,
+          "ci_low": 0.9680120083111433,
+          "ci_high": 1.0399099342987803,
+          "p": 0.8562169892748358
         },
         "n": 3038
       },
       "SVI_CCT": {
         "unadjusted": {
-          "irr": 1.0301692799814512,
-          "ci_low": 1.0059118474179296,
-          "ci_high": 1.055011677356834,
-          "p": 0.014493448648866179
+          "irr": 1.0301688346222735,
+          "ci_low": 1.0059114047767643,
+          "ci_high": 1.0550112294059626,
+          "p": 0.014494909434328308
         },
         "adjusted_metro": {
-          "irr": 1.0329163715971597,
-          "ci_low": 1.0085638735471236,
-          "ci_high": 1.057856878177772,
-          "p": 0.007802999050974362
+          "irr": 1.0329151727620562,
+          "ci_low": 1.0085627462172344,
+          "ci_high": 1.0578556050416181,
+          "p": 0.007805097733346465
         },
         "n": 3038
       },
       "EDI_CMR": {
         "unadjusted": {
-          "irr": 0.9477256421242632,
-          "ci_low": 0.9147954739525257,
-          "ci_high": 0.9818412074767865,
-          "p": 0.002924109535110416
+          "irr": 0.9477256290835143,
+          "ci_low": 0.9147954320079665,
+          "ci_high": 0.9818412254751191,
+          "p": 0.002924128007800161
         },
         "adjusted_metro": {
-          "irr": 0.9928647862827453,
-          "ci_low": 0.9575775217293838,
-          "ci_high": 1.0294524061717354,
-          "p": 0.6981382584578277
+          "irr": 0.9928672070438295,
+          "ci_low": 0.9575798351767033,
+          "ci_high": 1.0294549390141516,
+          "p": 0.6982361664521154
         },
         "n": 3029
       },
       "EDI_CCT": {
         "unadjusted": {
-          "irr": 0.9894112718761907,
-          "ci_low": 0.9665416720202257,
-          "ci_high": 1.0128219954236763,
-          "p": 0.3722975872508205
+          "irr": 0.9894115693932217,
+          "ci_low": 0.9665418579332258,
+          "ci_high": 1.0128224097220508,
+          "p": 0.37231330873295576
         },
         "adjusted_metro": {
-          "irr": 1.0162422154612072,
-          "ci_low": 0.9921611622781235,
-          "ci_high": 1.0409077474008215,
-          "p": 0.18791087325660827
+          "irr": 1.0162373473440545,
+          "ci_low": 0.9921563091363058,
+          "ci_high": 1.0409028664403719,
+          "p": 0.18804403891716193
         },
         "n": 3029
       }
@@ -474,119 +504,148 @@
   "model_diagnostics": {
     "overdispersion": {
       "cmr_facility_count": {
-        "mean": 0.23765635286372613,
-        "variance": 1.1473204192401678,
-        "variance_to_mean_ratio": 4.827644644946855,
-        "pct_zero": 90.12508229098091
+        "mean": 0.2296437659033079,
+        "variance": 1.1104668154686004,
+        "variance_to_mean_ratio": 4.835606188134736,
+        "pct_zero": 90.45801526717557
       },
       "cct_facility_count": {
-        "mean": 0.5075707702435813,
-        "variance": 4.52727226614567,
-        "variance_to_mean_ratio": 8.919489717607357,
-        "pct_zero": 81.83015141540487
+        "mean": 0.4904580152671756,
+        "variance": 4.382982418217632,
+        "variance_to_mean_ratio": 8.93650889940093,
+        "pct_zero": 82.44274809160305
       }
     },
     "aic_nb_vs_poisson": {
       "SVI_CMR_unadjusted": {
-        "aic_negative_binomial": 1909.0187073165062,
-        "aic_poisson": 1980.5945430982906,
-        "poisson_pearson_dispersion": 0.48522988295521513,
-        "nb_irr": 0.9978011502610137,
-        "nb_p": 0.9138092262381147,
-        "poisson_irr": 1.0034857612939267,
-        "poisson_p": 0.8057080113477715
+        "aic_negative_binomial": 1903.246149533832,
+        "aic_poisson": 1981.2694113417251,
+        "poisson_pearson_dispersion": 0.46922529796597423,
+        "nb_irr": 0.9995435512874612,
+        "nb_p": 0.9797856749136091,
+        "poisson_irr": 1.003666417335351,
+        "poisson_p": 0.795836340114503
       },
       "SVI_CMR_adjusted": {
-        "aic_negative_binomial": 1797.623063562893,
-        "aic_poisson": 1837.8470415245683,
-        "poisson_pearson_dispersion": 0.5921331149180401,
-        "nb_irr": 1.0039920999730976,
-        "nb_p": 0.8521639707214493,
-        "poisson_irr": 0.9986290594697652,
-        "poisson_p": 0.9229048258194328
+        "aic_negative_binomial": 1780.7403856447036,
+        "aic_poisson": 1837.9812215902407,
+        "poisson_pearson_dispersion": 0.5728437317141303,
+        "nb_irr": 1.0033644580117986,
+        "nb_p": 0.8541845317442992,
+        "poisson_irr": 0.9986607540076241,
+        "poisson_p": 0.9246805776783382
       },
       "SVI_CCT_unadjusted": {
-        "aic_negative_binomial": 3123.5944125748747,
-        "aic_poisson": 3110.4706518302673,
-        "poisson_pearson_dispersion": 0.6008538898687562,
-        "nb_irr": 1.025488528981955,
-        "nb_p": 0.11441995467796802,
-        "poisson_irr": 1.03729943382745,
-        "poisson_p": 0.00020046080172992397
+        "aic_negative_binomial": 3027.8678652029726,
+        "aic_poisson": 3111.7909622329207,
+        "poisson_pearson_dispersion": 0.5811036504913489,
+        "nb_irr": 1.0303786862576543,
+        "nb_p": 0.01381227316360444,
+        "poisson_irr": 1.03747362095034,
+        "poisson_p": 0.00018685754449954443
       },
       "SVI_CCT_adjusted": {
-        "aic_negative_binomial": 3082.640592808042,
-        "aic_poisson": 3032.982213257816,
-        "poisson_pearson_dispersion": 0.7410786208893252,
-        "nb_irr": 1.0314683512377356,
-        "nb_p": 0.059423277593859826,
-        "poisson_irr": 1.0345319131856776,
-        "poisson_p": 0.0005818515805567379
+        "aic_negative_binomial": 2966.653472777557,
+        "aic_poisson": 3033.700446910965,
+        "poisson_pearson_dispersion": 0.7172435841882665,
+        "nb_irr": 1.0330425063723712,
+        "nb_p": 0.007565521719379561,
+        "poisson_irr": 1.0346188698098702,
+        "poisson_p": 0.0005632541060294736
       },
       "EDI_CMR_unadjusted": {
-        "aic_negative_binomial": 1873.8999083260999,
-        "aic_poisson": 1946.2883859341364,
-        "poisson_pearson_dispersion": 0.48845238933510615,
-        "nb_irr": 0.9429958335454505,
-        "nb_p": 0.0040913112816141385,
-        "poisson_irr": 0.9634512014481345,
-        "poisson_p": 0.0073867481424345375
+        "aic_negative_binomial": 1868.3509524600736,
+        "aic_poisson": 1946.9611400394374,
+        "poisson_pearson_dispersion": 0.47241043042998365,
+        "nb_irr": 0.9477292051498934,
+        "nb_p": 0.0029226957502862913,
+        "poisson_irr": 0.9634461430904173,
+        "poisson_p": 0.007376401523567848
       },
       "EDI_CMR_adjusted": {
-        "aic_negative_binomial": 1773.271379449102,
-        "aic_poisson": 1813.1589015260884,
-        "poisson_pearson_dispersion": 0.5897277316357087,
-        "nb_irr": 0.9897116665453176,
-        "nb_p": 0.6369622003147619,
-        "poisson_irr": 0.9950903553122209,
-        "poisson_p": 0.726790266294404
+        "aic_negative_binomial": 1756.8873832307397,
+        "aic_poisson": 1813.2926090634314,
+        "poisson_pearson_dispersion": 0.5706296730089262,
+        "nb_irr": 0.9928858407226565,
+        "nb_p": 0.6989688365134148,
+        "poisson_irr": 0.9951019933584535,
+        "poisson_p": 0.7274041950257173
       },
       "EDI_CCT_unadjusted": {
-        "aic_negative_binomial": 3094.950413578985,
-        "aic_poisson": 3100.9300568615427,
-        "poisson_pearson_dispersion": 0.5964588290540656,
-        "nb_irr": 0.9805417338649728,
-        "nb_p": 0.20936324512596782,
-        "poisson_irr": 1.0022503059719512,
-        "poisson_p": 0.8099531561856124
+        "aic_negative_binomial": 3007.4888451822644,
+        "aic_poisson": 3102.384265834472,
+        "poisson_pearson_dispersion": 0.5769724470105336,
+        "nb_irr": 0.9894011127390528,
+        "nb_p": 0.371804119827538,
+        "poisson_irr": 1.0022417347826895,
+        "poisson_p": 0.810653446168627
       },
       "EDI_CCT_adjusted": {
-        "aic_negative_binomial": 3057.1324995348223,
-        "aic_poisson": 3017.5719004483844,
-        "poisson_pearson_dispersion": 0.7348011897510485,
-        "nb_irr": 1.0096712608018859,
-        "nb_p": 0.5666558630518335,
-        "poisson_irr": 1.0219547499323487,
-        "poisson_p": 0.022957084081170125
+        "aic_negative_binomial": 2947.8963678945556,
+        "aic_poisson": 3018.334057676894,
+        "poisson_pearson_dispersion": 0.7113687671363291,
+        "nb_irr": 1.0163030038519674,
+        "nb_p": 0.18621026137276564,
+        "poisson_irr": 1.0219954662406003,
+        "poisson_p": 0.022695202245274115
       }
     },
     "alpha_sensitivity": {
-      "EDI_CMR_unadjusted": {
+      "SVI_CMR_adjusted": {
         "fixed_alpha_1": {
-          "irr": 0.9429958335454505,
-          "p": 0.0040913112816141385
+          "irr": 1.0040521224587102,
+          "p": 0.8499579752353322,
+          "metro_irr": 8.304323439647451
         },
         "estimated_alpha": {
-          "irr": 0.9477256421242632,
-          "p": 0.002924109535110416,
-          "alpha": 0.5939969303724912
+          "irr": 1.0033644580117986,
+          "p": 0.8541845317442992,
+          "alpha": 0.4389749285618737,
+          "metro_irr": 8.548397626681544
+        }
+      },
+      "SVI_CCT_adjusted": {
+        "fixed_alpha_1": {
+          "irr": 1.031682861934027,
+          "p": 0.057657068101204995,
+          "metro_irr": 1.9793681329078654
+        },
+        "estimated_alpha": {
+          "irr": 1.0330425063723712,
+          "p": 0.007565521719379561,
+          "alpha": 0.18153069820361353,
+          "metro_irr": 2.0833216424811
         }
       },
       "EDI_CMR_adjusted": {
         "fixed_alpha_1": {
-          "irr": 0.9897116665453176,
-          "p": 0.6369622003147619,
-          "metro_irr": 8.028186979840834
+          "irr": 0.9897371386154883,
+          "p": 0.6377671666010227,
+          "metro_irr": 8.051981128487483
         },
         "estimated_alpha": {
-          "irr": 0.9928647862827453,
-          "p": 0.6981382584578277,
-          "alpha": 0.44037388501415436,
-          "metro_irr": 8.305100990547302
+          "irr": 0.9928858407226565,
+          "p": 0.6989688365134148,
+          "alpha": 0.4403986600281478,
+          "metro_irr": 8.330419917425408
+        }
+      },
+      "EDI_CCT_adjusted": {
+        "fixed_alpha_1": {
+          "irr": 1.0097912755387046,
+          "p": 0.5617500443503046,
+          "metro_irr": 1.9865720298619365
+        },
+        "estimated_alpha": {
+          "irr": 1.0163030038519674,
+          "p": 0.18621026137276564,
+          "alpha": 0.1917182115751949,
+          "metro_irr": 2.1273417197374354
         }
       }
     },
-    "_interpretation": "Both outcomes are overdispersed (variance-to-mean ratio well above 1), which is why negative binomial is used. The Poisson Pearson dispersion statistic is below 1 here because most fitted means are far below 1; it is unreliable for sparse counts and the AIC comparison is the informative one. Negative binomial wins on AIC in six of eight models, decisively for the primary CMR outcome. For the two adjusted CCT models Poisson has marginally lower AIC and yields nominally significant deprivation terms, but those estimates are above 1, that is, more capacity with more deprivation, so they do not support a deprivation-disadvantage reading under either family. Conclusions are unchanged when alpha is estimated rather than fixed at 1."
+    "_sample": "primary analytic sample (all counties with the index)",
+    "_interpretation": "Both outcomes are overdispersed (variance-to-mean ratio 4.84 for CMR and 8.94 for CCT). The estimated-dispersion NB2 model has lower AIC than Poisson in 8 of 8 index models; output/results/model_specification_comparison.csv compares all three specifications. With the dispersion fixed at 1, the significance of an adjusted index association changes for: SVI_CCT."
   },
   "quintiles": {
     "cmr_rate_by_edi_quintile": [
@@ -610,7 +669,7 @@
     "quintile_rate_definition": "unweighted mean of county-level rates"
   },
   "pca": {
-    "pca_variance_explained": 0.58729168515811,
+    "pca_variance_explained": 0.5872916851581101,
     "pca_n_counties": 3134,
     "pca_features": [
       "EP_POV150",
@@ -664,47 +723,47 @@
       "outcomes": {
         "cmr_facility_count": {
           "unadjusted": {
-            "IRR": 0.9477290858441936,
-            "CI_low": 0.9148027290753743,
-            "CI_high": 0.9818405560102623,
-            "P": 0.0029225825342760656
+            "IRR": 0.9477292051498934,
+            "CI_low": 0.9148027909392583,
+            "CI_high": 0.9818407368126268,
+            "P": 0.0029226957502862913
           },
           "adjusted": {
-            "IRR": 0.9928843317738106,
-            "CI_low": 0.9575987542037424,
-            "CI_high": 1.029470111520404,
-            "P": 0.6989078098288095
+            "IRR": 0.9928858407226565,
+            "CI_low": 0.9576001998548568,
+            "CI_high": 1.0294716864689015,
+            "P": 0.6989688365134148
           },
           "metro_in_adjusted": {
-            "IRR": 8.329608402815555,
-            "CI_low": 4.8583028846188885,
-            "CI_high": 14.281196086789109,
-            "P": 1.2935358457715712e-14
+            "IRR": 8.330419917425408,
+            "CI_low": 4.858662457831931,
+            "CI_high": 14.282921812931264,
+            "P": 1.2933381164450124e-14
           },
-          "alpha_unadjusted": 0.5945497728707722,
-          "alpha_adjusted": 0.4403995757433463
+          "alpha_unadjusted": 0.5945584417208831,
+          "alpha_adjusted": 0.4403986600281478
         },
         "cct_facility_count": {
           "unadjusted": {
-            "IRR": 0.9894007369140252,
-            "CI_low": 0.9665330270086128,
-            "CI_high": 1.012809485916608,
-            "P": 0.37178469507122436
+            "IRR": 0.9894011127390528,
+            "CI_low": 0.9665332818198373,
+            "CI_high": 1.0128099883390735,
+            "P": 0.371804119827538
           },
           "adjusted": {
-            "IRR": 1.0163048101521859,
-            "CI_low": 0.9922258410092948,
-            "CI_high": 1.0409681187982636,
-            "P": 0.18616264771112234
+            "IRR": 1.0163030038519674,
+            "CI_low": 0.9922241189539116,
+            "CI_high": 1.040966225178516,
+            "P": 0.18621026137276564
           },
           "metro_in_adjusted": {
-            "IRR": 2.1274078193630466,
-            "CI_low": 1.7369113020562308,
-            "CI_high": 2.605696689594408,
-            "P": 2.9659261467617946e-13
+            "IRR": 2.1273417197374354,
+            "CI_low": 1.7368613708450586,
+            "CI_high": 2.6056096753038713,
+            "P": 2.9707043007291296e-13
           },
-          "alpha_unadjusted": 0.2422334500754509,
-          "alpha_adjusted": 0.19171920418065777
+          "alpha_unadjusted": 0.2422421203594568,
+          "alpha_adjusted": 0.1917182115751949
         }
       },
       "sensitivity_fixed_alpha": {
@@ -752,42 +811,42 @@
       "sensitivity_rate_eligible": {
         "cmr_facility_count": {
           "unadjusted": {
-            "IRR": 0.9477256421242632,
-            "CI_low": 0.9147954739525257,
-            "CI_high": 0.9818412074767865,
-            "P": 0.002924109535110416
+            "IRR": 0.9477256290835143,
+            "CI_low": 0.9147954320079665,
+            "CI_high": 0.9818412254751191,
+            "P": 0.002924128007800161
           },
           "adjusted": {
-            "IRR": 0.9928647862827453,
-            "CI_low": 0.9575775217293838,
-            "CI_high": 1.0294524061717354,
-            "P": 0.6981382584578277
+            "IRR": 0.9928672070438295,
+            "CI_low": 0.9575798351767033,
+            "CI_high": 1.0294549390141516,
+            "P": 0.6982361664521154
           },
           "metro_in_adjusted": {
-            "IRR": 8.305100990547302,
-            "CI_low": 4.843853715082836,
-            "CI_high": 14.239633671928559,
-            "P": 1.4116997727407047e-14
+            "IRR": 8.305835301368806,
+            "CI_low": 4.8441809203119,
+            "CI_high": 14.241189829264766,
+            "P": 1.4114391803636724e-14
           }
         },
         "cct_facility_count": {
           "unadjusted": {
-            "IRR": 0.9894112718761907,
-            "CI_low": 0.9665416720202257,
-            "CI_high": 1.0128219954236763,
-            "P": 0.3722975872508205
+            "IRR": 0.9894115693932217,
+            "CI_low": 0.9665418579332258,
+            "CI_high": 1.0128224097220508,
+            "P": 0.37231330873295576
           },
           "adjusted": {
-            "IRR": 1.0162422154612072,
-            "CI_low": 0.9921611622781235,
-            "CI_high": 1.0409077474008215,
-            "P": 0.18791087325660827
+            "IRR": 1.0162373473440545,
+            "CI_low": 0.9921563091363058,
+            "CI_high": 1.0409028664403719,
+            "P": 0.18804403891716193
           },
           "metro_in_adjusted": {
-            "IRR": 2.1212152606528036,
-            "CI_low": 1.7317861192480155,
-            "CI_high": 2.5982158720501585,
-            "P": 3.693925713556512e-13
+            "IRR": 2.1209717872149967,
+            "CI_low": 1.7315998260707697,
+            "CI_high": 2.597898922391163,
+            "P": 3.7172565113558507e-13
           }
         }
       }
@@ -800,47 +859,47 @@
       "outcomes": {
         "cmr_facility_count": {
           "unadjusted": {
-            "IRR": 1.0168704109480156,
-            "CI_low": 0.9837399554599005,
-            "CI_high": 1.0511166359794513,
-            "P": 0.3222118951562162
+            "IRR": 1.0168669266055355,
+            "CI_low": 0.9837360146532061,
+            "CI_high": 1.0511136433169088,
+            "P": 0.3223194793023596
           },
           "adjusted": {
-            "IRR": 1.0351351168711171,
-            "CI_low": 1.001160943973391,
-            "CI_high": 1.070262195733696,
-            "P": 0.04254920439271616
+            "IRR": 1.035134756052428,
+            "CI_low": 1.0011606052374593,
+            "CI_high": 1.0702618117235805,
+            "P": 0.04255122994972324
           },
           "metro_in_adjusted": {
-            "IRR": 8.66877256351173,
-            "CI_low": 5.076186094199995,
-            "CI_high": 14.803952487824812,
-            "P": 2.580984025451073e-15
+            "IRR": 8.668453445836992,
+            "CI_low": 5.076044688431195,
+            "CI_high": 14.803274942377755,
+            "P": 2.581034924904792e-15
           },
-          "alpha_unadjusted": 0.5814244216765113,
-          "alpha_adjusted": 0.4283904499608132
+          "alpha_unadjusted": 0.5815034014160391,
+          "alpha_adjusted": 0.4283905528411556
         },
         "cct_facility_count": {
           "unadjusted": {
-            "IRR": 1.0246382758554229,
-            "CI_low": 1.0019782780272335,
-            "CI_high": 1.0478107353934454,
-            "P": 0.032910559115149805
+            "IRR": 1.0246391572734685,
+            "CI_low": 1.0019789189230692,
+            "CI_high": 1.0478118678849098,
+            "P": 0.03290610258728119
           },
           "adjusted": {
-            "IRR": 1.0347863101669572,
-            "CI_low": 1.0119264902132095,
-            "CI_high": 1.0581625425018135,
-            "P": 0.0026982810334682966
+            "IRR": 1.0347659551949708,
+            "CI_low": 1.0119063513182247,
+            "CI_high": 1.0581419719677534,
+            "P": 0.0027138863622815637
           },
           "metro_in_adjusted": {
-            "IRR": 2.11527578642843,
-            "CI_low": 1.7358142511605856,
-            "CI_high": 2.5776903546325776,
-            "P": 1.1111243040963459e-13
+            "IRR": 2.114963663727858,
+            "CI_low": 1.7355771905111164,
+            "CI_high": 2.577281680898257,
+            "P": 1.1199771636812179e-13
           },
-          "alpha_unadjusted": 0.23051534973868298,
-          "alpha_adjusted": 0.18592832533964623
+          "alpha_unadjusted": 0.2305310035048321,
+          "alpha_adjusted": 0.18595906581041627
         }
       },
       "sensitivity_fixed_alpha": {
@@ -888,42 +947,42 @@
       "sensitivity_rate_eligible": {
         "cmr_facility_count": {
           "unadjusted": {
-            "IRR": 1.016711681363199,
-            "CI_low": 0.9835813577661308,
-            "CI_high": 1.0509579455308968,
-            "P": 0.32682266661486814
+            "IRR": 1.0167435424255582,
+            "CI_low": 0.9836106358543925,
+            "CI_high": 1.0509925303584307,
+            "P": 0.32593175768703675
           },
           "adjusted": {
-            "IRR": 1.0351093750996878,
-            "CI_low": 1.001134460113078,
-            "CI_high": 1.0702372769170743,
-            "P": 0.0427083105039056
+            "IRR": 1.035103499478358,
+            "CI_low": 1.0011289285346185,
+            "CI_high": 1.070231040272345,
+            "P": 0.04274150636820717
           },
           "metro_in_adjusted": {
-            "IRR": 8.646283807498033,
-            "CI_low": 5.06277269953533,
-            "CI_high": 14.766261121433343,
-            "P": 2.801798673264712e-15
+            "IRR": 8.644991991802595,
+            "CI_low": 5.062216687975878,
+            "CI_high": 14.763470460647955,
+            "P": 2.800964133400708e-15
           }
         },
         "cct_facility_count": {
           "unadjusted": {
-            "IRR": 1.0245155791022316,
-            "CI_low": 1.001855164632935,
-            "CI_high": 1.0476885371028162,
-            "P": 0.03380577378798453
+            "IRR": 1.024516448950871,
+            "CI_low": 1.0018558130861563,
+            "CI_high": 1.047689638030415,
+            "P": 0.033801137947354745
           },
           "adjusted": {
-            "IRR": 1.0346739155557152,
-            "CI_low": 1.011813614429115,
-            "CI_high": 1.0580507084157202,
-            "P": 0.002787504619919276
+            "IRR": 1.0346711802567612,
+            "CI_low": 1.0118110371013103,
+            "CI_high": 1.0580478093230448,
+            "P": 0.002789504083233784
           },
           "metro_in_adjusted": {
-            "IRR": 2.1090607407822293,
-            "CI_low": 1.7306952361701031,
-            "CI_high": 2.570144711412204,
-            "P": 1.3888433297484304e-13
+            "IRR": 2.1090468961846125,
+            "CI_low": 1.7306847903115812,
+            "CI_high": 2.570126481267074,
+            "P": 1.3893169384007326e-13
           }
         }
       }
@@ -936,47 +995,47 @@
       "outcomes": {
         "cmr_facility_count": {
           "unadjusted": {
-            "IRR": 0.9995402497963146,
-            "CI_low": 0.9648565927771909,
-            "CI_high": 1.0354706786914096,
-            "P": 0.9796393327286228
+            "IRR": 0.9995435512874612,
+            "CI_low": 0.9648595619480058,
+            "CI_high": 1.0354743325580351,
+            "P": 0.9797856749136091
           },
           "adjusted": {
-            "IRR": 1.0033787421476013,
-            "CI_low": 0.9680724697681254,
-            "CI_high": 1.039972658694494,
-            "P": 0.8535772823447894
+            "IRR": 1.0033644580117986,
+            "CI_low": 0.9680596010691224,
+            "CI_high": 1.0399568729957012,
+            "P": 0.8541845317442992
           },
           "metro_in_adjusted": {
-            "IRR": 8.560649555474239,
-            "CI_low": 5.014668130591405,
-            "CI_high": 14.614071939193003,
-            "P": 3.5760946390050745e-15
+            "IRR": 8.548397626681544,
+            "CI_low": 5.009288080723286,
+            "CI_high": 14.587921638019154,
+            "P": 3.5752328734811065e-15
           },
-          "alpha_unadjusted": 0.5909653350699511,
-          "alpha_adjusted": 0.4389781792396586
+          "alpha_unadjusted": 0.590971363375362,
+          "alpha_adjusted": 0.4389749285618737
         },
         "cct_facility_count": {
           "unadjusted": {
-            "IRR": 1.0303791454651043,
-            "CI_low": 1.0061225812382937,
-            "CI_high": 1.0552205101119245,
-            "P": 0.013810828641902913
+            "IRR": 1.0303786862576543,
+            "CI_low": 1.006122124626685,
+            "CI_high": 1.0552200484488687,
+            "P": 0.01381227316360444
           },
           "adjusted": {
-            "IRR": 1.0330443029047953,
-            "CI_low": 1.0086920233710541,
-            "CI_high": 1.0579845057141735,
-            "P": 0.007562336981784896
+            "IRR": 1.0330425063723712,
+            "CI_low": 1.0086902831325502,
+            "CI_high": 1.0579826511839954,
+            "P": 0.007565521719379561
           },
           "metro_in_adjusted": {
-            "IRR": 2.0833881626465307,
-            "CI_low": 1.7113738539433674,
-            "CI_high": 2.5362700419047792,
-            "P": 2.598152076019466e-13
+            "IRR": 2.0833216424811,
+            "CI_low": 1.711323241049049,
+            "CI_high": 2.536183090325804,
+            "P": 2.602617054063022e-13
           },
-          "alpha_unadjusted": 0.2219005069859209,
-          "alpha_adjusted": 0.18152856586939842
+          "alpha_unadjusted": 0.22190046145861736,
+          "alpha_adjusted": 0.18153069820361353
         }
       },
       "sensitivity_fixed_alpha": {
@@ -1024,42 +1083,42 @@
       "sensitivity_rate_eligible": {
         "cmr_facility_count": {
           "unadjusted": {
-            "IRR": 0.9993176585729462,
-            "CI_low": 0.9646322115509091,
-            "CI_high": 1.035250296203707,
-            "P": 0.9697905897143345
+            "IRR": 0.9993205317879885,
+            "CI_low": 0.9646348066271724,
+            "CI_high": 1.0352534642045104,
+            "P": 0.9699179362458277
           },
           "adjusted": {
-            "IRR": 1.0033323384359145,
-            "CI_low": 0.9680257170558245,
-            "CI_high": 1.0399266916306802,
-            "P": 0.8555708481503183
+            "IRR": 1.0033171502387823,
+            "CI_low": 0.9680120083111433,
+            "CI_high": 1.0399099342987803,
+            "P": 0.8562169892748358
           },
           "metro_in_adjusted": {
-            "IRR": 8.53608483278609,
-            "CI_low": 5.000235784456495,
-            "CI_high": 14.572261671944503,
-            "P": 3.8938106862706734e-15
+            "IRR": 8.523994956366783,
+            "CI_low": 4.994929516349571,
+            "CI_high": 14.546449510115835,
+            "P": 3.892868607600451e-15
           }
         },
         "cct_facility_count": {
           "unadjusted": {
-            "IRR": 1.0301692799814512,
-            "CI_low": 1.0059118474179296,
-            "CI_high": 1.055011677356834,
-            "P": 0.014493448648866179
+            "IRR": 1.0301688346222735,
+            "CI_low": 1.0059114047767643,
+            "CI_high": 1.0550112294059626,
+            "P": 0.014494909434328308
           },
           "adjusted": {
-            "IRR": 1.0329163715971597,
-            "CI_low": 1.0085638735471236,
-            "CI_high": 1.057856878177772,
-            "P": 0.007802999050974362
+            "IRR": 1.0329151727620562,
+            "CI_low": 1.0085627462172344,
+            "CI_high": 1.0578556050416181,
+            "P": 0.007805097733346465
           },
           "metro_in_adjusted": {
-            "IRR": 2.0777165177181427,
-            "CI_low": 1.7066933399408117,
-            "CI_high": 2.5293975355575693,
-            "P": 3.1904641707086126e-13
+            "IRR": 2.077667950893459,
+            "CI_low": 1.706656585807252,
+            "CI_high": 2.5293337570475636,
+            "P": 3.1943661414138166e-13
           }
         }
       }

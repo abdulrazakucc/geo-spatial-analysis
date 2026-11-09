@@ -1,0 +1,3 @@
+cohort,cmr_facilities,cct_facilities,counties_with_cmr,counties_with_cct,counties_with_neither,pct_cmr_metro,pct_cct_metro,n_rate_eligible
+Primary (Accredited + Under Review),722,1542,300,552,2570,98.06094182825484,92.54215304798963,3038
+Sensitivity (Accredited only),716,1526,299,552,2570,98.04469273743017,92.46395806028833,3038

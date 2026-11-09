@@ -10,7 +10,7 @@ Datasets downloaded:
 3. US Census TIGER/Line 2023 county shapefiles
 4. HUD USPS ZIP-County Crosswalk Q1 2025 (latest publicly available)
 
-Census ACS population data is pulled via API in a separate step.
+Census Bureau county population estimates are downloaded in a separate step (01b).
 """
 
 import os

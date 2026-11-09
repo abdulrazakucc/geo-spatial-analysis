@@ -107,8 +107,7 @@ def compare(d, index_col, index_name, adjusted):
 
         # NB2 with alpha estimated by MLE. statsmodels' discrete NegativeBinomial
         # estimates alpha jointly with the coefficients.
-        mle = dm.NegativeBinomial(y, X, loglike_method="nb2",
-                                  offset=offset).fit(disp=0, maxiter=300)
+        mle = model_spec.fit_nb2(dm.NegativeBinomial(y, X, loglike_method="nb2", offset=offset))
         rows.append(_row(label, oname, "NB2, estimated alpha",
                          float(mle.params["alpha"]), mle, "idx10",
                          getattr(mle.mle_retvals, "get", lambda *_: True)("converged", True)))

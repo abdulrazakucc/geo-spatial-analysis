@@ -13,12 +13,12 @@ CDC/ATSDR SVI (primary predictor)   (n = 3144)
 ------------------------------------------------------------------------------
 Model                           Outcome     IRR            95% CI          P
 ..............................................................................
-  index, unadjusted             CMR      0.9995       0.965-1.035     0.9796
-  index, adjusted               CMR      1.0034       0.968-1.040     0.8536
-  metropolitan status (adj)     CMR      8.5606        5.01-14.61   3.58e-15
+  index, unadjusted             CMR      0.9995       0.965-1.035     0.9798
+  index, adjusted               CMR      1.0034       0.968-1.040     0.8542
+  metropolitan status (adj)     CMR      8.5484        5.01-14.59   3.58e-15
   index, unadjusted             CCT      1.0304       1.006-1.055     0.0138 *sig
   index, adjusted               CCT      1.0330       1.009-1.058     0.0076 *sig
-  metropolitan status (adj)     CCT      2.0834         1.71-2.54   2.60e-13
+  metropolitan status (adj)     CCT      2.0833         1.71-2.54   2.60e-13
 
 ------------------------------------------------------------------------------
 Our EDI (self-built PCA)   (n = 3134)
@@ -26,23 +26,23 @@ Our EDI (self-built PCA)   (n = 3134)
 Model                           Outcome     IRR            95% CI          P
 ..............................................................................
   index, unadjusted             CMR      0.9477       0.915-0.982     0.0029 *sig
-  index, adjusted               CMR      0.9929       0.958-1.029     0.6989
-  metropolitan status (adj)     CMR      8.3296        4.86-14.28   1.29e-14
+  index, adjusted               CMR      0.9929       0.958-1.029     0.6990
+  metropolitan status (adj)     CMR      8.3304        4.86-14.28   1.29e-14
   index, unadjusted             CCT      0.9894       0.967-1.013     0.3718
   index, adjusted               CCT      1.0163       0.992-1.041     0.1862
-  metropolitan status (adj)     CCT      2.1274         1.74-2.61   2.97e-13
+  metropolitan status (adj)     CCT      2.1273         1.74-2.61   2.97e-13
 
 ------------------------------------------------------------------------------
 External SDI (Graham Center)   (n = 3133)
 ------------------------------------------------------------------------------
 Model                           Outcome     IRR            95% CI          P
 ..............................................................................
-  index, unadjusted             CMR      1.0169       0.984-1.051     0.3222
-  index, adjusted               CMR      1.0351       1.001-1.070     0.0425 *sig
-  metropolitan status (adj)     CMR      8.6688        5.08-14.80   2.58e-15
+  index, unadjusted             CMR      1.0169       0.984-1.051     0.3223
+  index, adjusted               CMR      1.0351       1.001-1.070     0.0426 *sig
+  metropolitan status (adj)     CMR      8.6685        5.08-14.80   2.58e-15
   index, unadjusted             CCT      1.0246       1.002-1.048     0.0329 *sig
   index, adjusted               CCT      1.0348       1.012-1.058     0.0027 *sig
-  metropolitan status (adj)     CCT      2.1153         1.74-2.58   1.11e-13
+  metropolitan status (adj)     CCT      2.1150         1.74-2.58   1.12e-13
 
 HOW STRONGLY DOES EACH INDEX TRACK RURALITY (the confounder)
 ------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ So the unadjusted CMR result is specific to our index.
 After adjusting for metropolitan status, the index terms that remain
 significant at P < 0.05 are:
   SVI CCT: IRR 1.033 (1.009-1.058), P 0.0076
-  SDI CMR: IRR 1.035 (1.001-1.070), P 0.0425
+  SDI CMR: IRR 1.035 (1.001-1.070), P 0.0426
   SDI CCT: IRR 1.035 (1.012-1.058), P 0.0027
 
 Metropolitan status carries a large effect with every index (CMR metro IRR 8.3 to 8.7).

@@ -7,7 +7,7 @@ IRR is per 10-point increase in the index. Lower AIC is better.
 Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
 SVI unadjusted            CMR    Poisson                           -      -988.6    1981.3    1993.4   1.004       0.976-1.032   0.7958
-SVI unadjusted            CMR    NB2, estimated alpha            0.591    -948.6    1903.2    1921.4   1.000       0.965-1.035   0.9796
+SVI unadjusted            CMR    NB2, estimated alpha            0.591    -948.6    1903.2    1921.4   1.000       0.965-1.035   0.9798
 SVI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -952.8    1909.6    1921.7   0.998       0.959-1.039   0.9234
 SVI unadjusted            CCT    Poisson                           -     -1553.9    3111.8    3123.9   1.037       1.018-1.058   0.0002 *
 SVI unadjusted            CCT    NB2, estimated alpha            0.222   -1510.9    3027.9    3046.0   1.030       1.006-1.055   0.0138 *
@@ -20,7 +20,7 @@ SVI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1560.4
 Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
 SVI adjusted              CMR    Poisson                           -      -916.0    1838.0    1856.1   0.999       0.971-1.027   0.9247
-SVI adjusted              CMR    NB2, estimated alpha            0.439    -886.4    1780.7    1805.0   1.003       0.968-1.040   0.8536
+SVI adjusted              CMR    NB2, estimated alpha            0.439    -886.4    1780.7    1805.0   1.003       0.968-1.040   0.8542
 SVI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -895.9    1797.7    1815.9   1.004       0.963-1.047   0.8500
 SVI adjusted              CCT    Poisson                           -     -1513.9    3033.7    3051.9   1.035       1.015-1.055   0.0006 *
 SVI adjusted              CCT    NB2, estimated alpha            0.182   -1479.3    2966.7    2990.9   1.033       1.009-1.058   0.0076 *
@@ -46,7 +46,7 @@ EDI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1546.1
 Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
 EDI adjusted              CMR    Poisson                           -      -903.6    1813.3    1831.4   0.995       0.968-1.023   0.7274
-EDI adjusted              CMR    NB2, estimated alpha            0.440    -874.4    1756.9    1781.1   0.993       0.958-1.029   0.6989
+EDI adjusted              CMR    NB2, estimated alpha            0.440    -874.4    1756.9    1781.1   0.993       0.958-1.029   0.6990
 EDI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -883.7    1773.4    1791.5   0.990       0.948-1.033   0.6378
 EDI adjusted              CCT    Poisson                           -     -1506.2    3018.3    3036.5   1.022       1.003-1.041   0.0227 *
 EDI adjusted              CCT    NB2, estimated alpha            0.192   -1469.9    2947.9    2972.1   1.016       0.992-1.041   0.1862
@@ -59,7 +59,7 @@ EDI adjusted              CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1525.9
 Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
 SDI unadjusted            CMR    Poisson                           -      -973.5    1951.0    1963.1   1.024       0.998-1.050   0.0742
-SDI unadjusted            CMR    NB2, estimated alpha            0.581    -935.2    1876.4    1894.6   1.017       0.984-1.051   0.3222
+SDI unadjusted            CMR    NB2, estimated alpha            0.582    -935.2    1876.4    1894.6   1.017       0.984-1.051   0.3223
 SDI unadjusted            CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -939.5    1883.0    1895.1   1.015       0.976-1.054   0.4614
 SDI unadjusted            CCT    Poisson                           -     -1543.0    3090.0    3102.1   1.032       1.014-1.050   0.0004 *
 SDI unadjusted            CCT    NB2, estimated alpha            0.231   -1498.8    3003.7    3021.8   1.025       1.002-1.048   0.0329 *
@@ -72,7 +72,7 @@ SDI unadjusted            CCT    NB2, alpha = 1.0 (sensitivity)  1.000   -1545.9
 Model                     OutcomeSpecification                   alpha    logLik       AIC       BIC     IRR            95% CI        P  
 ----------------------------------------------------------------------------------------------------
 SDI adjusted              CMR    Poisson                           -      -901.2    1808.4    1826.5   1.030       1.004-1.056   0.0248 *
-SDI adjusted              CMR    NB2, estimated alpha            0.428    -872.5    1752.9    1777.1   1.035       1.001-1.070   0.0425 *
+SDI adjusted              CMR    NB2, estimated alpha            0.428    -872.5    1752.9    1777.1   1.035       1.001-1.070   0.0426 *
 SDI adjusted              CMR    NB2, alpha = 1.0 (sensitivity)  1.000    -882.3    1770.5    1788.7   1.035       0.995-1.078   0.0891
 SDI adjusted              CCT    Poisson                           -     -1501.1    3008.3    3026.4   1.035       1.017-1.054   0.0001 *
 SDI adjusted              CCT    NB2, estimated alpha            0.186   -1466.3    2940.6    2964.8   1.035       1.012-1.058   0.0027 *
@@ -92,7 +92,7 @@ SPECIFICATION-DEPENDENT CONCLUSIONS
 
   SDI adjusted, CMR: significance depends on the specification.
       Poisson                        P = 0.0248  significant
-      NB2, estimated alpha           P = 0.0425  significant
+      NB2, estimated alpha           P = 0.0426  significant
       NB2, alpha = 1.0 (sensitivity) P = 0.0891  not significant
 
   SDI unadjusted, CCT: significance depends on the specification.

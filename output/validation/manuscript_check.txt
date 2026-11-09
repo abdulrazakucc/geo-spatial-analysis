@@ -2,15 +2,16 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   3cfb6dee916db6ce00caae2181c889dce77106cb64ce4f7ef193e7814f13e84f
-Checked:  2026-08-21T05:29:43Z
-Code:     e7472dd (working tree modified)
-Checks:   173     Mismatches: 0
+SHA256:   1a5eca7de8808fa821ac4f5e35586797ab3b4b35854c6fcd0a5ae24ccf4993c1
+Checked:  2026-11-09T18:08:24Z
+Code:     d4204b7 (working tree modified)
+Checks:   309     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
 ALL CHECKS
 ------------------------------------------------------------------------------
+  ok    absent: Data Availability promises the URL 'at revision' in the revision itself absent
   ok    absent: pre-HUD CMR facility total (now 722) absent
   ok    absent: pre-HUD CCT facility total (now 1,542) absent
   ok    absent: intermediate CMR facility total (now 722) absent
@@ -45,12 +46,26 @@ ALL CHECKS
   ok    absent: pre-decision EDI metropolitan estimates absent
   ok    absent: the nonmetropolitan CMR stratum contains 14 facilities absent
   ok    absent: the SVI and EDI differ after adjustment for cardiac CT absent
+  ok    absent: E-04: the MIPPA accreditation provision is section 135(a) absent
+  ok    absent: E-04: 'human subjects research', no possessive absent
+  ok    absent: E-04: misplaced figure-citation insertions absent
+  ok    absent: E-04: spacing errors       absent
+  ok    absent: E-04: 'than a Poisson'     absent
+  ok    absent: R2-03: the nonmetropolitan CMR estimate is estimable at the NB2 boundary absent
+  ok    absent: R1-03: the binary RUCC classification is metropolitan/nonmetropolitan absent
+  ok    absent: E-04: the paper uses 'cardiac MR' absent
+  ok    absent: E-04: EDI-RUCC Spearman rho is 0.25 absent
+  ok    absent: the quintile means are not monotonic absent
+  ok    absent: E-04: estimate punctuation is 'IRR x; 95% CI, a-b' absent
+  ok    absent: E-04: CI punctuation is '(95% CI, a-b)' absent
+  ok    absent: R1-01: the sensitivity finding moved to Results with its verified size absent
+  ok    absent: population denominators are Census Bureau estimates for July 1, 2023, not ACS absent
   ok    CMR facilities                     722
   ok    CCT facilities                     1,542
   ok    counties with neither              2,570 counties (81.7%)
   ok    share CMR in metro                 98.1%
   ok    share CCT in metro                 92.5%
-  ok    mean EDI contrast                  52.8 vs 39.9
+  ok    mean EDI contrast                  52.8 vs 39.9; P < 0.001)
   ok    SVI analytic n                     3,144
   ok    EDI analytic n                     3,134
   ok    PCA variance                       58.7%
@@ -66,82 +81,174 @@ ALL CHECKS
   ok    manuscript AIC+BIC claim matches generated comparison supported by AIC and BIC
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
-  ok    body word count note matches the text 2,524
+  ok    Summary Sentence taken word for word from the manuscript present elsewhere
+  ok    body word count note matches the text 2,987
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
-  ok    Summary note matches actual counts 27 words; 224 characters
+  ok    Summary note matches actual counts 28 words; 239 characters
   ok    Table 1 grid matches cells         9 columns
   ok    Table 1 fits the page              <= 9360 twips
   ok    Table 2 grid matches cells         5 columns
   ok    Table 2 fits the page              <= 9360 twips
   ok    Table 3 grid matches cells         5 columns
   ok    Table 3 fits the page              <= 9360 twips
+  ok    Table 4 grid matches cells         6 columns
+  ok    Table 4 fits the page              <= 9360 twips
+  ok    pooled CMR rate, metro vs nonmetro 0.59 versus 0.07
+  ok    pooled CCT rate, metro vs nonmetro 1.19 versus 0.54
+  ok    rate-excluded county count         106 counties
+  ok    claim: no facility in the rate-excluded counties supported
+  ok    claim: rate-eligible restriction changed no IRR by more than 0.001 supported
+  ok    weighted SVI-CCT adjusted          IRR 1.03; 95% CI, 1.01-1.06; P = 0.010
+  ok    weighted EDI-CMR adjusted          IRR 1.00; 95% CI, 0.96-1.03; P = 0.778
+  ok    claim: weighted SVI and EDI estimates lead to the same conclusions as the primary ones supported
+  ok    claim: weighted estimates not said to agree for every index (SDI-CMR differs) not claimed
+  ok    claim: no 'none significant under weighting' claim not claimed
+  ok    SVI-CCT with dispersion fixed at 1 dispersion fixed at 1 (P = 0.058)
+  ok    claim: rate-eligible bound stated for index IRRs supported
+  ok    SVI-CCT index-by-metro interaction P interaction P = 0.104
+  ok    claim: SVI-CCT not called 'confined' to metropolitan counties (interaction not significant) not claimed
+  ok    claim: estimated dispersion wins AIC and BIC in all 12 models supported
+  ok    Holm-adjusted SVI-CCT, primary family within the primary family (P = 0.030)
+  ok    BH-adjusted SVI-CCT, all tests     index associations (P = 0.034)
+  ok    size of the extended family        18 negative binomial index associations
+  ok    claim: extended family not described as all associations reported not claimed
+  ok    Table 2 note Holm SVI-CMR          1.000 (SVI, cardiac MR)
+  ok    Table 2 note Holm SVI-CCT          0.030 (SVI, cardiac CT)
+  ok    Table 2 note Holm EDI-CMR          1.000 (EDI, cardiac MR)
+  ok    Table 2 note Holm EDI-CCT          0.559 (EDI, cardiac CT)
+  ok    nonmetro EDI-CMR estimate          IRR 0.70; 95% CI, 0.56-0.89; P = 0.003
+  ok    nonmetro EDI-CMR interaction P     interaction P = 0.003
+  ok    nonmetro profile-likelihood CI     0.55-0.88
+  ok    nonmetro RUCC-adjusted estimate    IRR 0.71
+  ok    nonmetro facility count            14 accredited CMR facilities
+  ok    claim: each nonmetro CMR facility in a different county supported
+  ok    nonmetro SVI and SDI estimates     SVI (IRR 0.80) and SDI (IRR 0.76)
+  ok    claim: nonmetro CMR inverse for all three indices supported
+  ok    Table 3 note, CCT interaction P    interaction P = 0.088
+  ok    SVI-CCT, metropolitan stratum      IRR 1.04; 95% CI, 1.01-1.07
+  ok    SVI-CCT, nonmetropolitan stratum   IRR 0.98; 95% CI, 0.92-1.05
+  ok    SVI-CCT, density-adjusted          IRR 1.02; 95% CI, 0.99-1.04; P = 0.152
+  ok    claim: SVI-CCT attenuated by density supported
+  ok    claim: SVI-CCT confined to metropolitan counties not claimed
+  ok    SVI theme 4, CCT                   IRR 1.07; 95% CI, 1.05-1.10
+  ok    SVI theme 3, CCT                   IRR 1.04; 95% CI, 1.01-1.07
+  ok    themes 4 and 3 vs density, metro   ρ = 0.20 and 0.37
+  ok    claim: themes 3-4 strongest, not sole carriers not claimed
+  ok    PC1 eigenvalue                     eigenvalue 3.52
+  ok    PC1 loading range                  loadings, 0.33-0.94
+  ok    claim: all six indicators load positively on PC1 not claimed
+  ok    PC2 eigenvalue and variance        eigenvalue 1.03; 17.1% of variance
+  ok    claim: PC2 reflects mainly housing cost burden supported
+  ok    claim: parallel analysis retained one component supported
+  ok    pooled Q1/Q5 ratio                 1.4-fold
+  ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98 computed by the pipeline
+  ok    estimate in text: IRR 0.99; 95% CI, 0.96-1.03 computed by the pipeline
+  ok    estimate in text: IRR 8.33; 95% CI, 4.86-14.28 computed by the pipeline
+  ok    estimate in text: IRR 2.13; 95% CI, 1.74-2.61 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.96-1.04; P = 0.980 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.014 computed by the pipeline
+  ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98; P = 0.003 computed by the pipeline
+  ok    estimate in text: IRR 0.99; 95% CI, 0.97-1.01; P = 0.372 computed by the pipeline
+  ok    estimate in text: IRR 0.99; 95% CI, 0.96-1.03; P = 0.699 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 0.99-1.04; P = 0.186 computed by the pipeline
+  ok    estimate in text: IRR 8.33; 95% CI, 4.86-14.28 computed by the pipeline
+  ok    estimate in text: IRR 2.13; 95% CI, 1.74-2.61 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.97-1.04; P = 0.802 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.97-1.04; P = 0.863 computed by the pipeline
+  ok    estimate in text: IRR 0.70; 95% CI, 0.56-0.89; P = 0.003 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 0.98-1.05; P = 0.322 computed by the pipeline
+  ok    estimate in text: IRR 1.04; 95% CI, 1.00-1.07; P = 0.043 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 1.00-1.05; P = 0.033 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.003 computed by the pipeline
+  ok    estimate in text: IRR 8.67; 95% CI, 5.08-14.80 computed by the pipeline
+  ok    estimate in text: IRR 2.11; 95% CI, 1.74-2.58 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.010 computed by the pipeline
+  ok    estimate in text: IRR 1.00; 95% CI, 0.96-1.03; P = 0.778 computed by the pipeline
+  ok    estimate in text: IRR 1.04; 95% CI, 1.01-1.07 computed by the pipeline
+  ok    estimate in text: IRR 0.98; 95% CI, 0.92-1.05 computed by the pipeline
+  ok    estimate in text: IRR 1.07; 95% CI, 1.05-1.10 computed by the pipeline
+  ok    estimate in text: IRR 1.04; 95% CI, 1.01-1.07 computed by the pipeline
+  ok    estimate in text: IRR 1.02; 95% CI, 0.99-1.04; P = 0.152 computed by the pipeline
+  ok    estimate in text: IRR 0.95; 95% CI, 0.91-0.98; P = 0.006 computed by the pipeline
+  ok    estimate in text: IRR 1.03; 95% CI, 1.01-1.06; P = 0.008 computed by the pipeline
+  ok    estimate in text: 8.55 (95% CI, 5.01-14.59) computed by the pipeline
+  ok    estimate in text: 2.08 (95% CI, 1.71-2.54) computed by the pipeline
+  ok    IRR in text: IRR 0.71              computed by the pipeline
+  ok    IRR in text: IRR 0.80              computed by the pipeline
+  ok    IRR in text: IRR 0.76              computed by the pipeline
+  ok    reference list numbered 1..N       1..22
+  ok    references cited in order of first appearance 1..22
+  ok    front-matter reference count       22
   ok    Q1/Q5 gradient                     2.9-fold
   ok    Q1 CMR rate                        0.26
   ok    Q5 CMR rate                        0.09
   ok    no unsupported monotonicity claim  absent
+  ok    T1 header, CMR facilities          CMR facilities, No. (%)
+  ok    T1 header, CCT facilities          CCT facilities, No. (%)
   ok    T1 All counties counties           3,144
   ok    T1 All counties adults             141.6
-  ok    T1 All counties CMR fac            722
+  ok    T1 All counties CMR fac            722 (100.0)
   ok    T1 All counties cty>=1 CMR         300 (9.5)
   ok    T1 All counties CMR rate           0.16
-  ok    T1 All counties CCT fac            1,542
+  ok    T1 All counties CCT fac            1,542 (100.0)
   ok    T1 All counties cty>=1 CCT         552 (17.6)
   ok    T1 All counties CCT rate           0.50
   ok    T1 Metropolitan (RUCC 1-3) counties 1,186
   ok    T1 Metropolitan (RUCC 1-3) adults  120.3
-  ok    T1 Metropolitan (RUCC 1-3) CMR fac 708
+  ok    T1 Metropolitan (RUCC 1-3) CMR fac 708 (98.1)
   ok    T1 Metropolitan (RUCC 1-3) cty>=1 CMR 286 (24.1)
   ok    T1 Metropolitan (RUCC 1-3) CMR rate 0.37
-  ok    T1 Metropolitan (RUCC 1-3) CCT fac 1,427
+  ok    T1 Metropolitan (RUCC 1-3) CCT fac 1,427 (92.5)
   ok    T1 Metropolitan (RUCC 1-3) cty>=1 CCT 444 (37.4)
   ok    T1 Metropolitan (RUCC 1-3) CCT rate 0.75
   ok    T1 Nonmetropolitan (RUCC 4-9) counties 1,958
   ok    T1 Nonmetropolitan (RUCC 4-9) adults 21.3
-  ok    T1 Nonmetropolitan (RUCC 4-9) CMR fac 14
+  ok    T1 Nonmetropolitan (RUCC 4-9) CMR fac 14 (1.9)
   ok    T1 Nonmetropolitan (RUCC 4-9) cty>=1 CMR 14 (0.7)
   ok    T1 Nonmetropolitan (RUCC 4-9) CMR rate 0.02
-  ok    T1 Nonmetropolitan (RUCC 4-9) CCT fac 115
+  ok    T1 Nonmetropolitan (RUCC 4-9) CCT fac 115 (7.5)
   ok    T1 Nonmetropolitan (RUCC 4-9) cty>=1 CCT 108 (5.5)
   ok    T1 Nonmetropolitan (RUCC 4-9) CCT rate 0.33
   ok    T1 Q1 (least deprived) counties    606
   ok    T1 Q1 (least deprived) adults      43.0
-  ok    T1 Q1 (least deprived) CMR fac     240
+  ok    T1 Q1 (least deprived) CMR fac     240 (33.2)
   ok    T1 Q1 (least deprived) cty>=1 CMR  109 (18.0)
   ok    T1 Q1 (least deprived) CMR rate    0.26
-  ok    T1 Q1 (least deprived) CCT fac     439
+  ok    T1 Q1 (least deprived) CCT fac     439 (28.5)
   ok    T1 Q1 (least deprived) cty>=1 CCT  170 (28.1)
   ok    T1 Q1 (least deprived) CCT rate    0.60
   ok    T1 Q2 counties                     606
   ok    T1 Q2 adults                       28.9
-  ok    T1 Q2 CMR fac                      131
+  ok    T1 Q2 CMR fac                      131 (18.1)
   ok    T1 Q2 cty>=1 CMR                   66 (10.9)
   ok    T1 Q2 CMR rate                     0.16
-  ok    T1 Q2 CCT fac                      297
+  ok    T1 Q2 CCT fac                      297 (19.3)
   ok    T1 Q2 cty>=1 CCT                   117 (19.3)
   ok    T1 Q2 CCT rate                     0.41
   ok    T1 Q3 counties                     605
   ok    T1 Q3 adults                       29.6
-  ok    T1 Q3 CMR fac                      177
+  ok    T1 Q3 CMR fac                      177 (24.5)
   ok    T1 Q3 cty>=1 CMR                   65 (10.7)
   ok    T1 Q3 CMR rate                     0.19
-  ok    T1 Q3 CCT fac                      374
+  ok    T1 Q3 CCT fac                      374 (24.3)
   ok    T1 Q3 cty>=1 CCT                   117 (19.3)
   ok    T1 Q3 CCT rate                     0.54
   ok    T1 Q4 counties                     606
   ok    T1 Q4 adults                       26.3
-  ok    T1 Q4 CMR fac                      112
+  ok    T1 Q4 CMR fac                      112 (15.5)
   ok    T1 Q4 cty>=1 CMR                   37 (6.1)
   ok    T1 Q4 CMR rate                     0.08
-  ok    T1 Q4 CCT fac                      317
+  ok    T1 Q4 CCT fac                      317 (20.6)
   ok    T1 Q4 cty>=1 CCT                   95 (15.7)
   ok    T1 Q4 CCT rate                     0.62
   ok    T1 Q5 (most deprived) counties     606
   ok    T1 Q5 (most deprived) adults       12.2
-  ok    T1 Q5 (most deprived) CMR fac      48
+  ok    T1 Q5 (most deprived) CMR fac      48 (6.6)
   ok    T1 Q5 (most deprived) cty>=1 CMR   19 (3.1)
   ok    T1 Q5 (most deprived) CMR rate     0.09
-  ok    T1 Q5 (most deprived) CCT fac      97
+  ok    T1 Q5 (most deprived) CCT fac      97 (6.3)
   ok    T1 Q5 (most deprived) cty>=1 CCT   47 (7.8)
   ok    T1 Q5 (most deprived) CCT rate     0.30
   ok    T2 Cardiac MR SVI unadj            1.00 (0.96-1.04)
@@ -164,23 +271,52 @@ ALL CHECKS
   ok    T2 Cardiac CT metro term           2.13 (1.74-2.61)
   ok    T3 RUCC Cardiac MR n               3,134
   ok    T3 RUCC Cardiac MR EDI             1.00 (0.97-1.04)
-  ok    T3 RUCC Cardiac MR P               0.801
+  ok    T3 RUCC Cardiac MR P               0.802
   ok    T3 RUCC Cardiac MR term            0.70 (0.64-0.76)
   ok    T3 RUCC Cardiac CT n               3,134
   ok    T3 RUCC Cardiac CT EDI             1.03 (1.00-1.05)
   ok    T3 RUCC Cardiac CT P               0.033
   ok    T3 RUCC Cardiac CT term            0.84 (0.81-0.88)
+  ok    T3 weighted Cardiac MR n           3,134
+  ok    T3 weighted Cardiac MR EDI         1.00 (0.96-1.03)
+  ok    T3 weighted Cardiac MR P           0.778
+  ok    T3 weighted Cardiac MR metro       8.75 (5.16-14.85)
+  ok    T3 weighted Cardiac CT n           3,134
+  ok    T3 weighted Cardiac CT EDI         1.02 (1.00-1.05)
+  ok    T3 weighted Cardiac CT P           0.092
+  ok    T3 weighted Cardiac CT metro       2.27 (1.87-2.76)
   ok    T3 Cardiac MR, metropolitan n      1,178
   ok    T3 Cardiac MR, metropolitan EDI    1.00 (0.97-1.04)
   ok    T3 Cardiac MR, metropolitan P      0.863
   ok    T3 Cardiac MR, nonmetropolitan n   1,956
-  ok    T3 Cardiac MR, nonmetropolitan EDI 0.70 (NE)
-  ok    T3 Cardiac MR, nonmetropolitan P   NE
+  ok    T3 Cardiac MR, nonmetropolitan EDI 0.70 (0.56-0.89)
+  ok    T3 Cardiac MR, nonmetropolitan P   0.003
   ok    T3 Cardiac CT, metropolitan n      1,178
   ok    T3 Cardiac CT, metropolitan EDI    1.02 (1.00-1.05)
   ok    T3 Cardiac CT, metropolitan P      0.071
   ok    T3 Cardiac CT, nonmetropolitan n   1,956
   ok    T3 Cardiac CT, nonmetropolitan EDI 0.96 (0.89-1.03)
-  ok    T3 Cardiac CT, nonmetropolitan P   0.232
+  ok    T3 Cardiac CT, nonmetropolitan P   0.233
+  ok    Table 4 title                      Table 4. Characteristics of county residents
+  ok    Table 4 cited in Methods           are summarized in Table 4
+  ok    T4 counties                        3,144 / 1,186 / 1,958 / 574 / 2,570
+  ok    T4 Aged ≥65 years, %               16.5 / 16.0 / 20.0 / 16.0 / 17.9
+  ok    T4 Female, %                       50.4 / 50.5 / 49.6 / 50.6 / 49.9
+  ok    T4 Non-Hispanic White, %           59.0 / 56.2 / 76.9 / 54.2 / 71.1
+  ok    T4 Non-Hispanic Black or African American, % 12.1 / 12.7 / 7.8 / 13.3 / 8.9
+  ok    T4 Hispanic or Latino, %           18.6 / 20.2 / 9.0 / 20.8 / 13.2
+  ok    T4 Non-Hispanic Asian, %           5.6 / 6.4 / 1.0 / 7.2 / 1.9
+  ok    T4 Non-Hispanic American Indian or Alaska Native, % 0.6 / 0.3 / 1.8 / 0.3 / 1.2
+  ok    T4 Non-Hispanic Native Hawaiian or Other Pacific Islander, % 0.2 / 0.2 / 0.1 / 0.2 / 0.1
+  ok    T4 Non-Hispanic multiracial or other race, % 3.9 / 4.0 / 3.4 / 4.0 / 3.7
+  ok    T4 Below 150% of the federal poverty level, % 20.5 / 19.7 / 25.6 / 19.6 / 22.7
+  ok    T4 Without health insurance, %     8.7 / 8.6 / 9.6 / 8.5 / 9.3
+  ok    T4 With a disability, %            12.9 / 12.2 / 16.9 / 11.9 / 15.2
+  ok    T4 Diagnosed diabetes, adults, %   10.2 / 10.1 / 10.7 / 10.1 / 10.5
+  ok    T4 Obesity, adults, %              33.4 / 32.7 / 37.9 / 32.0 / 36.9
+  ok    T4 Current smoking, adults, %      15.5 / 14.7 / 19.9 / 14.4 / 17.9
+  ok    T4 Physical inactivity, adults, %  23.9 / 23.4 / 27.3 / 23.2 / 25.7
+  ok    T4 Premature age-adjusted mortality, deaths per 100,000 aged <75 y 393 / 376 / 493 / 368 / 452
+  ok    T4 Primary care physicians per 100,000 74.9 / 78.5 / 52.1 / 83.2 / 54.5
   ok    Fig 1 caption states SVI-CCT       IRR 1.03; 95% CI, 1.01-1.06; P = 0.008
   ok    Fig 1 caption names the gradient   present
