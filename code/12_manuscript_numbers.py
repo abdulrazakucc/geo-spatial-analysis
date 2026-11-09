@@ -888,6 +888,11 @@ def _check_lengths(paragraphs, checks):
         checks.append(("Summary Sentence character count",
                        f"<= {SUMMARY_CHAR_LIMIT}", str(chars),
                        chars <= SUMMARY_CHAR_LIMIT))
+        # JACR: the summary sentence is "taken word-for-word from the manuscript".
+        others = [t for t in paragraphs if t.strip() != summary[0]]
+        found = any(summary[0] in t for t in others)
+        checks.append(("Summary Sentence taken word for word from the manuscript",
+                       "present elsewhere", "found" if found else "NOT FOUND", found))
 
     # Body word count, under the definition the manuscript states for itself.
     # This drifted once already: the note said 2,646 after edits had reduced the

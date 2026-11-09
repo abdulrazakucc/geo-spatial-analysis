@@ -453,9 +453,9 @@ def build_edits(rv, mn):
                 new="the county-level economic deprivation index, the analysis code, and a "
                     "county-level"))
     ed.append(E("E-04", "replace", "This is the revision; the bracket must not promise the URL 'at "
-                "revision'. Review remains blinded, so the URL is restored on acceptance.",
+                "revision'. Review remains blinded, so the URL is provided on acceptance.",
                 loc="The analytic dataset, the county-level economic deprivation index",
-                old="will be restored at revision", new="will be restored on acceptance"))
+                old="will be restored at revision", new="will be provided on acceptance"))
 
     # --------------------------------------------------------------- References
     refs_new = {
@@ -933,6 +933,25 @@ def build_edits(rv, mn):
         E("E-04", "replace", why + "same statement.", loc=dav,
           old="Repository URL withheld from the blinded manuscript because it identifies the authors;",
           new="Repository URL withheld for blinded review;"),
+        E("E-04", "delete", "The repository URL is not supplied during review; it is provided on "
+          "acceptance.", loc=dav, span="is provided in the submission system and "),
+    ]
+
+    # --------------------------------------------- Summary Sentence (JACR rule)
+    # JACR: the summary sentence must be taken word for word from the manuscript.
+    # The submitted one was not; it is now the abstract's concluding sentence.
+    summ = ("Accredited cardiac imaging capacity is concentrated in metropolitan counties; deprivation "
+            "indices did not identify these gaps independent of geography, so deprivation-based "
+            "targeting may misidentify communities lacking this infrastructure.")
+    assert len(summ.split()) <= 35 and len(summ) <= 250
+    ed += [
+        E("E-04", "replace_para", "JACR requires the Summary Sentence to be taken word for word from the "
+          "manuscript; it is now the abstract's concluding sentence.",
+          loc="Accredited cardiac imaging capacity is concentrated in metropolitan counties; no inverse",
+          new=summ),
+        E("E-04", "replace_para", "Summary Sentence counts updated.", loc="[27 words; 224 characters",
+          new=f"[{len(summ.split())} words; {len(summ)} characters, within the 35-word/250-character "
+              f"limit; taken word for word from the abstract.]"),
     ]
     return ed
 

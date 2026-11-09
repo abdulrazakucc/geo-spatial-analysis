@@ -938,8 +938,11 @@ def proofreading_report(path, log_rows, rv, gate):
               "and update dates now read as the pages show. The CMS page (reference 2) does not state a "
               "section number, an effective date, or which accrediting organization is largest, so the "
               "Introduction no longer attributes those to it.",
-              "The Data Availability bracket now says the repository URL will be restored on acceptance "
-              "(it previously said 'at revision', which this revision is); the gate forbids the old phrase."]:
+              "The Data Availability bracket now says the repository URL will be provided on acceptance "
+              "(it previously said it would be restored 'at revision', which this revision is); the gate "
+              "forbids the old phrase.",
+              "The Summary Sentence is now the abstract's concluding sentence, word for word, as the "
+              "journal's instructions require."]:
         B(d, t, size=10)
     d.save(path)
 
@@ -1064,9 +1067,9 @@ DECISIONS = [
      "Points take the place of a conclusions section. The text was condensed below 3,000 words by "
      "removing restatements only; the Conclusion section was removed (each of its sentences is a "
      "Take-Home Point). The revision script reports the count on the title block and the title page."),
-    ("Title and Summary Sentence", "Kept: the title's 'Rurality' refers to the RUCC continuum the "
-     "paper analyzes, and the Summary Sentence ('no inverse deprivation gradient persisted after "
-     "adjustment') matches the covariate-adjusted models."),
+    ("Title and Summary Sentence", "Title kept: 'Rurality' refers to the RUCC continuum the paper "
+     "analyzes. Summary Sentence replaced by the abstract's concluding sentence, because JACR requires "
+     "it to be taken word for word from the manuscript."),
     ("PCA retention (R2-01)", "Resolved: PC2 eigenvalue 1.03 is below the parallel-analysis threshold "
      "(1.05), so one component is retained; reported in Results, Supplementary Methods S2, Table S5 and "
      "Figure S3."),
@@ -1088,7 +1091,9 @@ DECISIONS = [
     ("Title page and cover letter", "Generated (13_Title_Page, 14_Cover_Letter) from the authors' title "
      "page, without its notes. The author-contribution statement is drafted from the repository record "
      "(Dr Naeem: design, interpretation, writing; Dr Razak: data, statistics, software); co-authors "
-     "should confirm it before upload."),
+     "should confirm it before upload. Author order changed at revision 1: Abdul Razak first, Dr Naeem "
+     "corresponding; affiliations renumbered. Elsevier requires the reason (in the cover letter) and "
+     "written agreement from all eight authors, to be uploaded with the revision."),
     ("Due date", "JACR asks for the revision by December 3, 2026."),
 ]
 
@@ -1213,6 +1218,33 @@ def _title_page_facts():
             sec[cur].append(t)
     sec["Corresponding Author"] = [re.sub(r"\s*Telephone:\s*\[to be added\]", "", t).strip()
                                    for t in sec["Corresponding Author"]]
+    return _first_author(sec, FIRST_AUTHOR)
+
+
+#: Author order for revision 1: Abdul Razak first (the authors' title page lists
+#: Dr Naeem first). The corresponding author is unchanged.
+FIRST_AUTHOR = "Abdul Razak, PhD"
+
+
+def _first_author(sec, name):
+    """Move `name` to the head of the author list and renumber the affiliations
+    in order of first appearance, as journals expect."""
+    sup = "⁰¹²³⁴⁵⁶⁷⁸⁹"
+    authors = [a.strip() for a in sec["Authors"][0].split(";")]
+    assert sum(a.startswith(name) for a in authors) == 1, name
+    authors = [a for a in authors if a.startswith(name)] + [a for a in authors if not a.startswith(name)]
+    affs = {}
+    for t in sec["Affiliations"]:
+        m = re.match(r"(\d+)\.\s*(.*)", t)
+        affs[int(m.group(1))] = m.group(2)
+    renum, out = {}, []
+    for a in authors:
+        old = sup.index(a[-1])
+        renum.setdefault(old, len(renum) + 1)
+        out.append(a[:-1] + sup[renum[old]])
+    assert set(renum) == set(affs), "every affiliation must belong to an author"
+    sec["Authors"] = ["; ".join(out)]
+    sec["Affiliations"] = [f"{new}. {affs[old]}" for old, new in sorted(renum.items(), key=lambda kv: kv[1])]
     return sec
 
 
@@ -1242,13 +1274,17 @@ def title_page(path):
               "Supplementary material: Supplementary Methods S1-S8, Tables S1-S6, and Figures S1-S3."]:
         B(d, t)
     H(d, "Author Contributions", 11.5)
-    P(d, "Muhammad Naeem: conception and design, interpretation of the data, drafting and critical "
-         "revision of the manuscript, and supervision. Abdul Razak: acquisition and curation of the "
-         "data, statistical analysis, software, visualization, and drafting and critical revision of "
-         "the manuscript. Ahmed Kamal Siddiqi, Matthew Stib, Clinton E. Jokerst, Michael Gotway, Carlos "
+    P(d, "Abdul Razak: acquisition and curation of the data, statistical analysis, software, "
+         "visualization, and drafting and critical revision of the manuscript. Muhammad Naeem: "
+         "conception and design, interpretation of the data, drafting and critical revision of the "
+         "manuscript, and supervision. Ahmed Kamal Siddiqi, Matthew Stib, Clinton E. Jokerst, Michael Gotway, Carlos "
          "A. Rojas, and Kristopher W. Cummings: interpretation of the data and critical revision of the "
          "manuscript for important intellectual content. All authors approved the final version and "
          "agree to be accountable for all aspects of the work.")
+    H(d, "Data Statement", 11.5)
+    P(d, "The authors declare that they had full access to all of the data in this study and the "
+         "authors take complete responsibility for the integrity of the data and the accuracy of the "
+         "data analysis.")
     H(d, "Funding", 11.5)
     for t in F["Funding"]:
         P(d, t)
@@ -1259,9 +1295,9 @@ def title_page(path):
     P(d, "Declared for all authors through the Elsevier Declarations tool and uploaded as a separate "
          "document.")
     H(d, "Data Availability", 11.5)
-    P(d, "Analytic data and code: https://github.com/abdulrazakucc/geo-spatial-analysis. The "
-         "repository shares county-level data only; the ACR facility list and the Robert Graham Center "
-         "Social Deprivation Index are available from their sources.")
+    P(d, "The analytic data and code are held in an online repository whose address will be provided "
+         "on acceptance. The repository shares county-level data only; the ACR facility list and the "
+         "Robert Graham Center Social Deprivation Index are available from their sources.")
     d.save(path)
 
 
@@ -1304,6 +1340,11 @@ def cover_letter(path, rv):
          f"{K['tables']} tables, {K['figures']} figures, and {K['refs']} references. Every number is "
          f"generated from the data by code and checked against it automatically. All authors have read and approved the revised "
          f"manuscript, which is not under consideration elsewhere.")
+    P(d, "Change in author order. With the agreement of all authors, Abdul Razak, PhD, is now first "
+         "author, reflecting the data acquisition, statistical analysis, and new analyses of this "
+         "revision performed by Dr Razak; Dr Naeem remains the corresponding author. Written "
+         "confirmation from all authors is provided with this submission, as the journal's authorship "
+         "policy requires.")
     P(d, "We are grateful for your consideration.")
     # The corresponding-author line begins with the name; drop it so the name is not repeated.
     corr = F["Corresponding Author"][0] if F.get("Corresponding Author") else ""

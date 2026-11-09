@@ -25,6 +25,7 @@ Run
     python code/16_publication_figures.py
 """
 
+import io
 import json
 import os
 import sys
@@ -32,6 +33,7 @@ import warnings
 
 import numpy as np
 import pandas as pd
+from PIL import Image
 
 warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
@@ -63,10 +65,19 @@ def save(fig, stem):
         fig.savefig(os.path.join(FIG, f"{stem}.{ext}"), dpi=st.DPI)
     # TIFF as well, because that is what journals ask for. LZW is what makes it
     # practical: Figure 1A is about 110 MB uncompressed at this size and 4.4 MB
-    # with it. The compression is lossless, so the TIFF and the PNG are the same
-    # pixels.
-    fig.savefig(os.path.join(FIG, f"{stem}.tif"), dpi=st.DPI,
-                pil_kwargs={"compression": "tiff_lzw"})
+    # with it. The compression is lossless. Production systems expect RGB (or
+    # CMYK) artwork, so the alpha channel is flattened onto white: the TIFF is
+    # the PNG's pixels without transparency.
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png", dpi=st.DPI)
+    buf.seek(0)
+    im = Image.open(buf)
+    if im.mode in ("RGBA", "LA"):
+        flat = Image.new("RGB", im.size, "white")
+        flat.paste(im, mask=im.split()[-1])
+        im = flat
+    im.convert("RGB").save(os.path.join(FIG, f"{stem}.tif"), compression="tiff_lzw",
+                           dpi=(st.DPI, st.DPI))
     plt.close(fig)
     print(f"  wrote {stem}.png / .pdf / .tif")
 

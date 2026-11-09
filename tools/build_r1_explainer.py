@@ -188,7 +188,7 @@ def build_html(X):
   what changed in the first revision</p>
   <table class="meta">
     <tr><td>Manuscript</td><td>{pkg.MS_ID}, Journal of the American College of Radiology</td></tr>
-    <tr><td>Authors</td><td>Muhammad Naeem, MBBS, MD, and Abdul Razak, PhD</td></tr>
+    <tr><td>Authors</td><td>Abdul Razak, PhD, Muhammad Naeem, MBBS, MD, and six co-authors (first author changed at revision 1)</td></tr>
     <tr><td>Revision</td><td>Round 1, due December 3, 2026</td></tr>
     <tr><td>Prepared</td><td>{today}</td></tr>
   </table>

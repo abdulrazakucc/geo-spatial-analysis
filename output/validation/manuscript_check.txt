@@ -2,10 +2,10 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   4ddcacffe041d42007de9b14a61864655d6160c4c3e29f662a3e11772f300e06
-Checked:  2026-11-09T17:48:51Z
-Code:     8fd6da5 (working tree modified)
-Checks:   308     Mismatches: 0
+SHA256:   1a5eca7de8808fa821ac4f5e35586797ab3b4b35854c6fcd0a5ae24ccf4993c1
+Checked:  2026-11-09T18:08:24Z
+Code:     d4204b7 (working tree modified)
+Checks:   309     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
 
@@ -81,10 +81,11 @@ ALL CHECKS
   ok    manuscript AIC+BIC claim matches generated comparison supported by AIC and BIC
   ok    Summary Sentence word count        <= 35
   ok    Summary Sentence character count   <= 250
-  ok    body word count note matches the text 2,994
+  ok    Summary Sentence taken word for word from the manuscript present elsewhere
+  ok    body word count note matches the text 2,987
   ok    Abstract word count                <= 250
   ok    Abstract note matches actual count 249
-  ok    Summary note matches actual counts 27 words; 224 characters
+  ok    Summary note matches actual counts 28 words; 239 characters
   ok    Table 1 grid matches cells         9 columns
   ok    Table 1 fits the page              <= 9360 twips
   ok    Table 2 grid matches cells         5 columns
