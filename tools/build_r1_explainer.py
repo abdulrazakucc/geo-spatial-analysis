@@ -698,8 +698,10 @@ components have eigenvalue above 1 (PC2 = {PC['eigenvalues'][1]:.2f}). Kaiser-Me
 datasets, each indicator permuted independently; seed {PC['parallel_analysis']['seed']}): 95th-percentile
 eigenvalues {", ".join(f"{x:.3f}" for x in PC['parallel_analysis']['threshold_95'])}; PC2
 {PC['eigenvalues'][1]:.3f} &lt; {PC['parallel_analysis']['threshold_95'][1]:.3f}, so
-{PC['parallel_analysis']['n_retained']} component is retained. Refitting reproduced the published index exactly
-(Pearson r = {PC['pc1_vs_published_edi_pearson']:.6f}). Loadings = eigenvector coefficient ×
+{PC['parallel_analysis']['n_retained']} component is retained. Refitting reproduced the stored raw EDI score
+exactly (Pearson r = {PC['pc1_vs_stored_raw_score_pearson']:.6f}) and ranks counties exactly as the EDI
+percentiles do (Spearman ρ = {PC['pc1_vs_edi_percentile_spearman']:.3f}; Pearson
+{PC['pc1_vs_edi_percentile_pearson']:.3f}, since percentiles are nonlinear). Loadings = eigenvector coefficient ×
 √eigenvalue.</p>
 {table(["Indicator", "PC1 loading", "PC2 loading"], pcrows)}''')}
 <figure><img src="{img('FigureS3_EDI_PCA')}"><figcaption><b>Supplementary Figure S3 (new).</b>

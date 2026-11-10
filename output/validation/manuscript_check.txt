@@ -2,9 +2,9 @@
 MANUSCRIPT vs DATA, CELL BY CELL
 ==============================================================================
 Document: manuscript/manuscript_SUBMISSION.docx
-SHA256:   5ca0139f81e97e3d0ff45ed660fbebd491fcee6d5767c645ca5c90a75decca69
-Checked:  2026-11-09T22:42:37Z
-Code:     e09b384 (working tree modified)
+SHA256:   657d1b467bcbbeab2479310ab3bc388af0d8fdf958ca9ee9868aade2f4e19fe3
+Checked:  2026-11-10T04:22:26Z
+Code:     d9bef0a (working tree modified)
 Checks:   328     Mismatches: 0
 
   Every checked value in the manuscript matches the data exactly.
@@ -84,7 +84,7 @@ ALL CHECKS
   ok    Summary Sentence taken word for word from the manuscript present elsewhere
   ok    body word count note matches the text 2,974
   ok    Abstract word count                <= 250
-  ok    Abstract note matches actual count 249
+  ok    Abstract note matches actual count 250
   ok    pooled CMR rate, metro vs nonmetro 0.59 versus 0.07
   ok    pooled CCT rate, metro vs nonmetro 1.19 versus 0.54
   ok    rate-excluded county count         106 counties

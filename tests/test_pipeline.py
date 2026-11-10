@@ -372,7 +372,11 @@ def test_reviewer_analyses_outputs():
     t = pd.read_csv(os.path.join(RESULTS, "comprehensive_model_table.csv"))
     prim = t[t.model == "Adjusted for metropolitan status"]
     assert len(prim) == 6 and prim.estimable.all(), "a primary model is not estimable"
-    assert R["R2-01_pca"]["pc1_vs_published_edi_pearson"] > 0.999999
+    P = R["R2-01_pca"]
+    # The refit reproduces the stored raw PC1 score and ranks counties exactly as
+    # the published EDI percentiles do.
+    assert P["pc1_vs_stored_raw_score_pearson"] > 0.999999
+    assert P["pc1_vs_edi_percentile_spearman"] > 0.999999
     assert R["R1-02_weighting"]["descriptive"]["excluded"]["n"] == 106
 
 

@@ -171,7 +171,7 @@ R1-04  EXPLORATORY: THE POSITIVE SVI ASSOCIATION AND URBANICITY
 --------------------------------------------------------------------------------------
 R2-01  EDI PRINCIPAL COMPONENT ANALYSIS
 --------------------------------------------------------------------------------------
-  n = 3,134; KMO = 0.813; Bartlett chi2 = 11256.1, df 15, P <0.001; PC1 vs published EDI r = 1.000000
+  n = 3,134; KMO = 0.813; Bartlett chi2 = 11256.1, df 15, P <0.001; refitted PC1 vs stored raw EDI score r = 1.000000; vs EDI percentiles Spearman 1.000000, Pearson 0.96234
   PC1: eigenvalue 3.524, variance 58.7%, cumulative 58.7%
   PC2: eigenvalue 1.028, variance 17.1%, cumulative 75.9%
   PC3: eigenvalue 0.627, variance 10.4%, cumulative 86.3%

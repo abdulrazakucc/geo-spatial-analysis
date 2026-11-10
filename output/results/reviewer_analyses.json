@@ -2528,7 +2528,9 @@
     "bartlett_chi2": 11256.137098196185,
     "bartlett_df": 15,
     "bartlett_p": 0.0,
-    "pc1_vs_published_edi_pearson": 0.9999999999999998,
+    "pc1_vs_stored_raw_score_pearson": 0.9999999999999998,
+    "pc1_vs_edi_percentile_spearman": 1.0,
+    "pc1_vs_edi_percentile_pearson": 0.9623434770534491,
     "pc1_vs_published_n": 3134,
     "standardisation": "z-scores, population standard deviation (scikit-learn StandardScaler)",
     "software": "scikit-learn PCA, full SVD; published index uses PC1 only"
