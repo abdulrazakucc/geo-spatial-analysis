@@ -502,7 +502,9 @@ def items(rv, mn, L):
          "reproducibility details.",
          f"We thank the reviewer and have added both. The PCA was refitted on exactly the published input ({Pc['n_counties']:,} counties with "
          f"all six standardized indicators) with every component retained; its first component "
-         f"reproduces the published index (Pearson r {'> 0.9999' if Pc['pc1_vs_published_edi_pearson'] > 0.9999 else '= ' + format(Pc['pc1_vs_published_edi_pearson'], '.4f')}). Supplementary "
+         f"reproduces the stored raw EDI score (Pearson r {'> 0.9999' if Pc['pc1_vs_stored_raw_score_pearson'] > 0.9999 else '= ' + format(Pc['pc1_vs_stored_raw_score_pearson'], '.4f')}) "
+         f"and ranks counties exactly as the published EDI percentiles do (Spearman ρ = "
+         f"{Pc['pc1_vs_edi_percentile_spearman']:.3f}). Supplementary "
          f"Figure S3 shows the scree plot (eigenvalues, percentage and cumulative variance) and a biplot "
          f"of county scores with labelled indicator loadings; Supplementary Table S5 gives eigenvalues, "
          f"loadings, eigenvector coefficients, indicator sources, the Kaiser-Meyer-Olkin measure "
@@ -965,8 +967,10 @@ def proofreading_report(path, log_rows, rv, gate):
               "The Data Availability bracket now says the repository URL will be provided on acceptance "
               "(it previously said it would be restored 'at revision', which this revision is); the gate "
               "forbids the old phrase.",
-              "The Summary Sentence is kept as submitted with 'after adjustment' made 'after metropolitan "
-              "adjustment'; it is repeated word for word in the abstract, as the journal requires."]:
+              "The Summary Sentence now says that the primary models showed no statistically significant "
+              "inverse deprivation association (the submitted wording, 'no inverse deprivation gradient "
+              "persisted after adjustment', did not distinguish the primary from the exploratory models); it "
+              "is repeated word for word in the abstract, as the journal requires."]:
         B(d, t, size=10)
     d.save(path)
 
@@ -1092,7 +1096,8 @@ DECISIONS = [
      "removing restatements only, including the Discussion's closing repeat of the Summary Sentence (the "
      "Take-Home Point). The revision script reports the count on the title block and the title page."),
     ("Title and Summary Sentence", "Title kept: 'Rurality' refers to the RUCC continuum the paper "
-     "analyzes. Summary Sentence kept as submitted, scoped to metropolitan adjustment, and repeated word "
+     "analyzes. Summary Sentence kept as submitted except that it now says the primary models showed no "
+     "statistically significant inverse deprivation association; it is repeated word "
      "for word in the abstract, as JACR requires."),
     ("PCA retention (R2-01)", "Resolved: PC2 eigenvalue 1.03 is below the parallel-analysis threshold "
      "(1.05), so one component is retained; reported in Results, Supplementary Methods S2, Table S5 and "

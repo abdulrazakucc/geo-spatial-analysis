@@ -457,8 +457,11 @@ def table_s5(R):
         f"indicator increases with deprivation. Loadings are indicator-component correlations "
         f"(coefficient × √eigenvalue); coefficients are eigenvector elements.",
         f"The EDI is the PC1 score, converted to national percentiles (0-100). PC1 from this full "
-        f"decomposition correlates with the published index at r = "
-        f"{P['pc1_vs_published_edi_pearson']:.6f}. Kaiser-Meyer-Olkin measure "
+        f"decomposition reproduces the stored raw EDI score (Pearson r = "
+        f"{P['pc1_vs_stored_raw_score_pearson']:.6f}); against the EDI percentiles its ranking is "
+        f"identical (Spearman ρ = {P['pc1_vs_edi_percentile_spearman']:.3f}), and the Pearson "
+        f"correlation is {P['pc1_vs_edi_percentile_pearson']:.3f} because the percentile conversion is "
+        f"nonlinear. Kaiser-Meyer-Olkin measure "
         f"{P['kmo']:.2f}; Bartlett test of sphericity χ² = {P['bartlett_chi2']:,.0f}, "
         f"df = {P['bartlett_df']}, P {'< 0.001' if P['bartlett_p'] < 0.001 else '= ' + f_p(P['bartlett_p'])}.",
         f"{['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six'][P['n_components_eigenvalue_gt_1']]} "

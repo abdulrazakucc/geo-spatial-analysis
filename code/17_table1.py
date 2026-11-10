@@ -100,10 +100,9 @@ def footnotes(t1):
         f"100% of facilities because counties without an EDI value are not in a quintile.",
         # The counts and the rates use different denominators on purpose, and a
         # reader who assumes otherwise will not be able to reproduce the rates.
-        f"Facility and county counts include every county in the stratum. Mean "
-        f"rates are calculated over the rate-eligible counties only, because a "
-        f"per-head rate is not defined for a county with fewer than 1,000 adults "
-        f"aged 45 and older ({excluded:,} counties excluded"
+        f"Facility and county counts include every county in the stratum. Counties "
+        f"with fewer than 1,000 adults aged 45 and older were excluded from the "
+        f"mean-rate summaries to reduce instability ({excluded:,} counties excluded"
         f"{', none with an accredited facility' if t1['_rate_excluded_facilities'] == 0 else ''}; "
         f"{t1['all_counties']['rate_eligible']:,} of "
         f"{t1['all_counties']['counties']:,} retained).",

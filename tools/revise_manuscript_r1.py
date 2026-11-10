@@ -114,16 +114,21 @@ def build_edits(rv, mn):
           span=" Accredited cardiac imaging capacity is concentrated in metropolitan counties; no inverse "
                "deprivation gradient persisted after adjustment, although social vulnerability was "
                "modestly associated with higher cardiac CT capacity."),
-        E("E-04", "replace", "Scope: the adjustment is for metropolitan status (exploratory models with "
-          "finer urbanicity adjustment differ).", loc="Discussion: Accredited cardiac imaging",
-          old="persisted after adjustment, although", new="persisted after metropolitan adjustment, although"),
+        E("E-04", "replace", "Scope and precision: the statement concerns the primary models and their "
+          "statistical significance; exploratory models with finer urbanicity adjustment differ.",
+          loc="Discussion: Accredited cardiac imaging",
+          old="no inverse deprivation gradient persisted after adjustment, although",
+          new="primary models showed no statistically significant inverse deprivation association, "
+              "although"),
         E("E-04", "replace", "Conclusion limited to what the models test.",
           loc="Discussion: Accredited cardiac imaging",
           old="Deprivation-based targeting may misidentify communities lacking this infrastructure.",
           new="Deprivation indices should not serve as unadjusted proxies for imaging capacity."),
         E("E-04", "replace", "Summary Sentence kept word for word with the abstract (JACR rule).",
-          loc="Accredited cardiac imaging capacity is concentrated in metropolitan counties; no inverse deprivation gradient persisted after adjustment", old="persisted after adjustment, although",
-          new="persisted after metropolitan adjustment, although"),
+          loc="Accredited cardiac imaging capacity is concentrated in metropolitan counties; no inverse deprivation gradient persisted after adjustment",
+          old="no inverse deprivation gradient persisted after adjustment, although",
+          new="primary models showed no statistically significant inverse deprivation association, "
+              "although"),
         E("E-04", "replace", NS, loc="Metropolitan location, not area deprivation, tracked",
           old="the economic deprivation index was not associated with either modality",
           new="the economic deprivation index was not significantly associated with either modality"),

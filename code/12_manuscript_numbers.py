@@ -147,8 +147,8 @@ def table1(m):
 
     def block(d):
         # Counts use every county in the stratum. Mean rates use only the
-        # rate-eligible subset, because a per-head rate is not defined for a
-        # county with fewer than 1,000 adults aged 45+.
+        # rate-eligible subset: a rate on fewer than 1,000 adults aged 45+ is
+        # defined but unstable, so those counties are left out of the means.
         r = d[d.rate_excluded == 0]
         return {"counties": int(len(d)),
                 "adults_millions": float(d.adult_pop_45plus.sum() / 1e6),

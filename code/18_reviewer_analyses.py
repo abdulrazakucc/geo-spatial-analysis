@@ -613,7 +613,15 @@ def pca_full(m):
                 "n_retained": pa_keep},
             "bartlett_chi2": float(bartlett), "bartlett_df": int(k * (k - 1) / 2),
             "bartlett_p": float(stats.chi2.sf(bartlett, k * (k - 1) / 2)),
-            "pc1_vs_published_edi_pearson": abs(r),
+            # The refit reproduces the stored raw PC1 score (the EDI before its
+            # percentile transformation) exactly; against the EDI percentiles the
+            # ranking is identical (Spearman 1) and the linear correlation is
+            # lower, because percentiles are a nonlinear transform of the score.
+            "pc1_vs_stored_raw_score_pearson": abs(r),
+            "pc1_vs_edi_percentile_spearman": float(abs(stats.spearmanr(
+                chk.pc1, chk.edi_national_percentile)[0])),
+            "pc1_vs_edi_percentile_pearson": float(abs(np.corrcoef(
+                chk.pc1, chk.edi_national_percentile)[0, 1])),
             "pc1_vs_published_n": int(len(chk)),
             "standardisation": "z-scores, population standard deviation (scikit-learn StandardScaler)",
             "software": "scikit-learn PCA, full SVD; published index uses PC1 only"}
@@ -932,8 +940,9 @@ def write_report(R):
     a("R2-01  EDI PRINCIPAL COMPONENT ANALYSIS")
     a("-" * 86)
     a(f"  n = {P['n_counties']:,}; KMO = {P['kmo']:.3f}; Bartlett chi2 = {P['bartlett_chi2']:.1f}, "
-      f"df {P['bartlett_df']}, P {_p(P['bartlett_p'])}; PC1 vs published EDI r = "
-      f"{P['pc1_vs_published_edi_pearson']:.6f}")
+      f"df {P['bartlett_df']}, P {_p(P['bartlett_p'])}; refitted PC1 vs stored raw EDI score r = "
+      f"{P['pc1_vs_stored_raw_score_pearson']:.6f}; vs EDI percentiles Spearman "
+      f"{P['pc1_vs_edi_percentile_spearman']:.6f}, Pearson {P['pc1_vs_edi_percentile_pearson']:.5f}")
     for j, (ev, ve, cv) in enumerate(zip(P["eigenvalues"], P["variance_explained"], P["cumulative_variance"])):
         a(f"  PC{j + 1}: eigenvalue {ev:.3f}, variance {100 * ve:.1f}%, cumulative {100 * cv:.1f}%")
     for f in P["features"]:
